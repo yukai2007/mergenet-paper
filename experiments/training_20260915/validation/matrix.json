@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "jobs": 24,
+  "selector_pairs_with_identical_training_arguments": 12,
+  "invariants": {
+    "--epochs": "200",
+    "--batch_size": "200",
+    "--validation-batch-size": "200",
+    "--update_freq": "1",
+    "--img_size": "224",
+    "--patch_size": "8",
+    "--local_depth": "6",
+    "--latent_depth": "6",
+    "--lambda_start": "2.0",
+    "--lambda_local": "2.0",
+    "--warmup_epochs": "20",
+    "--workers": "4",
+    "--soft_topk_aux_start_epoch": "20",
+    "--soft_topk_aux_ramp_epochs": "20"
+  },
+  "all_code_hashes_match_freeze": true
+}

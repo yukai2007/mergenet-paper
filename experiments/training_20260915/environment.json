@@ -1,0 +1,20 @@
+{
+  "python": "3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]",
+  "executable": "/usr/bin/python",
+  "platform": "Linux-3.10.0-1160.el7.x86_64-x86_64-with-glibc2.35",
+  "packages": {
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "timm": "0.9.11",
+    "flash-attn": "2.7.4.post1",
+    "triton": "3.2.0",
+    "numpy": "1.26.4"
+  },
+  "gpu_inventory": "0, GPU-eff01268-5c5e-35cb-30bc-32ed024f962d, NVIDIA A100-SXM4-80GB, 550.54.14\n1, GPU-52fd4ee3-8d43-2875-c53d-81b27abec612, NVIDIA A100-SXM4-80GB, 550.54.14\n2, GPU-93608e36-6ec1-0b48-c329-e0237065a231, NVIDIA A100-SXM4-80GB, 550.54.14\n3, GPU-79a571a3-9f74-5c48-1af6-ba951fdcd935, NVIDIA A100-SXM4-80GB, 550.54.14\n4, GPU-bf78b305-8c5a-1422-6461-e5f238b887cb, NVIDIA A100-SXM4-80GB, 550.54.14\n5, GPU-7e43f065-d733-1c14-20db-10bae96dbc4f, NVIDIA A100-SXM4-80GB, 550.54.14\n6, GPU-ae457206-a43b-5bb1-9908-f1d4d5767cff, NVIDIA A100-SXM4-80GB, 550.54.14\n7, GPU-69fa2e1e-3795-493e-80f7-117c1e471afd, NVIDIA A100-SXM4-80GB, 550.54.14\n",
+  "data_hashes": {
+    "train": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+    "meta": "a5d4786345c961390f865e93b434dbd5c6904ce880667e0cb888c97d449f28b9",
+    "file.txt~": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864"
+  }
+}

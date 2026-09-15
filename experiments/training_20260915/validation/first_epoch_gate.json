@@ -1,0 +1,101 @@
+{
+  "captured_date": "2026-09-15",
+  "status": "first wave training;all8 first full epochs complete",
+  "completed_full_runs": 0,
+  "planned_full_runs": 24,
+  "estimate_hours_for_whole_campaign": [
+    22,
+    26
+  ],
+  "estimate_basis": "first full epoch129\u2013151seconds;future throughput may change",
+  "jobs": [
+    {
+      "job": "historical_degree_s42",
+      "gpu": 3,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 133.52657175064087,
+      "summary_sha256_at_capture": "073d83fb0383fd118bfa27c287ec6b2fc86cd5387dee6c3b5356ffe14473b6de",
+      "last_checkpoint_exists": true,
+      "PID": 46719
+    },
+    {
+      "job": "historical_flat8_s42",
+      "gpu": 1,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 148.020085811615,
+      "summary_sha256_at_capture": "23ae503f48caa59a8505aee1a2adce45414501c1bd3c6b1108810a064d07e115",
+      "last_checkpoint_exists": true,
+      "PID": 46717
+    },
+    {
+      "job": "historical_global_s42",
+      "gpu": 0,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 128.7386462688446,
+      "summary_sha256_at_capture": "7197712f4a7edd2838cf551ce5571cac54e45173306a469a28b8a8378abf2ff9",
+      "last_checkpoint_exists": true,
+      "PID": 46716
+    },
+    {
+      "job": "historical_r3_s42",
+      "gpu": 2,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 132.82855701446533,
+      "summary_sha256_at_capture": "e2f3fcb4f39eb95e94df59bf84c0ee73392e06dc16fca39fa7fab064c0d34442",
+      "last_checkpoint_exists": true,
+      "PID": 46718
+    },
+    {
+      "job": "rowwise_degree_s42",
+      "gpu": 7,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 136.68471240997314,
+      "summary_sha256_at_capture": "b99596e9a204eed2ff4071490e4aa975a3943036cdfc7c1fa528d4c4e7c8aa29",
+      "last_checkpoint_exists": true,
+      "PID": 46723
+    },
+    {
+      "job": "rowwise_flat8_s42",
+      "gpu": 5,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 150.71501636505127,
+      "summary_sha256_at_capture": "a49ab9af142387ec0442f0695a7a8a83b4d82d3af2736ebb4f1e57e790fd9651",
+      "last_checkpoint_exists": true,
+      "PID": 46721
+    },
+    {
+      "job": "rowwise_global_s42",
+      "gpu": 4,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 131.950430393219,
+      "summary_sha256_at_capture": "f4376555c1cd7d5091ae9a5d65e434e7a1cd1bffbe2c0aa9d4d2eb2fa43ef378",
+      "last_checkpoint_exists": true,
+      "PID": 46720
+    },
+    {
+      "job": "rowwise_r3_s42",
+      "gpu": 6,
+      "saved_epoch": 0,
+      "optimizer_updates": 250,
+      "amp_scale_decreases": 0,
+      "first_epoch_seconds": 136.0341248512268,
+      "summary_sha256_at_capture": "1ddc5493a2afb033c670495f2721e291321c806c8824f74b78c05ad34e8a8118",
+      "last_checkpoint_exists": true,
+      "PID": 46722
+    }
+  ]
+}

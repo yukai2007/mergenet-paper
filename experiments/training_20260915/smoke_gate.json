@@ -1,0 +1,94 @@
+{
+  "pass": true,
+  "completed": 1789471416.005624,
+  "jobs": [
+    {
+      "job_id": "smoke_historical_global_s42",
+      "completed": 1789471411.7411249,
+      "epochs": 1,
+      "final_ema_top1": 0.77,
+      "checkpoint_sha256": "552a7b77ca7fb478fef6d23c2d43f3e210c40e71e3d15dd7170e80330af6f5db",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/historical_global_s42/last.pth.tar",
+      "summary_sha256": "8b33a39eebfc92f3870aa13bee590a7e187c9a482a5511a009a173071b7e817a",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    },
+    {
+      "job_id": "smoke_historical_flat8_s42",
+      "completed": 1789471412.3472848,
+      "epochs": 1,
+      "final_ema_top1": 0.8,
+      "checkpoint_sha256": "ed93489803b61d12da90fccb96a15329f2589a43ff51c66572d9eb294e3f4b5b",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/historical_flat8_s42/last.pth.tar",
+      "summary_sha256": "dd52713c995187ef78b9a9259ab744ceb36036f4448b2033809277d6b0e44477",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    },
+    {
+      "job_id": "smoke_historical_r3_s42",
+      "completed": 1789471413.0892622,
+      "epochs": 1,
+      "final_ema_top1": 0.77,
+      "checkpoint_sha256": "d7e5e079c12a5143e68c96d6a96a75f64c4ec69578b611a1981accebe56f4b19",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/historical_r3_s42/last.pth.tar",
+      "summary_sha256": "cefbb096351e5a802f002232114bf1153c307920efe524f04a6ff524868121f3",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    },
+    {
+      "job_id": "smoke_historical_degree_s42",
+      "completed": 1789471413.8569887,
+      "epochs": 1,
+      "final_ema_top1": 0.78,
+      "checkpoint_sha256": "29625560808269361f7cb8f60f5d107a8162c4280304c3a3c94507e9f3dbe5bd",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/historical_degree_s42/last.pth.tar",
+      "summary_sha256": "a44d544f457113b4339539aef1186b451d5db5eb6a849e65b65074782d28c932",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    },
+    {
+      "job_id": "smoke_rowwise_global_s42",
+      "completed": 1789471414.3269198,
+      "epochs": 1,
+      "final_ema_top1": 0.78,
+      "checkpoint_sha256": "ad99ced1db99acbd6654140cdc0d07734d1214f78e2c04b515ed03917d1e377f",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/rowwise_global_s42/last.pth.tar",
+      "summary_sha256": "66e03fbfb874e1bb96e356a3bfc8fe7b7f51796d278b7466a58f30819523f7e9",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    },
+    {
+      "job_id": "smoke_rowwise_flat8_s42",
+      "completed": 1789471414.7471654,
+      "epochs": 1,
+      "final_ema_top1": 0.8,
+      "checkpoint_sha256": "1c921d93f38bb1865b4e06e3f92ca953060446a0455c936d4f406874892ccfe7",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/rowwise_flat8_s42/last.pth.tar",
+      "summary_sha256": "18fd53af04d75fc8293bbba240b261e0a17dd72e96fa7e86af698cc556d003a7",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    },
+    {
+      "job_id": "smoke_rowwise_r3_s42",
+      "completed": 1789471415.168295,
+      "epochs": 1,
+      "final_ema_top1": 0.79,
+      "checkpoint_sha256": "1f118ed2f73ba0a5286ee0a05632839ca01bb7435b15383e620cc1b186fed5d5",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/rowwise_r3_s42/last.pth.tar",
+      "summary_sha256": "01d200e7a4a083173b5d0571c45710b93f4d1cbdbfc02099686f3dbbf0b2d9dd",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    },
+    {
+      "job_id": "smoke_rowwise_degree_s42",
+      "completed": 1789471415.5852664,
+      "epochs": 1,
+      "final_ema_top1": 0.78,
+      "checkpoint_sha256": "fc96f001975f876d80ec536b97288274538973cd1c354f56f493efc58df9f684",
+      "checkpoint_path": "/liziqing/yukai/mergenet_local_campaign_20260915/smoke/rowwise_degree_s42/last.pth.tar",
+      "summary_sha256": "687317f703049d8f674f6e39aa8f17ada737ed28040fca226ea798f16f55ab81",
+      "code_manifest": "/liziqing/yukai/mergenet_local_campaign_20260915/code_manifest.json",
+      "smoke": true
+    }
+  ]
+}

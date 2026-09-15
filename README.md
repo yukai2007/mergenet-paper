@@ -35,6 +35,10 @@ The CIFAR appendix has its own provenance and endpoint table. It is supporting r
 - Local replay of two CIFAR EMA checkpoints preserves a 1.04–1.14 pp R3 advantage under rebatching; prediction changes and a selector intervention are archived per image.
 - Unified A100 architecture timing finds no dense-relative MergeNet speedup at 224 or 384 on the local stack. Layout optimization improves R3 inference by about 5%; complete-model loss-scaled parity tests pass.
 
+## New training campaign
+
+The eight-GPU local follow-up is now running: 24 CIFAR-100 training jobs, two selectors ×four geometry settings ×three seeds, each200epochs. All numerical and eight real-data smoke gates passed. Results remain pending; see [the campaign note](notes/training-current.zh-CN.md) and [timestamped source/evidence snapshot](experiments/training_20260915/README.md).
+
 ## What remains open
 
 Company policy prevents transfer of the ImageNet checkpoints. Their recorded metrics are audited, but cannot be independently replayed here. This is a fixed availability restriction, not a request for weights. Local CIFAR checkpoints and random-initialization architecture tests support independent follow-up experiments; see [the follow-up report](notes/followup.zh-CN.md). Additional training seeds and degree-matched controls remain open. Partial curriculum and MergeNet 512 px runs are not presented as completed results.

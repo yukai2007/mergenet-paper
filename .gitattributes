@@ -2,3 +2,4 @@
 *.csv -text whitespace=cr-at-eol
 # This historical function is an exact source copy used by the diagnostic.
 experiments/soft_topk/historical_thretopk.py -text -whitespace
+experiments/training_20260915/runtime/** -text -whitespace

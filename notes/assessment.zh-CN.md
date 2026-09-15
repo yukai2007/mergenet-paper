@@ -44,6 +44,10 @@
 
 本轮的具体新增结果记录在 `notes/followup.zh-CN.md`；原始预测文件保存在本机 `build/followup/`，紧凑结果与复现实验脚本提交到论文仓库。
 
+## 后续正式训练已启动
+
+上述多seed与候选数匹配补项已进入八卡正式训练：24个CIFAR/224、200epoch任务。详见[本批训练说明](training-current.zh-CN.md)，实时状态在活动campaign的`PROGRESS.zh-CN.md`；尚无新增完整终点。
+
 ## 工程入口与原目录
 
 - 新论文工程：`/liziqing/yukai/mergenet-paper`。

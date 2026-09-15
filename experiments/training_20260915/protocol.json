@@ -1,0 +1,86 @@
+{
+  "created_date": "2026-09-15",
+  "dataset": "CIFAR100",
+  "train_samples": 50000,
+  "eval_samples": 10000,
+  "resolution": 224,
+  "patch_size": 8,
+  "local_depth": 6,
+  "latent_depth": 6,
+  "lambda": 2,
+  "epochs": 200,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "microbatch": 200,
+  "validation_batch": 200,
+  "accumulation": 1,
+  "configs": [
+    {
+      "selector": "historical",
+      "geometry": "global"
+    },
+    {
+      "selector": "historical",
+      "geometry": "flat8"
+    },
+    {
+      "selector": "historical",
+      "geometry": "r3"
+    },
+    {
+      "selector": "historical",
+      "geometry": "degree"
+    },
+    {
+      "selector": "rowwise",
+      "geometry": "global"
+    },
+    {
+      "selector": "rowwise",
+      "geometry": "flat8"
+    },
+    {
+      "selector": "rowwise",
+      "geometry": "r3"
+    },
+    {
+      "selector": "rowwise",
+      "geometry": "degree"
+    }
+  ],
+  "num_runs": 24,
+  "queue": "seed42 all8configs, then43, then44;one independent run per GPU",
+  "primary_endpoint": "epoch199 EMA top1; best EMA secondary only",
+  "primary_contrasts": [
+    "R3-global",
+    "R3-flat8",
+    "R3-degree at fixed selector",
+    "rowwise-historical at fixed geometry"
+  ],
+  "summaries": "paired per-seed differences; mean and sample std across3seeds; report all cells including negative outcomes",
+  "scope": "new local training from random initialization; no company ImageNet weights; dense historical spatial backend",
+  "source_manifest": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/spatial_r3/r224/seed42/manifest.json",
+  "source_manifest_sha256": "f6150d6261c7dac31093f33ee1153771a72888db05614759f51ad0648a0060b2",
+  "degree_control": "permute columns of realized R3 donor/receiver mask using fixed receiver-ID priorities; preserve per-donor degree and receiver-degree multiset on every call; not independent random edges;support seed20260915 fixed across training seeds",
+  "selector": "FP32 per-row normalization +40-step Triton bisection +implicit VJP; FP64 CPU reference; historical function unchanged",
+  "excluded_changes": [
+    "No BNHD layout optimization",
+    "No ImageNet training",
+    "No new learning-rate search",
+    "No geometry-specific batch or schedule changes"
+  ],
+  "smoke": "24 training minibatches on realCIFAR plus full raw/EMA validation; auxiliary weight0.05 fromstep1 and warmup LR0.001 as deliberate stress conditions; fresh full runs restart seed and use original200epoch schedule",
+  "stopping": "failed numerical or any smoke gate prevents all full jobs; full jobs abort nonfinite losses/metrics, zero optimizer updates, or >20% skipped updates afterepoch0; failures retained, never silent reruns",
+  "resume": "no automatic restart; completed checkpoints preserved; manual resume must be recorded as non-bitwise continuation because upstream trainer does not save complete RNG state",
+  "retention": "each run keeps last and best plus top1 checkpoint via native hardlinks; logs and configs preserved",
+  "changes_from_source": [
+    "seed by plan",
+    "geometry selector intervention explicitly recorded",
+    "checkpoint_hist1 toreduce redundant weights",
+    "workers4 for8simultaneous jobs",
+    "log_interval50 unchanged"
+  ]
+}
