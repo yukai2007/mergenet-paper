@@ -1,0 +1,14 @@
+\section{Conclusion}
+
+Spatially restricting soft token routing improves the recorded ImageNet
+accuracy of \mn{} relative to its global and flattened-window controls.
+The benefit survives both best- and final-checkpoint reporting, and
+higher-resolution fine-tuning narrows the gap to dense DeiT-S/8. It does not,
+however, establish a superior compression system. Full-grid processing before
+the gather, recovery cost, and routing overhead separate nominal compression
+from execution savings. The measured dense-relative latency balance improves
+at higher resolution, but strong post-training accuracy baselines and an
+attention-policy mismatch further limit deployment claims. The resulting
+study provides a reproducible account of the measured tradeoffs and a
+specific batch-dependence diagnostic, while leaving a corrected,
+checkpoint-verified accuracy--latency frontier as an explicit open result.

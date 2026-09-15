@@ -1,0 +1,132 @@
+\section{ImageNet Results}
+\label{sec:results}
+
+\subsection{Internal geometry controls}
+
+Table~\ref{tab:geometry} separates routing controls from optimization probes.
+A separate historical CIFAR-100 study is reported in
+Appendix~\ref{app:cifar-spatial}, with its own resized-image and code-version
+boundaries. At learning rate $5\times10^{-4}$, the radius-3 model reaches 78.888\%, versus
+77.218\% for global routing and 78.290\% for flattened-window routing.
+The corresponding improvements are $1.670\pp$ and $0.598\pp$. Their final-epoch
+differences are $1.672\pp$ and $0.610\pp$, so best-checkpoint selection does
+not explain the ordering. Radius 2 reaches 78.942\%, only $0.054\pp$ above
+radius 3. With one seed, this does not establish an optimal radius or
+statistical equivalence between the two choices.
+
+\begin{table}[t]
+\centering\small
+\input{tables/geometry}
+\caption{224-pixel, 150-epoch routing controls and probes. The first four rows
+use the same learning rate and base architecture. The last two change
+optimization conditions; warmup 20 also uses a different per-rank microbatch.
+All accuracies are single-seed EMA top-1.}
+\label{tab:geometry}
+\end{table}
+
+The geometric result is specific to these support policies. Radius changes
+alter both spatial coverage and the number of eligible receivers. Since row
+energies sum over eligible receiver scores, candidate cardinality can affect
+donor selection even before transport. A degree-matched randomized support
+control would be needed to isolate geometric arrangement from this effect.
+Likewise, global \mn{} is not the original DTEM method: it shares \mn{}'s
+local front end, soft inference path, final gather, and recovery operation.
+
+Raising the learning rate to $7.5\times10^{-4}$ improves radius-3 accuracy by
+$0.428\pp$ at 150 epochs. Extending warmup from five to twenty epochs produces
+79.238\%, $0.078\pp$ below the higher-rate baseline. This is an observed
+endpoint difference, not evidence that longer warmup is generally ineffective.
+Besides being single-seed, the warmup run uses four ranks with 256 images per
+rank rather than eight ranks with 128. The batch-dependent operator discussed
+in Section~\ref{sec:batch} makes this execution difference material to a clean
+ablation. The unfinished compression-curriculum run is excluded from this
+table. A separate $\lambda=4$ run reaches 78.366\%, but also changes local/latent
+depths from $6/6$ to $4/8$ and the local window from 16 to 32; it cannot be
+interpreted as a compression-ratio-only experiment.
+
+\subsection{Complete schedules and resolution adaptation}
+
+Table~\ref{tab:main} reports complete 300-epoch runs and 384-pixel fine-tunes.
+At 224 pixels, \mn{} trails dense DeiT-S/8 by $0.878\pp$ using best checkpoints
+and $0.812\pp$ using final checkpoints. It exceeds DeiT-S/16 by $1.676\pp$,
+but the latter is a much cheaper model at this input resolution. The higher
+accuracy relative to coarse patches does not establish better efficiency.
+
+\begin{table}[t]
+\centering\small
+\input{tables/main}
+\caption{Complete main runs. Fine-tunes initialize from the corresponding
+300-epoch EMA checkpoint. The selected \mn{} scratch configuration uses a
+higher learning rate than dense DeiT; the 384-pixel fine-tuning recipe is
+shared. Best and final checkpoints are kept distinct; fine-tuning best-epoch indices
+are relative to the fine-tuning stage.}
+\label{tab:main}
+\end{table}
+
+After 30 epochs at 384 pixels, radius-3 \mn{} reaches 82.582\%, compared with
+82.976\% for dense DeiT-S/8. Its best-checkpoint gain over its own 224-pixel
+result is $1.214\pp$, while dense DeiT gains $0.730\pp$. The gap therefore
+narrows to $0.394\pp$; using final checkpoints it is $0.324\pp$. Scaling the
+radius to 5.143 produces 82.574\%, a difference of $-0.008\pp$ from radius 3.
+This one comparison gives no evidence of a useful accuracy gain from that
+particular scaling rule, but cannot rule out other radii or recipes.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/learning_curves.pdf}
+\caption{Recorded EMA validation curves. The left panel focuses on epochs
+40--299 of complete 300-epoch runs; the right panel shows all 30 fine-tuning
+epochs. Curves share a seed and are not confidence intervals. Later peak
+epochs do not identify why adaptation occurs or predict a longer schedule.}
+\label{fig:curves}
+\end{figure}
+
+Figure~\ref{fig:curves} shows that the models reach their best 384-pixel
+scores at different epochs: 7 for dense DeiT, 20 for radius 3, and 22 for
+radius 5.143. These observations do not prove that the router requires three
+times as much adaptation, nor that truncating a 30-epoch schedule would
+reproduce a newly scheduled ten-epoch run. Similarly, short terminal slopes
+cannot justify extrapolating another 300 training epochs. The completed
+512-pixel dense leg reaches 83.068\%, but the packet has no completed
+\mn{} epoch at 512 pixels, so no paired conclusion is reported there.
+
+\subsection{Compression after training}
+
+Figure~\ref{fig:sweep} compares full-validation accuracy at equal final patch
+counts. At 224 pixels and 392 retained patches, ToMe achieves 81.932\%,
+compared with \mn{}'s re-evaluated 81.360\%. At 196 patches, the scores are
+81.752\% and 80.228\%, a $1.524\pp$ difference. The latter \mn{} point changes
+the budget of the $\lambda=2$ checkpoint at evaluation; it is not the separately
+trained, structurally different $\lambda=4$ model.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/accuracy_sweep.pdf}
+\caption{Accuracy-only budget sweeps. Left: 300-epoch 224-pixel checkpoints.
+Right: 384-pixel fine-tuned checkpoints, with radius 5.143 for \mn{}.
+ToMe and PiToMe require no additional training on top of the trained dense
+backbone. Lines connect measured points, not confidence bands. Equal final
+patch counts do not match the full computation trajectory.}
+\label{fig:sweep}
+\end{figure}
+
+For 384-pixel fine-tuned checkpoints, ToMe reaches 82.866\% at 1,152 patches,
+versus 82.562\% for \mn{}, and 82.742\% at 576 patches, versus 81.300\%.
+Across all twenty matched budget points---five at native 224 pixels, five
+each at 288 and 384 pixels without resolution fine-tuning, and five after
+384-pixel fine-tuning---ToMe has higher recorded accuracy. The differences
+range from $0.304\pp$ to $1.524\pp$. These points are correlated evaluations
+of a small number of checkpoints, not twenty independent training trials.
+PiToMe is also competitive, but does not exceed \mn{} at every point;
+for example, at 1,152 patches after fine-tuning its 82.534\% is slightly below
+\mn{}'s 82.562\%.
+
+Sweep values are re-evaluations and need not equal the training summary
+exactly. For example, the native 224-pixel \mn{} sweep records 81.360\%
+versus a training best of 81.368\%. We preserve both measurements rather than
+rounding them into agreement. Repeated PiToMe evaluations also differ by up
+to $0.034\pp$ in the supplied record. This is variation in repeated evaluation,
+not a measured across-seed training variance or a universal noise threshold.
+Most importantly, these accuracy results alone do not establish a joint
+accuracy--latency advantage; Section~\ref{sec:systems} explains the harness
+mismatch that prevents that conclusion.

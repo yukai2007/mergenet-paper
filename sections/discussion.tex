@@ -1,0 +1,44 @@
+\section{Discussion and Limitations}
+
+The results distinguish an internal architectural improvement from a
+competitive compression system. Original-grid support improves this
+architecture relative to its own unconstrained router. Yet the full model
+loses accuracy to the selected dense baseline, its 224-pixel implementation
+is slower in guarded synthetic tests, and post-training ToMe provides a
+stronger accuracy baseline at every matched budget in the sweep. These
+findings motivate revisiting the computation path and evaluation protocol;
+they do not show that learning a merge criterion is intrinsically inferior.
+
+The evidence is limited in several ways. All training runs use seed 42, and
+the validation set serves both checkpoint selection and reporting. We have
+no across-seed uncertainty estimate or per-image predictions for paired
+significance tests. Geometry and candidate cardinality remain coupled. The
+300-epoch \mn{} configuration benefits from an explicit learning-rate screen,
+while the dense baseline is not subjected to an equally broad screen. The
+$\lambda=4$ training variant changes multiple architectural parameters, and
+test-time budget changes do not replace a clean training-budget ablation.
+The curriculum and paired 512-pixel result are incomplete at capture time.
+
+The experiment artifacts also bound reproducibility. Raw metrics, resolved
+arguments, launch records, environment information, benchmark scripts and
+checkpoint receipts are available in the campaign packet. Actual trained
+weights were not transferred for this audit, and a release commit alone does
+not capture every change in the collaborator's working tree. The companion
+analysis preserves the source identities and distinguishes recorded results
+from independent operator diagnostics. The training environment uses PyTorch
+2.7.1 with CUDA 11.8, timm 0.9.11 and FlashAttention 2.7.3, which differs from
+the local release's pinned environment. CPU profiles and H20 synthetic timings
+cannot establish performance on every accelerator or under deployment load.
+The ToMe attention-policy mismatch must be resolved before a joint frontier
+is reported.
+
+The most informative next experiments follow directly from these limits.
+First, reevaluate transferred EMA weights with explicit batch composition and
+a common accuracy/timing configuration, recording exact per-layer shapes.
+Second, test a numerically stable, per-sample soft-selection operator and
+separate its effect from a change in training or evaluation batch. Third,
+repeat the global, flattened and radius-3 controls at additional seeds and
+include a degree-matched spatial control. System optimizations should then
+be evaluated with forward/backward parity and complete-model timing. These
+experiments would test concrete explanations for the observed gaps; merely
+extending a schedule based on a short terminal slope would not.

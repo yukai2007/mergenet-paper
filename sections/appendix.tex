@@ -1,0 +1,210 @@
+\section{Training Recipe and Evidence Inventory}
+\label{app:recipe}
+
+Table~\ref{tab:recipe} summarizes the resolved run arguments. The base width
+is 384 with six heads and MLP expansion four. Stochastic depth is configured
+at 0.1; \mn{} constructs separate local and latent ramps, unlike a single
+twelve-block dense ramp. The global and flattened routing controls use their
+dense/historical scoring paths, while radius-2/3 routing uses the sparse
+spatial backend; the routing support and its numerical implementation should
+therefore both be recorded. EMA validation replaces raw-model metrics before
+the summary row is written, so \texttt{eval\_top1} is an EMA metric.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lll}
+\toprule
+Setting & 224-pixel scratch & 384-pixel fine-tune\\
+\midrule
+Epochs & 150 or 300 & 30\\
+Effective global batch & 1024 & 1024\\
+Optimizer & AdamW & AdamW\\
+Learning rate & $5\!\times\!10^{-4}$ or $7.5\!\times\!10^{-4}$ & $10^{-5}$\\
+Minimum learning rate & $10^{-5}$ & $10^{-6}$\\
+Weight decay & 0.05 & $10^{-8}$\\
+Warmup epochs & 5 (probe: 20) & 1\\
+Warmup learning rate & $10^{-6}$ & $10^{-6}$\\
+EMA decay & 0.99996 & 0.9996\\
+Mixup / CutMix & 0.8 / 1.0 & 0 / 0\\
+Label smoothing & 0.1 & 0.1\\
+Random erasing & 0.25 & 0.25\\
+RandAugment & \texttt{rand-m9-mstd0.5-inc1} & same\\
+Gradient clip norm & 1.0 & 1.0\\
+Validation crop percentage & 0.9 & 1.0\\
+\mn{} auxiliary-logit weight & ramp to 0.05 & 0.05\\
+Teacher / feature / routing distillation & disabled & disabled\\
+\bottomrule
+\end{tabular}
+\caption{Main recipe. Launch records take precedence over configuration-file
+defaults, especially for microbatch size and gradient accumulation.}
+\label{tab:recipe}
+\end{table}
+
+The 150-epoch \mn{} runs start the auxiliary-logit contribution at epoch 10
+and ramp it over 10 epochs; the 300-epoch run uses epoch 20 and a 20-epoch
+ramp. Fine-tunes enable weight 0.05 from the start. The
+recorded environment is Python 3.10.20, PyTorch 2.7.1+cu118, torchvision
+0.22.1+cu118, timm 0.9.11, FlashAttention 2.7.3 and Triton 3.3.1 on H20-3e
+GPUs. Both four and eight ranks divide 50,000, avoiding validation-sampler
+padding for this split. Other world sizes require a separate check.
+
+Three nominal launcher failures occurred after complete metric histories:
+the 150-epoch DeiT-S/16, the compound $\lambda=4$ run, and dense 512-pixel
+fine-tuning. Complete summaries and supplied checkpoint receipts distinguish
+them from early failures. Receipts record checks on another machine, not
+weights independently loaded in this audit. The partial curriculum had
+reached $\lambda=2$ by its latest recorded epoch, but its 64-epoch score
+cannot serve as a completed 150-epoch endpoint.
+
+\begin{table}[h]
+\centering\footnotesize
+\input{tables/run_inventory}
+\caption{Status at packet capture. Partial metrics are included for accounting
+only. The companion data retain full precision and source summary lines.}
+\label{tab:runs}
+\end{table}
+
+\section{Detailed Budget and Timing Comparisons}
+\label{app:latency}
+
+Table~\ref{tab:sweepdetail} gives the values behind the main accuracy panels.
+The \mn{} checkpoint uses radius 3 at 224 pixels and radius 5.143 after
+384-pixel fine-tuning. Final patch budgets match within a row, but layerwise
+attention and MLP inputs do not. ToMe and PiToMe shorten sequences within
+successive blocks, while \mn{} gathers once between stages. The companion
+CSV also contains the two resolution-transfer panels using 224-pixel
+checkpoints without fine-tuning.
+
+\begin{table}[h]
+\centering\small
+\input{tables/sweep_main}
+\caption{Top-1 percentages at equal final patch counts; $\Delta$ is ToMe minus
+\mn{} in percentage points. These values cannot be paired with
+Table~\ref{tab:latency384} to construct an accuracy--latency frontier.}
+\label{tab:sweepdetail}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\input{tables/latency384}
+\caption{Separate 384-pixel synthetic latency experiment: batch 64, H20-3e,
+fp16 autocast, random initialization, \mn{} radius 5.143, and ToMe
+proportional attention disabled. Patch counts exclude the class token here.
+Memory is peak \emph{reserved} GiB, unlike Table~\ref{tab:efficiency}.
+Token-counting hooks remain active during timing.}
+\label{tab:latency384}
+\end{table}
+
+At the approximately half-size operating point, ToMe processes 1,151 patches
+and \mn{} 1,152, taking 129.810 and 155.255\,ms respectively. These times do not
+prove a joint ordering for the accuracy sweep's ToMe setting. A common
+harness should use exactly 1,152 patches with proportional attention enabled,
+verify the checkpoint and preprocessing, and remove shape hooks before
+timing. An earlier latency benchmark silently clamped several requested
+ToMe budgets to the same achieved count; those obsolete cells are excluded.
+
+Separate 384-pixel radius-3 benchmarks remain distinct from the radius-5.143
+sweep. Speed percentages at different batch sizes, radii or harness settings
+should not be averaged into an unexplained range. Peak reserved memory and
+peak allocated memory also measure different quantities.
+
+\section{Operator-Level Diagnostic and Reproduction Boundaries}
+\label{app:diagnostic}
+
+The batch-dependence probe imports only the released threshold-selection
+function. It does not instantiate an ImageNet model or load a checkpoint.
+A fixed first row is evaluated alone and with controlled second rows; a
+weighted loss on the first row tests cross-sample gradients. Constant-input
+cases test finite forward and backward behavior. These probes establish
+operator properties, not an accuracy gain from replacing the operator.
+
+Per-sample normalization removes the demonstrated coupling, but does not
+by itself validate the closed-form threshold solver over every budget and
+tie pattern. A patched closed-form candidate passes 116 of 120 tensor
+coverage cases and is not recommended for integration. A separate slow
+reference finds a per-row threshold $t$ for normalized scores $z$ satisfying
+\begin{equation}
+ \sum_i h(z_i-t)=k,\qquad
+ h(\delta)=\begin{cases}
+  1-\tfrac12\exp(-\delta),&\delta>0,\\
+  \tfrac12\exp(\delta),&\delta\leq0.
+ \end{cases}
+\end{equation}
+For $0<k<N$, the sum is continuous and strictly decreasing in $t$.
+With $v_i=\partial\mathcal L/\partial h_i$, implicit differentiation gives
+\begin{equation}
+ \nabla_{z_i}\mathcal L=h'_i
+ \left(v_i-\frac{\sum_j v_jh'_j}{\sum_j h'_j}\right).
+\end{equation}
+PyTorch then propagates gradients through the per-row normalization to the
+raw scores. The reference normalizes per row, solves in float64 with 60 bisection steps,
+and casts the result back to the input dtype. It passes all 120 coverage
+cases for finite forward/backward values and selection mass, plus three
+nondegenerate gradient checks. Maximum mass error is $9.16\times10^{-5}$
+in float32 and $1.14\times10^{-13}$ in float64; the tested cross-sample output
+and gradient dependencies are zero. These tests cover random, constant,
+nearly constant and outlier inputs across $N\in\{4,16,64,392\}$ and several
+budgets. This is a correctness reference, not a fused production kernel or
+a trained replacement for the reported model. Finite gradients can still be
+large near a zero score range; GPU/autocast and full-model stability were not
+evaluated. Mass tolerances in these checks are $5\times10^{-4}$ for float32
+and $10^{-6}$ for float64.
+
+The artifact subset includes unmodified per-run summaries, resolved arguments
+with host paths removed, launch-protocol extracts, sanitized successful sweep
+records, audited benchmark tables, and source hashes. The CPU rebuild script
+recomputes best/final metrics, resolves sweep records by timestamp, checks
+numeric joins, and regenerates tables and figures. It never launches
+training. Source and claim ledgers record the literature cutoff of
+2026-09-15. The complete packet was inspected; trained weights still require
+transfer for independent re-evaluation.
+
+\section{A Bounded Layout Optimization Experiment}
+\label{app:layout}
+
+We additionally test a single LocalAttention module on an A100-SXM4-80GB.
+The original module constructs query/key/value tensors in
+batch--head--token--channel order, then transposes and copies them for the
+FlashAttention wrapper. An isolated variant constructs
+batch--token--head--channel tensors directly and adjusts the global class-query
+attention views and final reshape accordingly. It does not alter the
+released model, load a checkpoint, or apply an optimizer update.
+
+The test uses PyTorch 2.6.0+cu124 and FlashAttention 2.7.4.post1, width 384,
+six heads, window radius 16, zero attention dropout, float32 parameters and
+inputs, and fp16 autocast. Four batch-2 parity cases cover sequence lengths
+785 and 2,305, global class attention on/off, and query/key normalization.
+Outputs and input gradients are bitwise equal in these cases. Parameter
+gradients are also equal except for the normalization case, whose maximum
+relative $L_2$ error is $5.77\times10^{-7}$. This coverage does not establish
+all-shape or dropout/RNG-preserving equivalence for a complete model.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{rrlrrr}
+\toprule
+Batch & Tokens & Mode & Original ms & Layout ms & Reduction range\\
+\midrule
+64 & 785 & Forward & 1.5600 & 1.0448 & 13.50--34.03\%\\
+64 & 785 & Forward + backward & 5.1590 & 4.3999 & 14.68--25.64\%\\
+16 & 2305 & Forward & 1.0318 & 0.9369 & 6.88--36.68\%\\
+16 & 2305 & Forward + backward & 5.3740 & 4.9176 & 5.45--11.83\%\\
+\bottomrule
+\end{tabular}
+\caption{Single-module A100 measurements. Times are medians of three round
+medians, each with five warmups and twenty CUDA-event samples. The final
+column is the range of paired-round time reductions, not a confidence
+interval. Tokens include the class token. Backward includes a squared-output
+loss and gradient clearing, with no optimizer.}
+\label{tab:layout}
+\end{table}
+
+Measurement order alternates by round, and the harness requires an initially
+empty device, establishes its CUDA process identity, then rejects a changed
+process set at subsequent checks. All iteration samples and snapshots are
+retained. The observed reductions support this local engineering direction,
+but the round variation is appreciable. Both module instances are resident,
+so their recorded memory peaks are not independent per-model memory
+measurements. These results do not predict the full model's speedup, validate
+an HBM-traffic estimate, transfer H20 timings to A100, or resolve the separate
+ToMe attention-policy mismatch.

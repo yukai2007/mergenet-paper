@@ -1,0 +1,99 @@
+\section{Execution and Implementation Diagnostics}
+\label{sec:systems}
+
+\subsection{Arithmetic savings do not guarantee lower latency}
+
+The 224-pixel analytic estimate is 14.13 GMAC per image for \mn{} and
+22.41 GMAC for dense DeiT-S/8, a 36.9\% reduction. This estimate counts
+multiply--accumulates as one unit, includes projections, MLPs, attention
+matmuls, routing transport, and recovery, and does not assign MACs to sorting,
+indexing, copying, or threshold selection. It is an arithmetic accounting
+model rather than a measured instruction count. Figure~\ref{fig:cost} shows
+why a final carrier budget cannot describe all computation.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/cost_and_tokens.pdf}
+\caption{Two code-derived views of cost. Left: the attention-input patch
+trajectory at a final budget of 392; ToMe merges within blocks, while \mn{}
+physically reduces the sequence between stages. ToMe's MLP inputs can be
+shorter than its attention inputs. Right: analytic MAC components, with
+non-arithmetic operations omitted from the count. Recovery is included in
+the \mn{} routing/recovery component. These are not measured GPU profiles.}
+\label{fig:cost}
+\end{figure}
+
+The guarded synthetic benchmark nevertheless measures \mn{} inference at
+45.71\,ms per batch, versus 42.68\,ms for dense DeiT-S/8
+(Table~\ref{tab:efficiency}). \mn{} takes 7.1\% more inference time and 3.5\%
+more training-step time in this experiment. It also uses more peak allocated
+memory. DeiT-S/16 is substantially faster, reinforcing that the accuracy gain
+from retaining a finer input grid has a real execution cost.
+
+\begin{table}[t]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\input{tables/efficiency224}
+\caption{September 5, 2026, 224-pixel batch-64 synthetic H20-3e benchmark, with random model
+initialization and fp16 autocast. Train time includes forward, loss, backward
+and AdamW update. Infer time is a forward-only median; the IQR column refers
+to inference. Memory is peak \emph{allocated} GiB. These model-execution cells
+are separate from the trained-checkpoint accuracy experiments.}
+\label{tab:efficiency}
+\end{table}
+
+Several implementation properties offer plausible explanations. Full-grid
+local MLPs and projections remain, sparse routing introduces indexed access
+and reductions, the threshold operator performs sorting and cumulative
+operations, and global recovery adds another attention operation. However,
+the delivered decomposition uses CPU operator profiles and analytic byte
+estimates. Its dispatch counts are not measured CUDA kernel-launch counts,
+and its logical tensor traffic is not measured HBM traffic. We therefore do
+not infer a proven memory-bandwidth bottleneck, a measured arithmetic
+intensity, or an end-to-end speedup from a proposed kernel optimization.
+
+At 384 pixels, the guarded batch-64 radius-3 benchmark measures 136.54\,ms
+for \mn{} inference and 170.61\,ms for dense DeiT, a 20.0\% reduction in
+batch time. A batch-128 run measures 262.02 versus 324.36\,ms, a 19.2\%
+reduction; its training-step times are 889.76 versus 1135.48\,ms. Thus the
+measured cost balance changes with resolution. These architecture benchmarks
+use random initialization and remain distinct from checkpoint accuracy. A
+later radius-5.143 latency sweep measures ToMe with proportional attention
+\emph{disabled}, unlike the accuracy sweep. It also uses slightly different
+achieved patch counts and retains token-counting hooks during timing.
+Appendix~\ref{app:latency} reports these cells with their actual settings.
+The available record does not support attaching the earlier accuracy scores
+to these times or declaring that one method dominates the other on both axes.
+A common harness must use the same attention policy, actual budget, checkpoint
+identity, precision and hook-free timed path before making that claim.
+
+\subsection{Soft selection depends on batch composition}
+\label{sec:batch}
+
+A separate CPU probe identifies a functional issue in the inherited
+threshold-based soft top-$k$ implementation. For an input tensor $x\in
+\mathbb R^{B\times N}$, it normalizes using
+\begin{equation}
+ \widehat{x}_{bi}=30\,x_{bi}/\left(\max_{b',j}x_{b'j}-
+                                      \min_{b',j}x_{b'j}\right).
+ \label{eq:batchrange}
+\end{equation}
+The range is computed across the entire batch. Consequently, selecting
+weights for one sample can depend on unrelated samples. Holding the first
+row fixed at $(1,2,3,4)$ and $k=2$, changing only the second row from
+$(1.2,2.2,3.2,3.8)$ to $(10,20,30,40)$ changes a first-row soft weight by up
+to 0.336987. A loss depending only on the first row yields a nonzero gradient
+on the second row, with maximum magnitude 0.017355 in the probe. Both float32
+and float64 exhibit the effect. An entirely constant batch also makes the
+unclamped denominator zero, producing non-finite outputs and gradients.
+
+This operator is used directly in the routing assignment, so the issue is
+not limited to the final selection's straight-through gradient. In particular,
+changing evaluation batch composition can change soft routing even in
+\texttt{eval} mode. The probe establishes the operator-level dependency; it
+does not establish how much any supplied ImageNet checkpoint's top-1 would
+change, or explain the small sweep-versus-summary discrepancies by itself.
+The main same-recipe geometry controls remain comparisons under their
+recorded batch conditions. A corrected implementation requires its own
+checkpoint evaluation and training evidence rather than inheriting the
+reported scores without verification.

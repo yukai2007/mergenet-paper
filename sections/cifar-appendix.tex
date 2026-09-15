@@ -1,0 +1,61 @@
+% Standalone appendix fragment. No additional packages or bibliography keys.
+% All numbers are independently recomputed by cifar_audit/recompute.py.
+\section{Historical CIFAR-100 spatial-routing ablation}
+\label{app:cifar-spatial}
+
+We retain a historical CIFAR-100 experiment as a limited diagnostic of the routing geometry.
+The August campaign contains 60 new runs: two MergeNet configurations, five input sizes, and six routing settings (Global and Euclidean radii $R\in\{1,2,3,4,8\}$), all using seed 42.
+The configurations have local/latent depths of $6/6$ with final compression ratio $\lambda=2$, or $4/8$ with $\lambda=4$; both use width 384, six heads, and $8\times8$ patches.
+Each model was trained from scratch for 200 epochs without distillation.
+Training used AdamW, learning rate $10^{-3}$, weight decay 0.05, a cosine schedule with 20 warmup epochs, effective batch size 200, and EMA decay 0.9998.
+The primary endpoint is the final epoch-199 EMA top-1 accuracy on the 10,000-image CIFAR-100 test set.
+The frozen local campaign protocol designated $R=3$ as the primary setting before the recorded training launches; this is an internal protocol record, not an external preregistration.
+We keep that setting even though $R=2$ has a slightly higher mean.
+
+The original images are $32\times32$ pixels and are resized to the listed input sizes.
+Thus, this sweep changes the patch grid over upsampled images and does not test native high-resolution image content.
+Evaluation used FP16 autocast and deterministic fast grouping, with batches of 200, 200, 200, 100, and 50 at sizes 160, 192, 224, 256, and 320, respectively.
+Global and the finite-radius settings were trained in the same frozen implementation and share the non-routing configuration.
+The additional Flat reference uses the historical flattened-window implementation with width parameter 8 and comes from ten earlier August runs.
+Its recorded non-routing training arguments and dependency versions match, but its runtime code snapshot differs; three Flat runs resumed within their original jobs.
+We therefore use Flat as a historical descriptive reference.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrr}
+\hline
+Configuration & Input & Global & Flat$^\dagger$ & $R=3$ & $\Delta$G & $\Delta$F \\
+\hline
+$6/6$, $\lambda=2$ & 160 & 67.80 & 68.79 & 69.42 & +1.62 & +0.63 \\
+ & 192 & 69.42 & 69.93 & 70.85 & +1.43 & +0.92 \\
+ & 224 & 69.50 & 70.53 & 70.53 & +1.03 & +0.00 \\
+ & 256 & 69.50 & 70.12 & 71.03 & +1.53 & +0.91 \\
+ & 320 & 69.85 & 70.81 & 71.42 & +1.57 & +0.61 \\
+$4/8$, $\lambda=4$ & 160 & 65.29 & 66.69 & 67.92 & +2.63 & +1.23 \\
+ & 192 & 69.87 & 69.75 & 71.27 & +1.40 & +1.52 \\
+ & 224 & 68.21 & 69.87 & 70.52 & +2.31 & +0.65 \\
+ & 256 & 67.35 & 68.30 & 69.40 & +2.05 & +1.10 \\
+ & 320 & 66.05 & 67.08 & 68.83 & +2.78 & +1.75 \\
+\hline
+Mean & & 68.284 & 69.187 & 70.119 & +1.835 & +0.932 \\
+\hline
+\end{tabular}
+\caption{Historical CIFAR-100 final-epoch EMA accuracy (\%) and $R=3$ deltas (percentage points) against Global ($\Delta$G) and Flat ($\Delta$F). Each row uses seed 42; the mean gives equal weight to the ten configuration--input pairs. $^\dagger$Flat is a historical reference with a different code snapshot. Input denotes the resized side length of native $32\times32$ images. These are observations under the stated evaluation batches and historical dense-score implementation.}
+\label{tab:cifar-spatial-audit}
+\end{table}
+
+At the fixed $R=3$ setting, accuracy exceeds Global in all ten pairs, with a mean improvement of 1.835 percentage points.
+Relative to historical Flat, nine pairs improve and one ties, with a mean difference of 0.932 points.
+Across the complete sweep, the mean accuracies for Global and radii 1, 2, 3, 4, and 8 are 68.284, 68.774, 70.225, 70.119, 70.047, and 68.414\%, respectively.
+Radii 2, 3, and 4 each exceed their matched Global control in all ten pairs.
+These correlated, single-seed observations provide evidence that restricting routing neighborhoods can help in this particular setting; they do not establish statistical significance, native-resolution transfer, or superiority over external token-reduction methods.
+
+The audit reconciled all 60 new endpoints and the ten Flat endpoints with raw 200-epoch summaries, completion receipts, and frozen manifests.
+Archived full-test evaluations of the 60 new epoch-199 EMA checkpoints show identical generic- and fast-grouping logits; their accuracies differ from the training summaries in 31 cases by at most 0.02 points.
+The table preserves the registered training-summary endpoint.
+This audit checked receipt hashes and checkpoint presence, without a fresh checkpoint evaluation or full checkpoint rehash.
+The historical spatial implementation constructs a dense donor--receiver score matrix before masking, so these results do not validate the later sparse backend or its efficiency.
+Furthermore, both historical implementations use a threshold operator whose normalization range is shared across a batch, allowing a sample's routing to depend on its batch companions.
+The effect on these checkpoints has not been quantified; the reported comparisons apply to the recorded evaluation batches.

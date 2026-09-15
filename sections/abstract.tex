@@ -1,0 +1,21 @@
+\begin{abstract}
+Spatial constraints can improve learned token aggregation without making the
+resulting model an efficient alternative to dense computation. We examine
+this distinction in MergeNet, a DTEM-derived classifier that performs
+original-grid-constrained soft mass transfer, selects a fixed number of
+carriers, and recovers information before latent processing. In a
+single-seed ImageNet-1k campaign, radius-3 routing improves 150-epoch top-1
+accuracy by 1.670 percentage points over an unconstrained router and 0.598
+points over a flattened-window control. The full model reaches 81.368\% after
+300 epochs at 224 pixels, versus 82.246\% for dense DeiT-S/8; 384-pixel
+fine-tuning narrows the gap to 82.582\% versus 82.976\%. Despite 36.9\% fewer
+estimated multiply--accumulates, MergeNet takes 7.1\% more inference time in a
+guarded 224-pixel synthetic benchmark, while a 384-pixel batch-64 benchmark
+reduces inference time by 20.0\%. Post-training ToMe has higher recorded
+accuracy at all twenty matched final-token budgets, although incompatible
+attention settings prevent combining the available accuracy and latency
+results into a verified joint frontier. An operator-level probe additionally
+reveals batch-dependent soft selection. The study separates internal routing
+gains from deployment evidence and identifies the implementation and
+reproduction checks needed to assess learned compression reliably.
+\end{abstract}
