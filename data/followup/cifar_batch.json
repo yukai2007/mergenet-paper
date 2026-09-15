@@ -1,0 +1,242 @@
+{
+  "scope": "local CIFAR-100 held-out test replay only; not company ImageNet weights",
+  "runtime": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runtime/imagenet_longtrain_v1",
+  "torch": "2.6.0+cu124",
+  "timm": "0.9.11",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "data": {
+    "root": "/liziqing/yukai/data",
+    "test_path": "/liziqing/yukai/data/cifar-100-python/test",
+    "test_md5": "f0ef6b0ae62326f3e7ffdfab6717acfc",
+    "test_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+    "expected_samples": 10000
+  },
+  "resolution": 224,
+  "precision": "FP32 weights; FP16 autocast",
+  "dataset_samples": 10000,
+  "models": [
+    {
+      "variant": "global",
+      "checkpoint": {
+        "job_dir": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/global/r224/seed42",
+        "completion_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/global/r224/seed42/completion.json",
+        "completion_sha256": "5438d4aad5c6764792eeaa2fe786e7881ead0d83c346057d339c35e31086a722",
+        "manifest_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/global/r224/seed42/manifest.json",
+        "manifest_sha256": "6cfde3101f5d7c585811c2b7baed3e250c86ed63bdb9963b9bd4a8dc23d5a41f",
+        "checkpoint_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/global/r224/seed42/last.pth.tar",
+        "checkpoint_sha256": "611ca621e039b49b507d1b95d7da6034f543b7a7e241cd9e62e6ef8c5c6395d0",
+        "checkpoint_size_bytes": 361898254,
+        "summary_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/global/r224/seed42/summary.csv",
+        "summary_sha256": "012405cdb8f763129ad3abd9109c9a69ede7a10137e4b559ba3b917f6241dd13",
+        "epoch199_fast_ema_top1": 69.5,
+        "checkpoint_epoch": 199,
+        "checkpoint_arch": "mergenet_small_cls",
+        "ema_state_key": "state_dict_ema",
+        "ema_tensor_count": 177,
+        "strict_state_dict_load": true,
+        "effective_lambda": 2.0,
+        "effective_total_merge_local": 392
+      },
+      "model_kwargs": {
+        "pretrained": false,
+        "num_classes": 100,
+        "img_size": 224,
+        "patch_size": 8,
+        "local_depth": 6,
+        "latent_depth": 6,
+        "lambda_local": 2.0,
+        "dtem_feat_dim": 64,
+        "dtem_window_size": 0,
+        "dtem_spatial_radius": null,
+        "dtem_spatial_metric": "euclidean",
+        "dtem_r": 2,
+        "dtem_t": 1,
+        "dtem_train_grouping": "random_per_sample",
+        "dtem_train_grouping_seed": 0,
+        "dtem_eval_grouping": "alternating_per_layer_fast",
+        "dtem_eval_grouping_seed": 0,
+        "total_merge_latent": 0,
+        "use_softkmax": true,
+        "soft_topk": true,
+        "soft_topk_aux_weight": 0.05,
+        "metric_grad_scale": 0.1,
+        "source_trace_mode": "center",
+        "swa_size": 256,
+        "local_cls_global": true,
+        "local_block_window": 16,
+        "drop_rate": 0.0,
+        "attn_drop_rate": 0.0,
+        "drop_path_rate": 0.1
+      },
+      "evaluations": [
+        {
+          "name": "sequential_b200",
+          "batch": 200,
+          "order_seed": null,
+          "samples": 10000,
+          "correct": 6949,
+          "top1": 69.49,
+          "seconds": 8.199591636657715,
+          "max_abs_logit_difference_vs_b200": 0.0,
+          "changed_top1_vs_b200": 0,
+          "became_correct": 0,
+          "became_wrong": 0
+        },
+        {
+          "name": "sequential_b64",
+          "batch": 64,
+          "order_seed": null,
+          "samples": 10000,
+          "correct": 6941,
+          "top1": 69.41,
+          "seconds": 8.051655769348145,
+          "max_abs_logit_difference_vs_b200": 1.810546875,
+          "changed_top1_vs_b200": 168,
+          "became_correct": 41,
+          "became_wrong": 49
+        },
+        {
+          "name": "permuted_b200",
+          "batch": 200,
+          "order_seed": 20260915,
+          "samples": 10000,
+          "correct": 6944,
+          "top1": 69.44,
+          "seconds": 7.578679323196411,
+          "max_abs_logit_difference_vs_b200": 1.12548828125,
+          "changed_top1_vs_b200": 163,
+          "became_correct": 41,
+          "became_wrong": 46
+        }
+      ],
+      "fixed_first16_companion_probe": {
+        "historical": {
+          "max_abs_logit_difference": 0.3359375,
+          "mean_abs_logit_difference": 0.027152089402079582,
+          "changed_top1": 0,
+          "repeat_max_abs": 0.0,
+          "finite": true
+        },
+        "rowwise_bisection_reference": {
+          "max_abs_logit_difference": 0.0,
+          "mean_abs_logit_difference": 0.0,
+          "changed_top1": 0,
+          "repeat_max_abs": 0.0,
+          "finite": true
+        }
+      }
+    },
+    {
+      "variant": "spatial_r3",
+      "checkpoint": {
+        "job_dir": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/spatial_r3/r224/seed42",
+        "completion_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/spatial_r3/r224/seed42/completion.json",
+        "completion_sha256": "2d50b9dc34ba611e1c4bf48a4f2a4a3780ac783097fde6fa8e2484b3b37597cc",
+        "manifest_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/spatial_r3/r224/seed42/manifest.json",
+        "manifest_sha256": "f6150d6261c7dac31093f33ee1153771a72888db05614759f51ad0648a0060b2",
+        "checkpoint_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/spatial_r3/r224/seed42/last.pth.tar",
+        "checkpoint_sha256": "d4ac70c9f4b84c7e2c70e83249bd1827da94cd849cfded0a9ef809f456fb11d6",
+        "checkpoint_size_bytes": 361898254,
+        "summary_path": "/liziqing/yukai/otm_worktree_mncifar/work_dirs/classification/cifar_dtem_spatial_20260814/runs/mn_l2/spatial_r3/r224/seed42/summary.csv",
+        "summary_sha256": "20ed3b3c6970bd6df73f5aff6fb26ca05319199e97467f884991b2694f26a0e7",
+        "epoch199_fast_ema_top1": 70.53,
+        "checkpoint_epoch": 199,
+        "checkpoint_arch": "mergenet_small_cls",
+        "ema_state_key": "state_dict_ema",
+        "ema_tensor_count": 177,
+        "strict_state_dict_load": true,
+        "effective_lambda": 2.0,
+        "effective_total_merge_local": 392
+      },
+      "model_kwargs": {
+        "pretrained": false,
+        "num_classes": 100,
+        "img_size": 224,
+        "patch_size": 8,
+        "local_depth": 6,
+        "latent_depth": 6,
+        "lambda_local": 2.0,
+        "dtem_feat_dim": 64,
+        "dtem_window_size": 0,
+        "dtem_spatial_radius": 3.0,
+        "dtem_spatial_metric": "euclidean",
+        "dtem_r": 2,
+        "dtem_t": 1,
+        "dtem_train_grouping": "random_per_sample",
+        "dtem_train_grouping_seed": 0,
+        "dtem_eval_grouping": "alternating_per_layer_fast",
+        "dtem_eval_grouping_seed": 0,
+        "total_merge_latent": 0,
+        "use_softkmax": true,
+        "soft_topk": true,
+        "soft_topk_aux_weight": 0.05,
+        "metric_grad_scale": 0.1,
+        "source_trace_mode": "center",
+        "swa_size": 256,
+        "local_cls_global": true,
+        "local_block_window": 16,
+        "drop_rate": 0.0,
+        "attn_drop_rate": 0.0,
+        "drop_path_rate": 0.1
+      },
+      "evaluations": [
+        {
+          "name": "sequential_b200",
+          "batch": 200,
+          "order_seed": null,
+          "samples": 10000,
+          "correct": 7053,
+          "top1": 70.53,
+          "seconds": 7.816296815872192,
+          "max_abs_logit_difference_vs_b200": 0.0,
+          "changed_top1_vs_b200": 0,
+          "became_correct": 0,
+          "became_wrong": 0
+        },
+        {
+          "name": "sequential_b64",
+          "batch": 64,
+          "order_seed": null,
+          "samples": 10000,
+          "correct": 7055,
+          "top1": 70.55,
+          "seconds": 8.328570127487183,
+          "max_abs_logit_difference_vs_b200": 0.3349609375,
+          "changed_top1_vs_b200": 35,
+          "became_correct": 10,
+          "became_wrong": 8
+        },
+        {
+          "name": "permuted_b200",
+          "batch": 200,
+          "order_seed": 20260915,
+          "samples": 10000,
+          "correct": 7052,
+          "top1": 70.52,
+          "seconds": 8.029129028320312,
+          "max_abs_logit_difference_vs_b200": 0.357421875,
+          "changed_top1_vs_b200": 28,
+          "became_correct": 8,
+          "became_wrong": 9
+        }
+      ],
+      "fixed_first16_companion_probe": {
+        "historical": {
+          "max_abs_logit_difference": 0.048828125,
+          "mean_abs_logit_difference": 0.0032506906427443027,
+          "changed_top1": 0,
+          "repeat_max_abs": 0.0,
+          "finite": true
+        },
+        "rowwise_bisection_reference": {
+          "max_abs_logit_difference": 0.0,
+          "mean_abs_logit_difference": 0.0,
+          "changed_top1": 0,
+          "repeat_max_abs": 0.0,
+          "finite": true
+        }
+      }
+    }
+  ],
+  "complete": true
+}

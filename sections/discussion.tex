@@ -11,8 +11,9 @@ they do not show that learning a merge criterion is intrinsically inferior.
 
 The evidence is limited in several ways. All training runs use seed 42, and
 the validation set serves both checkpoint selection and reporting. We have
-no across-seed uncertainty estimate or per-image predictions for paired
-significance tests. Geometry and candidate cardinality remain coupled. The
+no across-seed uncertainty estimate or ImageNet per-image predictions for
+paired significance tests. Appendix~\ref{app:followup} provides predictions
+for two independently replayed local CIFAR checkpoints. Geometry and candidate cardinality remain coupled. The
 300-epoch \mn{} configuration benefits from an explicit learning-rate screen,
 while the dense baseline is not subjected to an equally broad screen. The
 $\lambda=4$ training variant changes multiple architectural parameters, and
@@ -21,24 +22,27 @@ The curriculum and paired 512-pixel result are incomplete at capture time.
 
 The experiment artifacts also bound reproducibility. Raw metrics, resolved
 arguments, launch records, environment information, benchmark scripts and
-checkpoint receipts are available in the campaign packet. Actual trained
-weights were not transferred for this audit, and a release commit alone does
+checkpoint receipts are available in the campaign packet. Company policy prevents transfer of the trained ImageNet
+weights, and a release commit alone does
 not capture every change in the collaborator's working tree. The companion
 analysis preserves the source identities and distinguishes recorded results
 from independent operator diagnostics. The training environment uses PyTorch
 2.7.1 with CUDA 11.8, timm 0.9.11 and FlashAttention 2.7.3, which differs from
 the local release's pinned environment. CPU profiles and H20 synthetic timings
 cannot establish performance on every accelerator or under deployment load.
-The ToMe attention-policy mismatch must be resolved before a joint frontier
-is reported.
+The local follow-up resolves the ToMe attention-policy and patch-count
+mismatch for synthetic architecture timing. A verified trained-checkpoint
+joint frontier remains unavailable.
 
 The most informative next experiments follow directly from these limits.
-First, reevaluate transferred EMA weights with explicit batch composition and
-a common accuracy/timing configuration, recording exact per-layer shapes.
-Second, test a numerically stable, per-sample soft-selection operator and
+The local follow-up measures batch-composition effects in available CIFAR
+weights and uses a common architecture-timing harness with exact per-layer
+shapes. The company ImageNet checkpoints are unavailable for independent
+replay; any new local ImageNet training must be reported as a separate experiment.
+Next, train with a numerically stable, per-sample soft-selection operator and
 separate its effect from a change in training or evaluation batch. Third,
 repeat the global, flattened and radius-3 controls at additional seeds and
-include a degree-matched spatial control. System optimizations should then
-be evaluated with forward/backward parity and complete-model timing. These
+include a degree-matched spatial control. The layout follow-up supplies bounded parity and complete-model inference
+timing; complete training-step timing and long-run behavior remain open. These
 experiments would test concrete explanations for the observed gaps; merely
 extending a schedule based on a short terminal slope would not.

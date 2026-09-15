@@ -17,6 +17,7 @@ Import this repository as a new project with [Overleaf GitHub synchronization](h
 python -m pip install -r requirements-analysis.txt
 python scripts/rebuild.py
 python scripts/verify_cifar.py
+python scripts/rebuild_followup.py
 bash scripts/build.sh
 ```
 
@@ -31,10 +32,11 @@ The CIFAR appendix has its own provenance and endpoint table. It is supporting r
 - Main best EMA accuracy: 81.368% at 224 px and 82.582% after 384 px fine-tuning, versus dense DeiT-S/8 at 82.246% and 82.976%.
 - Guarded synthetic H20 measurements show a 224 px latency penalty and a 384 px dense-relative latency advantage. These are random-initialization architecture benchmarks.
 - ToMe wins recorded accuracy at all 20 matched final-patch budgets. Its accuracy and latency harnesses differ in proportional attention; no combined Pareto claim is made.
-- New operator probes expose batch-dependent soft selection. A bisection correctness reference and a bounded A100 layout microbenchmark are included separately from the historical model.
+- Local replay of two CIFAR EMA checkpoints preserves a 1.04–1.14 pp R3 advantage under rebatching; prediction changes and a selector intervention are archived per image.
+- Unified A100 architecture timing finds no dense-relative MergeNet speedup at 224 or 384 on the local stack. Layout optimization improves R3 inference by about 5%; complete-model loss-scaled parity tests pass.
 
 ## What remains open
 
-No ImageNet checkpoint weights were included in the handoff. Independent checkpoint re-evaluation, a common ToMe accuracy/timing protocol, additional training seeds, and full-model validation of implementation changes remain outstanding. Partial curriculum and MergeNet 512 px runs are not presented as completed results. See the Chinese assessment for the prioritized plan and exact weight list.
+Company policy prevents transfer of the ImageNet checkpoints. Their recorded metrics are audited, but cannot be independently replayed here. This is a fixed availability restriction, not a request for weights. Local CIFAR checkpoints and random-initialization architecture tests support independent follow-up experiments; see [the follow-up report](notes/followup.zh-CN.md). Additional training seeds and degree-matched controls remain open. Partial curriculum and MergeNet 512 px runs are not presented as completed results.
 
 This private repository is a writing and evidence workspace. Large checkpoints, full machine logs, original datasets and historical project trees remain outside it. Source snippets retain explicit origin information; there is no blanket relicensing of upstream code.

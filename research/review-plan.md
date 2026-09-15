@@ -32,7 +32,7 @@ Exclude quarantined historical results, partial experiments from completed-run t
 
 ## Planned synthesis and limits
 
-Internal spatial constraints improve one-seed ImageNet results over MergeNet's unconstrained router. The composed architecture does not establish a superior deployment frontier. Report negative comparisons and separate suggested mechanisms from measured causes. Missing transferred checkpoints and absent repeated seeds limit independent replication and statistical conclusions.
+Internal spatial constraints improve one-seed ImageNet results over MergeNet's unconstrained router. The composed architecture does not establish a superior deployment frontier. Report negative comparisons and separate suggested mechanisms from measured causes. Company restrictions prevent ImageNet checkpoint transfer; absent repeated seeds limit statistical conclusions. Independent local CIFAR replay and synthetic architecture timing provide bounded follow-up evidence.
 
 ## Deliverables
 
@@ -45,3 +45,7 @@ Internal spatial constraints improve one-seed ImageNet results over MergeNet's u
 ## Workflow note
 
 The available literature-review skill references paper-writing/general-writing siblings that are absent from the installed skill directories. Direct editorial, citation, build-log and rendered-page audits substitute for these unavailable helpers. Tectonic is used for local compilation because latexmk/TeX Live are not installed; the sources remain compatible with standard pdfLaTeX/Overleaf.
+
+## Follow-up scope update, September 15
+
+Company ImageNet weights are permanently unavailable for this workflow. Added independent experiments with two existing local CIFAR EMA checkpoints, matched-budget A100 inference, a selector intervention, and full-model layout parity. No new training or ImageNet accuracy is claimed. These probes preserve failed unscaled sparse-gradient checks alongside repeat-original controls and explicit loss-scaled follow-ups.

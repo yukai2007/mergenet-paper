@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-15",
+  "scope": "independent local supplement; no company ImageNet weights",
+  "raw_local_predictions": [
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/global_sequential_b200.npz",
+      "sha256": "5798e9dceba8196dffadce52d717a60eb4acde4b4fab18ebe35e4fbf84ab1c98",
+      "bytes": 2396995
+    },
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/global_sequential_b64.npz",
+      "sha256": "dff09e1ced996991d11ba8238b6f6613a452d9106daca79cbaa7604d64ce9797",
+      "bytes": 2396788
+    },
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/global_permuted_b200.npz",
+      "sha256": "1a96130d08d31ac41c493a93ef21a89ca66df79ce3b74613c17d1f188dd88bfb",
+      "bytes": 2407857
+    },
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/global_rowwise_b200.npz",
+      "sha256": "53fd96eae93f245a331860eafaaf1c59af54356d3162ad1f7d3cba4438fdade2",
+      "bytes": 2397074
+    },
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/spatial_r3_sequential_b200.npz",
+      "sha256": "6f6bd64c0181f1010081afe6085d705281643eb862b13a855f53ca521b831c89",
+      "bytes": 2398497
+    },
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/spatial_r3_sequential_b64.npz",
+      "sha256": "b2b8eb10b20a30aa0782dcd7559f3b29c97c911818f9e71becbf6bfe7ebc9939",
+      "bytes": 2398513
+    },
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/spatial_r3_permuted_b200.npz",
+      "sha256": "73e5a5f73ea067589462ce915d9f4ce7a0d67a95999d7681496e7cb14cd65cb0",
+      "bytes": 2409083
+    },
+    {
+      "path": "/liziqing/yukai/mergenet-paper/build/followup/cifar/spatial_r3_rowwise_b200.npz",
+      "sha256": "b7b9d17f6298736637ecd0c84c48e30294d35f83b662aba157ea6e124b54b639",
+      "bytes": 2398360
+    }
+  ],
+  "artifacts": {
+    "sparse_scaled_parity.json": "6eb3b7f86902250c849af518ebf918eb82752f18e21dad77caa6863447a5bdc6",
+    "cifar_batch.json": "1871648c4617ff12bdcbbb2bb7e2781954d522ce1a7f1771bf4d2cd93e2686bc",
+    "cifar_reference.json": "47155fa937ec669ccf769cc8e0d02f3f709ed87820cb801877839e6f9f913a37",
+    "dense_parity.json": "62a26a447ed47d5106014d3427832b9962b1f1e8fc606a0f71b01ab6079a6430",
+    "cifar_predictions.csv.gz": "cfd990902e8b7431009d9da9a60da75da33693a5e41577ba33be87fe475a3679",
+    "whole_model.json": "de022adbc961e426b4e6339e0ac393a21c4921cbd02840dce908ef7a4873c1b9"
+  },
+  "script_hashes": {
+    "experiments/followup/whole_model.py": "38bb8092f217e19abe56cdf7cbd33ace3a71e8b0cc6197a6de35c9aad1f7c9ae",
+    "experiments/followup/cifar_batch.py": "3361ea51bfa0fe9f937a2becd7383bc05b826857c49719fbfa9fa7b8a43f9b7b"
+  },
+  "runner_evolution_note": "The base experiments were followed by added CLI switches for reference-only replay, dense-backend parity, and scaled-loss parity. Default numerical paths are preserved."
+}

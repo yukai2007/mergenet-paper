@@ -15,3 +15,5 @@ The source is `share_mergenet_campaign_20260915(1).tar.gz`, captured on Septembe
 `results.csv` and `sweep_latest.csv` are regenerated products. Source summary line numbers are one-based including the header; epoch indices are zero-based. Percentages are reported in percentage points when subtracted. The training summary's `eval_top1` is EMA because the trainer overwrites its raw evaluation metrics before writing the row.
 
 The complete source logs were independently checked: 2,419/2,419 summary top-1/top-5 rows match final per-epoch EMA log lines at printed precision. Checkpoint verification receipts remain evidence of remote checks, not an independent load here. Training-box throughput and speculative GPU bandwidth/launch interpretations are excluded.
+
+`followup/` contains the independent A100 whole-model timing, local CIFAR EMA replay, per-image predicted classes (no images), selector intervention and complete-model parity records. Its manifest is independent of the company packet manifest. `scripts/rebuild_followup.py` validates these artifacts and regenerates their tables; no company ImageNet weights are used.

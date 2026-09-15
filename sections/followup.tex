@@ -1,0 +1,117 @@
+\section{Independent Follow-up with Available Local Artifacts}
+\label{app:followup}
+
+Company policy prevents transfer of the ImageNet checkpoints. We therefore
+separate two feasible follow-ups: architecture timing using random weights,
+and prediction tests using existing, locally available CIFAR-100 weights.
+Neither experiment independently reproduces the company ImageNet scores.
+
+\subsection{A common A100 inference harness}
+
+We compare dense DeiT-S/8, ToMe, and the canonical sparse-backend \mn{} on
+an A100-SXM4-80GB using PyTorch 2.6.0+cu124, timm 0.9.11 and
+FlashAttention 2.7.4.post1. All cells use batch 64, float32 parameters and
+inputs, and fp16 autocast. The compressed models retain exactly 392 patches
+at 224 pixels and 1152 at 384 pixels, excluding CLS. A diagnostic forward
+records block outputs; all hooks are removed before timing. ToMe source
+tracing is disabled. Proportional attention is explicitly controlled, with
+its enabled setting matching the recorded accuracy protocol.
+
+Each cell has ten warm-up iterations and thirty CUDA-event samples in each
+of three rounds, reversing model order in the middle round. A selected-GPU
+process guard requires an empty device before setup and only our process
+during the experiment. Models are allocated and released sequentially.
+Table~\ref{tab:followup-latency} reports the median of three round medians.
+It measures model execution, excluding data loading, backward and updates.
+
+\begin{table}[h]
+\centering\small
+\input{tables/followup_latency}
+\caption{Independent synthetic A100 inference, batch 64. All weights are
+randomly initialized; these are not trained-checkpoint frontier points.
+BNHD changes the local-attention tensor layout. The 384-pixel radius-5.143
+model has the same final patch budget as radius 3.}
+\label{tab:followup-latency}
+\end{table}
+
+On this local hardware/software stack, the original \mn{} is slower than
+dense DeiT at both resolutions. The BNHD change reduces complete-model
+radius-3 time by about 5\%, considerably less than the isolated-module
+improvement. The proportional-attention setting materially affects ToMe
+latency. Thus neither the H20 crossover nor a ToMe timing measured with
+proportional attention disabled should be treated as accelerator-independent
+evidence. The A100 comparison changes the hardware and software stack
+relative to the H20 experiment; it does not isolate a hardware-only cause.
+No historical accuracy point is attached to these random-weight timings.
+
+\subsection{Layout validation under a complete training graph}
+
+The layout comparison uses identical weights and images, restored CPU and
+CUDA random states, fresh per-sample routing, and zero dropout at both
+224 and 384 pixels. With the dense routing reference backend, outputs,
+input gradients and all parameter gradients are bitwise equal. With the
+sparse backend and an unscaled squared-logit loss, the strict gradient
+comparison fails; an unchanged-model repeat also fails, so these runs do
+not isolate an error introduced by BNHD. Their input-gradient relative
+errors are approximately 4.8\% and 16.3\%, respectively.
+
+We retain these failed tests and add a fixed loss scale of 1024, unscaling
+all gradients before comparison. The sparse-backend tests then pass the
+predefined relative-$L_2$ limits of 0.002 for outputs and 0.003 for gradients.
+Maximum parameter-gradient relative errors are below 0.0016; unchanged-model
+repeat controls are below 0.0018. This diagnoses sensitivity of the unscaled
+fp16 test and supports bounded layout parity. It does not establish long-run
+training equivalence, eliminate sparse-kernel nondeterminism, or validate
+arbitrary dropout and precision settings.
+
+\subsection{Batch sensitivity in locally trained CIFAR models}
+
+We strictly load the epoch-199 EMA states for the $\lambda=2$, 224-pixel
+global and radius-3 models from the August spatial campaign. Fresh file
+hashes match the completion receipts, and saved model arguments are checked
+against the frozen protocol. The original dense routing runtime and CIFAR
+normalization are retained. Every evaluation covers the same 10,000 test
+images. The batch-200 baseline reproduces radius-3 accuracy exactly and is
+0.01\pp{} below the recorded global endpoint; it is not claimed to reproduce
+both endpoints bitwise.
+
+\begin{table}[h]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\input{tables/followup_cifar}
+\caption{Independent local CIFAR EMA evaluation. ``Changed'' counts the
+images whose predicted class differs from that model's original-order
+batch-200 result. The last row replaces the historical selector by the
+rowwise bisection reference without updating weights. It is a distinct
+inference intervention, not the historical model's score.}
+\label{tab:followup-cifar}
+\end{table}
+
+Changing batch size or image order changes 163--168 global-model predictions
+and 28--35 radius-3 predictions, while top-1 changes remain at most 0.08\pp{}
+and 0.02\pp{}, respectively. The radius-3 advantage remains
+1.04--1.14\pp{} in these three protocols. Thus the implementation issue is
+observable in a trained model, but it does not erase the geometry benefit
+in this bounded pair of checkpoints.
+
+A separate probe holds the first 16 images fixed in a batch of 64 and
+replaces only the other 48 images. Maximum logit changes are 0.335938 for
+global routing and 0.048828 for radius 3; exact same-batch repeats give zero
+change. Substituting the per-row bisection reference gives zero change in
+both probes. This intervention supports a selector-level explanation for
+these particular batch-composition effects. None of the first 16 predicted
+classes changes in this small probe; full-set class changes are reported
+separately above.
+
+The full-set selector intervention changes 548 global predictions and 114
+radius-3 predictions. Global top-1 falls by 0.32\pp{}, while radius-3 changes
+by +0.02\pp{}. Consequently, restoring per-sample selection is not a general
+accuracy-preserving substitution for old weights. The reference passes this
+bounded GPU inference check, but remains an untrained correctness
+implementation. New training is needed to assess its learning behavior.
+
+The artifact includes all per-image predicted classes, labels, raw timing
+samples, observed token shapes and hash receipts. These local tests address
+specific implementation and comparison questions; two seed-42 CIFAR models
+cannot establish multi-seed reliability or ImageNet performance after a
+selector change.

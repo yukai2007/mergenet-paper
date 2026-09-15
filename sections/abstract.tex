@@ -10,12 +10,13 @@ points over a flattened-window control. The full model reaches 81.368\% after
 300 epochs at 224 pixels, versus 82.246\% for dense DeiT-S/8; 384-pixel
 fine-tuning narrows the gap to 82.582\% versus 82.976\%. Despite 36.9\% fewer
 estimated multiply--accumulates, MergeNet takes 7.1\% more inference time in a
-guarded 224-pixel synthetic benchmark, while a 384-pixel batch-64 benchmark
-reduces inference time by 20.0\%. Post-training ToMe has higher recorded
+guarded 224-pixel synthetic H20 benchmark, while a 384-pixel batch-64 benchmark
+on H20 reduces inference time by 20.0\%. An independent A100 harness
+finds no dense-relative speedup at either resolution on the local stack. Post-training ToMe has higher recorded
 accuracy at all twenty matched final-token budgets, although incompatible
 attention settings prevent combining the available accuracy and latency
-results into a verified joint frontier. An operator-level probe additionally
-reveals batch-dependent soft selection. The study separates internal routing
+results into a verified joint frontier. Operator and local CIFAR checkpoint probes reveal batch-dependent soft
+selection; the tested spatial-routing gain persists under rebatching. The study separates internal routing
 gains from deployment evidence and identifies the implementation and
 reproduction checks needed to assess learned compression reliably.
 \end{abstract}

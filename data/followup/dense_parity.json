@@ -1,0 +1,2911 @@
+{
+  "spatial_backend": "dense",
+  "scope": "random-initialized architecture inference benchmark; no ImageNet accuracy evaluated; not a trained-checkpoint frontier",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "gpu_uuid": "GPU-7e43f065-d733-1c14-20db-10bae96dbc4f",
+  "torch": "2.6.0+cu124",
+  "timm": "0.9.11",
+  "flash_attn": "2.7.4.post1",
+  "source": "/liziqing/yukai/MergeNet_true2d_release_20260827/deliverables/imagenet_longtrain_v1",
+  "source_hashes": {
+    "opentome/models/mergenet/model.py": "2ce00bc56b4099fb45b5892fcfed5f9eae1457a97ae8f9f4f419a8bad51af5b8",
+    "opentome/timm/tome.py": "e5cc30ea0431fe0f4541214d393d089adfdb81ef12c7e97d58ec7ebc0d8b2220",
+    "opentome/timm/dtem.py": "ac5c604fb8b854055c7f5bd579e0d5c58baf4dfa0530dbdbb2c98a3186f87913",
+    "opentome/timm/bias_local_attn.py": "8c91733c0e690549e90d4439bd4bbef1fd4fbe703fa25694b14a8c9226913cff"
+  },
+  "batch": 64,
+  "precision": "float32 weights and inputs, fp16 autocast",
+  "warmup": 10,
+  "iterations": 30,
+  "rounds": 3,
+  "dropout": 0,
+  "seed": 42,
+  "timings": [],
+  "parity": [
+    {
+      "resolution": 224,
+      "mode": "train; RNG restored; fresh per-sample routing; dropout zero",
+      "original_repeat": {
+        "output": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "input_gradient": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "parameter_gradients": {
+          "local.vit.cls_token": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.pos_embed": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.patch_embed.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.patch_embed.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.0.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.0.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.3.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.3.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.4.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.4.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.5.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.5.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.norm.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.norm.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "head.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "head.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_norm.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_norm.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.kv_norm.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.kv_norm.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.k_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.k_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.v_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.v_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.out_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.out_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          }
+        }
+      },
+      "output": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "input_gradient": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "parameter_gradients": {
+        "local.vit.cls_token": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.pos_embed": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.patch_embed.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.patch_embed.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.0.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.0.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.3.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.3.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.4.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.4.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.5.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.5.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.norm.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.norm.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "head.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "head.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_norm.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_norm.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.kv_norm.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.kv_norm.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.k_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.k_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.v_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.v_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.out_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.out_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        }
+      },
+      "pass": true
+    },
+    {
+      "resolution": 384,
+      "mode": "train; RNG restored; fresh per-sample routing; dropout zero",
+      "original_repeat": {
+        "output": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "input_gradient": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "parameter_gradients": {
+          "local.vit.cls_token": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.pos_embed": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.patch_embed.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.patch_embed.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.0.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.1.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.2.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.3.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.4.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.vit.blocks.5.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.0.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.0.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.3.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.3.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.4.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.4.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.5.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "local.metric_layers.5.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.0.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.1.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.2.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.3.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.4.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.qkv.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.qkv.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.attn.proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.norm2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc1.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc1.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc2.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.blocks.5.mlp.fc2.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.norm.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "latent.vit.norm.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "head.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "head.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_norm.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_norm.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.kv_norm.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.kv_norm.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.q_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.k_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.k_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.v_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.v_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.out_proj.weight": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          },
+          "encode_cross_attention.out_proj.bias": {
+            "max_abs": 0.0,
+            "relative_l2": 0.0
+          }
+        }
+      },
+      "output": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "input_gradient": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "parameter_gradients": {
+        "local.vit.cls_token": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.pos_embed": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.patch_embed.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.patch_embed.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.0.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.1.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.2.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.3.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.4.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.vit.blocks.5.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.0.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.0.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.3.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.3.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.4.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.4.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.5.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "local.metric_layers.5.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.0.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.1.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.2.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.3.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.4.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.qkv.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.qkv.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.attn.proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.norm2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc1.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc1.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc2.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.blocks.5.mlp.fc2.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.norm.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "latent.vit.norm.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "head.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "head.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_norm.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_norm.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.kv_norm.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.kv_norm.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.q_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.k_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.k_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.v_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.v_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.out_proj.weight": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        "encode_cross_attention.out_proj.bias": {
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        }
+      },
+      "pass": true
+    }
+  ],
+  "guards": [
+    {
+      "time": 1789453987.089811,
+      "pids": [
+        126341
+      ]
+    },
+    {
+      "time": 1789453988.790086,
+      "pids": [
+        126341
+      ]
+    }
+  ],
+  "complete": true
+}

@@ -1,0 +1,54 @@
+[
+  {
+    "evaluation": "sequential_b200",
+    "gap_pp": 1.04,
+    "global_only_correct": 618,
+    "r3_only_correct": 722,
+    "fixed_prediction_bootstrap95_pp": [
+      0.33,
+      1.75
+    ],
+    "bootstrap_seed": 20260915,
+    "resamples": 20000,
+    "scope": "conditional on these two checkpoints and fixed recorded predictions; not seed or rebatching uncertainty"
+  },
+  {
+    "evaluation": "sequential_b64",
+    "gap_pp": 1.14,
+    "global_only_correct": 614,
+    "r3_only_correct": 728,
+    "fixed_prediction_bootstrap95_pp": [
+      0.4,
+      1.84
+    ],
+    "bootstrap_seed": 20260915,
+    "resamples": 20000,
+    "scope": "conditional on these two checkpoints and fixed recorded predictions; not seed or rebatching uncertainty"
+  },
+  {
+    "evaluation": "permuted_b200",
+    "gap_pp": 1.08,
+    "global_only_correct": 611,
+    "r3_only_correct": 719,
+    "fixed_prediction_bootstrap95_pp": [
+      0.37,
+      1.79
+    ],
+    "bootstrap_seed": 20260915,
+    "resamples": 20000,
+    "scope": "conditional on these two checkpoints and fixed recorded predictions; not seed or rebatching uncertainty"
+  },
+  {
+    "evaluation": "rowwise_b200",
+    "gap_pp": 1.38,
+    "global_only_correct": 611,
+    "r3_only_correct": 749,
+    "fixed_prediction_bootstrap95_pp": [
+      0.66,
+      2.11
+    ],
+    "bootstrap_seed": 20260915,
+    "resamples": 20000,
+    "scope": "conditional on these two checkpoints and fixed recorded predictions; not seed or rebatching uncertainty"
+  }
+]

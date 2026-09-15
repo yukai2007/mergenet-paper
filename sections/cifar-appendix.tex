@@ -55,7 +55,7 @@ These correlated, single-seed observations provide evidence that restricting rou
 The audit reconciled all 60 new endpoints and the ten Flat endpoints with raw 200-epoch summaries, completion receipts, and frozen manifests.
 Archived full-test evaluations of the 60 new epoch-199 EMA checkpoints show identical generic- and fast-grouping logits; their accuracies differ from the training summaries in 31 cases by at most 0.02 points.
 The table preserves the registered training-summary endpoint.
-This audit checked receipt hashes and checkpoint presence, without a fresh checkpoint evaluation or full checkpoint rehash.
+The initial historical audit checked receipt hashes and checkpoint presence, without freshly evaluating or rehashing all checkpoints.
 The historical spatial implementation constructs a dense donor--receiver score matrix before masking, so these results do not validate the later sparse backend or its efficiency.
 Furthermore, both historical implementations use a threshold operator whose normalization range is shared across a batch, allowing a sample's routing to depend on its batch companions.
-The effect on these checkpoints has not been quantified; the reported comparisons apply to the recorded evaluation batches.
+Appendix~\ref{app:followup} subsequently rehashes and reevaluates two of these checkpoints and quantifies their batch sensitivity; the full historical sweep remains tied to its recorded evaluation batches.

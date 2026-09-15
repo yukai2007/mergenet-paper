@@ -1,0 +1,11 @@
+{
+  "whole_model_cells": 36,
+  "cuda_event_samples": 1080,
+  "prediction_rows": 10000,
+  "evaluations": 8,
+  "image_evaluations": 80000,
+  "fresh_local_checkpoints": 2,
+  "dense_and_loss_scaled_sparse_parity_passes": 4,
+  "unscaled_sparse_parity_failures_preserved": 2,
+  "status": "PASS"
+}

@@ -146,8 +146,9 @@ and gradient dependencies are zero. These tests cover random, constant,
 nearly constant and outlier inputs across $N\in\{4,16,64,392\}$ and several
 budgets. This is a correctness reference, not a fused production kernel or
 a trained replacement for the reported model. Finite gradients can still be
-large near a zero score range; GPU/autocast and full-model stability were not
-evaluated. Mass tolerances in these checks are $5\times10^{-4}$ for float32
+large near a zero score range. Appendix~\ref{app:followup} subsequently
+tests GPU/autocast inference with local CIFAR weights; full-model training
+stability of this selector remains untested. Mass tolerances in these checks are $5\times10^{-4}$ for float32
 and $10^{-6}$ for float64.
 
 The artifact subset includes unmodified per-run summaries, resolved arguments
@@ -156,8 +157,8 @@ records, audited benchmark tables, and source hashes. The CPU rebuild script
 recomputes best/final metrics, resolves sweep records by timestamp, checks
 numeric joins, and regenerates tables and figures. It never launches
 training. Source and claim ledgers record the literature cutoff of
-2026-09-15. The complete packet was inspected; trained weights still require
-transfer for independent re-evaluation.
+2026-09-15. The complete packet was inspected. Company policy prevents ImageNet weight
+transfer; independent ImageNet checkpoint re-evaluation is unavailable.
 
 \section{A Bounded Layout Optimization Experiment}
 \label{app:layout}
