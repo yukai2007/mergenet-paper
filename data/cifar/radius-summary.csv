@@ -1,0 +1,7 @@
+variant,cells,mean_top1,mean_delta_vs_global_pp,global_wins,global_ties,mean_delta_vs_historical_flat_pp,flat_wins,flat_ties
+global,10,68.284,0.0,0,10,-0.903,1,0
+spatial_r1,10,68.774,0.49,7,0,-0.413,5,0
+spatial_r2,10,70.225,1.941,10,0,1.038,9,0
+spatial_r3,10,70.119,1.835,10,0,0.932,9,1
+spatial_r4,10,70.047,1.763,10,0,0.86,9,0
+spatial_r8,10,68.414,0.13,4,0,-0.773,2,0

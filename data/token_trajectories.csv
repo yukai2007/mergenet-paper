@@ -1,0 +1,481 @@
+resolution,checkpoint_set,model,final_patch_tokens,layer,attention_input_patches,mlp_input_patches,attention_type,recovery_query_patches,recovery_kv_patches,source
+224,e300_224,ToMe,523,1,784,763,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,2,763,742,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,3,742,721,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,4,721,700,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,5,700,679,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,6,679,658,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,7,658,637,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,8,637,616,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,9,616,595,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,10,595,574,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,11,574,553,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,523,12,553,523,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,MergeNet,523,1,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,2,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,3,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,4,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,5,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,6,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,7,523,523,global latent,523,784,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,8,523,523,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,9,523,523,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,10,523,523,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,11,523,523,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,523,12,523,523,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,ToMe,392,1,784,752,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,2,752,720,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,3,720,688,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,4,688,656,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,5,656,624,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,6,624,592,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,7,592,560,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,8,560,528,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,9,528,496,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,10,496,464,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,11,464,432,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,392,12,432,392,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,MergeNet,392,1,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,2,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,3,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,4,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,5,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,6,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,7,392,392,global latent,392,784,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,8,392,392,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,9,392,392,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,10,392,392,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,11,392,392,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,392,12,392,392,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,ToMe,314,1,784,745,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,2,745,706,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,3,706,667,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,4,667,628,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,5,628,589,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,6,589,550,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,7,550,511,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,8,511,472,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,9,472,433,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,10,433,394,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,11,394,355,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,314,12,355,314,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,MergeNet,314,1,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,2,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,3,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,4,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,5,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,6,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,7,314,314,global latent,314,784,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,8,314,314,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,9,314,314,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,10,314,314,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,11,314,314,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,314,12,314,314,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,ToMe,262,1,784,741,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,2,741,698,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,3,698,655,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,4,655,612,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,5,612,569,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,6,569,526,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,7,526,483,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,8,483,440,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,9,440,397,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,10,397,354,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,11,354,311,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,262,12,311,262,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,MergeNet,262,1,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,2,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,3,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,4,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,5,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,6,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,7,262,262,global latent,262,784,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,8,262,262,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,9,262,262,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,10,262,262,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,11,262,262,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,262,12,262,262,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,ToMe,196,1,784,735,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,2,735,686,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,3,686,637,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,4,637,588,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,5,588,539,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,6,539,490,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,7,490,441,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,8,441,392,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,9,392,343,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,10,343,294,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,11,294,245,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,ToMe,196,12,245,196,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+224,e300_224,MergeNet,196,1,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,2,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,3,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,4,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,5,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,6,784,784,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,7,196,196,global latent,196,784,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,8,196,196,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,9,196,196,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,10,196,196,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,11,196,196,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+224,e300_224,MergeNet,196,12,196,196,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,ToMe,865,1,1296,1261,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,2,1261,1226,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,3,1226,1191,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,4,1191,1156,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,5,1156,1121,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,6,1121,1086,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,7,1086,1051,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,8,1051,1016,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,9,1016,981,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,10,981,946,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,11,946,911,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,865,12,911,865,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,MergeNet,865,1,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,2,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,3,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,4,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,5,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,6,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,7,865,865,global latent,865,1296,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,8,865,865,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,9,865,865,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,10,865,865,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,11,865,865,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,865,12,865,865,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,ToMe,648,1,1296,1242,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,2,1242,1188,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,3,1188,1134,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,4,1134,1080,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,5,1080,1026,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,6,1026,972,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,7,972,918,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,8,918,864,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,9,864,810,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,10,810,756,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,11,756,702,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,648,12,702,648,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,MergeNet,648,1,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,2,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,3,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,4,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,5,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,6,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,7,648,648,global latent,648,1296,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,8,648,648,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,9,648,648,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,10,648,648,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,11,648,648,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,648,12,648,648,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,ToMe,519,1,1296,1232,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,2,1232,1168,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,3,1168,1104,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,4,1104,1040,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,5,1040,976,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,6,976,912,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,7,912,848,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,8,848,784,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,9,784,720,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,10,720,656,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,11,656,592,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,519,12,592,519,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,MergeNet,519,1,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,2,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,3,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,4,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,5,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,6,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,7,519,519,global latent,519,1296,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,8,519,519,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,9,519,519,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,10,519,519,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,11,519,519,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,519,12,519,519,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,ToMe,433,1,1296,1225,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,2,1225,1154,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,3,1154,1083,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,4,1083,1012,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,5,1012,941,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,6,941,870,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,7,870,799,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,8,799,728,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,9,728,657,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,10,657,586,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,11,586,515,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,433,12,515,433,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,MergeNet,433,1,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,2,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,3,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,4,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,5,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,6,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,7,433,433,global latent,433,1296,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,8,433,433,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,9,433,433,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,10,433,433,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,11,433,433,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,433,12,433,433,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,ToMe,324,1,1296,1215,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,2,1215,1134,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,3,1134,1053,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,4,1053,972,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,5,972,891,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,6,891,810,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,7,810,729,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,8,729,648,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,9,648,567,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,10,567,486,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,11,486,405,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,ToMe,324,12,405,324,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+288,e300_224,MergeNet,324,1,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,2,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,3,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,4,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,5,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,6,1296,1296,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,7,324,324,global latent,324,1296,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,8,324,324,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,9,324,324,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,10,324,324,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,11,324,324,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+288,e300_224,MergeNet,324,12,324,324,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,ToMe,1537,1,2304,2241,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,2,2241,2178,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,3,2178,2115,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,4,2115,2052,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,5,2052,1989,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,6,1989,1926,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,7,1926,1863,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,8,1863,1800,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,9,1800,1737,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,10,1737,1674,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,11,1674,1611,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1537,12,1611,1537,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,MergeNet,1537,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,7,1537,1537,global latent,1537,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,8,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,9,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,10,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,11,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1537,12,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,ToMe,1152,1,2304,2208,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,2,2208,2112,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,3,2112,2016,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,4,2016,1920,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,5,1920,1824,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,6,1824,1728,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,7,1728,1632,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,8,1632,1536,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,9,1536,1440,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,10,1440,1344,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,11,1344,1248,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,1152,12,1248,1152,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,MergeNet,1152,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,7,1152,1152,global latent,1152,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,8,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,9,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,10,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,11,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,1152,12,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,ToMe,923,1,2304,2189,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,2,2189,2074,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,3,2074,1959,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,4,1959,1844,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,5,1844,1729,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,6,1729,1614,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,7,1614,1499,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,8,1499,1384,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,9,1384,1269,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,10,1269,1154,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,11,1154,1039,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,923,12,1039,923,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,MergeNet,923,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,7,923,923,global latent,923,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,8,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,9,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,10,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,11,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,923,12,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,ToMe,770,1,2304,2177,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,2,2177,2050,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,3,2050,1923,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,4,1923,1796,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,5,1796,1669,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,6,1669,1542,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,7,1542,1415,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,8,1415,1288,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,9,1288,1161,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,10,1161,1034,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,11,1034,907,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,770,12,907,770,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,MergeNet,770,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,7,770,770,global latent,770,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,8,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,9,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,10,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,11,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,770,12,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,ToMe,576,1,2304,2160,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,2,2160,2016,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,3,2016,1872,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,4,1872,1728,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,5,1728,1584,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,6,1584,1440,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,7,1440,1296,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,8,1296,1152,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,9,1152,1008,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,10,1008,864,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,11,864,720,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,ToMe,576,12,720,576,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,e300_224,MergeNet,576,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,7,576,576,global latent,576,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,8,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,9,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,10,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,11,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,e300_224,MergeNet,576,12,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,ToMe,1537,1,2304,2241,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,2,2241,2178,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,3,2178,2115,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,4,2115,2052,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,5,2052,1989,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,6,1989,1926,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,7,1926,1863,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,8,1863,1800,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,9,1800,1737,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,10,1737,1674,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,11,1674,1611,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1537,12,1611,1537,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,MergeNet,1537,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,7,1537,1537,global latent,1537,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,8,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,9,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,10,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,11,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1537,12,1537,1537,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,ToMe,1152,1,2304,2208,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,2,2208,2112,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,3,2112,2016,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,4,2016,1920,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,5,1920,1824,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,6,1824,1728,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,7,1728,1632,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,8,1632,1536,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,9,1536,1440,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,10,1440,1344,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,11,1344,1248,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,1152,12,1248,1152,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,MergeNet,1152,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,7,1152,1152,global latent,1152,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,8,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,9,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,10,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,11,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,1152,12,1152,1152,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,ToMe,923,1,2304,2189,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,2,2189,2074,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,3,2074,1959,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,4,1959,1844,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,5,1844,1729,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,6,1729,1614,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,7,1614,1499,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,8,1499,1384,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,9,1384,1269,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,10,1269,1154,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,11,1154,1039,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,923,12,1039,923,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,MergeNet,923,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,7,923,923,global latent,923,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,8,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,9,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,10,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,11,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,923,12,923,923,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,ToMe,770,1,2304,2177,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,2,2177,2050,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,3,2050,1923,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,4,1923,1796,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,5,1796,1669,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,6,1669,1542,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,7,1542,1415,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,8,1415,1288,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,9,1288,1161,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,10,1161,1034,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,11,1034,907,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,770,12,907,770,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,MergeNet,770,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,7,770,770,global latent,770,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,8,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,9,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,10,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,11,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,770,12,770,770,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,ToMe,576,1,2304,2160,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,2,2160,2016,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,3,2016,1872,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,4,1872,1728,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,5,1728,1584,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,6,1584,1440,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,7,1440,1296,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,8,1296,1152,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,9,1152,1008,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,10,1008,864,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,11,864,720,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,ToMe,576,12,720,576,global,,,code-derived release parse_r + ToMeBlock; not logged per-layer shapes
+384,ft384,MergeNet,576,1,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,2,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,3,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,4,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,5,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,6,2304,2304,raster 1D local +/-16 with global CLS,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,7,576,576,global latent,576,2304,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,8,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,9,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,10,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,11,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape
+384,ft384,MergeNet,576,12,576,576,global latent,,,code-derived fixed 6+6 stages; soft local transport preserves full shape

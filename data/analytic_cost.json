@@ -1,0 +1,90 @@
+{
+  "provenance": "CPU analytic estimate; not a GPU profile",
+  "params": {
+    "mergenet": 23097064,
+    "deit_s8": 22055272
+  },
+  "analytic_MAC_budget": {
+    "formulas": {
+      "convention": "1 MAC = 1 unit (fvcore convention). A dense Linear (n,cin)->(n,cout) costs n*cin*cout. A batched matmul (n,m)@(m,p) costs n*m*p.",
+      "linear": "MACs = tokens * C_in * C_out",
+      "attn_matmul_dense": "MACs = 2 * N * N * C  (QK^T + A@V, summed over heads)",
+      "attn_matmul_banded": "MACs = 2 * N * (2w+1) * C, w = local_window = 16 TOKENS",
+      "mlp": "MACs = 2 * N * C * (mlp_ratio*C)",
+      "dtem_sparse_score": "MACs = Na * K * feat_dim, K = |{(dr,dc): dr^2+dc^2 <= r^2}|",
+      "dtem_transport": "MACs = Na * K * (C + 1)  (feature + mass scatter)",
+      "xattn": "q from N_lat carriers, k/v from N_full local tokens"
+    },
+    "shapes": {
+      "C": 384,
+      "heads": 6,
+      "mlp_ratio": 4.0,
+      "patch": 8,
+      "grid": 28,
+      "n_patch": 784,
+      "N_full_with_cls": 785,
+      "local_depth": 6,
+      "latent_depth": 6,
+      "lambda_local": 2.0,
+      "total_merge_local": 392,
+      "carriers_kept": 392,
+      "N_latent_with_cls": 393,
+      "local_window_tokens_each_side": 16,
+      "band_width": 33,
+      "dtem_feat_dim": 64,
+      "dtem_spatial_radius": 3.0,
+      "dtem_neighbourhood_K": 29,
+      "dtem_r_per_local_layer": [
+        65,
+        65,
+        65,
+        65,
+        65,
+        67
+      ],
+      "donors_Na": 392,
+      "receivers_Nb": 392,
+      "IMPORTANT_soft_merge": "DTEM merge is SOFT: token count stays at 785 through all 6 local layers; only `size` mass moves. Compression to 393 happens ONCE, at the top-k gate before the latent stage."
+    },
+    "deit_s8": {
+      "patch_embed": 57802752,
+      "attn_qkv": 4167106560,
+      "attn_proj": 1389035520,
+      "attn_matmul": 5679129600,
+      "mlp": 11112284160,
+      "head": 384000,
+      "dtem_routing": 0,
+      "cross_attention": 0
+    },
+    "deit_s8_total_MACs": 22405742592,
+    "mergenet": {
+      "patch_embed": 57802752,
+      "local_attn_qkv": 2083553280,
+      "local_attn_proj": 694517760,
+      "local_attn_matmul_band": 119370240,
+      "local_cls_global_matmul": 3617280,
+      "local_mlp": 5556142080,
+      "latent_attn_qkv": 1043103744,
+      "latent_attn_proj": 347701248,
+      "latent_attn_matmul": 711700992,
+      "latent_mlp": 2781609984,
+      "dtem_metric_net": 115752960,
+      "dtem_sparse_score": 4365312,
+      "dtem_transport": 26260080,
+      "dtem_softtopk_threTopK": 0,
+      "xattn_q_proj": 57950208,
+      "xattn_kv_proj": 231505920,
+      "xattn_out_proj": 57950208,
+      "xattn_matmul": 236931840,
+      "head": 384000
+    },
+    "mergenet_total_MACs": 14130219888,
+    "ratio_mergenet_over_deit": 0.6306517103809456,
+    "mergenet_cheaper_pct": 36.93482896190544,
+    "counterfactual_if_window_were_16x16_tile": {
+      "mergenet_total_MACs": 14936873328,
+      "ratio_over_deit": 0.6666537949665292,
+      "delta_vs_token_semantics_pct": 5.708711162273183
+    }
+  }
+}

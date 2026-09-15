@@ -1,0 +1,4 @@
+# Preserve raw numeric evidence byte-for-byte across platforms.
+*.csv -text whitespace=cr-at-eol
+# This historical function is an exact source copy used by the diagnostic.
+experiments/soft_topk/historical_thretopk.py -text -whitespace

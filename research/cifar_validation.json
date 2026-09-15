@@ -1,0 +1,8 @@
+{
+  "runs": 70,
+  "pairs": 10,
+  "r3_mean": 70.119,
+  "mean_gain_over_global": 1.8350000000000002,
+  "r3_global_wins": 10,
+  "scope": "Audited endpoint-table consistency; no fresh checkpoint evaluation or raw-run replay."
+}

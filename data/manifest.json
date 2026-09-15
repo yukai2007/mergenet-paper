@@ -1,0 +1,216 @@
+{
+  "archive_sha256": "0aef820df56637e1e406174d50f138b0ae26f8c256e23497c25519b63b66f0ac",
+  "sources": [
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p16_150e/summary.csv",
+      "sha256": "b1e620d08598d6591b26dade9b53e32ecbca74ad2fdda9696a1f389586a91146",
+      "curated": "runs/s2_deit_p16_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p16_150e/args.yaml",
+      "sha256": "789aea02cd088c08d05b79c1a55d1edbde77620c0f5b6d25e2a5b0e5a05f29b6",
+      "curated": "runs/s2_deit_p16_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p8_150e/summary.csv",
+      "sha256": "3fce69885260cf9508eaea5fc32f6dfa7b19f8a750d929c1dbdd8be5adfa68af",
+      "curated": "runs/s2_deit_p8_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p8_150e/args.yaml",
+      "sha256": "de41ef0f601ff267f5066a61566d4f23cab8ad0482b9b415fe4d8c0827c7c4ef",
+      "curated": "runs/s2_deit_p8_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_flat_w8_150e/summary.csv",
+      "sha256": "7a856c49007273e4bd6ddb7a4cd24a271b99b622cefe1d470d14157128c4983b",
+      "curated": "runs/s2_mn_flat_w8_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_flat_w8_150e/args.yaml",
+      "sha256": "6144ac5443acb3adad74cfc29526d97b1fd798aa7928106868a7dd53764305ef",
+      "curated": "runs/s2_mn_flat_w8_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_global_150e/summary.csv",
+      "sha256": "233dc48c7023ea132597c5e14a430af63954cb57b74719f369eeed4a786b4bb9",
+      "curated": "runs/s2_mn_global_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_global_150e/args.yaml",
+      "sha256": "940982cfa256c8e50fc91c7bb147024afec6933194aeabed665833af06bd37b1",
+      "curated": "runs/s2_mn_global_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_l4_150e/summary.csv",
+      "sha256": "6b7d40659b96dc5d85f8a571b3b035da1f4d6678d99ec55fadf437483fd282e6",
+      "curated": "runs/s2_mn_l4_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_l4_150e/args.yaml",
+      "sha256": "512d0ff38b21820ac7160cf22e550fc8afbbbcd5f803aea4df8815ff39249268",
+      "curated": "runs/s2_mn_l4_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r2_150e/summary.csv",
+      "sha256": "540881602015c994e866cba16d1287c93e2f17df9b693fb59dc7ad2281b70539",
+      "curated": "runs/s2_mn_r2_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r2_150e/args.yaml",
+      "sha256": "3f467142eb92ed647be77b37e531fdb3518b44f61fb41dca5e99fa9642c1eedd",
+      "curated": "runs/s2_mn_r2_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_150e/summary.csv",
+      "sha256": "6303277a55f6c8f71baef156ab6075c96c0a43095c734cb46e5ebb47ddfb1246",
+      "curated": "runs/s2_mn_r3_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_150e/args.yaml",
+      "sha256": "158d606938107102684d3ae1253b4f2e5240408123790224113ebc0cc95689be",
+      "curated": "runs/s2_mn_r3_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_lr75_150e/summary.csv",
+      "sha256": "be441cb1798e4d3f921d2e3a61221600c319461fe12e6088663005a0a63d9d8b",
+      "curated": "runs/s2_mn_r3_lr75_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_lr75_150e/args.yaml",
+      "sha256": "2df967ade6e7f0b1f33999bf53c3ab362086baf36175e3ad59dd265e4ebe7638",
+      "curated": "runs/s2_mn_r3_lr75_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p16_300e/summary.csv",
+      "sha256": "b6bcbb289bc7589ce79055f72d5852e51838ad29e3cbf22c627dd9c52dc65407",
+      "curated": "runs/s3_deit_p16_300e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p16_300e/args.yaml",
+      "sha256": "277e7da497f271a7ba06f5b45b2549f96f0a9964906835675ac0caeeba05d8a7",
+      "curated": "runs/s3_deit_p16_300e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p8_300e/summary.csv",
+      "sha256": "85b2dd207e5d30fa7d4ed7b2e94fcee6c0172afcddf51a1ff0df20717cb0c517",
+      "curated": "runs/s3_deit_p8_300e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p8_300e/args.yaml",
+      "sha256": "47b4f996bb4b96b232e5e3498bc65e356350f51bde2c185e9bc90d19db725b80",
+      "curated": "runs/s3_deit_p8_300e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_mn_r3_lr75_300e/summary.csv",
+      "sha256": "e01e7d2f0acb92194ed41081101d8ee880429c949b9db0cff620cd6a71422846",
+      "curated": "runs/s3_mn_r3_lr75_300e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_mn_r3_lr75_300e/args.yaml",
+      "sha256": "86eba9469e9206dd9a2e52ce7fb2bcfc8505f1828bf2d94b3e9ae7aeb40b5ad9",
+      "curated": "runs/s3_mn_r3_lr75_300e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_deit_p8_ft384_30e/summary.csv",
+      "sha256": "7d8e340e5725fb9624207940df4ddc5c12544a90937992ed4c045f871694fa1c",
+      "curated": "runs/s3_deit_p8_ft384_30e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_deit_p8_ft384_30e/args.yaml",
+      "sha256": "bcf5cc6a864d6a65fb40f9dff2c89314326728c98cd0f726a49eaa1e2c22482e",
+      "curated": "runs/s3_deit_p8_ft384_30e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r3_ft384_30e/summary.csv",
+      "sha256": "06e67971e094e710ed9cac9d2398e843570239e5f4c206afdc30883a15d02cee",
+      "curated": "runs/s3_mn_r3_ft384_30e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r3_ft384_30e/args.yaml",
+      "sha256": "d8d2d48a87db4c39602aee00897c727b4796707da588199aff2d564cfed0be21",
+      "curated": "runs/s3_mn_r3_ft384_30e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r5_ft384_30e/summary.csv",
+      "sha256": "d43d029bd9a971b9184a6000cc8cc1be62600ac1713fd70217a3ad5674b7ed25",
+      "curated": "runs/s3_mn_r5_ft384_30e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r5_ft384_30e/args.yaml",
+      "sha256": "9a9b1c80a24500f105a530104b35ecbdcaf35bd65e403861ff3854730c051fb6",
+      "curated": "runs/s3_mn_r5_ft384_30e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_lamcurr_150e/summary.csv",
+      "sha256": "6709a03ec030e0d90ec1cb05ec51122f36e3200ed2cc8cd7038ae06f2e637f93",
+      "curated": "runs/s4_mn_lamcurr_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_lamcurr_150e/args.yaml",
+      "sha256": "ce617dbd1506128a3337a5927a63305e0446a7435215d34731b80ea0e8eadc42",
+      "curated": "runs/s4_mn_lamcurr_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_warm20_150e/summary.csv",
+      "sha256": "e6ee222053a989c07857924c82fdc58b4daab538f6b7998a53a7f1a10b41987a",
+      "curated": "runs/s4_mn_warm20_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_warm20_150e/args.yaml",
+      "sha256": "c4fb3a53824ec6ebfe725821c3ef2c1b13df085f8e5e8feff8e805dea98a4334",
+      "curated": "runs/s4_mn_warm20_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_ft512_15e/s4_deit_ft512_15e/summary.csv",
+      "sha256": "84c1a62fbf4fd492fda93b523270344b2ad8f4b91884ab3a4fcb263bee159c63",
+      "curated": "runs/s4_deit_ft512_15e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage4_ft512_15e/s4_deit_ft512_15e/args.yaml",
+      "sha256": "c98acd18e1b8d46a46af7949fa4d7ca231281abac062e7616e1d1de3da333e18",
+      "curated": "runs/s4_deit_ft512_15e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_ft512_15e/s4_mn_ft512_15e/args.yaml",
+      "sha256": "6913d57ac9ab0ea34a88de47766f580553d9eee7ae55aaa11fff33527be799af",
+      "curated": "runs/s4_mn_ft512_15e/args.json"
+    },
+    {
+      "source": "results_audit/results.csv",
+      "sha256": "e2cec93990f9f3c4011c07a1f07ccec958b61be609c670e98616b1b14a4a05cb",
+      "curated": "launch_protocol.json"
+    },
+    {
+      "source": "00_summary/testtime_sweep_accuracy.jsonl.gz",
+      "sha256": "304501e3077e0e8cbd15c0f9510de2892fa4fbbd31f6e605bd10d8c493d7dd0a",
+      "curated": "testtime_records.jsonl"
+    },
+    {
+      "source": "efficiency_audit/publishable_efficiency.csv",
+      "sha256": "7aa78d006e90b436065dc6bddb61cce4e6b3be34c81a900586609c08c0ff6491",
+      "curated": "publishable_efficiency.csv"
+    },
+    {
+      "source": "efficiency_audit/matched_latency_caveated.csv",
+      "sha256": "1bc64a0c504bfd22d2b432df0cb7b7202ae6c47b50c434cb117a480651593b6a",
+      "curated": "matched_latency_caveated.csv"
+    },
+    {
+      "source": "efficiency_audit/token_trajectories.csv",
+      "sha256": "a8be48076e2ffccdb2cf08b8c8afeceb567d0107b5c6b54cfeb64853d56abe9a",
+      "curated": "token_trajectories.csv"
+    },
+    {
+      "source": "efficiency_audit/testtime_accuracy_curves.csv",
+      "sha256": "5fc2a31df246666e196097b98c002f719859dcbbee04652ffe79ccfeeda6f78d",
+      "curated": "testtime_accuracy_curves.csv"
+    },
+    {
+      "source": "40_efficiency/raw/cost_decomposition.json",
+      "sha256": "51cdf047b2f2670cc9497dbff2ab05e9b39549ad6f426dd76688820e27b692f6",
+      "curated": "analytic_cost.json"
+    }
+  ],
+  "note": "Raw summaries are byte-identical. Configs and sweep records retain experimental content, with host-specific paths removed. Derived CSVs are linked to independent audits."
+}

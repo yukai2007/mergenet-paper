@@ -1,0 +1,12 @@
+model,method,resolution,batch,requested_tokens_raw,achieved_sequence_including_cls,actual_patch_tokens,median_seconds,iqr_seconds,images_per_second,peak_reserved_gib,radius,tome_prop_attn,tome_trace_source,weights,hooks_during_timing,accuracy_pairing_valid,source
+DeiT-S/8 dense,none,384,64,,2305,2304,0.170557,0.001076,375.2,2.615,,,,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+DeiT-S/8 + ToMe,tome,384,64,1537,1537,1536,0.147305,9.7e-05,434.5,2.793,,False,False,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+DeiT-S/8 + ToMe,tome,384,64,1152,1152,1151,0.12981,8e-05,493.0,2.764,,False,False,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+DeiT-S/8 + ToMe,tome,384,64,923,923,922,0.122437,0.000104,522.7,2.746,,False,False,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+DeiT-S/8 + ToMe,tome,384,64,770,770,769,0.118173,7.8e-05,541.6,2.738,,False,False,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+DeiT-S/8 + ToMe,tome,384,64,576,576,575,0.106453,9.8e-05,601.2,2.723,,False,False,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+MergeNet,mergenet,384,64,1537,1539,1538,0.178171,2.1e-05,359.2,3.619,5.143,,,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+MergeNet,mergenet,384,64,1152,1153,1152,0.155255,3e-05,412.2,3.564,5.143,,,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+MergeNet,mergenet,384,64,923,924,923,0.143022,5.8e-05,447.5,3.721,5.143,,,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+MergeNet,mergenet,384,64,770,771,770,0.136593,5.1e-05,468.5,3.719,5.143,,,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json
+MergeNet,mergenet,384,64,576,577,576,0.12938,8.3e-05,494.7,3.557,5.143,,,random initialisation,True,False,40_efficiency/LATENCY_384_MATCHED.json

@@ -1,0 +1,527 @@
+{
+  "scope": "single-function synthetic CPU probe; no checkpoint/full model/accuracy experiment",
+  "torch_version": "2.3.0a0+6ddf5cf85e.nv24.04",
+  "source_file": "/liziqing/yukai/MergeNet_true2d_release_20260827/deliverables/imagenet_longtrain_v1/opentome/utils/thetopk.py",
+  "source_sha256": "f5d803bda5322ebcd21c1bd119b1848f830cc13e2462faa42f59e32786d69327",
+  "release_commit": "4b4945afd93986d94ebb8bf4f44b2e0dba83d230",
+  "cases": [
+    {
+      "case": "alone",
+      "input": [
+        [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float64",
+      "x_range": 3.0,
+      "output": [
+        [
+          1.5295138724025624e-07,
+          0.003368978499315741,
+          0.9966310315002228,
+          0.9999998470490667
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          0.005614955830264484,
+          -0.01684486749533248,
+          0.01684486749987224,
+          -0.005614955834804061
+        ]
+      ],
+      "outputs_finite": true,
+      "gradients_finite": true,
+      "other_sample_gradient_max_abs": null
+    },
+    {
+      "case": "same_range_companion",
+      "input": [
+        [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ],
+        [
+          1.2,
+          2.2,
+          3.2,
+          3.8
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float64",
+      "x_range": 3.0,
+      "output": [
+        [
+          1.5295138724025624e-07,
+          0.003368978499315741,
+          0.9966310315002228,
+          0.9999998470490667
+        ],
+        [
+          1.5313735775773135e-07,
+          0.0033730747725577545,
+          0.9966351227867936,
+          0.9999916593032836
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          0.005614955830264484,
+          -0.01684486749533248,
+          0.01684486749987224,
+          -0.005614955834804061
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "outputs_finite": true,
+      "gradients_finite": true,
+      "other_sample_gradient_max_abs": 0.0
+    },
+    {
+      "case": "wide_range_companion",
+      "input": [
+        [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ],
+        [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float64",
+      "x_range": 39.0,
+      "output": [
+        [
+          0.15771063890270146,
+          0.340356202578465,
+          0.6596438042550796,
+          0.8422893642637538
+        ],
+        [
+          4.873938352345748e-06,
+          0.010680874585222962,
+          0.9893191354102135,
+          0.9999951260662088
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          -0.16461925755157908,
+          -0.1309062296145696,
+          0.1309062312790399,
+          0.18197381145946542
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -0.017354555572356573
+        ]
+      ],
+      "outputs_finite": true,
+      "gradients_finite": true,
+      "other_sample_gradient_max_abs": 0.017354555572356573
+    },
+    {
+      "case": "all_ones",
+      "input": [
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float64",
+      "x_range": 0.0,
+      "output": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "outputs_finite": false,
+      "gradients_finite": false,
+      "other_sample_gradient_max_abs": null
+    },
+    {
+      "case": "all_zeros",
+      "input": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float64",
+      "x_range": 0.0,
+      "output": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "outputs_finite": false,
+      "gradients_finite": false,
+      "other_sample_gradient_max_abs": null
+    },
+    {
+      "case": "alone",
+      "input": [
+        [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float32",
+      "x_range": 3.0,
+      "output": [
+        [
+          1.529514577214286e-07,
+          0.0033689800184220076,
+          0.9966310262680054,
+          0.9999998211860657
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          0.005615027621388435,
+          -0.016844818368554115,
+          0.01684490591287613,
+          -0.005615027621388435
+        ]
+      ],
+      "outputs_finite": true,
+      "gradients_finite": true,
+      "other_sample_gradient_max_abs": null
+    },
+    {
+      "case": "same_range_companion",
+      "input": [
+        [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ],
+        [
+          1.2,
+          2.2,
+          3.2,
+          3.8
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float32",
+      "x_range": 3.0,
+      "output": [
+        [
+          1.529514577214286e-07,
+          0.0033689800184220076,
+          0.9966310262680054,
+          0.9999998211860657
+        ],
+        [
+          1.531373925445223e-07,
+          0.0033730757422745228,
+          0.9966351389884949,
+          0.9999916553497314
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          0.005615027621388435,
+          -0.016844818368554115,
+          0.01684490591287613,
+          -0.005615027621388435
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "outputs_finite": true,
+      "gradients_finite": true,
+      "other_sample_gradient_max_abs": 0.0
+    },
+    {
+      "case": "wide_range_companion",
+      "input": [
+        [
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ],
+        [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float32",
+      "x_range": 39.0,
+      "output": [
+        [
+          0.15771065652370453,
+          0.3403562307357788,
+          0.6596437692642212,
+          0.842289388179779
+        ],
+        [
+          4.873935267823981e-06,
+          0.010680865496397018,
+          0.9893191456794739,
+          0.9999951124191284
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          -0.16461923718452454,
+          -0.13090620934963226,
+          0.13090620934963226,
+          0.18197380006313324
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -0.017354555428028107
+        ]
+      ],
+      "outputs_finite": true,
+      "gradients_finite": true,
+      "other_sample_gradient_max_abs": 0.017354555428028107
+    },
+    {
+      "case": "all_ones",
+      "input": [
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float32",
+      "x_range": 0.0,
+      "output": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "outputs_finite": false,
+      "gradients_finite": false,
+      "other_sample_gradient_max_abs": null
+    },
+    {
+      "case": "all_zeros",
+      "input": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "k": 2,
+      "N": 4,
+      "k_over_N": 0.5,
+      "temperature": 30.0,
+      "dtype": "torch.float32",
+      "x_range": 0.0,
+      "output": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "gradient_of_first_sample_loss": [
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ],
+        [
+          "nan",
+          "nan",
+          "nan",
+          "nan"
+        ]
+      ],
+      "outputs_finite": false,
+      "gradients_finite": false,
+      "other_sample_gradient_max_abs": null
+    }
+  ],
+  "comparisons": [
+    {
+      "dtype": "torch.float64",
+      "first_sample_output_max_abs_change": 0.3369872272451432,
+      "first_sample_alone_vs_same_range_max_abs_change": 0.0,
+      "cross_sample_gradient_max_abs": 0.017354555572356573
+    },
+    {
+      "dtype": "torch.float32",
+      "first_sample_output_max_abs_change": 0.3369872570037842,
+      "first_sample_alone_vs_same_range_max_abs_change": 0.0,
+      "cross_sample_gradient_max_abs": 0.017354555428028107
+    }
+  ]
+}

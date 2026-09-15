@@ -1,0 +1,14 @@
+{
+  "summary_rows": 2419,
+  "runs_with_metrics": 17,
+  "complete_runs": 16,
+  "valid_compression_triplets": 20,
+  "tome_accuracy_wins": 20,
+  "gaps_pp": {
+    "r3_minus_global": 1.6699999951171804,
+    "r3_minus_flat": 0.5979999707031283,
+    "mn_minus_dense_224": -0.8779999682617188,
+    "mn_minus_dense_384": -0.3939999755859418
+  },
+  "warning": "No accuracy-latency Pareto curve is generated: proportional-attention settings differ."
+}
