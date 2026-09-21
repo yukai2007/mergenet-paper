@@ -1,22 +1,51 @@
+% \begin{abstract}
+% Spatial constraints can improve learned token aggregation without making the
+% resulting model an efficient alternative to dense computation. We examine
+% this distinction in MergeNet, a DTEM-derived classifier that performs
+% original-grid-constrained soft mass transfer, selects a fixed number of
+% carriers, and recovers information before latent processing. In a
+% single-seed ImageNet-1k campaign, radius-3 routing improves 150-epoch top-1
+% accuracy by 1.670 percentage points over an unconstrained router and 0.598
+% points over a flattened-window control. The full model reaches 81.368\% after
+% 300 epochs at 224 pixels, versus 82.246\% for dense DeiT-S/8; 384-pixel
+% fine-tuning narrows the gap to 82.582\% versus 82.976\%. Despite 36.9\% fewer
+% estimated multiply--accumulates, MergeNet takes 7.1\% more inference time in a
+% guarded 224-pixel synthetic H20 benchmark, while a 384-pixel batch-64 benchmark
+% on H20 reduces inference time by 20.0\%. An independent A100 harness
+% finds no dense-relative speedup at either resolution on the local stack. Post-training ToMe has higher recorded
+% accuracy at all twenty matched final-token budgets, although incompatible
+% attention settings prevent combining the available accuracy and latency
+% results into a verified joint frontier. Operator and local CIFAR checkpoint probes reveal batch-dependent soft
+% selection; the tested spatial-routing gain persists under rebatching. The study separates internal routing
+% gains from deployment evidence and identifies the implementation and
+% reproduction checks needed to assess learned compression reliably.
+% \end{abstract}
+
 \begin{abstract}
-Spatial constraints can improve learned token aggregation without making the
-resulting model an efficient alternative to dense computation. We examine
-this distinction in MergeNet, a DTEM-derived classifier that performs
-original-grid-constrained soft mass transfer, selects a fixed number of
-carriers, and recovers information before latent processing. In a
-single-seed ImageNet-1k campaign, radius-3 routing improves 150-epoch top-1
-accuracy by 1.670 percentage points over an unconstrained router and 0.598
-points over a flattened-window control. The full model reaches 81.368\% after
-300 epochs at 224 pixels, versus 82.246\% for dense DeiT-S/8; 384-pixel
-fine-tuning narrows the gap to 82.582\% versus 82.976\%. Despite 36.9\% fewer
-estimated multiply--accumulates, MergeNet takes 7.1\% more inference time in a
-guarded 224-pixel synthetic H20 benchmark, while a 384-pixel batch-64 benchmark
-on H20 reduces inference time by 20.0\%. An independent A100 harness
-finds no dense-relative speedup at either resolution on the local stack. Post-training ToMe has higher recorded
-accuracy at all twenty matched final-token budgets, although incompatible
-attention settings prevent combining the available accuracy and latency
-results into a verified joint frontier. Operator and local CIFAR checkpoint probes reveal batch-dependent soft
-selection; the tested spatial-routing gain persists under rebatching. The study separates internal routing
-gains from deployment evidence and identifies the implementation and
-reproduction checks needed to assess learned compression reliably.
+Modern visual recognition requires models to capture both fine-grained image
+detail and long-range context. Vision transformers meet these needs by
+representing images as patch tokens and modeling their interactions, but
+retaining every token across layers becomes costly at high resolution. Token
+merging reduces this cost by consolidating redundant tokens. Yet its success
+depends on both learning which tokens to combine without losing task-relevant
+information and on turning those decisions into a physically shorter
+sequence. DTEM learns the merging policy with dedicated merge embeddings and a
+continuous relaxation. However, its soft training path retains every token
+slot, so it learns merge decisions without actually shortening the sequence;
+hard merging is still required. \mn{} closes this gap with a local-to-latent
+architecture. Differentiable routing learns where information should flow and
+consolidates it; fixed-budget selection then physically shortens the sequence
+before global reasoning. We make this compression trainable with differentiable budgeted selection and efficient in execution with fused kernels for mass-aware attention over merged tokens. We evaluate \mn{} for image
+classification on ImageNet-1K, using DeiT-S as the dense baseline and
+comparing against DTEM and ToMe at matched token budgets. \mn{} achieves
+\textbf{[MERGENET-TOP-1]}\% top-1 accuracy under
+\textbf{[TOKEN-COMPRESSION]}$\times$ token compression, compared with
+\textbf{[DEIT-TOP-1]}\% for DeiT-S, \textbf{[DTEM-TOP-1]}\% for DTEM, and
+\textbf{[TOME-TOP-1]}\% for ToMe. Under matched
+\textbf{[HARDWARE/BATCH/PRECISION]} settings, \mn{} reduces inference latency
+by \textbf{[LATENCY-REDUCTION]}\% and peak memory by
+\textbf{[MEMORY-REDUCTION]}\% relative to DeiT-S. These results demonstrate
+that combining learned information routing with an explicit compression
+boundary yields a better accuracy--efficiency trade-off for image
+classification.
 \end{abstract}
