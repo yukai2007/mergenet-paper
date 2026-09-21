@@ -3,13 +3,20 @@
 \pendingslot{P06}{Trace actual routing on trained ImageNet examples}{The
 figure is reserved for measured outputs, not an architectural illustration.}
 
-Preselect validation image IDs and include typical and unsuccessful cases.
-For each layer export the donor/receiver partition, eligible edges, transport
-weights, selected carriers and token masses. To visualize original-source
-membership, enable a verified membership trace: the default flattened-index
-center cannot reconstruct it. Report the sampling rule and checkpoint
-identity. Local edges alone do not establish semantic-boundary preservation;
-that claim requires an annotation source and an explicit metric.
+The final ImageNet checkpoint is unavailable locally, so the collaborator
+exports four to six validation examples, including at least two correct and
+two incorrect predictions. For every routing step the record contains the
+actual donor/receiver partition, nonzero transport edges, token-mass map and
+final carriers; one or two carrier recovery-attention maps are added when
+available. The raw trace accompanies the rendered figure.
+
+The trace must be passive: we record the maximum logit difference with tracing
+enabled, equality of top-$K$ indices, and the mass-conservation error at every
+step. The default flattened-index center cannot reconstruct complete source
+membership. Without a verified membership trace, the visualization therefore
+shows per-step transport rather than inventing a final hard segmentation.
+Local edges alone do not establish semantic-boundary preservation; that claim
+would require an annotation source and an explicit metric.
 
 \begin{figure}[htbp]\centering
 \pendingfigure{P06: images, routing edges, carriers, and a failure case}{3.8cm}

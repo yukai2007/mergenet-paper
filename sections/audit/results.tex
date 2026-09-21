@@ -1,0 +1,348 @@
+\section{ImageNet Results}
+\label{sec:results}
+
+\subsection{Primary comparison and remaining cells}
+
+Table~\ref{tab:main} is the paper's primary 224-pixel comparison. It fixes
+the final patch budget at 392, excluding the class token. The dense and
+\mn{} rows are separately trained 300-epoch models; ToMe is applied after
+training to the dense checkpoint. The \mn{} entry uses the 50,000-image
+matched-budget re-evaluation (81.360\%), while its training summary reports a
+best EMA value of 81.368\%. These two records are kept distinct.
+
+\begin{table*}[t]
+\centering\small
+\setlength{\tabcolsep}{5pt}
+\input{tables/main}
+\caption{Primary ImageNet-1K table at 224 pixels. Patch counts exclude CLS.
+All blank cells are required outputs of one collaborator-side P03 run; they
+are not zero values or estimates. Accuracy and deployment measurements may
+be compared jointly only after the same checkpoint, preprocessing,
+precision, batch, attention policy, and timed path have been verified.}
+\label{tab:main}
+\end{table*}
+
+The table already fixes three accuracy anchors: dense DeiT-S/8 at 82.246\%,
+post-training ToMe at 81.932\%, and \mn{} at 81.360\%. The only missing
+classification anchor is a DTEM run matched to this patch-8 backbone and
+final budget. All four rows still need common-protocol trained-checkpoint
+latency and peak allocated memory. Until those cells are filled, the paper
+claims a learnable physical bottleneck and a spatial-routing gain, rather
+than a verified state-of-the-art accuracy--efficiency frontier.
+
+\subsection{Internal geometry controls}
+
+Table~\ref{tab:geometry} separates routing controls from later optimization
+probes. A historical single-seed CIFAR-100 sweep is reported in
+Appendix~\ref{app:cifar-spatial}; a three-seed confirmation is in
+Section~\ref{sec:cifar-seeds}. At learning rate $5\times10^{-4}$, the
+radius-3 model reaches 78.888\%, versus 77.218\% for global routing and
+78.290\% for flattened-window routing. The corresponding improvements are
+$1.670\pp$ and $0.598\pp$. Their final-epoch differences are $1.672\pp$ and
+$0.610\pp$, so best-checkpoint selection does not explain the ordering.
+Radius 2 reaches 78.942\%, only $0.054\pp$ above radius 3. With one seed,
+this does not establish an optimal radius or statistical equivalence between
+the two choices.
+
+\begin{table}[t]
+\centering\small
+\input{tables/geometry}
+\caption{224-pixel, 150-epoch routing controls. The first four rows use the
+same learning rate and base architecture. The last row is the selected
+higher-rate configuration later used for 300-epoch training. All accuracies
+are single-seed EMA top-1.}
+\label{tab:geometry}
+\end{table}
+
+The geometric result is specific to these support policies. Radius changes
+alter both spatial coverage and the number of eligible receivers. Since row
+energies sum over eligible receiver scores, candidate cardinality can affect
+donor selection even before transport. The ImageNet packet has no
+degree-matched randomized support control. Likewise, global \mn{} is not the
+original DTEM method: it shares \mn{}'s local front end, soft inference path,
+final gather, and recovery operation.
+
+Raising the learning rate to $7.5\times10^{-4}$ improves radius-3 accuracy by
+$0.428\pp$ at 150 epochs. That selected configuration is the baseline for the
+optimizer probes in Section~\ref{sec:probes}. A separate $\lambda=4$ run
+reaches 78.366\%, but also changes local/latent depths from $6/6$ to $4/8$
+and the local window from 16 to 32; it cannot be interpreted as a
+compression-ratio-only experiment.
+
+\subsection{Three-seed CIFAR confirmation}
+\label{sec:cifar-seeds}
+
+Company ImageNet weights are unavailable, so a local CIFAR-100 campaign tests
+whether the routing gain repeats across seeds and whether candidate count
+alone can explain it. The matrix is two selectors $\times$ four geometries
+$\times$ three seeds, 24 independent 200-epoch runs at 224 pixels with
+$\lambda=2$. The primary endpoint, fixed before launch, is epoch-199 EMA
+top-1 on the 10,000-image test set. Training and evaluation batches are 200.
+The images are native $32\times32$ CIFAR frames resized under the historical
+augmentation protocol; this is not a native high-resolution test.
+
+The four geometries are global routing, flattened window 8, radius 3, and a
+degree-matched control. The last starts from the realized radius-3
+donor/receiver mask after each partition and permutes receiver columns with
+fixed receiver-ID priorities. Per-donor candidate counts and the receiver
+degree multiset are preserved; the control is not an independent random
+graph. The two selectors are the historical batch-range threshold operator
+and a per-sample float32 bisection operator. Even seed 42 is a new training
+run (dataloader workers differ from the August sweep).
+
+\begin{table}[t]
+\centering\small
+\input{tables/cifar_seeds}
+\caption{CIFAR-100 epoch-199 EMA top-1 (\%), mean $\pm$ sample standard
+deviation over seeds 42, 43 and 44. Inputs are resized $32\times32$ images.}
+\label{tab:cifar-seeds}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\input{tables/cifar_contrasts}
+\caption{Paired same-seed CIFAR-100 differences in percentage points. Every
+radius-3 comparison is positive. Sample standard deviations use $n-1$.}
+\label{tab:cifar-contrasts}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/cifar_seeds.pdf}
+\caption{CIFAR-100 three-seed geometry confirmation. Top: epoch-199 EMA
+top-1 with sample standard-deviation bars. Bottom: mean EMA trajectories with
+shaded $\pm 1$ sample standard deviation over the same three seeds. Radius 3
+exceeds global, flattened, and degree-matched controls under both selectors.
+These are independent training runs, not evaluation rebatching bars.}
+\label{fig:cifar-seeds}
+\end{figure}
+
+Table~\ref{tab:cifar-seeds} and Figure~\ref{fig:cifar-seeds} show that radius 3
+is the most accurate geometry under both selectors. All eighteen same-seed
+radius-3 minus control differences underlying the six rows of
+Table~\ref{tab:cifar-contrasts} are positive. Under the
+historical selector, the mean radius-3 advantages are $+2.11\pp$ versus
+global, $+1.30\pp$ versus flattened windows, and $+1.42\pp$ versus
+degree-matched support. The per-sample selector preserves the same ordering,
+with smaller mean gaps of $+1.63$, $+0.77$, and $+1.19\pp$. The
+degree-matched gaps indicate that original-grid locality contributes beyond
+candidate cardinality in this setting. The lower panels of
+Figure~\ref{fig:cifar-seeds} show a persistent mid-to-late training gap rather
+than a single-epoch spike. Three seeds are enough to show a
+repeated sign pattern; they are not enough to treat the sample standard
+deviations as population estimates, and they do not transfer ImageNet
+uncertainty.
+
+Table~\ref{tab:ablation-map} summarizes the minimum ablation set tied to the
+method claims. Four controls are already complete. Two inexpensive
+inference-only interventions require the final ImageNet checkpoint and are
+therefore included in the single P03 numeric request rather than expanded
+into new training runs.
+
+\begin{table*}[t]
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.17\linewidth}p{0.23\linewidth}p{0.18\linewidth}p{0.30\linewidth}}
+\toprule
+Claim component & Control & Evidence & Status / result \\
+\midrule
+2-D routing support & Global, flat-8, $R=2$, $R=3$ & ImageNet, 150 epochs
+  & $R=3$: $+1.670\pp$ vs global; $+0.598\pp$ vs flat \\
+Geometry beyond degree & Receiver-permuted degree match & CIFAR, 3 seeds
+  & $+1.42\pm0.30\pp$ with historical selector \\
+Selector dependence & Historical vs per-sample threshold & CIFAR, 3 seeds
+  & $R=3$ ranks first under both \\
+Compression budget & 523/392/314/262/196 carriers & ImageNet, fixed checkpoint
+  & Complete accuracy sweep \\
+Mass-aware latent attention & Set $\log m$ bias to zero & ImageNet, fixed checkpoint
+  & \pendingresult{P03 score} \\
+Full-grid recovery & Disable residual cross-attention & ImageNet, fixed checkpoint
+  & \pendingresult{P03 score} \\
+\bottomrule
+\end{tabular}
+\caption{Claim-to-ablation map. The last two rows are inference interventions
+on the same final checkpoint; they diagnose dependence of the trained model
+and are not substitutes for retraining the variants.}
+\label{tab:ablation-map}
+\end{table*}
+\FloatBarrier
+
+\subsection{Complete schedules and resolution adaptation}
+
+Table~\ref{tab:schedules} reports complete 300-epoch runs and the 384- and
+512-pixel fine-tunes. At 224 pixels, \mn{} trails dense DeiT-S/8 by
+$0.878\pp$ using best checkpoints and $0.812\pp$ using final checkpoints. It
+exceeds DeiT-S/16 by $1.676\pp$, but the latter is a much cheaper model at
+this input resolution. The higher accuracy relative to coarse patches does
+not establish better efficiency.
+
+\begin{table}[t]
+\centering\small
+\input{tables/schedules}
+\caption{Complete main runs. Fine-tunes initialize from the corresponding
+EMA checkpoint: 384-pixel runs from 300-epoch 224-pixel weights, and
+512-pixel runs from the 384-pixel stage. The 512-pixel \mn{} run uses the
+radius-5.143 384-pixel EMA file and $R=6.857$. The selected \mn{} scratch
+configuration uses a higher learning rate than dense DeiT; the fine-tuning
+recipe is shared. Best and final checkpoints are kept distinct; fine-tuning
+best-epoch indices are relative to that stage.}
+\label{tab:schedules}
+\end{table}
+
+After 30 epochs at 384 pixels, radius-3 \mn{} reaches 82.582\%, compared with
+82.976\% for dense DeiT-S/8. Its best-checkpoint gain over its own 224-pixel
+result is $1.214\pp$, while dense DeiT gains $0.730\pp$. The gap therefore
+narrows to $0.394\pp$; using final checkpoints it is $0.324\pp$. Scaling the
+radius to 5.143 produces 82.574\%, a difference of $-0.008\pp$ from radius 3.
+This one comparison gives no evidence of a useful accuracy gain from that
+particular scaling rule, but cannot rule out other radii or recipes.
+
+A further 15 epochs at 512 pixels reach 83.068\% for dense DeiT and 82.618\%
+for \mn{}. The gap is $0.450\pp$, slightly wider than at 384 pixels.
+Table~\ref{tab:resolution} and Figure~\ref{fig:resolution} summarize the
+series. Dense DeiT gains $0.092\pp$ from 384 to 512 pixels. MergeNet gains
+$0.044\pp$ over its actual radius-5.143 parent (82.574\%); the difference
+from the separately selected radius-3 384-pixel result is $0.036\pp$.
+The latter is a comparison of selected configurations, not a within-branch
+fine-tuning gain. The 384-pixel narrowing is therefore not the start of a
+monotone closing trend.
+
+\begin{table}[t]
+\centering\small
+\input{tables/resolution}
+\caption{Dense DeiT-S/8 versus the selected \mn{} configuration across the
+completed resolution series. MergeNet at 512 pixels is the radius-scaled
+branch described in Table~\ref{tab:schedules}.}
+\label{tab:resolution}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\linewidth]{figures/resolution_ladder.pdf}
+\caption{Best EMA top-1 at 224, 384 and 512 pixels. Annotations are
+MergeNet minus dense DeiT-S/8. The 384-pixel stage is the closest of the
+three, not a point on a continuing improvement trend.}
+\label{fig:resolution}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/learning_curves.pdf}
+\caption{Recorded EMA validation curves. Left: epochs 40--299 of complete
+300-epoch runs. Middle: all 30 fine-tuning epochs at 384 pixels. Right: all
+15 fine-tuning epochs at 512 pixels. Curves share a seed and are not
+confidence intervals. Later peak epochs do not identify why adaptation
+occurs or predict a longer schedule.}
+\label{fig:curves}
+\end{figure}
+
+Figure~\ref{fig:curves} shows that the models reach their best 384-pixel
+scores at different epochs: 7 for dense DeiT, 20 for radius 3, and 22 for
+radius 5.143. Both 512-pixel runs peak at epoch 6 of 15. These observations
+do not prove that the router requires three times as much adaptation, nor
+that truncating a schedule would reproduce a newly scheduled shorter run.
+Short terminal slopes cannot justify extrapolating another 300 training
+epochs.
+
+\subsection{Optimizer probes do not recover the dense gap}
+\label{sec:probes}
+
+The selected 150-epoch radius-3 configuration reaches 79.316\%. Before the
+later probes ran, a promotion rule required a gain larger than $0.40\pp$
+(above 79.716\%) to promote a configuration. This is a campaign decision
+threshold, not an estimated noise level, statistical null hypothesis, or
+equivalence margin. Table~\ref{tab:probes}
+and Figure~\ref{fig:tuning} report the completed one-at-a-time tests.
+
+\begin{table}[t]
+\centering\small
+\input{tables/probes}
+\caption{150-epoch probes off the selected radius-3, learning-rate
+$7.5\times10^{-4}$ configuration. $\Delta$ is best EMA top-1 minus 79.316.
+The weight-decay run was stopped at epoch 140 by a scheduled reboot; it is
+not a completed endpoint.}
+\label{tab:probes}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/tuning_screen.pdf}
+\caption{Completed 150-epoch optimizer probes relative to the selected
+radius-3 run. The shaded interval is the campaign-defined $\pm0.40\pp$ decision
+band. The weight-decay bar uses a 140-epoch snapshot.}
+\label{fig:tuning}
+\end{figure}
+
+Longer warmup changes the early-training stall---the epoch-24 to 36 gain
+rises from $6.99\pp$ to $22.49\pp$---but finishes $0.078\pp$ below the
+selected arm. A $\lambda=1.5\to2$ curriculum finishes $0.006\pp$ below it.
+Raising the learning rate to $10^{-3}$ gains $0.034\pp$. Reducing drop-path
+from 0.1 to 0.07, which matches the mean per-block stochastic depth of a
+single twelve-block DeiT ramp, is the largest completed movement
+($+0.218\pp$) and still misses the promotion band. The incomplete
+weight-decay snapshot sits $0.262\pp$ below the selected arm after 140
+epochs. The remaining ten epochs have no established accuracy upper bound,
+so the run cannot be classified as a completed negative result. The completed
+probes provide no evidence that these particular changes recover the gap;
+they do not rule out optimization effects in other recipes or at 300 epochs.
+
+A test-time re-evaluation of the 300-epoch \mn{} checkpoint gives a related
+boundary (Table~\ref{tab:inference-merge}). Using \texttt{method=none} records
+81.354\% at an achieved 392-token sequence, $0.006\pp$ below the native
+\mn{} evaluation of 81.360\%. Raising the evaluation budget to 523 tokens
+yields 81.380\%; lowering it to 196 tokens yields 80.228\%. These are
+correlated evaluations of one checkpoint. They do not show that
+training-time compression is free. They do show that modest evaluation-budget
+changes do not recover the dense-DeiT gap. The
+\texttt{method=none} cell still achieves 392 tokens, so it is not a 784-token
+dense readout of the local encoder.
+
+\begin{table}[t]
+\centering\small
+\input{tables/inference_merge}
+\caption{Full-validation re-evaluations of the 300-epoch radius-3 checkpoint
+at 224 pixels. Native method at 392 tokens is 81.360\% here versus a
+training-summary best of 81.368\%; both measurements are retained.}
+\label{tab:inference-merge}
+\end{table}
+
+\subsection{Compression after training}
+
+Figure~\ref{fig:sweep} compares full-validation accuracy at equal final patch
+counts. At 224 pixels and 392 retained patches, ToMe achieves 81.932\%,
+compared with \mn{}'s re-evaluated 81.360\%. At 196 patches, the scores are
+81.752\% and 80.228\%, a $1.524\pp$ difference. The latter \mn{} point changes
+the budget of the $\lambda=2$ checkpoint at evaluation; it is not the separately
+trained, structurally different $\lambda=4$ model.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/accuracy_sweep.pdf}
+\caption{Accuracy-only budget sweeps. Left: 300-epoch 224-pixel checkpoints.
+Right: 384-pixel fine-tuned checkpoints, with radius 5.143 for \mn{}.
+ToMe and PiToMe require no additional training on top of the trained dense
+backbone. Lines connect measured points, not confidence bands. Equal final
+patch counts do not match the full computation trajectory.}
+\label{fig:sweep}
+\end{figure}
+
+For 384-pixel fine-tuned checkpoints, ToMe reaches 82.866\% at 1,152 patches,
+versus 82.562\% for \mn{}, and 82.742\% at 576 patches, versus 81.300\%.
+Across all twenty matched budget points---five at native 224 pixels, five
+each at 288 and 384 pixels without resolution fine-tuning, and five after
+384-pixel fine-tuning---ToMe has higher recorded accuracy. The differences
+range from $0.304\pp$ to $1.524\pp$. These points are correlated evaluations
+of a small number of checkpoints, not twenty independent training trials.
+PiToMe is also competitive, but does not exceed \mn{} at every point;
+for example, at 1,152 patches after fine-tuning its 82.534\% is slightly below
+\mn{}'s 82.562\%.
+
+Sweep values are re-evaluations and need not equal the training summary
+exactly. For example, the native 224-pixel \mn{} sweep records 81.360\%
+versus a training best of 81.368\%. We preserve both measurements rather than
+rounding them into agreement. Repeated PiToMe evaluations also differ by up
+to $0.034\pp$ in the supplied record. This is variation in repeated evaluation,
+not a measured across-seed training variance or a universal noise threshold.
+Most importantly, these accuracy results alone do not establish a joint
+accuracy--latency advantage; Section~\ref{sec:systems} explains the harness
+mismatch that prevents that conclusion.

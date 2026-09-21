@@ -1,0 +1,19 @@
+\section{Reserved Trained-Checkpoint Routing Visualization}
+\label{sec:pending-routing}
+
+The final ImageNet checkpoint is unavailable locally. The collaborator will
+export four to six validation examples with the actual donor/receiver
+partition, nonzero transport edges, token-mass maps, final carriers, and at
+least one failure case. The trace is passive: it records maximum logit
+difference with tracing enabled, equality of top-$K$ indices, and mass
+conservation error after every step. Without a source-membership trace, the
+figure will show per-step transport rather than an invented final
+segmentation.
+
+\begin{figure}[htbp]
+\centering
+\pendingfigure{P06: trained images, routing edges, carriers, and a failure case}{3.8cm}
+\caption{Reserved trained-checkpoint routing visualization. The blank is not
+a model observation and will be replaced only by a verified trace.}
+\label{fig:pending-routing}
+\end{figure}

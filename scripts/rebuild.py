@@ -95,7 +95,7 @@ def table(name, cols, header, rows):
     (TAB / (name + '.tex')).write_text('\n'.join(lines) + '\n')
 
 
-main = [
+schedules = [
     ('DeiT-S/16', 224, '300', 's3_deit_p16_300e'),
     ('DeiT-S/8', 224, '300', 's3_deit_p8_300e'),
     ('MergeNet, $R=3$', 224, '300', 's3_mn_r3_lr75_300e'),
@@ -106,12 +106,30 @@ main = [
     ('MergeNet, $R=6.857$', 512, '300+30+15', 's4_mn_ft512_15e'),
 ]
 table(
-    'main',
+    'schedules',
     'llrrrr',
     r'Model & Pixels & Epochs & Best (\%) & Final (\%) & Best epoch',
     [
         [a, b, c, f'{val(n):.3f}', f'{val(n, "final_top1"):.3f}', int(run.loc[n, 'best_epoch'])]
-        for a, b, c, n in main
+        for a, b, c, n in schedules
+    ],
+)
+
+comparison = pd.read_csv(DATA / 'testtime_accuracy_curves.csv')
+comparison_224 = comparison[
+    (comparison.resolution == 224)
+    & (comparison.checkpoint_set == 'e300_224')
+    & (comparison.final_patch_tokens == 392)
+].iloc[0]
+table(
+    'main',
+    'llrrrrr',
+    r'Method & Compression path & Input$\to$final & $\times$ & Top-1 (\%) & Median ms & Peak GiB',
+    [
+        ['DeiT-S/8', 'dense, trained', r'$784\to784$', '1.00', f'{val("s3_deit_p8_300e"):.3f}', r'\pendingvalue', r'\pendingvalue'],
+        ['DTEM', 'matched run', r'$784\to392$', '2.00', r'\pendingvalue', r'\pendingvalue', r'\pendingvalue'],
+        ['DeiT-S/8 + ToMe', 'post-training', r'$784\to392$', '2.00', f'{comparison_224.tome_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
+        [r'\mn{} ($R=3$)', 'end-to-end', r'$784\to392$', '2.00', f'{comparison_224.mergenet_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
     ],
 )
 
@@ -495,36 +513,58 @@ fig.tight_layout()
 fig.savefig(FIG / 'accuracy_sweep.pdf')
 plt.close(fig)
 
-# Architecture diagram sized for the manuscript's actual column width.
-fig, ax = plt.subplots(figsize=(6.5, 3.0))
-ax.set(xlim=(0, 6.5), ylim=(0, 3.0))
+# Architecture diagram.  The two-level layout follows slide 3 of 模型.pptx,
+# adapted to the executed image-classification path and verified token counts.
+fig, ax = plt.subplots(figsize=(6.5, 3.35))
+ax.set(xlim=(0, 10), ylim=(0, 5.2))
 ax.axis('off')
+ax.add_patch(FancyBboxPatch((0.02, 2.78), 7.20, 2.18, boxstyle='round,pad=0.05',
+                            facecolor='#EEF4F8', edgecolor='#B9CFDE', lw=0.9))
+ax.add_patch(FancyBboxPatch((0.02, 0.28), 9.83, 1.97, boxstyle='round,pad=0.05',
+                            facecolor='#FFF5ED', edgecolor='#E7C4AD', lw=0.9))
+ax.text(0.22, 4.72, 'FULL-GRID DIFFERENTIABLE ROUTING', color=C['dense'],
+        fontsize=7.5, fontweight='bold', va='center')
+ax.text(0.22, 2.08, 'PHYSICALLY COMPRESSED GLOBAL REASONING', color=C['mn'],
+        fontsize=7.5, fontweight='bold', va='center')
+
 boxes = [
-    (0.1, 2.05, 1.5, 'Patch-8 stem\n785 tokens', C['dense']),
-    (2.02, 2.05, 1.9, '6 local blocks\n785 tokens each', C['dense']),
-    (4.38, 2.05, 2.0, '6 soft routing steps\n785 slots retained', C['dense']),
-    (4.38, 0.60, 2.0, 'Hard top-k gather\n785 → 393 tokens', C['mn']),
-    (2.02, 0.60, 1.9, 'Global recovery\n393 queries, 785 K/V', C['mn']),
-    (0.1, 0.60, 1.5, '6 latent blocks\n393 tokens + head', C['mn']),
+    (0.25, 3.35, 1.70, 'Patch-8 stem\n784 + CLS', C['dense']),
+    (2.30, 3.35, 1.98, 'Local encoder ×6\n28×28 grid', C['dense']),
+    (4.65, 3.35, 2.46, 'Spatial mass routing ×6\nradius $R=3$', '#675A9B'),
+    (7.58, 0.88, 2.08, 'Exact-budget gather\n784 → 392', '#B9502F'),
+    (5.15, 0.88, 1.98, 'Recovery cross-attn\n392 Q · 784 K/V', C['mn']),
+    (2.60, 0.88, 2.08, 'Latent encoder ×6\n392 + CLS · log $m$', C['mn']),
+    (0.25, 0.88, 1.88, 'CLS head\nImageNet', '#5B7450'),
 ]
 for x, y, w, lab, col in boxes:
-    ax.add_patch(FancyBboxPatch((x, y), w, 0.68, boxstyle='round,pad=0.035', facecolor=col, edgecolor=col))
-    ax.text(x + w / 2, y + 0.34, lab, ha='center', va='center', color='white', fontsize=8.5)
+    ax.add_patch(FancyBboxPatch((x, y), w, 0.94, boxstyle='round,pad=0.055',
+                                facecolor=col, edgecolor=col, lw=1.0))
+    ax.text(x + w / 2, y + 0.47, lab, ha='center', va='center',
+            color='white', fontsize=7.0, linespacing=1.15)
 
 
-def arrow(a, b, col='#38434C'):
-    ax.annotate('', xy=b, xytext=a, arrowprops=dict(arrowstyle='->', color=col, lw=1.3))
+def arrow(a, b, col='#38434C', style='-'):
+    ax.annotate('', xy=b, xytext=a,
+                arrowprops=dict(arrowstyle='-|>', color=col, lw=1.25, linestyle=style,
+                                shrinkA=0, shrinkB=0))
 
 
-arrow((1.65, 2.39), (1.95, 2.39))
-arrow((3.97, 2.39), (4.31, 2.39))
-arrow((5.38, 2.00), (5.38, 1.33))
-arrow((4.31, 0.94), (3.97, 0.94))
-arrow((1.95, 0.94), (1.65, 0.94))
-arrow((2.97, 2.00), (2.97, 1.33), C['dense'])
-ax.text(2.82, 1.68, 'Final local features\nas recovery K/V', ha='right', va='center', fontsize=8, color=C['dense'])
-ax.text(5.22, 1.67, 'Original-grid\nR3 support', ha='right', va='center', fontsize=8, color=C['dense'])
-ax.text(3.25, 0.20, 'Full slots (blue) → physical gather → compressed tokens (orange)', ha='center', fontsize=8)
+arrow((1.99, 3.82), (2.26, 3.82))
+arrow((4.32, 3.82), (4.61, 3.82))
+arrow((7.15, 3.82), (8.62, 1.86))
+arrow((7.54, 1.35), (7.17, 1.35))
+arrow((5.11, 1.35), (4.72, 1.35))
+arrow((2.56, 1.35), (2.17, 1.35))
+arrow((3.29, 3.31), (6.10, 1.86), C['dense'], '--')
+ax.text(4.55, 2.50, 'full-grid features\nfor recovery K/V', ha='center', va='center',
+        fontsize=7.2, color=C['dense'])
+ax.text(8.58, 2.64, 'first shorter tensor', ha='center', va='center',
+        fontsize=7.2, color='#9D3D23', fontweight='bold')
+ax.text(5.62, 3.12, 'soft transport keeps all slots', ha='center', va='center',
+        fontsize=7.0, color='#51477C')
+ax.text(5.0, 0.48,
+        'Spatial support restricts admissible routes; similarities, masses, and carrier locations remain learned.',
+        ha='center', va='center', fontsize=7.3, color='#4B4B4B')
 fig.savefig(FIG / 'architecture.pdf')
 plt.close(fig)
 

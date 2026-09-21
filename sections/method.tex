@@ -1,154 +1,99 @@
-\section{Spatially Constrained Soft Routing}
+\section{Differentiable Spatial Routing and Physical Compression}
 \label{sec:method}
 
-\subsection{Architecture and actual sequence reduction}
-
-For an image of size $H\times W$ and patch size $p$, let
-$N=(H/p)(W/p)$ denote the number of patch slots, excluding a protected class
-token. The main configuration uses $p=8$, width $d=384$, six attention heads,
-six local blocks, and six latent blocks. At $224\times224$, the local encoder
-processes $N+1=785$ tokens in every block. Its attention window is a
-one-dimensional band extending 16 sequence positions in each direction,
-with global attention for the class query. It is not a $16\times16$ spatial
-window. Two-dimensional geometry enters through the routing support below.
-
-The local encoder first computes all six layer outputs,
-$H^{(1)},\ldots,H^{(L)}$. Routing then starts from the last output,
-$X^{(0)}=H^{(L)}$, using a separate metric derived from each $H^{(\ell)}$.
-Each routing step retains the complete slot tensor. Only after these steps
-are completed does a hard gather physically reduce the sequence. This order
-is essential: earlier local blocks do not benefit from progressively shorter
-sequences. Figure~\ref{fig:architecture} depicts the executed dataflow.
+\subsection{Local-to-latent architecture}
+For patch size $p$, let $N=(H/p)(W/p)$ be the number of patch slots, excluding
+CLS. The main model uses $p=8$, width 384, six heads, six local blocks, and six
+latent blocks. At $224^2$, all local blocks process 784 patches plus CLS. The
+local encoder first produces $H^{(1)},\ldots,H^{(6)}$; six transport steps
+then update the final slots using a metric derived from the corresponding
+local layer. Transport remains soft and retains all slots. Only the subsequent
+hard gather reduces the sequence. Figure~\ref{fig:architecture} follows the
+final architecture in the collaborator deck and the executed classifier.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/architecture.pdf}
-\caption{Main \mn{} dataflow at 224 pixels. All six local blocks run before
-routing; every soft routing step retains 785 slots. The hard gather is the
-first physical reduction. Recovery reads the final local features before
-soft transport. Blue marks full-grid processing and orange marks compressed
-processing. Numbers include the class token.}
+\caption{\mn{} at 224 pixels. Soft spatial transport keeps the full grid; the
+exact-budget gather is the first physically shorter tensor. Recovery reads
+the final full-grid local features, after which global reasoning uses 392
+patch carriers. Counts exclude CLS.}
 \label{fig:architecture}
 \end{figure}
 
-\subsection{Original-grid eligibility}
-
-Index patch slots by $i\in\{0,\ldots,N-1\}$ and define original coordinates
+\subsection{Spatial mass routing}
+Index patch $i$ by its original-grid coordinate $u_i$. At routing step
+$\ell$, donor and receiver sets $A_\ell,B_\ell$ are disjoint, and donor $i$
+may route only to
 \begin{equation}
- u_i=\left(\left\lfloor i/(W/p)\right\rfloor,\ i\bmod(W/p)\right).
-\end{equation}
-At step $\ell$, patches are partitioned into donor and receiver sets
-$A_\ell$ and $B_\ell$. Training uses a random partition for each sample;
-evaluation alternates deterministic odd/even partitions across steps. The
-class token belongs to neither merging set. For donor $i$, eligible receivers
-are
-\begin{equation}
- \mathcal E_i^{(\ell)}(R)=
- \{j\in B_\ell:\|u_i-u_j\|_2\leq R\}.
+ \mathcal E_i^{(\ell)}(R)=\{j\in B_\ell:\|u_i-u_j\|_2\le R\}.
  \label{eq:support}
 \end{equation}
-Coordinates refer to the original slots throughout routing. They are not
-replaced by the centers of the accumulated feature content. The main choice
-is $R=3$ patch spacings. The global control removes this spatial constraint;
-the flattened control uses the release's one-dimensional matching window
-with width parameter 8.
+The main model uses $R=3$. Coordinates stay tied to original slots throughout
+routing. The global control removes this constraint; the flattened control
+uses a width-8 window in row-major sequence order.
 
-Let $z_i^{(\ell)}$ be the normalized output of a learned $384\to64$ metric
-projection applied to $H_i^{(\ell)}$. Its input gradient is scaled by 0.1
-without changing its forward value. Following the inherited relaxed-routing
-construction, eligible similarities define
+A learned $384\!\to\!64$ projection produces normalized metrics $z_i$. On
+eligible edges,
+\begin{equation}
+ s_{ij}=\langle z_i,z_j\rangle/\tau,\quad
+ q_{ij}=\frac{\exp s_{ij}}{\sum_{r\in\mathcal E_i}\exp s_{ir}},\quad
+ a_{ij}=g_iq_{ij},
+ \label{eq:routing}
+\end{equation}
+where $g_i$ is a soft donor decision. Following
+\citet{sujianlin2024topk}, a monotone relaxation applies a data-dependent
+threshold $\theta$ after sorting,
+\begin{equation}
+ g_i=F(\alpha\bar e_i-\theta),\qquad \sum_i g_i\approx k_\ell,
+ \label{eq:softtopk}
+\end{equation}
+with row energy $e_i=\sum_j\exp s_{ij}$, $\alpha=30$, and the scheduled donor
+budget $k_\ell$. This replaces serial top-$k$ decisions with a parallel soft
+mask; it does not make the later gather indices differentiable.
+
+Each slot carries mass $m_i$, initialized to one. A transport step preserves a
+donor feature and transfers a fraction of its mass into receiver features:
 \begin{align}
- s_{ij}&=\langle z_i^{(\ell)},z_j^{(\ell)}\rangle/\tau_1,\\
- e_i&=\sum_{j\in\mathcal E_i^{(\ell)}}\exp(s_{ij}),
- \qquad
- q_{ij}=\frac{\exp(s_{ij})}{e_i}
- \quad (j\in\mathcal E_i^{(\ell)}).
-\end{align}
-A threshold-based soft top-$k$ operator converts row energies $e_i$ into donor
-weights $g_i$, with the step's scheduled merge budget as its target. We use $\tau_1=1$ and
-multiplicative soft-selection scale 30. The released threshold routine uses
-a batch-wide range normalization (Section~\ref{sec:batch}); its requested
-budget does not guarantee exact relaxed selection mass for every numerical
-input. The
-assignment is $a_{ij}=g_iq_{ij}$ on eligible edges and zero elsewhere, with
-row-sum stabilization in the implementation. Empty rows have zero assignment.
-If fewer eligible donor rows exist than the requested budget, the spatial
-path raises an error instead of routing outside the support. Our notation
-suppresses the implementation's numerical clamps and straight-through
-stabilizers; it does not assume the relaxed weights are exact binary choices.
-
-\subsection{Mass transfer and fixed-budget selection}
-
-Each slot carries a nonnegative mass $m_i$, initialized to one. For a donor
-$i$ and a receiver $j$, soft transport updates masses and receiver features as
-\begin{align}
- m'_i &=m_i\left(1-\sum_j a_{ij}\right),\qquad X'_i=X_i,\\
- m'_j &=m_j+\sum_i a_{ij}m_i,\\
- X'_j &=\frac{m_jX_j+\sum_i a_{ij}m_iX_i}{m'_j}.
+ m'_i&=m_i(1-\textstyle\sum_j a_{ij}), & X'_i&=X_i,\nonumber\\
+ m'_j&=m_j+\textstyle\sum_i a_{ij}m_i, &
+ X'_j&=\frac{m_jX_j+\sum_i a_{ij}m_iX_i}{m'_j}.
  \label{eq:transport}
 \end{align}
-The code clamps residual donor fractions and receiver denominators for
-numerical stability. Donor slots remain in the tensor even when their mass
-is small. Thus soft transport and token deletion are different operations.
-The main spatial path evaluates a sparse neighbor list and uses indexed
-transport; a dense score-then-mask path is available as a reference.
+The implementation clamps residual fractions and denominators. Sparse
+neighbor lists restrict scored edges, but the released initialization still
+constructs a dense adjacency buffer; our claim concerns learned routing
+support, not linear memory for the whole implementation.
 
-For compression parameter $\lambda$, the final number of patch carriers is
+\subsection{Exact budget, recovery, and mass-aware attention}
+For compression factor $\lambda$, the carrier count is
 \begin{equation}
- K=N-\left\lfloor N\frac{\lambda-1}{\lambda}\right\rfloor.
+ K=N-\left\lfloor N(\lambda-1)/\lambda\right\rfloor.
  \label{eq:budget}
 \end{equation}
-The model gathers the $K$ largest-mass patches and prepends the protected
-class token. At $\lambda=2$, $K=392$ at 224 pixels and $K=1152$ at 384 pixels.
-At $\lambda=2$, the six soft donor-budget targets are
-$(65,65,65,65,65,67)$ at 224 pixels and $(192,192,192,192,192,192)$ at 384.
-The carrier count is fixed by configuration; the selected locations depend
-on the input. A soft top-$K$ surrogate supplies straight-through gradients
-through the selected features via $1+g-\operatorname{stopgrad}(g)$; it does
-not differentiate every gather index. This multiplier is computed at
-evaluation too and equals one for finite values, whereas non-finite values
-do not cancel. During training an auxiliary head contribution
-is added to the main logits, with maximum weight 0.05; it is absent during
-evaluation. This is a logit contribution, not a separately reported auxiliary
-cross-entropy loss.
-
-The default source-tracing mode maintains a detached mass-weighted center of
-the flattened indices. It uses these values to sort selected carriers; it
-does not retain the full source-membership matrix. Selected features $Q$
-then undergo residual recovery,
+The model hard-gathers the $K$ largest-mass patches. At $224^2$ and
+$\lambda=2$, $N=784$ and $K=392$. A straight-through factor
+$1+g-\operatorname{stopgrad}(g)$ on selected features sends gradients to the
+continuous scores while hard indices execute the budget. Selected carriers
+$Q$ then recover full-grid evidence through
 \begin{equation}
- Y=Q+\operatorname{CrossAttn}(Q,H^{(L)},H^{(L)}).
+ Y=Q+\operatorname{CrossAttn}(Q,H^{(6)},H^{(6)}),
  \label{eq:recovery}
 \end{equation}
-Recovery is global in this mode. Six global latent blocks process $K+1$
-tokens, with no further merging. Latent attention retains proportional
-attention: it adds the logarithm of the selected token mass to key logits
-before the softmax. The class representation feeds the classification head.
+and six latent blocks process $K$ patches plus CLS.
 
-\subsection{What the geometry and complexity claims mean}
-
-Equation~\eqref{eq:support} bounds a single transport edge. It does not bound
-the spatial extent of all original constituents after multiple steps: a
-sequence of locally permitted transfers can travel farther. Moreover,
-$H^{(L)}$ already contains contextual information and
-Equation~\eqref{eq:recovery} reads globally. The constraint therefore concerns
-routing support, not the entire model's receptive field or semantic
-segmentation boundaries.
-
-The distinction between slots and carriers also determines cost. Local
-attention projections and MLPs still process $N+1$ tokens per layer.
-Recovery has attention terms proportional to $NKd$, and latent self-attention
-has terms proportional to $K^2d$. For fixed $\lambda$, both retain quadratic
-terms in $N$. Sparse routing avoids a dense donor--receiver assignment during
-the forward pass, but initialization still constructs an $N\times N$
-Boolean adjacency buffer. Neither a linear-memory claim for the complete
-implementation nor an end-to-end speedup follows from the sparse scorer alone.
-
-\paragraph{Reserved method variants.}
-The original method above remains the subject of the completed experiments.
-The initialized and progressive-latent variants in
-Sections~\ref{sec:pending-init} and~\ref{sec:pending-progressive} have
-separate pending endpoints. They do not retrospectively change the original
-dataflow or its interpretation.
-
-\input{sections/pending/visualization}
+Carrier mass enters latent attention as proportional attention:
+\begin{equation}
+ \operatorname{Attn}(Q,K,V;m)=
+ \operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_h}}
+ +\mathbf 1\log(m)^\top\right)V.
+ \label{eq:mass-attn}
+\end{equation}
+The bias is rank one across queries. With
+$\widehat Q=[Q,\sqrt{d_h}\mathbf1]$ and $\widehat K=[K,\log m]$, standard
+scaled dot-product attention on $(\widehat Q,\widehat K,V)$ has exactly the
+same logits. Padding the added head dimension to a multiple of eight lets the
+released operator call unmodified FlashAttention. The reported ImageNet
+checkpoints instead use PyTorch fused scaled-dot-product attention with an
+additive mask; the FlashAttention path is validated separately by
+forward/backward parity tests and is not credited with their runtime.

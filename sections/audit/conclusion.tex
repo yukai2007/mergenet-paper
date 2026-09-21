@@ -1,0 +1,26 @@
+\section{Conclusion}
+
+\mn{} connects differentiable routing to physical token compression within a
+single local-to-latent forward path. Soft mass transport learns where visual
+information should flow, an original-grid radius supplies a spatial prior
+without fixing the merge assignments, and an exact-budget gather makes the
+latent encoder operate on the same short sequence during training and
+inference. The retained mass then parameterizes proportional latent attention;
+a rank-one query/key augmentation provides an exact FlashAttention-compatible
+implementation of that key bias.
+
+The completed ablations support the spatial-routing component. Radius-3
+routing improves the matched 150-epoch ImageNet controls and wins every
+same-seed comparison against global, flattened, and degree-matched routing in
+a three-seed CIFAR-100 campaign under two selectors. At the full-model level,
+\mn{} reaches 81.368\% top-1 with a $2\times$ carrier reduction, while the
+matched-budget sweep records 81.360\% for \mn{} and 81.932\% for ToMe.
+Full-grid local processing, recovery, and routing overhead mean that the
+carrier ratio alone does not establish deployment speed.
+
+The remaining submission evidence is narrow: one common-protocol numeric
+packet for matched DTEM, latency, memory, and two checkpoint interventions;
+and passive routing visualizations from the final ImageNet model. Until those
+cells are filled, the supported claim is a trainable physical bottleneck with
+a validated spatial-routing prior, rather than state-of-the-art deployment
+performance.

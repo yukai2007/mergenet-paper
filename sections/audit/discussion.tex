@@ -1,0 +1,45 @@
+\section{Discussion and Limitations}
+
+The results distinguish an internal architectural improvement from a
+competitive compression system. Original-grid support improves this
+architecture relative to its own unconstrained router, and a three-seed
+CIFAR campaign finds the same sign against global, flattened, and
+degree-matched controls. Yet the full ImageNet model loses accuracy to the
+selected dense baseline at 224, 384 and 512 pixels, its 224-pixel
+implementation is slower in guarded synthetic tests, and post-training ToMe
+provides a stronger accuracy baseline at every matched budget in the sweep.
+Optimizer-side 150-epoch probes do not close the selected-configuration gap.
+These findings motivate revisiting the computation path, the compression
+schedule, and representation initialization; they do not show that learning a
+merge criterion is intrinsically inferior.
+
+The evidence is limited in several ways. All ImageNet training runs use seed
+42, and the validation set serves both checkpoint selection and reporting.
+We have no across-seed ImageNet uncertainty estimate or ImageNet per-image
+predictions for paired significance tests. Appendix~\ref{app:followup}
+provides predictions for two independently replayed local CIFAR checkpoints
+from an earlier campaign; Section~\ref{sec:cifar-seeds} adds three-seed
+training on resized CIFAR-100, which is not native-resolution ImageNet.
+Geometry and candidate cardinality remain coupled on ImageNet. The
+300-epoch \mn{} configuration benefits from an explicit learning-rate screen,
+while the dense baseline is not subjected to an equally broad screen. The
+$\lambda=4$ training variant changes multiple architectural parameters, and
+test-time budget changes do not replace a clean training-budget ablation.
+The 512-pixel \mn{} run is the radius-scaled branch seeded from the
+radius-5.143 384-pixel EMA file, not a radius-3 continuation.
+
+The experiment artifacts also bound reproducibility. Raw metrics, resolved
+arguments, launch records, environment information, benchmark scripts and
+checkpoint receipts are available in the campaign packet. Company policy
+prevents transfer of the trained ImageNet weights, and a release commit alone
+does not capture every change in the collaborator's working tree. The companion
+analysis preserves the source identities and distinguishes recorded results
+from independent operator diagnostics. The training environment uses PyTorch
+2.7.1 with CUDA 11.8, timm 0.9.11 and FlashAttention 2.7.3, which differs from
+the local release's pinned environment. CPU profiles and H20 synthetic timings
+cannot establish performance on every accelerator or under deployment load.
+The local follow-up resolves the ToMe attention-policy and patch-count
+mismatch for synthetic architecture timing. A verified trained-checkpoint
+joint frontier remains unavailable.
+
+Interrupted initialization, progressive latent compression, and Base-scale training remain useful follow-up directions, but they are not required to support the present method claim. The submission depends only on two unavailable checkpoint-side outputs: a common-protocol numeric packet for the main table and component interventions, and passive routing traces for the final visualization. Keeping that boundary explicit prevents partial runs or unrelated future experiments from being presented as current evidence.

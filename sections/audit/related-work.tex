@@ -1,0 +1,90 @@
+% Source retrieval cutoff: 2026-09-15.
+% Importable section; uses only standard LaTeX and \cite.
+% Evidence mapping: literature/research/claim-evidence-matrix.csv.
+\section{Related Work}
+\label{sec:related-work}
+
+Token reduction methods differ in which tokens they retain, how they aggregate
+information, and where they reduce computation. DynamicViT learns token
+retention decisions and trains them using differentiable attention
+masking~\cite{dynamicvit2021}, while A-ViT assigns adaptive computation depth
+through token halting~\cite{avit2022}. Token Merging (ToMe) combines similar
+tokens through bipartite soft matching and can be applied to an existing
+checkpoint without additional training or incorporated into
+training~\cite{tome2023}. Subsequent work changes the merge criterion:
+PiToMe protects informative or isolated tokens using an energy
+score~\cite{pitome2024}; MCTF combines similarity, informativeness, and token
+size with one-step-ahead attention and reduction-consistency
+training~\cite{mctf2024}; SAD-TM uses visual saliency and a deferred-merging
+variant~\cite{sadtm2026}. These methods provide stronger comparisons for a
+compression mechanism than an uncompressed backbone alone.
+
+The closest methodological predecessor of MergeNet is Decoupled Token
+Embedding for Merging (DTEM), which learns low-dimensional merge embeddings
+through continuously relaxed grouping and merging~\cite{dtem2024}. DTEM
+separates the representation used to select merges from the features used by
+the backbone. Its continuous operators retain the physical token count;
+end-to-end training therefore alternates relaxed embedding updates with
+backbone updates that use discretized merging, and inference uses hard
+bipartite matching. MergeNet builds on this lineage through the OpenToMe
+implementation~\cite{opentome}. It places continuous mass routing and a hard,
+fixed-budget carrier gather in one training forward, so the latent encoder
+always receives the executed compressed sequence. The decoupled metric and
+soft transport are inherited components; the contribution is their use at a
+local-to-latent compression boundary together with original-grid routing
+support. The unconstrained MergeNet variant remains an internal architectural
+control rather than a reproduction of DTEM's training protocol.
+
+Differentiable top-$k$ is itself a broader optimization problem. We use the
+threshold-adjusted smooth top-$k$ construction described by
+Su~\cite{sujianlin2024topk} as a parallel relaxation, and combine it with a
+hard exact-budget gather through a straight-through carrier weight. We do not
+claim the relaxation in isolation as a new top-$k$ operator. Likewise,
+proportional attention using token size is established by ToMe
+\cite{tome2023}; our systems contribution is the rank-one query/key
+reparameterization that preserves its key bias inside an unmodified
+FlashAttention call~\cite{flashattn2022}.
+
+Spatial locality is also an established design choice for token reduction.
+DSM delays merging, applies it within spatial windows, and then transitions
+to global merging~\cite{dsm2024}. ALGM similarly combines early local merging
+with later global merging for semantic segmentation~\cite{algm2024}.
+GTP-ViT propagates tokens over a graph that combines adjacency on the original
+image grid with semantic connections~\cite{gtpvit2024}. More recent spatial
+reducers impose different constraints: CubistMerge restricts matching to
+neighbors along rows and columns while preserving a rectangular token
+layout~\cite{cubistmerge2026}, whereas MAT merges adjacent tokens after
+Hilbert-curve reordering~\cite{napmat2025}. MergeNet instead defines eligible
+routes by a Euclidean radius on the original patch grid. This distinction
+motivates controlled comparisons of global, flattened-window, and
+two-dimensional routing support; it does not establish priority for locality
+or for hard spatial constraints.
+
+Compression and recovery must also be distinguished from the routing rule.
+LookupViT processes a fixed set of compressed tokens alongside a cheaper
+high-resolution token stream, exchanging information through bidirectional
+cross-attention~\cite{lookupvit2024}. ALGM restores token resolution for dense
+prediction~\cite{algm2024}, while DToP uses early predictions for confident
+segmentation tokens and combines predictions across stages without
+reconstructing those tokens~\cite{dtop2023}. These methods show that retaining
+or recovering dense information is a separate architectural choice. Our
+classification study evaluates the behavior and cost of a particular
+local--latent architecture; it does not establish a new general recovery
+mechanism or its suitability for dense prediction.
+
+Evaluation protocols determine what a comparison can establish. ToMe includes
+DeiT models trained from scratch for 300 epochs, whereas DTEM primarily
+studies adaptation of pretrained models~\cite{tome2023,dtem2024}. Published
+results also depend on the backbone and its training
+recipe~\cite{deit2021}; they cannot substitute for controlled comparisons in
+our patch-8 setting. DiffRate further demonstrates that layerwise compression
+rates are a design variable distinct from the merge
+criterion~\cite{diffrate2023}. Equal final token counts therefore do not imply
+equal computation throughout the network. Moreover, DSM reports that data
+movement associated with local merging can limit throughput gains despite
+arithmetic savings~\cite{dsm2024}. We accordingly separate the internal
+geometry study from comparisons with post-training ToMe and PiToMe, and
+distinguish achieved token counts, arithmetic cost, and measured latency.
+The resulting scope is a study of spatial routing and its execution costs,
+with conclusions bounded by the evaluated models, training protocols, and
+hardware.

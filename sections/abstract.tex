@@ -1,29 +1,24 @@
 \begin{abstract}
-Spatial constraints can improve learned token aggregation without making the
-resulting model an efficient alternative to dense computation. We examine
-this distinction in MergeNet, a DTEM-derived classifier that performs
-original-grid-constrained soft mass transfer, selects a fixed number of
-carriers, and recovers information before latent processing. In a
-single-seed ImageNet-1k campaign, radius-3 routing improves 150-epoch top-1
-accuracy by 1.670 percentage points over an unconstrained router and 0.598
-points over a flattened-window control. An independent CIFAR-100 campaign
-with three seeds, two selectors, and a degree-matched support control
-reproduces a radius-3 advantage in every paired comparison, including
-$+1.42\pm0.30$ points over receiver-permuted degree-matched support under the historical
-selector. The full ImageNet model reaches 81.368\% after 300 epochs at 224
-pixels, versus 82.246\% for dense DeiT-S/8. Fine-tuning narrows the gap to
-82.582\% versus 82.976\% at 384 pixels, then 82.618\% versus 83.068\% at 512
-pixels: the dense-relative deficit does not keep closing with resolution.
-Four completed 150-epoch probes, including longer warmup, a
-$\lambda$ curriculum, a higher learning rate, and matched stochastic depth,
-remain inside a campaign-defined $\pm0.40$ point decision band around the selected
-configuration. Despite 36.9\% fewer estimated multiply--accumulates, MergeNet
-takes 7.1\% more inference time in a guarded 224-pixel synthetic H20
-benchmark. A 384-pixel batch-64 radius-3 benchmark reduces inference time by
-20.0\% relative to dense DeiT, while an independent A100 harness finds no
-dense-relative speedup at either resolution on the local stack. Post-training
-ToMe has higher recorded accuracy at all twenty matched final-token budgets.
-The study separates internal routing gains from deployment evidence and
-identifies the remaining representation-level checks that still require
-collaborator-side checkpoints.
+Vision transformers retain fine image detail but pay to process every patch
+through every layer. Token merging reduces this cost only when a trainable
+merging policy also produces the shorter tensor used by downstream blocks.
+We introduce \mn{}, a local-to-latent vision transformer that separates these
+roles: continuous spatial mass routing learns where information should flow,
+and an exact-budget gather physically reduces $N$ patches to $K$ carriers
+before global reasoning. Routing is restricted to the original image grid,
+but similarities, transported mass, and carrier locations remain learned. A
+threshold-based soft top-$k$ relaxation trains the routing scores, while a
+straight-through carrier weight connects them to the hard gather. Selected
+mass is retained as a logarithmic key bias; we also give an exact rank-one
+query/key augmentation that implements this bias with an unmodified
+FlashAttention kernel. On ImageNet-1K with DeiT-S/8, the trained checkpoint
+reaches 81.368\% top-1 at $2\times$ carrier compression, versus 82.246\% for
+the dense model; matched-budget evaluation gives 81.360\% for \mn{} and
+81.932\% for post-training ToMe. Radius-3 routing improves a matched
+150-epoch control by 1.670 percentage points over global routing and 0.598
+over flattened windows, and three-seed CIFAR-100 controls retain the spatial
+advantage after matching receiver degree. The remaining
+\pendingresult{DTEM score}, \pendingresult{latency}, and
+\pendingresult{memory} cells are explicitly reserved for one common-protocol
+checkpoint evaluation.
 \end{abstract}

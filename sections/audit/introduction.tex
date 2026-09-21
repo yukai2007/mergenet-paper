@@ -1,0 +1,77 @@
+\section{Introduction}
+
+Fine patch grids retain object boundaries and small visual details, whereas
+global self-attention lets a vision transformer integrate evidence over the
+whole image. The same token sequence that provides this flexibility also
+drives the quadratic attention cost. Token pruning discards part of that
+sequence; token merging instead consolidates redundant patches so that their
+information can survive in fewer carriers~\cite{tome2023}. A learned merger
+must solve two coupled problems: decide where information should flow, and
+turn those decisions into the shorter tensor that later layers actually
+process.
+
+Continuous relaxations make the first problem trainable. DTEM learns
+dedicated merge embeddings through soft grouping and soft merging
+\cite{dtem2024}. Its continuous operators retain the token count, so its
+end-to-end protocol alternates relaxed updates of the merge embeddings with
+hard, token-reducing updates of the backbone. This leaves an architectural
+question: can a model learn a continuous routing policy while the same
+forward path exposes downstream blocks to the exact fixed token budget used
+at inference?
+
+We answer this question with \mn{}, a local-to-latent vision transformer.
+The local encoder preserves the full patch grid while a sequence of soft
+transport steps moves feature mass between slots. A fixed-budget gather then
+selects the highest-mass carriers and physically changes the tensor shape from
+$N$ patches to $K$ patches. A residual cross-attention read recovers evidence
+from the final full-grid local features, and a latent encoder performs global
+reasoning only on the $K$ carriers. Thus differentiable routing determines
+the information flow, while an explicit compression boundary determines the
+executed sequence length.
+
+The routing graph injects a deliberately weak spatial prior. A donor may
+route only to receiver positions within radius $R$ on the original
+two-dimensional patch grid, but the network remains free to choose the edge
+weights, accumulated mass, and final carrier locations inside that support.
+The prior therefore rules out geometrically implausible long jumps without
+prescribing a fixed pooling region. We test this design against global
+routing, a row-major flattened window, and a receiver-permuted graph that
+preserves the realized degree statistics.
+
+Two implementation details make the compression trainable and compatible
+with efficient attention. First, a threshold-adjusted soft top-$k$ operator,
+following the construction described by Su~\cite{sujianlin2024topk}, replaces
+serial selection with a parallel continuous mask. At the final bottleneck,
+hard indices execute the exact budget and a straight-through carrier weight
+returns gradients to the continuous scores; the method does not treat the
+discrete indices themselves as differentiable. Second, each selected carrier
+keeps its accumulated mass. Adding $\log m_j$ to the key logit gives
+mass-aware proportional attention. A rank-one query/key augmentation can
+encode this bias inside a standard FlashAttention call~\cite{flashattn2022};
+we distinguish that operator path from the PyTorch fused-attention path used
+by the reported ImageNet checkpoints.
+
+The empirical evidence supports the routing mechanism while defining the
+remaining deployment measurements. On ImageNet-1K, radius-3 routing improves
+150-epoch top-1 by $1.670\pp$ over global routing and $0.598\pp$ over a
+flattened-window control. Across three CIFAR-100 seeds, radius 3 beats global,
+flat, and degree-matched controls under both the historical and corrected
+per-sample selectors. The complete 300-epoch model reaches 81.368\% top-1 at
+224 pixels and a $2\times$ carrier reduction, compared with 82.246\% for
+dense DeiT-S/8. A matched-budget re-evaluation records 81.360\% for \mn{} and
+81.932\% for ToMe. We leave the matched DTEM, latency, and memory cells empty
+until they are measured from the collaborator-held final checkpoints under
+one protocol.
+
+Our contributions are:
+\begin{itemize}
+  \item a differentiable-to-discrete compression boundary that learns soft
+  spatial mass transport while making the latent encoder train and execute on
+  an exact, input-dependent carrier budget;
+  \item an original-grid spatial routing prior that constrains admissible
+  transport but leaves similarities and carrier locations learned, supported
+  by ImageNet controls and a three-seed, degree-matched CIFAR study; and
+  \item a mass-aware attention formulation together with an exact rank-one
+  FlashAttention-compatible implementation, plus an evaluation that separates
+  routing accuracy, token count, arithmetic cost, and measured latency.
+\end{itemize}

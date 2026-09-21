@@ -1,23 +1,45 @@
-# 2026-09-22 论文进展与给学长的清单
+# 2026-09-22 MergeNet 投稿完成度与五天收口判断
 
-主稿已按 9 月 19 日 ImageNet 包和本地 24-run CIFAR 训练更新，并加入 P01--P12 可编译空槽，当前 PDF 29 页（`mergenet-main.pdf`）。CIFAR 图现为终点柱状图加三 seed 均值轨迹。结论仍然是：**空间路由有内部收益，完整系统还不是更强的压缩方法。**
+## 当前状态
 
-## 现在可信的结论
+**论文工程完成度约 85%。** 主稿已切换到 ICLR 2027 官方样式，正文在参考文献前结束于第 7 页，低于 9 页硬上限；参考文献占第 7--8 页，附录从第 9 页开始，整份 PDF 16 页。原 19 页正文的证据审计内容没有删除，已移到附录，并另存 `mergenet-audit.tex` 和 `sections/audit/` 作为长稿快照。
 
-| 问题 | 核验后的结果 |
+主线已经统一为一个贡献：**连续、可微的空间质量路由之后接固定预算的物理 token bottleneck**。论文明确区分四件事：
+
+1. Su Jianlin threshold Top-K 是采用的连续松弛，不宣称该算子本身原创；
+2. 真正的新组合是 soft routing 与 exact-budget hard gather 同处一条训练 forward path；
+3. 空间先验只限制原图网格上的可选边，edge weight、mass 和 carrier location 仍由模型学习；
+4. `log(mass)` bias 可以用 rank-one Q/K 扩维兼容 FlashAttention，但现有 ImageNet checkpoint 实际走 PyTorch fused SDPA，因此 Flash 路径单独表述为经过 parity 验证的实现贡献。
+
+## 已经足够可信的证据
+
+| 论文主张 | 当前证据 |
 | --- | --- |
-| ImageNet 包 | 23 个有记录 run，21 个完整；3,365 行均连续且有限，其中 3,264 行与交付 EMA 日志一致，101 行因缺日志保留 summary-only 状态 |
-| 空间约束（ImageNet，单 seed） | 150e、同 LR 下 R3 比 global 高 1.670 pp，比 flat 高 0.598 pp |
-| 空间约束（CIFAR，3 seed） | 历史 selector：R3−global $+2.11\pm0.87$，R3−degree $+1.42\pm0.30$；逐样本 selector 同号。18 个逐 seed R3−对照差全为正 |
-| 300e ImageNet 224 | MN 81.368%，dense p8 82.246%，差 −0.878 pp |
-| 384 微调 | MN R3 82.582%，dense 82.976%，差 −0.394 pp |
-| 512 微调 | MN $R=6.857$ 82.618%，dense 83.068%，差 −0.450 pp。384 不是“继续逼近”的趋势点 |
-| 优化器/正则探针 | warmup −0.078、λ curriculum −0.006、lr 1e-3 +0.034、drop_path 0.07 +0.218，均未越过活动预先设定的 +0.40 pp 晋级门槛；这不是统计等价检验 |
-| 是否真的更快 | H20 架构基准 224 较慢；384 R3/b64 推理 136.54 vs 170.61 ms，时间减少 20.0%。本机 A100 两个分辨率都没有超过 dense |
-| ToMe | 精度在 20 个同最终 patch 预算上都更高；精度/计时的 prop_attn 不同，联合 Pareto 暂不成立 |
-| DeiT-B | peak 80.442 @ep179，final 78.566；drop_path 0.1 过拟合，不能当 scale anchor |
-| 未完成 | wd 0.03 停在 140/150（需要完整消融时再续）；DeiT-init 停在 105/150（优先续）；progressive latent 从未启动，且需要同最终预算对照 |
+| 二维空间支持优于无空间支持 | ImageNet 150e 同 recipe：R3 比 global +1.670 pp，比 flat +0.598 pp |
+| 收益不只来自候选数 | CIFAR-100 三 seed 的 receiver-degree-matched control；历史 selector 下 +1.42±0.30 pp，逐样本 selector 下 +1.19±0.13 pp |
+| 不依赖单一 selector | 两种 selector 下 R3 都排名第一；18 个 paired R3-control 差值全为正 |
+| 确实产生短序列 | 784→392 hard gather 是 latent encoder 前第一个物理压缩点 |
+| 完整系统边界 | 300e MN 81.368%，dense 82.246%；matched sweep MN 81.360%，ToMe 81.932%；ToMe 在 20/20 已记录预算上精度更高 |
+| 分辨率行为 | MN-dense gap：224 -0.878 pp，384 -0.394 pp，512 -0.450 pp；不能写成单调逼近 |
 
-公司 ImageNet checkpoint 仍不在本地，也不在 tar 包里。CIFAR 24 个新训练的 last/best 在 `/liziqing/yukai/mergenet_local_campaign_20260915/runs/`。
+论文因此可以可信地投稿为“新机制 + 受控空间路由证据”，但现在**不能写 SOTA**。现有完整模型没有超过 dense/ToMe，224px 历史随机权重基准也没有速度优势。摘要、Introduction、Results、Discussion 和 Conclusion 已全部按这个证据强度改写。
 
-发给学长的可转发清单：[`handoff-20260920.zh-CN.md`](handoff-20260920.zh-CN.md)。
+## 还缺的只有两项
+
+1. **一个数字包：** matched DTEM top-1；dense/DTEM/ToMe/MergeNet 同协议 latency 与 peak memory；以及 `mass_bias_off`、`recovery_off` 两个 inference-only top-1/top-5。
+2. **一张最终 checkpoint 路由图：** 4--6 个 ImageNet 样本的逐层 transport edge、mass、carrier 与失败例，并附 passive-trace 一致性检查。
+
+可直接转发给合作者的格式见 `collaborator-request-20260922.zh-CN.md`。checkpoint 无需传出。
+
+## 能否赶上
+
+能形成合规投稿稿，但依赖合作者在截止前返回上述材料。ICLR 2027 官方 full-paper deadline 是 **2026-09-25 11:59 PM AOE**，正文严格最多 9 页，超页会 desk reject：<https://iclr.cc/Conferences/2027/AuthorGuidelines>。当前版已解决格式和页数风险。
+
+建议收口顺序：
+
+- 9 月 22--23 日：合作者跑统一数字包并导出 trace；本地继续做语言、引用和匿名性检查。
+- 数字到达当天：自动填主表、摘要和组件消融，重新生成 PDF；若 DTEM 确实不可得，删掉 abstract 中的比较句而不是填公开的非匹配数字。
+- 图到达当天：替换附录空图；若版面和信息质量足够，再将精简版调到主文。
+- 截止前最后一天：冻结 PDF，逐项核对 OpenReview 元数据、作者列表、补充材料和匿名信息。
+
+最大的投稿风险已经从“论文没写完”变成“核心结果强度有限”。即使两项都补齐，如果统一基准没有速度/内存优势，论文仍应坚持机制论文定位；不能用旧 H20 的非同协议数字包装成 Pareto 优势。

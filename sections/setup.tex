@@ -1,115 +1,42 @@
 \section{Experimental Protocol}
 \label{sec:setup}
 
-\subsection{Data, optimization, and run identity}
+\paragraph{Training and evaluation.}
+We train on ImageNet-1K and report EMA top-1 on its 50,000-image validation
+split. Main 224-pixel runs use AdamW for 150 or 300 epochs with global batch
+1,024, cosine decay, five warmup epochs, weight decay 0.05, label smoothing
+0.1, Mixup 0.8, CutMix 1.0, RandAugment, random erasing 0.25, and no teacher.
+The matched geometry controls use learning rate $5\times10^{-4}$; the selected
+\mn{} configuration uses $7.5\times10^{-4}$. Thus geometry comparisons are
+recipe matched, whereas the final dense--\mn{} comparison uses each selected
+configuration. Full arguments and the run inventory are in
+Appendix~\ref{app:recipe}.
 
-We analyze an ImageNet-1k classification campaign with seed 42. Evaluation
-uses the 50,000-image validation split and reports top-1 accuracy of the
-exponential moving average (EMA) model. The September 19 packet contains 23
-runs with recorded epochs: 21 complete schedules, a 140/150 weight-decay probe
-stopped by a scheduled reboot, and a DeiT-initialized run interrupted at
-105/150. Endpoints in this manuscript are recomputed from each run's
-\texttt{summary.csv} by header name. A September 21 audit verifies 3,365
-contiguous summary rows across all 23 runs and matches 3,264 rows' EMA loss,
-top-1 and top-5 to supplied logs. Logs are missing for 86 curriculum epochs
-(64--149) and all 15 MergeNet 512-pixel epochs. These 101 rows remain
-summary-only evidence. Three conflicting early rows in one 384-pixel run
-are resolved using a documented restart and a later complete matching
-trajectory; the original conflicting records are retained. Checkpoint-verification
-receipts are present, but the weights themselves were not transferred with
-the campaign packet. This audit verifies the recorded outcomes; it is not an
-independent checkpoint re-evaluation.
+The 384-pixel models fine-tune the 300-epoch EMA weights for 30 epochs; the
+512-pixel models add 15 epochs. All retain effective global batch 1,024 via
+gradient accumulation. We report both the best and final EMA values because
+best-checkpoint selection uses the same validation split. A supplied packet
+contains 21 complete and two interrupted ImageNet schedules. We recompute
+endpoints by header name from 3,365 contiguous summary rows and cross-check
+3,264 rows against supplied logs; missing-log rows remain summary-only. The
+company checkpoints were not transferred, so this is a record audit rather
+than an independent checkpoint replay.
 
-The main 224-pixel scratch arms train for 150 or 300 epochs, using AdamW,
-cosine learning-rate decay, five warmup epochs (twenty for the warmup probe),
-weight decay 0.05 unless noted, gradient
-clipping at 1.0, label smoothing 0.1, Mixup 0.8, CutMix 1.0, RandAugment, and
-random erasing probability 0.25. The base learning rate is $5\times10^{-4}$;
-a separate \mn{} arm uses $7.5\times10^{-4}$, and one probe uses $10^{-3}$.
-The higher-rate $7.5\times10^{-4}$ arm supplies
-the 300-epoch \mn{} checkpoint. Therefore the final dense-versus-\mn{}
-comparison is a comparison of selected configurations, while the geometry
-comparison uses matched learning rates. No teacher distillation is enabled.
-Appendix~\ref{app:recipe} gives the recipe and auxiliary-logit schedule.
+\paragraph{Compression comparisons.}
+The main table fixes 392 final patches at 224 pixels. ToMe and PiToMe are
+applied after training to the dense checkpoint, while \mn{} is trained with
+its native bottleneck. The budget sweep evaluates the complete validation set
+at five budgets. These rows compare deployable checkpoints; they do not
+isolate the routing rule under identical training. A separate CIFAR-100 study
+trains two selectors $\times$ four routing geometries $\times$ three seeds for
+200 epochs. Its preregistered endpoint is epoch-199 EMA top-1.
 
-The effective global batch is 1,024 throughout the recorded campaign. The
-384/512-pixel fine-tunes use four-step gradient accumulation:
-$32\times8\times4=1024$ for the dense 384-pixel run and
-$64\times4\times4=1024$ for the other fine-tunes. Each fine-tune epoch contains
-5,004 per-rank microsteps and 1,251 optimizer steps. Counting microsteps as
-optimizer steps would incorrectly suggest a fourfold batch reduction.
-Different world sizes and microbatches still produce different execution
-and sample-grouping conditions; effective batch equality alone does not
-establish bitwise equivalence.
-
-\subsection{Resolution adaptation and checkpoint selection}
-
-Three 384-pixel runs fine-tune the corresponding 300-epoch EMA weights for
-30 epochs, using learning rate $10^{-5}$, minimum rate $10^{-6}$, one warmup
-epoch, weight decay $10^{-8}$, and no Mixup or CutMix. EMA decay changes from
-0.99996 to 0.9996. The \mn{} arms either retain $R=3$ or use
-$R=3\times384/224\approx5.143$. The latter tests a particular proportional
-radius scaling; it is not a complete radius search. Bicubic validation
-preprocessing uses crop percentage 0.9 at 224 pixels and 1.0 for the
-fine-tunes. The 512-pixel dense result follows its 384-pixel checkpoint.
-The paired 15-epoch \mn{} 512-pixel run is initialized from the radius-5.143
-384-pixel EMA weights and uses $R=3\times512/224\approx6.857$. The
-radius-3 384-pixel packet has no extracted EMA file, so that checkpoint
-cannot seed a 512-pixel stage without a further extraction on the training
-machine.
-
-We report both the best observed EMA top-1 and the final-epoch EMA top-1.
-Best checkpoints are selected on the same validation split used for
-reporting, so these scores are not independent held-out estimates of model
-selection. Epoch indices start at zero. All completed-run comparisons use
-actual summary headers rather than fixed column positions, because the
-summary schema changes with enabled diagnostics. Runs with a teardown error
-after a complete recorded schedule are distinguished from unfinished runs.
-
-\subsection{Post-training compression and timing}
-
-The accuracy sweep applies ToMe and PiToMe to the dense EMA checkpoint
-without additional training, and changes \mn{}'s carrier budget without
-retraining each point. Thus \mn{} has been trained with its native
-compression, whereas the dense backbone was trained without merging. This
-is a deployment comparison of available checkpoints, not an isolation of the
-routing rule under identical training. We distinguish a 224-pixel checkpoint
-evaluated at a new resolution from a checkpoint fine-tuned at that resolution.
-Repeated successful sweep records are resolved by latest timestamp, not
-highest accuracy. All included accuracy cells use the full validation split. Training-summary
-validation uses 64 images per rank. For sweeps from the 224-pixel checkpoints,
-\mn{} and ToMe use batch 128 and PiToMe uses batch 256; the final 384-pixel
-fine-tuned curves use batch 256 for all three. The separate fine-tuned gate
-uses batch 384. These batch distinctions matter for the soft-routing
-implementation and are retained in the evidence ledger.
-
-The 224-pixel efficiency experiment uses one H20-3e, synthetic inputs, batch
-64, fp16 autocast, 30 warmup iterations and 50 measured iterations. It records
-CUDA-event medians and interquartile ranges (IQRs); training cells include
-forward, loss, backward and AdamW update. Device isolation is checked around
-the measurements. The separate radius-3 benchmarks at 384 pixels use the
-same thirty-warmup/fifty-measurement protocol at batches 64 and 128.
-These are model-execution timings, excluding image loading,
-and do not estimate end-to-end training time on eight GPUs. Training-log
-throughput is excluded because the training machine was shared.
-
-A later 384-pixel benchmark uses batch 64, ten warmup and 30 measured
-iterations, random model initialization and synthetic inputs. It records
-achieved token counts, but disables ToMe proportional attention, whereas the
-accuracy sweep uses it. We retain these latency measurements as a separate
-configuration-specific experiment and do not attach accuracy coordinates to
-them. Final token counts also require care: the accuracy sweep counts patches,
-while this timing harness counts the class token as well.
-
-\subsection{Protocol for reserved extensions}
-\label{sec:pending-protocol}
-
-The working-draft slots P01--P12 specify additional evidence without adding
-observations to the completed-run tables. Initialization and progressive
-latent experiments are defined in Sections~\ref{sec:pending-init}
-and~\ref{sec:pending-progressive}; their resolved arguments and source-state
-receipts must be fixed before interpretation. ImageNet support replication
-uses paired training seeds (Section~\ref{sec:pending-geometry}). Joint
-accuracy and latency require the configuration identity in
-Section~\ref{sec:pending-frontier}. Additional metadata and currently missing
-log segments are enumerated in Appendix~\ref{sec:pending-receipts}.
+\paragraph{Timing.}
+Historical 224- and 384-pixel latency records use synthetic inputs and random
+weights; one later ToMe sweep also disables proportional attention. We report
+these only as architecture diagnostics. The primary table leaves latency and
+memory blank until dense, matched DTEM, ToMe, and \mn{} are measured from
+trained checkpoints with identical preprocessing, precision, batch, attention
+policy, token hooks, and CUDA-event timing. The same collaborator packet will
+supply two inference-only component scores and passive routing traces; no
+checkpoint transfer is requested.

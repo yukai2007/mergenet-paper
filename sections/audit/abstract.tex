@@ -1,0 +1,31 @@
+\begin{abstract}
+Modern visual recognition requires both fine image detail and long-range
+context, but retaining every patch through every transformer layer is costly
+at high resolution. Token merging reduces this cost only when a learnable
+merging policy also produces a physically shorter sequence. We introduce
+\mn{}, a local-to-latent vision transformer that connects these two goals in
+one forward path. A full-grid encoder first performs differentiable mass
+routing over a learned similarity graph whose eligible edges are constrained
+by the original two-dimensional patch geometry. A threshold-based soft
+top-$k$ relaxation trains the routing and carrier scores, while an exact-budget
+hard gather then materializes a shorter sequence before global reasoning.
+Selected token mass is preserved as a logarithmic key bias in the latent
+attention. The released operators also contain a rank-one query/key
+augmentation that evaluates this bias with an unmodified FlashAttention
+kernel; the reported ImageNet checkpoints use PyTorch fused attention for
+this step, so we report the FlashAttention path separately.
+
+On ImageNet-1K with DeiT-S/8, the trained \mn{} checkpoint reaches
+81.368\% top-1 at $2.00\times$ patch compression; its matched-budget
+re-evaluation is 81.360\%, compared with 82.246\% for dense DeiT-S/8 and
+81.932\% for post-training ToMe. The exact matched DTEM score is
+\pendingresult{DTEM top-1}. Radius-3 spatial routing improves the 150-epoch
+ImageNet result by 1.670 percentage points over unconstrained routing and by
+0.598 points over a flattened-window control. A separate three-seed
+CIFAR-100 study reproduces the spatial advantage under two selectors and a
+degree-matched receiver permutation. Under a common trained-checkpoint
+protocol, latency and peak-memory reductions remain
+\pendingresult{latency} and \pendingresult{memory}. These experiments isolate
+the benefit of a learned spatial routing prior while reserving deployment
+claims until the missing checkpoint-side measurements are available.
+\end{abstract}

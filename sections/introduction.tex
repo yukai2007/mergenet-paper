@@ -1,52 +1,56 @@
 \section{Introduction}
 
-Fine patch grids preserve spatial detail but increase the cost of vision
-transformers. Token merging offers a way to retain information from that grid
-while reducing the sequence processed by later layers~\cite{tome2023}.
-Learning the merge criterion can make compression responsive to the task,
-but a useful learned router must satisfy two distinct requirements: its
-aggregation decisions must preserve useful representations, and its execution
-must save enough work to pay for routing itself. An improvement in the first
-requirement does not imply an improvement in the second.
+Fine patch grids preserve object boundaries and small visual details, while
+global self-attention integrates evidence across an image. Their cost grows
+with the token sequence. Token merging can consolidate redundant patches
+instead of discarding them~\citep{tome2023}, but a learned merger must solve
+two coupled problems: decide where information should flow, and expose later
+layers to the physically shorter sequence that realizes the savings.
 
-We study this distinction through \mn{}, a classifier that combines a
-DTEM-derived soft router~\cite{dtem2024} with a full-grid local encoder, a fixed
-carrier budget, global recovery attention, and a compressed latent encoder.
-The routing constraint is simple: a donor can send mass only to receiver slots
-within a Euclidean radius on the original image grid. The constraint prevents
-a flattened sequence from treating a row boundary as ordinary spatial
-adjacency. It also limits candidate support independently of the learned
-similarity. We compare this router with unconstrained, flattened-window, and
-degree-matched versions of the same architecture before comparing the complete
-model with dense and post-training compression baselines.
+Continuous relaxations make routing trainable. DTEM learns merge embeddings
+through soft grouping and merging~\citep{dtem2024}, but its continuous path
+retains all token slots; its end-to-end protocol alternates relaxed merge
+updates with hard token-reducing backbone updates. We ask whether one forward
+path can learn continuous routing while making the downstream model train on
+the exact token budget used at inference.
 
-The resulting evidence supports a qualified conclusion. With matched 150-epoch
-ImageNet settings, radius-3 routing improves best validation accuracy by
-$1.670\pp$ over the unconstrained router and $0.598\pp$ over the flattened
-window. These are observed single-seed improvements. They do not, by themselves,
-separate geometry from candidate cardinality. A later CIFAR-100 campaign with
-three seeds and a degree-matched receiver permutation of the realized radius-3
-mask finds a radius-3 advantage in all paired comparisons, under both the
-historical batch-normalized selector and a per-sample bisection selector.
+\mn{} answers this question with a local-to-latent architecture. A full-grid
+encoder performs soft mass transport, then an exact-budget gather changes the
+shape from $N$ patches to $K$ carriers. Residual cross-attention recovers
+evidence from the full-grid local features, and global reasoning occurs only
+on the $K$ carriers. Routing is restricted to receiver positions within
+radius $R$ on the original two-dimensional grid. This is a weak spatial
+prior: it excludes implausible long jumps but leaves edge weights, mass, and
+carrier locations learned.
 
-The deployment evidence is less favorable. At 224 pixels, a 300-epoch
-\mn{} reaches 81.368\% top-1, compared with 82.246\% for dense DeiT-S/8.
-Its batch-64 inference takes 45.71\,ms on a guarded H20 benchmark, compared
-with 42.68\,ms for the dense model, despite lower estimated arithmetic cost.
-After 384-pixel fine-tuning, the accuracy gap narrows to $0.394\pp$; a further
-512-pixel stage leaves a $0.450\pp$ gap. Completed optimizer-side probes do not
-move the selected 150-epoch configuration outside a campaign-defined
-$0.40\pp$ band. Post-training ToMe remains a strong accuracy baseline at matched
-final patch counts. The available ToMe accuracy and latency harnesses use
-different proportional-attention settings, so their outputs cannot be
-combined into a verified accuracy--latency frontier.
+Two details connect the formulation to efficient execution. We use the
+threshold-adjusted smooth top-$k$ construction of \citet{sujianlin2024topk}
+and couple it to hard indices with a straight-through carrier weight. The
+gather indices are discrete; the claim is gradient flow to their continuous
+scores, not differentiation of the indices themselves. We also preserve a
+carrier's accumulated mass as a $\log m$ key bias. Because this bias is rank
+one across queries, an augmented query/key dimension realizes it through an
+unmodified FlashAttention call~\citep{flashattn2022}. The released operator
+implements this path, while the reported ImageNet checkpoints use PyTorch
+fused scaled-dot-product attention; we evaluate the two claims separately.
 
-Our contributions are an implementation-specific analysis of spatially
-constrained soft routing, a traceable evaluation of its internal and external
-comparisons, including a three-seed CIFAR confirmation and a completed
-resolution series, and a diagnosis of why nominal compression and realized
-savings can diverge. We explicitly distinguish the support of a routing step
-from the receptive field of a feature, and soft mass transfer from physical
-sequence reduction. The study establishes useful internal controls and concrete
-reproduction requirements; it does not claim state-of-the-art compression,
-priority for spatial merging, or a general failure of learned token merging.
+Our evidence supports the routing mechanism while keeping the deployment
+claim bounded. Spatial routing outperforms global and flattened controls on
+ImageNet and two selectors across three CIFAR-100 seeds; a degree-matched
+receiver permutation shows that locality contributes beyond candidate
+cardinality. The trained 300-epoch model, however, trails dense DeiT-S/8 and
+post-training ToMe in the available matched-budget accuracy records. We
+therefore do not claim a state-of-the-art frontier before common-protocol
+checkpoint timing and the matched DTEM row are available.
+
+Our contributions are:
+\begin{itemize}
+  \item a continuous spatial-routing path followed by an exact physical
+  bottleneck, so the latent encoder trains and executes on a fixed carrier
+  budget;
+  \item an original-grid routing prior whose gain is tested against global,
+  flattened-window, selector, and degree-matched controls; and
+  \item mass-aware attention with an exact FlashAttention-compatible
+  reparameterization, together with an evaluation that separates accuracy,
+  token count, arithmetic cost, and measured latency.
+\end{itemize}

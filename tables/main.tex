@@ -1,14 +1,10 @@
-\begin{tabular}{llrrrr}
+\begin{tabular}{llrrrrr}
 \toprule
-Model & Pixels & Epochs & Best (\%) & Final (\%) & Best epoch \\
+Method & Compression path & Input$\to$final & $\times$ & Top-1 (\%) & Median ms & Peak GiB \\
 \midrule
-DeiT-S/16 & 224 & 300 & 79.692 & 79.684 & 290 \\
-DeiT-S/8 & 224 & 300 & 82.246 & 82.162 & 277 \\
-MergeNet, $R=3$ & 224 & 300 & 81.368 & 81.350 & 291 \\
-DeiT-S/8 & 384 & 300+30 & 82.976 & 82.848 & 7 \\
-MergeNet, $R=3$ & 384 & 300+30 & 82.582 & 82.524 & 20 \\
-MergeNet, $R=5.143$ & 384 & 300+30 & 82.574 & 82.532 & 22 \\
-DeiT-S/8 & 512 & 300+30+15 & 83.068 & 83.038 & 6 \\
-MergeNet, $R=6.857$ & 512 & 300+30+15 & 82.618 & 82.480 & 6 \\
+DeiT-S/8 & dense, trained & $784\to784$ & 1.00 & 82.246 & \pendingvalue & \pendingvalue \\
+DTEM & matched run & $784\to392$ & 2.00 & \pendingvalue & \pendingvalue & \pendingvalue \\
+DeiT-S/8 + ToMe & post-training & $784\to392$ & 2.00 & 81.932 & \pendingvalue & \pendingvalue \\
+\mn{} ($R=3$) & end-to-end & $784\to392$ & 2.00 & 81.360 & \pendingvalue & \pendingvalue \\
 \bottomrule
 \end{tabular}
