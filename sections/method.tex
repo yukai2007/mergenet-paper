@@ -82,18 +82,45 @@ $Q$ then recover full-grid evidence through
 \end{equation}
 and six latent blocks process $K$ patches plus CLS.
 
-Carrier mass enters latent attention as proportional attention:
+\subsection{Memory-efficient rank-one biased attention}
+
+Carrier mass enters latent attention as a per-key proportional-attention
+bias. For $N_q$ queries and $N_k$ keys, let
+$\beta_j=\log m_j$ and $B=\mathbf 1_{N_q}\beta^\top$. Then
 \begin{equation}
  \operatorname{Attn}(Q,K,V;m)=
- \operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_h}}
- +\mathbf 1\log(m)^\top\right)V.
+ \operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_h}}+B\right)V.
  \label{eq:mass-attn}
 \end{equation}
-The bias is rank one across queries. With
-$\widehat Q=[Q,\sqrt{d_h}\mathbf1]$ and $\widehat K=[K,\log m]$, standard
-scaled dot-product attention on $(\widehat Q,\widehat K,V)$ has exactly the
-same logits. Padding the added head dimension to a multiple of eight lets the
-released operator call unmodified FlashAttention. The reported ImageNet
-checkpoints instead use PyTorch fused scaled-dot-product attention with an
-additive mask; the FlashAttention path is validated separately by
-forward/backward parity tests and is not credited with their runtime.
+The bias is rank one across query positions. Define
+\begin{equation}
+ \widehat Q=[Q,\sqrt{d_h}\mathbf1_{N_q}],\qquad
+ \widehat K=[K,\beta].
+ \label{eq:augmented-qk}
+\end{equation}
+Using the \emph{original} softmax scale $1/\sqrt{d_h}$ gives
+\begin{equation}
+ \frac{\widehat Q\widehat K^\top}{\sqrt{d_h}}
+ =\frac{QK^\top}{\sqrt{d_h}}+\mathbf1_{N_q}\beta^\top,
+ \label{eq:augmented-equivalence}
+\end{equation}
+so a standard attention kernel realizes the biased logits without
+materializing $B$. The explicit scale is essential: using a kernel default
+based on the augmented or padded width would not be equivalent.
+
+The released operator pads $d_h+1$ to
+$d_{\mathrm{phys}}=8\lceil(d_h+1)/8\rceil$, zero-fills the extra query/key
+channels, pads $V$ to the same physical width, invokes unmodified
+FlashAttention, and truncates its output back to $d_h$. This preserves
+FlashAttention's linear activation-memory dependence on sequence length for
+fixed head width; it does not change the quadratic score computation of
+global attention. Its generic inference path reuses cached padded workspaces
+to avoid repeated allocation but still copies $Q,K,V$ into them. Training
+allocates fresh workspaces for autograd safety, and the caller-padded path
+clones caller-owned storage before writing the auxiliary channel. We therefore
+make no zero-copy or peak-memory claim without a separate profile.
+
+The reported ImageNet checkpoints implement Equation~\eqref{eq:mass-attn}
+through PyTorch fused scaled-dot-product attention with an additive mask.
+The augmented FlashAttention operator has forward/backward parity tests, but
+was not their latent-attention path and is not credited with their runtime.
