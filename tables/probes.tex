@@ -1,0 +1,12 @@
+\begin{tabular}{lrrrl}
+\toprule
+150-epoch probe & LR ($10^{-4}$) & Best (\%) & $\Delta$ vs selected & Status \\
+\midrule
+Spatial $R=3$ (selected) & $7.5$ & 79.316 & +0.000 & Complete \\
+Warmup 20 & $7.5$ & 79.238 & -0.078 & Complete \\
+$\lambda$ 1.5$\to$2 curriculum & $7.5$ & 79.310 & -0.006 & Complete \\
+Learning rate $10^{-3}$ & $10$ & 79.350 & +0.034 & Complete \\
+Drop-path 0.07 & $7.5$ & 79.534 & +0.218 & Complete \\
+Weight decay 0.03 & $7.5$ & 79.054 & -0.262 & 140/150 \\
+\bottomrule
+\end{tabular}

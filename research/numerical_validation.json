@@ -1,14 +1,22 @@
 {
-  "summary_rows": 2419,
-  "runs_with_metrics": 17,
-  "complete_runs": 16,
+  "summary_rows": 3365,
+  "runs_with_metrics": 23,
+  "complete_runs": 21,
   "valid_compression_triplets": 20,
   "tome_accuracy_wins": 20,
+  "cifar_complete_jobs": 24,
   "gaps_pp": {
     "r3_minus_global": 1.6699999951171804,
     "r3_minus_flat": 0.5979999707031283,
     "mn_minus_dense_224": -0.8779999682617188,
-    "mn_minus_dense_384": -0.3939999755859418
+    "mn_minus_dense_384": -0.3939999755859418,
+    "mn_minus_dense_512": -0.45000000000000284,
+    "drop_path_delta": 0.21799999023437522,
+    "warmup_delta": -0.07800000976563126,
+    "curriculum_delta": -0.006000009765628533,
+    "cifar_historical_r3_minus_global_mean": 2.1099999999999994,
+    "cifar_historical_r3_minus_degree_mean": 1.423333333333337,
+    "inference_none_minus_native": -0.006000000000000227
   },
   "warning": "No accuracy-latency Pareto curve is generated: proportional-attention settings differ."
 }

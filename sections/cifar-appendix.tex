@@ -59,3 +59,4 @@ The initial historical audit checked receipt hashes and checkpoint presence, wit
 The historical spatial implementation constructs a dense donor--receiver score matrix before masking, so these results do not validate the later sparse backend or its efficiency.
 Furthermore, both historical implementations use a threshold operator whose normalization range is shared across a batch, allowing a sample's routing to depend on its batch companions.
 Appendix~\ref{app:followup} subsequently rehashes and reevaluates two of these checkpoints and quantifies their batch sensitivity; the full historical sweep remains tied to its recorded evaluation batches.
+Section~\ref{sec:cifar-seeds} reports a later 24-run campaign with three seeds, two selectors, and a degree-matched control; those runs are independent trainings and are not substitutes for the table above.

@@ -1,0 +1,56 @@
+{
+  "mergenet_523": {
+    "method": "mergenet",
+    "requested_tokens": 523,
+    "achieved_tokens": 523,
+    "top1": 81.38,
+    "top5": 95.678,
+    "n_images": 50000,
+    "tokens_match": true
+  },
+  "mergenet_392": {
+    "method": "mergenet",
+    "requested_tokens": 392,
+    "achieved_tokens": 392,
+    "top1": 81.36,
+    "top5": 95.622,
+    "n_images": 50000,
+    "tokens_match": true
+  },
+  "mergenet_314": {
+    "method": "mergenet",
+    "requested_tokens": 314,
+    "achieved_tokens": 314,
+    "top1": 81.074,
+    "top5": 95.498,
+    "n_images": 50000,
+    "tokens_match": true
+  },
+  "mergenet_262": {
+    "method": "mergenet",
+    "requested_tokens": 262,
+    "achieved_tokens": 262,
+    "top1": 80.85,
+    "top5": 95.398,
+    "n_images": 50000,
+    "tokens_match": true
+  },
+  "mergenet_196": {
+    "method": "mergenet",
+    "requested_tokens": 196,
+    "achieved_tokens": 196,
+    "top1": 80.228,
+    "top5": 94.976,
+    "n_images": 50000,
+    "tokens_match": true
+  },
+  "none_392": {
+    "method": "none",
+    "requested_tokens": 784,
+    "achieved_tokens": 392,
+    "top1": 81.354,
+    "top5": 95.618,
+    "n_images": 50000,
+    "tokens_match": false
+  }
+}

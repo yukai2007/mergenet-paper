@@ -1,0 +1,87 @@
+\subsection{Trained-checkpoint joint evaluation: reserved frontier}
+\label{sec:pending-frontier}
+\pendingslot{P03}{Pair accuracy and timing from one verified configuration}{The
+weights can remain on the collaborator's machine; return only permitted
+evaluation records and figures.}
+
+For each dense, MergeNet, ToMe and PiToMe cell, bind a checkpoint fingerprint
+and state key to the same resolved arguments, resolution, preprocessing,
+precision, batch composition and achieved patch budget. ToMe proportional
+attention must agree between accuracy and timing. Count class tokens
+separately, verify per-layer shapes, and remove hooks before timing.
+Evaluate all 50,000 validation images. For the batch-dependent historical
+selector, fix evaluation batches, ordering and distributed partitioning.
+
+Measure on an otherwise idle device. Archive warmup/repetition counts,
+synchronized CUDA-event samples, medians and IQRs. Report allocated and
+reserved memory separately, and specify whether latency includes data loading.
+Synthetic-input measurements remain labeled as model-execution timings.
+Do not join the old accuracy sweep to another random-weight configuration.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrrr}\toprule
+Method & Patches & EMA top-1 & Median ms & IQR ms & Allocated GiB\\\midrule
+Dense DeiT-S/8 & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+MergeNet & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+ToMe & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+PiToMe & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}
+\caption{Reserved trained-checkpoint joint cells [P03]. Repeat this block
+for each resolution/budget and attach device, batch, state key and attention
+policy. All numerical fields remain unfilled.}
+\label{tab:pending-frontier}\end{table}
+\begin{figure}[htbp]\centering
+\pendingfigure{P03: measured accuracy versus batch latency at 224 and 384 pixels}{3.5cm}
+\caption{Reserved joint comparison [P03]. No dominance ordering is assumed.}
+\label{fig:pending-frontier}\end{figure}
+\pendingtext
+
+\subsection{ImageNet selector transfer: reserved experiment}
+\label{sec:pending-selector}
+\pendingslot{P05}{Separate batch invariance from learning behavior}{Completed
+CIFAR runs do not determine ImageNet accuracy after a selector change.}
+
+Hold selected images fixed while replacing only their batch companions.
+Compare exact repeats, original selection and rowwise selection; export logit
+differences, changed classes, selection-mass errors and finite-gradient checks.
+A learning claim additionally requires matched ImageNet training. Changing
+the operator in old weights is an inference intervention. The rowwise
+implementation changes normalization and threshold solution together;
+attributing an effect to one component needs additional factorial controls.
+Generalizing the issue to other implementations requires their own audits.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrr}\toprule
+Condition & Top-1 & Max logit change & Changed classes & Finite checks\\\midrule
+Original selector, old weights & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Rowwise intervention, same weights & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Matched rowwise training & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}
+\caption{Reserved ImageNet selector tests [P05]. Image population, batches,
+seeds and state identities accompany each distinct experimental condition.}
+\label{tab:pending-selector}\end{table}
+\pendingtext
+
+\subsection{Execution-cost attribution: reserved profile}
+\label{sec:pending-profile}
+\pendingslot{P08}{Measure device activity and complete training steps}{Needed
+for a specific bottleneck explanation or training-speed claim.}
+
+Profile local attention/MLPs, selection, transport, gather, recovery and
+latent blocks on one fixed software stack. Device operator times may overlap
+and must not be assumed additive. HBM bandwidth claims require device counters,
+not logical tensor sizes. Compare layouts with identical inputs, loss,
+backward, optimizer and AMP policy; report actual updates and skipped steps.
+Long-run accuracy or stability needs separate matched training. The existing
+approximate 5\% inference gain does not fill these training cells.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrr}\toprule
+Implementation & Step median ms & IQR ms & Allocated GiB & Actual updates\\\midrule
+Original layout & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Layout variant & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}
+\caption{Reserved complete-step timing [P08]. Per-region device profiles
+and any long-run checks are separate evidence.}
+\label{tab:pending-profile}\end{table}
+\pendingtext

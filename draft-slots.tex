@@ -1,0 +1,12 @@
+% Requested author working-draft slots; these macros supply no result values.
+\newcommand{\pendingvalue}{\rule{0.8cm}{0.3pt}}
+\newcommand{\pendingtext}{\par\noindent\textit{Result and interpretation:}\par
+  \noindent\rule{0.94\linewidth}{0.3pt}\par\vspace{0.6em}
+  \noindent\rule{0.94\linewidth}{0.3pt}\par}
+\newcommand{\pendingslot}[3]{\par\medskip\noindent
+  \textcolor{blue!55!black}{\textbf{Evidence pending [#1]: #2}}\par
+  \noindent\textit{#3}\par\smallskip}
+\newcommand{\pendingfigure}[2]{\par\smallskip\noindent
+  \fbox{\parbox[c][#2][c]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{
+    \centering\textcolor{gray}{#1}\par\smallskip
+    \textcolor{gray}{Reserved space; no measurements or images supplied.}}}\par}

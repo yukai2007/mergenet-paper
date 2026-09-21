@@ -1,18 +1,25 @@
 \section{Conclusion}
 
-Spatially restricting soft token routing improves the recorded ImageNet
-accuracy of \mn{} relative to its global and flattened-window controls.
-The benefit survives both best- and final-checkpoint reporting, and
-higher-resolution fine-tuning narrows the gap to dense DeiT-S/8. It does not,
-however, establish a superior compression system. Full-grid processing before
-the gather, recovery cost, and routing overhead separate nominal compression
-from execution savings. The measured dense-relative latency balance improves
-at higher resolution on H20, while the independent A100 stack shows no
-dense-relative speedup at either tested resolution. A unified local timing
-protocol and CIFAR checkpoint replay narrow the evidence: the layout change
-gives modest whole-model gains, and spatial-routing accuracy benefits
-persist despite observable batch dependence. Strong post-training accuracy
-baselines and unavailable ImageNet weights still limit deployment claims. The resulting
-study provides a reproducible account of the measured tradeoffs and a
-specific batch-dependence diagnostic, while leaving a corrected,
-checkpoint-verified accuracy--latency frontier as an explicit open result.
+Spatially restricting soft token routing improves the recorded accuracy of
+\mn{} relative to its global and flattened-window controls. The ImageNet
+benefit survives both best- and final-checkpoint reporting. A three-seed
+CIFAR-100 campaign reproduces a radius-3 advantage under two selectors and
+against a degree-matched support control. Higher-resolution fine-tuning
+narrows the ImageNet gap to dense DeiT-S/8 at 384 pixels, but a completed
+512-pixel stage does not continue that closing. Completed optimizer probes
+do not exceed the campaign's improvement threshold over the selected
+150-epoch configuration. The composed system
+still does not establish a superior compression method. Full-grid processing
+before the gather, recovery cost, and routing overhead separate nominal
+compression from execution savings. The measured dense-relative latency
+balance improves at higher resolution on H20, while the independent A100
+stack shows no dense-relative speedup at either tested resolution. A unified
+local timing protocol and CIFAR checkpoint replay narrow the evidence: the
+layout change gives modest whole-model gains, and spatial-routing accuracy
+benefits persist despite observable batch dependence. Strong post-training
+accuracy baselines and unavailable ImageNet weights still limit deployment
+claims. The resulting study provides a reproducible account of the measured
+tradeoffs, a three-seed routing confirmation, and a specific batch-dependence
+diagnostic, while leaving a corrected, checkpoint-verified
+accuracy--latency frontier and the interrupted representation-initialization
+run as explicit open results.

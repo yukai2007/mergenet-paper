@@ -1,0 +1,359 @@
+{
+  "imagenet_archive": "/liziqing/yukai/MergeNet/share_mergenet_campaign_20260919.tar.gz",
+  "imagenet_archive_sha256": "4e730e65108a82c68d6fd621c87590fbb8acf948c71557b5e278117443078d04",
+  "cifar_campaign": "/liziqing/yukai/mergenet_local_campaign_20260915",
+  "note": "Summaries are byte copies. Host paths are stripped from args. No checkpoints are stored.",
+  "sources": [
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p16_150e/summary.csv",
+      "sha256": "b1e620d08598d6591b26dade9b53e32ecbca74ad2fdda9696a1f389586a91146",
+      "curated": "runs/s2_deit_p16_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p16_150e/args.yaml",
+      "sha256": "789aea02cd088c08d05b79c1a55d1edbde77620c0f5b6d25e2a5b0e5a05f29b6",
+      "curated": "runs/s2_deit_p16_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p8_150e/summary.csv",
+      "sha256": "3fce69885260cf9508eaea5fc32f6dfa7b19f8a750d929c1dbdd8be5adfa68af",
+      "curated": "runs/s2_deit_p8_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_deit_p8_150e/args.yaml",
+      "sha256": "de41ef0f601ff267f5066a61566d4f23cab8ad0482b9b415fe4d8c0827c7c4ef",
+      "curated": "runs/s2_deit_p8_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_flat_w8_150e/summary.csv",
+      "sha256": "7a856c49007273e4bd6ddb7a4cd24a271b99b622cefe1d470d14157128c4983b",
+      "curated": "runs/s2_mn_flat_w8_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_flat_w8_150e/args.yaml",
+      "sha256": "6144ac5443acb3adad74cfc29526d97b1fd798aa7928106868a7dd53764305ef",
+      "curated": "runs/s2_mn_flat_w8_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_global_150e/summary.csv",
+      "sha256": "233dc48c7023ea132597c5e14a430af63954cb57b74719f369eeed4a786b4bb9",
+      "curated": "runs/s2_mn_global_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_global_150e/args.yaml",
+      "sha256": "940982cfa256c8e50fc91c7bb147024afec6933194aeabed665833af06bd37b1",
+      "curated": "runs/s2_mn_global_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_l4_150e/summary.csv",
+      "sha256": "6b7d40659b96dc5d85f8a571b3b035da1f4d6678d99ec55fadf437483fd282e6",
+      "curated": "runs/s2_mn_l4_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_l4_150e/args.yaml",
+      "sha256": "512d0ff38b21820ac7160cf22e550fc8afbbbcd5f803aea4df8815ff39249268",
+      "curated": "runs/s2_mn_l4_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r2_150e/summary.csv",
+      "sha256": "540881602015c994e866cba16d1287c93e2f17df9b693fb59dc7ad2281b70539",
+      "curated": "runs/s2_mn_r2_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r2_150e/args.yaml",
+      "sha256": "3f467142eb92ed647be77b37e531fdb3518b44f61fb41dca5e99fa9642c1eedd",
+      "curated": "runs/s2_mn_r2_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_150e/summary.csv",
+      "sha256": "6303277a55f6c8f71baef156ab6075c96c0a43095c734cb46e5ebb47ddfb1246",
+      "curated": "runs/s2_mn_r3_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_150e/args.yaml",
+      "sha256": "158d606938107102684d3ae1253b4f2e5240408123790224113ebc0cc95689be",
+      "curated": "runs/s2_mn_r3_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_lr75_150e/summary.csv",
+      "sha256": "be441cb1798e4d3f921d2e3a61221600c319461fe12e6088663005a0a63d9d8b",
+      "curated": "runs/s2_mn_r3_lr75_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage2_150e_224/s2_mn_r3_lr75_150e/args.yaml",
+      "sha256": "2df967ade6e7f0b1f33999bf53c3ab362086baf36175e3ad59dd265e4ebe7638",
+      "curated": "runs/s2_mn_r3_lr75_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p16_300e/summary.csv",
+      "sha256": "b6bcbb289bc7589ce79055f72d5852e51838ad29e3cbf22c627dd9c52dc65407",
+      "curated": "runs/s3_deit_p16_300e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p16_300e/args.yaml",
+      "sha256": "277e7da497f271a7ba06f5b45b2549f96f0a9964906835675ac0caeeba05d8a7",
+      "curated": "runs/s3_deit_p16_300e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p8_300e/summary.csv",
+      "sha256": "85b2dd207e5d30fa7d4ed7b2e94fcee6c0172afcddf51a1ff0df20717cb0c517",
+      "curated": "runs/s3_deit_p8_300e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_deit_p8_300e/args.yaml",
+      "sha256": "47b4f996bb4b96b232e5e3498bc65e356350f51bde2c185e9bc90d19db725b80",
+      "curated": "runs/s3_deit_p8_300e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_mn_r3_lr75_300e/summary.csv",
+      "sha256": "e01e7d2f0acb92194ed41081101d8ee880429c949b9db0cff620cd6a71422846",
+      "curated": "runs/s3_mn_r3_lr75_300e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_300e_224/s3_mn_r3_lr75_300e/args.yaml",
+      "sha256": "86eba9469e9206dd9a2e52ce7fb2bcfc8505f1828bf2d94b3e9ae7aeb40b5ad9",
+      "curated": "runs/s3_mn_r3_lr75_300e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_deit_p8_ft384_30e/summary.csv",
+      "sha256": "7d8e340e5725fb9624207940df4ddc5c12544a90937992ed4c045f871694fa1c",
+      "curated": "runs/s3_deit_p8_ft384_30e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_deit_p8_ft384_30e/args.yaml",
+      "sha256": "bcf5cc6a864d6a65fb40f9dff2c89314326728c98cd0f726a49eaa1e2c22482e",
+      "curated": "runs/s3_deit_p8_ft384_30e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r3_ft384_30e/summary.csv",
+      "sha256": "06e67971e094e710ed9cac9d2398e843570239e5f4c206afdc30883a15d02cee",
+      "curated": "runs/s3_mn_r3_ft384_30e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r3_ft384_30e/args.yaml",
+      "sha256": "d8d2d48a87db4c39602aee00897c727b4796707da588199aff2d564cfed0be21",
+      "curated": "runs/s3_mn_r3_ft384_30e/args.json"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r5_ft384_30e/summary.csv",
+      "sha256": "d43d029bd9a971b9184a6000cc8cc1be62600ac1713fd70217a3ad5674b7ed25",
+      "curated": "runs/s3_mn_r5_ft384_30e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage3_ft384_30e/s3_mn_r5_ft384_30e/args.yaml",
+      "sha256": "9a9b1c80a24500f105a530104b35ecbdcaf35bd65e403861ff3854730c051fb6",
+      "curated": "runs/s3_mn_r5_ft384_30e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_lamcurr_150e/summary.csv",
+      "sha256": "a7981783be39b0f2285376173aea08e25c65463c124f8a15f30d064595abb291",
+      "curated": "runs/s4_mn_lamcurr_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_lamcurr_150e/args.yaml",
+      "sha256": "ce617dbd1506128a3337a5927a63305e0446a7435215d34731b80ea0e8eadc42",
+      "curated": "runs/s4_mn_lamcurr_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_warm20_150e/summary.csv",
+      "sha256": "e6ee222053a989c07857924c82fdc58b4daab538f6b7998a53a7f1a10b41987a",
+      "curated": "runs/s4_mn_warm20_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage4_150e_224/s4_mn_warm20_150e/args.yaml",
+      "sha256": "c4fb3a53824ec6ebfe725821c3ef2c1b13df085f8e5e8feff8e805dea98a4334",
+      "curated": "runs/s4_mn_warm20_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_ft512_15e/s4_deit_ft512_15e/summary.csv",
+      "sha256": "84c1a62fbf4fd492fda93b523270344b2ad8f4b91884ab3a4fcb263bee159c63",
+      "curated": "runs/s4_deit_ft512_15e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage4_ft512_15e/s4_deit_ft512_15e/args.yaml",
+      "sha256": "c98acd18e1b8d46a46af7949fa4d7ca231281abac062e7616e1d1de3da333e18",
+      "curated": "runs/s4_deit_ft512_15e/args.json"
+    },
+    {
+      "source": "10_runs/stage4_ft512_15e/s4_mn_ft512_15e/summary.csv",
+      "sha256": "392792d58a63796ebfc4e1a370a9f2d3486ad11492d0e58069cff2080b790fba",
+      "curated": "runs/s4_mn_ft512_15e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage4_ft512_15e/s4_mn_ft512_15e/args.yaml",
+      "sha256": "6913d57ac9ab0ea34a88de47766f580553d9eee7ae55aaa11fff33527be799af",
+      "curated": "runs/s4_mn_ft512_15e/args.json"
+    },
+    {
+      "source": "10_runs/stage5_150e_224/s5_mn_dp07_150e/summary.csv",
+      "sha256": "4a86c16a8a722ab9bb72919e6fa44a4939507419277ad2099bea7f9eefe807a4",
+      "curated": "runs/s5_mn_dp07_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage5_150e_224/s5_mn_dp07_150e/args.yaml",
+      "sha256": "0ea100a8657b2d894e815e5a9938b0e66e90cebb364e664eab9fba2d83201775",
+      "curated": "runs/s5_mn_dp07_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage5_150e_224/s5_mn_lr1e3_150e/summary.csv",
+      "sha256": "d09c79eb02dcc94590e3a31b263196a10d7cda250abe4503503c4fe18ddb63fd",
+      "curated": "runs/s5_mn_lr1e3_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage5_150e_224/s5_mn_lr1e3_150e/args.yaml",
+      "sha256": "5865f2224522ff1fecaf8ae4c486673992908f26b86dbff110594b21192ea922",
+      "curated": "runs/s5_mn_lr1e3_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage5_150e_224/s5_mn_wd03_150e/summary.csv",
+      "sha256": "c12313332b4cee2f2a92ced96659b3581e09ca1dded6b8db7d20a779c46370cf",
+      "curated": "runs/s5_mn_wd03_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage5_150e_224/s5_mn_wd03_150e/args.yaml",
+      "sha256": "1a7558a519adbbfbda342d8e997ec55379a14f61e0b780d9fc8e64ead3d99005",
+      "curated": "runs/s5_mn_wd03_150e/args.json"
+    },
+    {
+      "source": "10_runs/stage6_300e_224/s6_deitB_p16_300e/summary.csv",
+      "sha256": "f4f1fa1853d4173e986f3c6e2b260e7220792003b726b974c4cab7f3567ebad9",
+      "curated": "runs/s6_deitB_p16_300e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage6_300e_224/s6_deitB_p16_300e/args.yaml",
+      "sha256": "b416f174034cc996dee651c096d76bbc1c935948a702270cc7f80e9f28b78aa3",
+      "curated": "runs/s6_deitB_p16_300e/args.json"
+    },
+    {
+      "source": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/summary.csv",
+      "sha256": "0c519cda07747e5aed2c3fed926b99101c147f73ce5cdf8f84c81a98fa0bced6",
+      "curated": "runs/s7_mn_deitinit_150e/summary.csv"
+    },
+    {
+      "source": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/args.yaml",
+      "sha256": "66c965f7f8d8007ba668a26dec8f85722367bf3c1c5b583acb8569cdf93d883c",
+      "curated": "runs/s7_mn_deitinit_150e/args.json"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_degree_s42/summary.csv",
+      "sha256": "954ee6ce4a13061e1cb2a3a4b7c4416034f1ed3a522a834fef67bd77d7ac39dc",
+      "curated": "cifar_seeds/summaries/historical_degree_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_degree_s43/summary.csv",
+      "sha256": "de08461dbcfddf2e1ae8596274968b0fca38ecffa4b6b712b82ca84148289a54",
+      "curated": "cifar_seeds/summaries/historical_degree_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_degree_s44/summary.csv",
+      "sha256": "8a11d687deca02d090bcc1793988705d3a286f073dbcd61087d32dc9222ae939",
+      "curated": "cifar_seeds/summaries/historical_degree_s44/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_flat8_s42/summary.csv",
+      "sha256": "04ed22a88eaa70551402672e2e94a97de788d47eb7a77f291d33025b466f8244",
+      "curated": "cifar_seeds/summaries/historical_flat8_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_flat8_s43/summary.csv",
+      "sha256": "2a3a5f64c36898c75f0ac66409e793756034bec28c370ebd0ecd2dbf89fc162d",
+      "curated": "cifar_seeds/summaries/historical_flat8_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_flat8_s44/summary.csv",
+      "sha256": "58e7d1f350f71f8b8b3d06cf9f5d7248fd62daeacaf8b6c49858f95fd35cd93e",
+      "curated": "cifar_seeds/summaries/historical_flat8_s44/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_global_s42/summary.csv",
+      "sha256": "6da457661d4dc2b73e2963cf342dd467a261b88340ef71f8d92392aebea01e7c",
+      "curated": "cifar_seeds/summaries/historical_global_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_global_s43/summary.csv",
+      "sha256": "e2a497dfb7da025b3c606810f9347992c62dd8e69ac160981aefaba1a587dc51",
+      "curated": "cifar_seeds/summaries/historical_global_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_global_s44/summary.csv",
+      "sha256": "9f7ded6817fb0afa7265630c536e4f9c0758e9e5728cec8b536a43f33d181390",
+      "curated": "cifar_seeds/summaries/historical_global_s44/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_r3_s42/summary.csv",
+      "sha256": "656c8c888b941fdc21ee34e24271d304b44561439d97bfee43c161521b02c308",
+      "curated": "cifar_seeds/summaries/historical_r3_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_r3_s43/summary.csv",
+      "sha256": "638a183285e9abea5bc1592486c59d2c8a66ee78fd341656156fe41ca4f37096",
+      "curated": "cifar_seeds/summaries/historical_r3_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/historical_r3_s44/summary.csv",
+      "sha256": "99929c697cba204ce9a1634ce3f3f4ed0a17027468bf261f93f4651ca06382f6",
+      "curated": "cifar_seeds/summaries/historical_r3_s44/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_degree_s42/summary.csv",
+      "sha256": "1dc4030bca9f81e4ec458ab1ca034b066fc347c65622d487736021f7e9f43cc3",
+      "curated": "cifar_seeds/summaries/rowwise_degree_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_degree_s43/summary.csv",
+      "sha256": "6d06fb95284c7734141f0f634efa83875c26c891e85f9ac0f025eb968a89bddf",
+      "curated": "cifar_seeds/summaries/rowwise_degree_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_degree_s44/summary.csv",
+      "sha256": "b0ab1a346d42831f9b44d185dfcc80b8784b2efd2bc525c5d04e843ab6e615ef",
+      "curated": "cifar_seeds/summaries/rowwise_degree_s44/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_flat8_s42/summary.csv",
+      "sha256": "ccd8a2ab7f40ff80146a31c951644cde0401911f5aa4b404618e5dc823fd9fc5",
+      "curated": "cifar_seeds/summaries/rowwise_flat8_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_flat8_s43/summary.csv",
+      "sha256": "71b4058fcc027e261d51c1a468ee8b5d5e761baa7ac1411f20857715da0014e9",
+      "curated": "cifar_seeds/summaries/rowwise_flat8_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_flat8_s44/summary.csv",
+      "sha256": "4e24680fe715c11f11671e09b395e6ca0e90ef98a04abd90c805f37cbacf3f8f",
+      "curated": "cifar_seeds/summaries/rowwise_flat8_s44/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_global_s42/summary.csv",
+      "sha256": "4bd4052e8c0a0b5dceae34f3256c78b7f3b3278489c24608f5df64eca1250b76",
+      "curated": "cifar_seeds/summaries/rowwise_global_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_global_s43/summary.csv",
+      "sha256": "80fcdbdd57706048b632d1e5e4dfe0256b08f1546f4541be97b51b433e88aeb5",
+      "curated": "cifar_seeds/summaries/rowwise_global_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_global_s44/summary.csv",
+      "sha256": "5d50a0a8b41a4437bbc131c1e8a03ef169f73311f886496fdc0b01fab90c93ee",
+      "curated": "cifar_seeds/summaries/rowwise_global_s44/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_r3_s42/summary.csv",
+      "sha256": "4459b4abdd42f99dcbd49182edbbfcc85fd5ae676bee9cc4bdfee0bb111a4123",
+      "curated": "cifar_seeds/summaries/rowwise_r3_s42/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_r3_s43/summary.csv",
+      "sha256": "3fc524cf0d81a740b2771c3c6f24bb6be7d740912e2604b68e63272f2576a70e",
+      "curated": "cifar_seeds/summaries/rowwise_r3_s43/summary.csv"
+    },
+    {
+      "source": "/liziqing/yukai/mergenet_local_campaign_20260915/runs/rowwise_r3_s44/summary.csv",
+      "sha256": "edfb2a19756518b53d858a5062c1f7bead1286954a082a1717117d82825b04b4",
+      "curated": "cifar_seeds/summaries/rowwise_r3_s44/summary.csv"
+    }
+  ],
+  "cutoff": "2026-09-19"
+}

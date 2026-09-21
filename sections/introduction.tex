@@ -16,33 +16,37 @@ The routing constraint is simple: a donor can send mass only to receiver slots
 within a Euclidean radius on the original image grid. The constraint prevents
 a flattened sequence from treating a row boundary as ordinary spatial
 adjacency. It also limits candidate support independently of the learned
-similarity. We compare this router with unconstrained and flattened-window
-versions of the same architecture before comparing the complete model with
-dense and post-training compression baselines.
+similarity. We compare this router with unconstrained, flattened-window, and
+degree-matched versions of the same architecture before comparing the complete
+model with dense and post-training compression baselines.
 
-The resulting ImageNet-1k campaign supports a qualified conclusion. With
-matched 150-epoch settings, radius-3 routing improves best validation accuracy
-by $1.670\pp$ over the unconstrained router and $0.598\pp$ over the flattened
-window. These are observed single-seed improvements, rather than estimates
-of a population effect. They do not establish that geometry alone explains
-the benefit: the constraints also change candidate counts and the score
-normalization context.
+The resulting evidence supports a qualified conclusion. With matched 150-epoch
+ImageNet settings, radius-3 routing improves best validation accuracy by
+$1.670\pp$ over the unconstrained router and $0.598\pp$ over the flattened
+window. These are observed single-seed improvements. They do not, by themselves,
+separate geometry from candidate cardinality. A later CIFAR-100 campaign with
+three seeds and a degree-matched receiver permutation of the realized radius-3
+mask finds a radius-3 advantage in all paired comparisons, under both the
+historical batch-normalized selector and a per-sample bisection selector.
 
 The deployment evidence is less favorable. At 224 pixels, a 300-epoch
 \mn{} reaches 81.368\% top-1, compared with 82.246\% for dense DeiT-S/8.
 Its batch-64 inference takes 45.71\,ms on a guarded H20 benchmark, compared
 with 42.68\,ms for the dense model, despite lower estimated arithmetic cost.
-After 384-pixel fine-tuning, the accuracy gap narrows to $0.394\pp$.
-Post-training ToMe remains a strong accuracy baseline at matched final patch
-counts. However, the available ToMe accuracy and latency harnesses use
+After 384-pixel fine-tuning, the accuracy gap narrows to $0.394\pp$; a further
+512-pixel stage leaves a $0.450\pp$ gap. Completed optimizer-side probes do not
+move the selected 150-epoch configuration outside a campaign-defined
+$0.40\pp$ band. Post-training ToMe remains a strong accuracy baseline at matched
+final patch counts. The available ToMe accuracy and latency harnesses use
 different proportional-attention settings, so their outputs cannot be
 combined into a verified accuracy--latency frontier.
 
 Our contributions are an implementation-specific analysis of spatially
 constrained soft routing, a traceable evaluation of its internal and external
-comparisons, and a diagnosis of why nominal compression and realized savings
-can diverge. We explicitly distinguish the support of a routing step from the
-receptive field of a feature, and soft mass transfer from physical sequence
-reduction. The study establishes useful internal controls and concrete
+comparisons, including a three-seed CIFAR confirmation and a completed
+resolution series, and a diagnosis of why nominal compression and realized
+savings can diverge. We explicitly distinguish the support of a routing step
+from the receptive field of a feature, and soft mass transfer from physical
+sequence reduction. The study establishes useful internal controls and concrete
 reproduction requirements; it does not claim state-of-the-art compression,
 priority for spatial merging, or a general failure of learned token merging.

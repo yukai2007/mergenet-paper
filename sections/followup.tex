@@ -108,7 +108,13 @@ radius-3 predictions. Global top-1 falls by 0.32\pp{}, while radius-3 changes
 by +0.02\pp{}. Consequently, restoring per-sample selection is not a general
 accuracy-preserving substitution for old weights. The reference passes this
 bounded GPU inference check, but remains an untrained correctness
-implementation. New training is needed to assess its learning behavior.
+implementation. This checkpoint intervention alone does not assess its
+learning behavior; the subsequent training experiment is described below.
+
+A subsequent 24-run CIFAR-100 campaign trains both selectors from scratch
+with three seeds and a degree-matched control
+(Section~\ref{sec:cifar-seeds}). Those endpoints are new trainings, not
+re-evaluations of the two August checkpoints in this appendix.
 
 The artifact includes all per-image predicted classes, labels, raw timing
 samples, observed token shapes and hash receipts. These local tests address

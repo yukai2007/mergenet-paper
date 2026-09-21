@@ -1,0 +1,24 @@
+\subsection{Training-budget isolation: reserved ablation}
+\label{sec:pending-compression}
+\pendingslot{P07}{Separate compression strength from architecture changes}{This
+extension is required for a training-compression causal claim, not for the
+existing checkpoint budget sweep.}
+
+Train each budget with identical local/latent depths, local attention window,
+width, recovery path, selector and optimization recipe. Verify integer carrier
+counts on the instantiated model. A no-reduction control must execute a
+verified no-compression path: the existing \texttt{method=none} cell still
+has 392 patches. Record any code changes required for that control. Select
+budgets before inspecting validation outcomes and use paired seeds.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrr}\toprule
+Training condition & Patches & Seeds & Final EMA mean / SD & GMAC / ms\\\midrule
+Verified no physical reduction & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Native compression & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Stronger compression & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}
+\caption{Reserved controlled compression ablation [P07]. The historical
+compound $\lambda=4$ run cannot fill an isolated budget row.}
+\label{tab:pending-compression}\end{table}
+\pendingtext

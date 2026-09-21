@@ -1,0 +1,186 @@
+{
+  "s2_deit_p16_150e": {
+    "csv_best": 77.1959999658203,
+    "meta_best": 77.196,
+    "csv_final": 77.1959999658203,
+    "meta_final": 77.196,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s2_deit_p8_150e": {
+    "csv_best": 79.9920000024414,
+    "meta_best": 79.992,
+    "csv_final": 79.9920000024414,
+    "meta_final": 79.992,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s2_mn_flat_w8_150e": {
+    "csv_best": 78.29000003417968,
+    "meta_best": 78.29,
+    "csv_final": 78.27800003417968,
+    "meta_final": 78.278,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s2_mn_global_150e": {
+    "csv_best": 77.21800000976563,
+    "meta_best": 77.218,
+    "csv_final": 77.21600000976562,
+    "meta_final": 77.216,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s2_mn_l4_150e": {
+    "csv_best": 78.36599998291015,
+    "meta_best": 78.366,
+    "csv_final": 78.36599998291015,
+    "meta_final": 78.366,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s2_mn_r2_150e": {
+    "csv_best": 78.94199997558594,
+    "meta_best": 78.942,
+    "csv_final": 78.94199997558594,
+    "meta_final": 78.942,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s2_mn_r3_150e": {
+    "csv_best": 78.88800000488281,
+    "meta_best": 78.888,
+    "csv_final": 78.88800000488281,
+    "meta_final": 78.888,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s2_mn_r3_lr75_150e": {
+    "csv_best": 79.31600000976563,
+    "meta_best": 79.316,
+    "csv_final": 79.31600000976563,
+    "meta_final": 79.316,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s3_deit_p16_300e": {
+    "csv_best": 79.69199995361328,
+    "meta_best": 79.692,
+    "csv_final": 79.68399995361328,
+    "meta_final": 79.684,
+    "epochs": 300,
+    "meta_epochs": 300
+  },
+  "s3_deit_p8_300e": {
+    "csv_best": 82.24599997558593,
+    "meta_best": 82.246,
+    "csv_final": 82.1620000024414,
+    "meta_final": 82.162,
+    "epochs": 300,
+    "meta_epochs": 300
+  },
+  "s3_mn_r3_lr75_300e": {
+    "csv_best": 81.36800000732421,
+    "meta_best": 81.368,
+    "csv_final": 81.34999998046875,
+    "meta_final": 81.35,
+    "epochs": 300,
+    "meta_epochs": 300
+  },
+  "s3_deit_p8_ft384_30e": {
+    "csv_best": 82.97599997558594,
+    "meta_best": 82.976,
+    "csv_final": 82.84799995117187,
+    "meta_final": 82.848,
+    "epochs": 30,
+    "meta_epochs": 30
+  },
+  "s3_mn_r3_ft384_30e": {
+    "csv_best": 82.582,
+    "meta_best": 82.582,
+    "csv_final": 82.524,
+    "meta_final": 82.524,
+    "epochs": 30,
+    "meta_epochs": 30
+  },
+  "s3_mn_r5_ft384_30e": {
+    "csv_best": 82.574,
+    "meta_best": 82.574,
+    "csv_final": 82.532,
+    "meta_final": 82.532,
+    "epochs": 30,
+    "meta_epochs": 30
+  },
+  "s4_mn_lamcurr_150e": {
+    "csv_best": 79.31,
+    "meta_best": 79.31,
+    "csv_final": 79.292,
+    "meta_final": 79.292,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s4_mn_warm20_150e": {
+    "csv_best": 79.238,
+    "meta_best": 79.238,
+    "csv_final": 79.238,
+    "meta_final": 79.238,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s4_deit_ft512_15e": {
+    "csv_best": 83.068,
+    "meta_best": 83.068,
+    "csv_final": 83.038,
+    "meta_final": 83.038,
+    "epochs": 15,
+    "meta_epochs": 15
+  },
+  "s4_mn_ft512_15e": {
+    "csv_best": 82.618,
+    "meta_best": 82.618,
+    "csv_final": 82.48,
+    "meta_final": 82.48,
+    "epochs": 15,
+    "meta_epochs": 15
+  },
+  "s5_mn_dp07_150e": {
+    "csv_best": 79.534,
+    "meta_best": 79.534,
+    "csv_final": 79.534,
+    "meta_final": 79.534,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s5_mn_lr1e3_150e": {
+    "csv_best": 79.35,
+    "meta_best": 79.35,
+    "csv_final": 79.35,
+    "meta_final": 79.35,
+    "epochs": 150,
+    "meta_epochs": 150
+  },
+  "s5_mn_wd03_150e": {
+    "csv_best": 79.054,
+    "meta_best": 79.054,
+    "csv_final": 79.054,
+    "meta_final": 79.054,
+    "epochs": 140,
+    "meta_epochs": 140
+  },
+  "s6_deitB_p16_300e": {
+    "csv_best": 80.442,
+    "meta_best": 80.442,
+    "csv_final": 78.566,
+    "meta_final": 78.566,
+    "epochs": 300,
+    "meta_epochs": 300
+  },
+  "s7_mn_deitinit_150e": {
+    "csv_best": 79.206,
+    "meta_best": 79.206,
+    "csv_final": 79.206,
+    "meta_final": 79.206,
+    "epochs": 105,
+    "meta_epochs": 105
+  }
+}

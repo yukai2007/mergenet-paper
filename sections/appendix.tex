@@ -14,9 +14,9 @@ the summary row is written, so \texttt{eval\_top1} is an EMA metric.
 \centering\small
 \begin{tabular}{lll}
 \toprule
-Setting & 224-pixel scratch & 384-pixel fine-tune\\
+Setting & 224-pixel scratch & 384/512-pixel fine-tune\\
 \midrule
-Epochs & 150 or 300 & 30\\
+Epochs & 150 or 300 & 30 at 384; 15 at 512\\
 Effective global batch & 1024 & 1024\\
 Optimizer & AdamW & AdamW\\
 Learning rate & $5\!\times\!10^{-4}$ or $7.5\!\times\!10^{-4}$ & $10^{-5}$\\
@@ -52,15 +52,17 @@ Three nominal launcher failures occurred after complete metric histories:
 the 150-epoch DeiT-S/16, the compound $\lambda=4$ run, and dense 512-pixel
 fine-tuning. Complete summaries and supplied checkpoint receipts distinguish
 them from early failures. Receipts record checks on another machine, not
-weights independently loaded in this audit. The partial curriculum had
-reached $\lambda=2$ by its latest recorded epoch, but its 64-epoch score
-cannot serve as a completed 150-epoch endpoint.
+weights independently loaded in this audit. The $\lambda$ curriculum and
+512-pixel \mn{} fine-tune are now complete 150-epoch and 15-epoch records.
+The weight-decay probe and DeiT-initialized run remain partial.
 
 \begin{table}[h]
 \centering\footnotesize
 \input{tables/run_inventory}
-\caption{Status at packet capture. Partial metrics are included for accounting
-only. The companion data retain full precision and source summary lines.}
+\caption{Status in the September 19 packet. Partial metrics are included for
+accounting only and are not endpoints. The DeiT-B best score is a
+pre-overfitting peak (Appendix~\ref{app:deitb}). The companion data retain
+full precision and source summary lines.}
 \label{tab:runs}
 \end{table}
 
@@ -147,8 +149,10 @@ nearly constant and outlier inputs across $N\in\{4,16,64,392\}$ and several
 budgets. This is a correctness reference, not a fused production kernel or
 a trained replacement for the reported model. Finite gradients can still be
 large near a zero score range. Appendix~\ref{app:followup} subsequently
-tests GPU/autocast inference with local CIFAR weights; full-model training
-stability of this selector remains untested. Mass tolerances in these checks are $5\times10^{-4}$ for float32
+tests GPU/autocast inference with local CIFAR weights. The later campaign in
+Section~\ref{sec:cifar-seeds} trains a float32/Triton rowwise implementation,
+which is distinct from this slow float64 reference. Its completed CIFAR runs
+do not establish ImageNet training behavior. Mass tolerances in these checks are $5\times10^{-4}$ for float32
 and $10^{-6}$ for float64.
 
 The artifact subset includes unmodified per-run summaries, resolved arguments
@@ -156,9 +160,36 @@ with host paths removed, launch-protocol extracts, sanitized successful sweep
 records, audited benchmark tables, and source hashes. The CPU rebuild script
 recomputes best/final metrics, resolves sweep records by timestamp, checks
 numeric joins, and regenerates tables and figures. It never launches
-training. Source and claim ledgers record the literature cutoff of
-2026-09-15. The complete packet was inspected. Company policy prevents ImageNet weight
-transfer; independent ImageNet checkpoint re-evaluation is unavailable.
+training. Source and claim ledgers retain their literature retrieval dates;
+the collaborator-packet audit was refreshed on September 21.
+Company policy prevents ImageNet weight
+transfer; independent ImageNet checkpoint re-evaluation is unavailable. The
+September 19 packet adds completed 512-pixel, curriculum, and hyperparameter
+runs. The refreshed audit matches 3,264 of 3,365 summary rows to delivered
+EMA logs, leaving 101 rows without corresponding log records
+(Section~\ref{sec:setup}). Those rows are not discarded, but retain their
+summary-only evidence status.
+
+\section{DeiT-B/16 is not a usable scale anchor}
+\label{app:deitb}
+
+A 300-epoch DeiT-B/16 run at 224 pixels completes under the same global-batch
+and seed protocol as the small-scale campaign, with drop-path 0.1 inherited
+from the DeiT-S configurations. Table~\ref{tab:deitb} reports the peak and
+final EMA scores. Train loss continues to fall while evaluation loss rises
+after the peak at epoch 179. The final top-1, 78.566\%, is below our
+DeiT-S/16 result of 79.692\% at the same 196-token budget. Published DeiT-B
+300-epoch training uses drop-path 0.2. We therefore do not append this run
+to the DeiT-S/8 table, and we do not launch a paired MergeNet-B comparison
+from these weights.
+
+\begin{table}[h]
+\centering\small
+\input{tables/deitb}
+\caption{DeiT-B/16, 300 epochs, drop-path 0.1. Peak and final scores must be
+reported together; the peak is not a converged result.}
+\label{tab:deitb}
+\end{table}
 
 \section{A Bounded Layout Optimization Experiment}
 \label{app:layout}

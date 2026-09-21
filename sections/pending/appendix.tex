@@ -1,0 +1,78 @@
+\section{Reserved Extensions and Outstanding Evidence}
+\label{app:pending}
+These are intentionally unfilled working-draft slots, not additional results.
+Optional experiments may be omitted together with the associated claims.
+Original observations and partial runs remain in the evidence inventory.
+
+\subsection{Base-scale comparison}
+\label{sec:pending-base}
+\pendingslot{P09}{Establish a credible dense reference before a scale claim}{The
+completed drop-path-0.1 DeiT-B run remains a reported negative observation.}
+
+Specify matched Base-scale training and effective layerwise stochastic depth.
+Diagnose the dense reference's overfitting before interpreting a MergeNet-B
+comparison. A different regularization recipe is a new experiment, not a
+correction that replaces the old result.
+\begin{center}\small\begin{tabular}{lrrrr}\toprule
+Arm & Seeds & Best EMA & Final EMA & Batch latency (ms)\\\midrule
+New dense Base reference & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Matched MergeNet-B & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}\end{center}
+\pendingtext
+
+\subsection{Same-parent radius comparison at 512 pixels}
+\label{sec:pending-radius}
+\pendingslot{P10}{Separate radius from checkpoint ancestry}{Optional; the
+existing 512-pixel result is valid for its recorded radius-5.143 parent.}
+
+A radius-only inference comparison uses one checkpoint with other settings
+fixed. A fine-tuning comparison initializes both radii from the same verified
+384-pixel state and uses the same 15-epoch recipe. An EMA extraction from
+the radius-3 checkpoint permits that branch, but comparing a new R3-parent
+branch only to the old R5.143-parent branch still mixes parent and radius.
+\begin{center}\small\begin{tabular}{lrrr}\toprule
+512-pixel arm & Parent identity & Best EMA & Final EMA\\\midrule
+Fixed radius & \pendingvalue & \pendingvalue & \pendingvalue\\
+Scaled radius, same parent & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}\end{center}
+\pendingtext
+
+\subsection{Weight-decay probe completion}
+\label{sec:pending-wd}
+\pendingslot{P11}{Complete only if a full weight-decay result is needed}{The
+140/150 snapshot is neither a completed negative result nor a statistical null.}
+
+If resumed, retain the original state and append epochs 140--149 without
+duplicating earlier rows. Otherwise keep partial status and omit endpoint
+claims. Not crossing a decision threshold is not statistical equivalence.
+\begin{center}\small\begin{tabular}{lrrr}\toprule
+Run & Completed epochs & Best EMA & Final EMA\\\midrule
+Weight decay 0.03 & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}\end{center}
+\pendingtext
+
+\subsection{Additional log and state receipts}
+\label{sec:pending-receipts}
+\pendingslot{P12}{Complete source-to-result linkage without transferring weights}{
+Existing configurations and environment records need not be re-exported
+unless actual execution differs.}
+
+For each new result provide run ID, complete metrics, resolved arguments
+including launcher overrides, startup/resume lines, actual code-file hashes
+and environment versions. Evaluations and initialization also need checkpoint
+digest, state key, epoch, EMA flag and tensor mapping or verification receipt.
+Digests identify artifacts without sharing parameter values. If a receipt
+cannot be disclosed, record that evidence boundary.
+
+Some September 19 summaries extend past the copied logs. Missing segments
+must be supplied or labeled summary-only. The companion audit identifies
+exact gaps and excludes documented earlier attempts; CSV recalculation is
+not checkpoint replay.
+\begin{center}\small\begin{tabular}{lrrl}\toprule
+Additional receipt & Expected epochs / key & Verified count & Digest\\\midrule
+Curriculum missing EMA logs & 64--149 & \pendingvalue & \pendingvalue\\
+MergeNet 512-pixel EMA logs & 0--14 & \pendingvalue & \pendingvalue\\
+Initialization state / full mapping & raw / EMA & \pendingvalue & \pendingvalue\\
+New run source manifest & per run & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}\end{center}
+\pendingtext

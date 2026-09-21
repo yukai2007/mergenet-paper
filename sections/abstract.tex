@@ -6,17 +6,24 @@ original-grid-constrained soft mass transfer, selects a fixed number of
 carriers, and recovers information before latent processing. In a
 single-seed ImageNet-1k campaign, radius-3 routing improves 150-epoch top-1
 accuracy by 1.670 percentage points over an unconstrained router and 0.598
-points over a flattened-window control. The full model reaches 81.368\% after
-300 epochs at 224 pixels, versus 82.246\% for dense DeiT-S/8; 384-pixel
-fine-tuning narrows the gap to 82.582\% versus 82.976\%. Despite 36.9\% fewer
-estimated multiply--accumulates, MergeNet takes 7.1\% more inference time in a
-guarded 224-pixel synthetic H20 benchmark, while a 384-pixel batch-64 benchmark
-on H20 reduces inference time by 20.0\%. An independent A100 harness
-finds no dense-relative speedup at either resolution on the local stack. Post-training ToMe has higher recorded
-accuracy at all twenty matched final-token budgets, although incompatible
-attention settings prevent combining the available accuracy and latency
-results into a verified joint frontier. Operator and local CIFAR checkpoint probes reveal batch-dependent soft
-selection; the tested spatial-routing gain persists under rebatching. The study separates internal routing
-gains from deployment evidence and identifies the implementation and
-reproduction checks needed to assess learned compression reliably.
+points over a flattened-window control. An independent CIFAR-100 campaign
+with three seeds, two selectors, and a degree-matched support control
+reproduces a radius-3 advantage in every paired comparison, including
+$+1.42\pm0.30$ points over receiver-permuted degree-matched support under the historical
+selector. The full ImageNet model reaches 81.368\% after 300 epochs at 224
+pixels, versus 82.246\% for dense DeiT-S/8. Fine-tuning narrows the gap to
+82.582\% versus 82.976\% at 384 pixels, then 82.618\% versus 83.068\% at 512
+pixels: the dense-relative deficit does not keep closing with resolution.
+Four completed 150-epoch probes, including longer warmup, a
+$\lambda$ curriculum, a higher learning rate, and matched stochastic depth,
+remain inside a campaign-defined $\pm0.40$ point decision band around the selected
+configuration. Despite 36.9\% fewer estimated multiply--accumulates, MergeNet
+takes 7.1\% more inference time in a guarded 224-pixel synthetic H20
+benchmark. A 384-pixel batch-64 radius-3 benchmark reduces inference time by
+20.0\% relative to dense DeiT, while an independent A100 harness finds no
+dense-relative speedup at either resolution on the local stack. Post-training
+ToMe has higher recorded accuracy at all twenty matched final-token budgets.
+The study separates internal routing gains from deployment evidence and
+identifies the remaining representation-level checks that still require
+collaborator-side checkpoints.
 \end{abstract}

@@ -143,3 +143,12 @@ terms in $N$. Sparse routing avoids a dense donor--receiver assignment during
 the forward pass, but initialization still constructs an $N\times N$
 Boolean adjacency buffer. Neither a linear-memory claim for the complete
 implementation nor an end-to-end speedup follows from the sparse scorer alone.
+
+\paragraph{Reserved method variants.}
+The original method above remains the subject of the completed experiments.
+The initialized and progressive-latent variants in
+Sections~\ref{sec:pending-init} and~\ref{sec:pending-progressive} have
+separate pending endpoints. They do not retrospectively change the original
+dataflow or its interpretation.
+
+\input{sections/pending/visualization}

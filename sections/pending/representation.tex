@@ -1,0 +1,62 @@
+\subsection{Representation initialization: reserved endpoint}
+\label{sec:pending-init}
+\pendingslot{P01}{Complete the interrupted initialization experiment}{The
+105-epoch record is partial; its observed maximum is not the 150-epoch endpoint.}
+
+The interrupted arm initializes from the 300-epoch DeiT-S/8
+\texttt{model\_best.pth.tar} file. Its startup log reports 152 loaded tensors,
+25 missing tensors and no unexpected tensors. This is a partial mapping,
+not evidence that every local and latent parameter inherits the dense model.
+The checkpoint was selected using EMA accuracy, but the available loader
+prefers \texttt{state\_dict}. The actual state key and tensor fingerprint
+must be confirmed before calling this raw or EMA initialization. The local
+encoder remains trainable; this is not router-only training.
+
+The existing scratch reference with matching drop-path 0.07 is
+\texttt{s5\_mn\_dp07\_150e}, whose best EMA top-1 is 79.534\%, subject to a
+check of all other resolved arguments. The drop-path-0.1 selected arm is not
+an initialization-only control. Report the source model's 300-epoch
+pretraining separately from 150-epoch adaptation. Resume the interrupted
+arm's own last checkpoint, retaining optimizer, scheduler, EMA and scaler
+state; a fresh initialization would be a new run.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrl}\toprule
+Arm & Best EMA & Final EMA & Best epoch & State receipt\\\midrule
+DeiT-initialized, completed 150 epochs & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Difference to verified scratch & \pendingvalue & \pendingvalue & & \pendingvalue\\
+\bottomrule\end{tabular}
+\caption{Reserved initialization results [P01]. Accuracy is in percent and
+differences in percentage points. Partial-curve values are not endpoints.}
+\label{tab:pending-init}\end{table}
+\pendingtext
+
+\subsection{Progressive latent compression: reserved comparison}
+\label{sec:pending-progressive}
+\pendingslot{P02}{Test the queued schedule at a matched final budget}{The
+configuration exists; no completed run or measured layerwise trace is present.}
+
+The candidate retains the full-grid local encoder and the 784-to-392 gather.
+It requests 192 additional removals across six latent blocks, with nominal
+patch counts $392\to360\to328\to296\to264\to232\to200$.
+The class token is additional. A runtime trace must confirm attention input,
+merge output and MLP input counts. This candidate does not eliminate the
+initial gather or shorten the earlier local blocks.
+
+Comparing this arm with the native 392-patch model mixes schedule and final
+budget. For schedule attribution, add a single-gather control at the same
+achieved 200-patch endpoint, with matched depth, initialization, training
+recipe and drop-path 0.07. Match ToMe's achieved budget for deployment
+comparisons while recording its different training history.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrr}\toprule
+Arm & Final patches & Best EMA & Final EMA & Batch latency (ms)\\\midrule
+Progressive latent & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+Single gather, same endpoint & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+ToMe, same endpoint & \pendingvalue & \pendingvalue & \pendingvalue & \pendingvalue\\
+\bottomrule\end{tabular}
+\caption{Reserved schedule comparison [P02]. Requested budgets do not
+substitute for achieved counts. Timing requires the common protocol in P03.}
+\label{tab:pending-progressive}\end{table}
+\pendingtext

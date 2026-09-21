@@ -2,29 +2,37 @@
 
 The results distinguish an internal architectural improvement from a
 competitive compression system. Original-grid support improves this
-architecture relative to its own unconstrained router. Yet the full model
-loses accuracy to the selected dense baseline, its 224-pixel implementation
-is slower in guarded synthetic tests, and post-training ToMe provides a
-stronger accuracy baseline at every matched budget in the sweep. These
-findings motivate revisiting the computation path and evaluation protocol;
-they do not show that learning a merge criterion is intrinsically inferior.
+architecture relative to its own unconstrained router, and a three-seed
+CIFAR campaign finds the same sign against global, flattened, and
+degree-matched controls. Yet the full ImageNet model loses accuracy to the
+selected dense baseline at 224, 384 and 512 pixels, its 224-pixel
+implementation is slower in guarded synthetic tests, and post-training ToMe
+provides a stronger accuracy baseline at every matched budget in the sweep.
+Optimizer-side 150-epoch probes do not close the selected-configuration gap.
+These findings motivate revisiting the computation path, the compression
+schedule, and representation initialization; they do not show that learning a
+merge criterion is intrinsically inferior.
 
-The evidence is limited in several ways. All training runs use seed 42, and
-the validation set serves both checkpoint selection and reporting. We have
-no across-seed uncertainty estimate or ImageNet per-image predictions for
-paired significance tests. Appendix~\ref{app:followup} provides predictions
-for two independently replayed local CIFAR checkpoints. Geometry and candidate cardinality remain coupled. The
+The evidence is limited in several ways. All ImageNet training runs use seed
+42, and the validation set serves both checkpoint selection and reporting.
+We have no across-seed ImageNet uncertainty estimate or ImageNet per-image
+predictions for paired significance tests. Appendix~\ref{app:followup}
+provides predictions for two independently replayed local CIFAR checkpoints
+from an earlier campaign; Section~\ref{sec:cifar-seeds} adds three-seed
+training on resized CIFAR-100, which is not native-resolution ImageNet.
+Geometry and candidate cardinality remain coupled on ImageNet. The
 300-epoch \mn{} configuration benefits from an explicit learning-rate screen,
 while the dense baseline is not subjected to an equally broad screen. The
 $\lambda=4$ training variant changes multiple architectural parameters, and
 test-time budget changes do not replace a clean training-budget ablation.
-The curriculum and paired 512-pixel result are incomplete at capture time.
+The 512-pixel \mn{} run is the radius-scaled branch seeded from the
+radius-5.143 384-pixel EMA file, not a radius-3 continuation.
 
 The experiment artifacts also bound reproducibility. Raw metrics, resolved
 arguments, launch records, environment information, benchmark scripts and
-checkpoint receipts are available in the campaign packet. Company policy prevents transfer of the trained ImageNet
-weights, and a release commit alone does
-not capture every change in the collaborator's working tree. The companion
+checkpoint receipts are available in the campaign packet. Company policy
+prevents transfer of the trained ImageNet weights, and a release commit alone
+does not capture every change in the collaborator's working tree. The companion
 analysis preserves the source identities and distinguishes recorded results
 from independent operator diagnostics. The training environment uses PyTorch
 2.7.1 with CUDA 11.8, timm 0.9.11 and FlashAttention 2.7.3, which differs from
@@ -34,15 +42,21 @@ The local follow-up resolves the ToMe attention-policy and patch-count
 mismatch for synthetic architecture timing. A verified trained-checkpoint
 joint frontier remains unavailable.
 
-The most informative next experiments follow directly from these limits.
-The local follow-up measures batch-composition effects in available CIFAR
-weights and uses a common architecture-timing harness with exact per-layer
-shapes. The company ImageNet checkpoints are unavailable for independent
-replay; any new local ImageNet training must be reported as a separate experiment.
-Next, train with a numerically stable, per-sample soft-selection operator and
-separate its effect from a change in training or evaluation batch. Third,
-repeat the global, flattened and radius-3 controls at additional seeds and
-include a degree-matched spatial control. The layout follow-up supplies bounded parity and complete-model inference
-timing; complete training-step timing and long-run behavior remain open. These
-experiments would test concrete explanations for the observed gaps; merely
-extending a schedule based on a short terminal slope would not.
+Two ImageNet runs in the September 19 packet are unfinished. The weight-decay
+probe stopped at epoch 140. A DeiT-initialized \mn{} run reached epoch 104 of
+150 and should be resumed from its last checkpoint; we do not treat its
+partial curve as an endpoint, because earlier mid-training leads in this
+campaign have decayed. Progressive latent merging was queued and not started.
+A DeiT-B/16 300-epoch run overfits under drop-path 0.1 (Appendix~\ref{app:deitb})
+and is not a usable base-scale anchor.
+
+The most informative remaining experiments follow directly from these limits.
+Resume the interrupted DeiT-initialized run to a 150-epoch endpoint, and run
+the queued progressive-latent configuration as its own family. Any new local
+ImageNet training must be reported as a separate experiment from the company
+packet. Repeat the global, flattened, radius-3 and degree-matched controls at
+additional ImageNet seeds only after the representation-level tests are
+complete. The layout follow-up supplies bounded parity and complete-model
+inference timing; complete training-step timing and long-run behavior remain
+open. These experiments would test concrete explanations for the observed
+gaps; merely extending a schedule based on a short terminal slope would not.

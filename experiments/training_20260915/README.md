@@ -1,8 +1,6 @@
-# New local training campaign (in progress)
+# New local training campaign (complete)
 
-Source/evidence snapshot only. The active campaign is `/liziqing/yukai/mergenet_local_campaign_20260915`; read its `PROGRESS.zh-CN.md` for current progress. `status_snapshot.json` is timestamped and may be stale. Original run directories must not be relaunched or overwritten.
-
-The frozen matrix is historical/rowwise selector ×global/flat8/R3/receiver-degree-preserving permutation ×seeds42/43/44, each200epochs on CIFAR-100 resized to224. Eight independent GPU jobs share the same batch200 and training recipe. Formal endpoints and seed statistics remain pending until the relevant runs finish.
+The 24 CIFAR-100 jobs finished on 2026-09-16. Endpoints used in the manuscript are epoch-199 EMA top-1, recomputed in `data/cifar_seeds/`. The live campaign directory is `/liziqing/yukai/mergenet_local_campaign_20260915`; this snapshot is not a second copy of the checkpoints.
 
 `code/` and `runtime/` preserve exactly the executable source identities from the campaign. Runtime licensing and upstream headers remain intact. `jobs/` and `smoke_jobs/` record resolved commands; their output paths refer to the live campaign, so do not run them from this archive. `report.py` demonstrates the aggregation logic but reads a live campaign's state/logs. `validation/` and `smoke_gate.json` contain completed preflight evidence. Large weights and full machine logs are not copied.
 

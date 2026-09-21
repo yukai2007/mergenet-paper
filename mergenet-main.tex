@@ -10,7 +10,7 @@
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
-\usepackage{placeins}
+\usepackage[section]{placeins}
 \usepackage{xurl}
 \urlstyle{same}
 \renewcommand{\bibfont}{\small}
@@ -19,14 +19,20 @@
 \widowpenalty=10000
 \clubpenalty=10000
 \displaywidowpenalty=10000
-\newcommand{\mn}{MergeNet}
+\newcommand{\mn}{\mbox{MergeNet}}
 \newcommand{\pp}{\,pp}
+\input{draft-slots}
 \title{MergeNet: Spatial Routing Gains and Deployment Tradeoffs in Learned Token Compression}
 \author{Anonymous authors}
 \date{}
 \begin{document}
 \maketitle
 \input{sections/abstract}
+\begin{center}\small\color{blue!55!black}
+Author working draft with requested evidence slots P01--P12.\par
+Underlined cells and reserved figures are intentionally unfilled; they are
+not observations and do not enter any reported result.
+\end{center}
 \input{sections/introduction}
 \input{sections/related-work}
 \input{sections/method}
@@ -43,6 +49,7 @@
 \input{sections/appendix}
 \clearpage
 \input{sections/cifar-appendix}
-\clearpage
 \input{sections/followup}
+\clearpage
+\input{sections/pending/appendix}
 \end{document}
