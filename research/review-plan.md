@@ -1,9 +1,9 @@
 # Review and manuscript contract
 
-- Working title: MergeNet: Spatial Routing Gains and Deployment Tradeoffs in Learned Token Compression.
+- Working title: MergeNet: Differentiable Spatial Routing with a Physical Token Bottleneck.
 - Question: Does original-grid spatial support improve a DTEM-derived, fixed-slot soft router, and do those internal gains translate into competitive ImageNet accuracy and measured latency?
 - Reader: computer-vision and efficient-learning researchers.
-- Retrieval cutoff: 2026-09-20.
+- Retrieval cutoff: 2026-09-22.
 - Unit: a versioned method, concrete implementation, or individually identified experimental run.
 - “All”: all 23 recorded ImageNet runs in the September 19 campaign packet, plus the 24 completed local CIFAR seed runs; not an exhaustive survey of every token-compression paper.
 
@@ -36,11 +36,11 @@ Internal spatial constraints improve one-seed ImageNet results over MergeNet's u
 
 ## Deliverables
 
-- Anonymous, complete English research manuscript, standard LaTeX article, modular sections.
+- Anonymous, complete English research manuscript using the official ICLR 2027 style, modular sections.
 - Data-derived figures/tables with reproducible CPU analysis; claim and source ledgers.
 - Canonical source: mergenet-main.tex; canonical PDF: mergenet-main.pdf.
 - Private GitHub repository: yukai2007/mergenet-paper; Overleaf entry point mergenet-main.tex.
-- Separate Chinese assessment and prioritized remaining experiments.
+- Separate Chinese assessment and the two-item collaborator request: missing numeric cells and final-checkpoint routing visualization.
 
 ## Workflow note
 

@@ -9,7 +9,10 @@ local encoder first produces $H^{(1)},\ldots,H^{(6)}$; six transport steps
 then update the final slots using a metric derived from the corresponding
 local layer. Transport remains soft and retains all slots. Only the subsequent
 hard gather reduces the sequence. Figure~\ref{fig:architecture} follows the
-final architecture in the collaborator deck and the executed classifier.
+final architecture in the collaborator deck and the executed classifier. The
+deck also depicts a generic local-decoder branch; in the executed ImageNet
+classifier, this branch is instantiated by the recovery cross-attention below
+and terminates in the CLS classification head.
 
 \begin{figure}[t]
 \centering
