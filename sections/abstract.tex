@@ -1,24 +1,56 @@
+% \begin{abstract}
+% Vision transformers retain fine image detail but pay to process every patch
+% through every layer. Token merging reduces this cost only when a trainable
+% merging policy also produces the shorter tensor used by downstream blocks.
+% We introduce \mn{}, a local-to-latent vision transformer that separates these
+% roles: continuous spatial mass routing learns where information should flow,
+% and an exact-budget gather physically reduces $N$ patches to $K$ carriers
+% before global reasoning. Routing is restricted to the original image grid,
+% but similarities, transported mass, and carrier locations remain learned. A
+% threshold-based soft top-$k$ relaxation trains the routing scores, while a
+% straight-through carrier weight connects them to the hard gather. Selected
+% mass is retained as a logarithmic key bias; we also give an exact rank-one
+% query/key augmentation that implements this bias with an unmodified
+% FlashAttention kernel. On ImageNet-1K with DeiT-S/8, the trained checkpoint
+% reaches 81.368\% top-1 at $2\times$ carrier compression, versus 82.246\% for
+% the dense model; matched-budget evaluation gives 81.360\% for \mn{} and
+% 81.932\% for post-training ToMe. Radius-3 routing improves a matched
+% 150-epoch control by 1.670 percentage points over global routing and 0.598
+% over flattened windows, and three-seed CIFAR-100 controls retain the spatial
+% advantage after matching receiver degree. The remaining
+% \pendingresult{DTEM score}, \pendingresult{latency}, and
+% \pendingresult{memory} cells are explicitly reserved for one common-protocol
+% checkpoint evaluation.
+% \end{abstract}
+
 \begin{abstract}
-Vision transformers retain fine image detail but pay to process every patch
-through every layer. Token merging reduces this cost only when a trainable
-merging policy also produces the shorter tensor used by downstream blocks.
-We introduce \mn{}, a local-to-latent vision transformer that separates these
-roles: continuous spatial mass routing learns where information should flow,
-and an exact-budget gather physically reduces $N$ patches to $K$ carriers
-before global reasoning. Routing is restricted to the original image grid,
-but similarities, transported mass, and carrier locations remain learned. A
-threshold-based soft top-$k$ relaxation trains the routing scores, while a
-straight-through carrier weight connects them to the hard gather. Selected
-mass is retained as a logarithmic key bias; we also give an exact rank-one
-query/key augmentation that implements this bias with an unmodified
-FlashAttention kernel. On ImageNet-1K with DeiT-S/8, the trained checkpoint
-reaches 81.368\% top-1 at $2\times$ carrier compression, versus 82.246\% for
-the dense model; matched-budget evaluation gives 81.360\% for \mn{} and
-81.932\% for post-training ToMe. Radius-3 routing improves a matched
-150-epoch control by 1.670 percentage points over global routing and 0.598
-over flattened windows, and three-seed CIFAR-100 controls retain the spatial
-advantage after matching receiver degree. The remaining
-\pendingresult{DTEM score}, \pendingresult{latency}, and
-\pendingresult{memory} cells are explicitly reserved for one common-protocol
-checkpoint evaluation.
+Modern visual recognition requires models to capture both fine-grained image
+detail and long-range context. Vision transformers meet these needs by
+representing images as patch tokens and modeling their interactions, but
+retaining every token across layers becomes costly at high resolution. Token
+merging reduces this cost by consolidating redundant tokens. Yet its success
+depends both on learning which tokens to combine without losing task-relevant
+information and on translating those decisions into a physically shorter
+sequence. DTEM learns the merging policy with dedicated merge embeddings and a
+continuous relaxation. However, its soft training path retains every token
+slot: it learns merge decisions without realizing physical compression, which
+still requires hard merging. \mn{} closes this gap with a local-to-latent
+architecture. Differentiable routing consolidates information according to the
+learned merge decisions; fixed-budget selection then physically shortens the
+sequence before global reasoning. To make this transition trainable and
+practical, we combine differentiable budgeted selection with fused, mass-aware
+attention over merged tokens. We evaluate \mn{} on ImageNet-1K image
+classification, using DeiT-S as the dense baseline and comparing against DTEM,
+ToMe, and PiToMe at matched token budgets. At a $2\times$ carrier reduction, the trained
+\mn{} checkpoint obtains 81.360\% top-1, compared with 82.246\% for dense
+DeiT-S/8, 81.932\% for post-training ToMe, and 81.742\% for PiToMe; the matched
+DTEM result remains unavailable. Within \mn{}, radius-3 routing improves a
+matched 150-epoch ImageNet control by 1.670 percentage points over global
+routing and 0.598 points
+over flattened windows. A three-seed CIFAR-100 study retains this spatial
+advantage under both the historical and a corrected per-sample selector, as
+well as against a degree-matched receiver permutation. These results support
+the spatial routing mechanism and physical bottleneck, while trained-checkpoint
+latency, memory, and component ablations remain necessary before making an
+accuracy--efficiency frontier claim.
 \end{abstract}
