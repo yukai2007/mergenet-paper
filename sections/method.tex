@@ -16,11 +16,13 @@ and terminates in the CLS classification head.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/architecture.pdf}
-\caption{\mn{} at 224 pixels. Soft spatial transport keeps the full grid; the
-exact-budget gather is the first physically shorter tensor. Recovery reads
-the final full-grid local features, after which global reasoning uses 392
-patch carriers. Counts exclude CLS.}
+\includegraphics[width=\linewidth]{figures/model_architecture_slide3.pdf}
+\caption{The overall \mn{} architecture from the project model design (slide 3).
+The local encoder produces the full-grid representation; dynamic merging and
+the differentiable Top-$K$ path determine which information is routed into the
+latent sequence through cross-attention. The local decoder shown in the design
+is the recovery branch; for the ImageNet classifier, the latent path terminates
+in the CLS head described below.}
 \label{fig:architecture}
 \end{figure}
 
