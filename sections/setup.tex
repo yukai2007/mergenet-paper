@@ -15,10 +15,11 @@ Appendix~\ref{app:recipe}.
 The 384-pixel models fine-tune the 300-epoch EMA weights for 30 epochs; the
 512-pixel models add 15 epochs. All retain effective global batch 1,024 via
 gradient accumulation. We report both the best and final EMA values because
-best-checkpoint selection uses the same validation split. A supplied packet
-contains 21 complete and two interrupted ImageNet schedules. We recompute
-endpoints by header name from 3,365 contiguous summary rows and cross-check
-3,264 rows against supplied logs; missing-log rows remain summary-only. The
+best-checkpoint selection uses the same validation split. The latest supplied
+packet contains 23 complete ImageNet schedules and one abandoned 140/150
+weight-decay probe. We recompute endpoints by header name from 3,560 contiguous
+summary rows and cross-check 3,354 rows against supplied logs; missing-log rows
+remain summary-only. The
 company checkpoints were not transferred, so this is a record audit rather
 than an independent checkpoint replay.
 
@@ -27,9 +28,9 @@ The main table fixes 392 final patches at 224 pixels. ToMe and PiToMe are
 applied after training to the dense checkpoint, while \mn{} is trained with
 its native bottleneck. The budget sweep evaluates the complete validation set
 at five budgets. These rows compare deployable checkpoints; they do not
-isolate the routing rule under identical training. A separate CIFAR-100 study
-trains two selectors $\times$ four routing geometries $\times$ three seeds for
-200 epochs. Its preregistered endpoint is epoch-199 EMA top-1.
+isolate the routing rule under identical training. A separate 12-run
+CIFAR-100 study evaluates four routing geometries and three seeds for 200
+epochs. Its preregistered endpoint is epoch-199 EMA top-1.
 
 \paragraph{Timing.}
 Historical 224- and 384-pixel latency records use synthetic inputs and random
@@ -37,6 +38,8 @@ weights; one later ToMe sweep also disables proportional attention. We report
 these only as architecture diagnostics. The primary table leaves latency and
 memory blank until dense, matched DTEM, ToMe, and \mn{} are measured from
 trained checkpoints with identical preprocessing, precision, batch, attention
-policy, token hooks, and CUDA-event timing. The same collaborator packet will
-supply two inference-only component scores and passive routing traces; no
-checkpoint transfer is requested.
+policy, token hooks, and CUDA-event timing. The same collaborator packet should
+supply two inference-only component scores and passive routing traces. The
+public repository intentionally distributes source and configuration rather
+than trained weights; the headline result is therefore supported by the
+record audit above rather than public checkpoint replay.

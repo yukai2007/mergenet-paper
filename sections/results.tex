@@ -4,10 +4,11 @@
 \subsection{Primary matched-budget comparison}
 Table~\ref{tab:main} fixes the final budget at 392 patches, excluding CLS. The
 \mn{} row is the 50,000-image re-evaluation (81.360\%); its training summary
-reports a best EMA value of 81.368\%. Dense DeiT-S/8 reaches 82.246\%, and
-post-training ToMe reaches 81.932\%. Thus the current evidence establishes a
-learnable physical bottleneck, but not a stronger accuracy frontier. The
-matched DTEM score and common-protocol systems cells remain explicit blanks.
+reports a best EMA value of 81.368\%. Dense DeiT-S/8 reaches 82.246\%, while
+post-training ToMe and PiToMe reach 81.932\% and 81.742\%, respectively. Thus
+the current evidence establishes a learnable physical bottleneck, but not a
+stronger accuracy frontier. The matched DTEM score and common-protocol systems
+cells remain explicit blanks.
 
 \begin{table}[t]
 \caption{ImageNet-1K at 224 pixels and a 392-patch target. Accuracy is percent.
@@ -37,13 +38,11 @@ accuracies are single-seed EMA top-1.}
 
 Radius changes both geometry and candidate count. We therefore repeat the
 comparison on CIFAR-100 with a receiver permutation that preserves each
-realized receiver degree. Across three seeds, radius 3 ranks first under both
-the historical batch-normalized threshold selector and a corrected per-sample
-selector (Table~\ref{tab:cifar-seeds}). Every one of the 18 paired radius-3
-minus control differences is positive. Against the degree-matched control,
-the mean gains are $1.42\pm0.30$ and $1.19\pm0.13$ points, respectively. These
-runs support a locality effect beyond degree, but do not transfer ImageNet
-uncertainty.
+realized receiver degree. Across three seeds, radius 3 ranks first among the
+four geometries (Table~\ref{tab:cifar-seeds}). Every one of the nine paired
+radius-3 minus control differences is positive. Against the degree-matched
+control, the mean gain is $1.42\pm0.30$ points. These runs support a locality
+effect beyond degree, but do not transfer ImageNet uncertainty.
 
 \begin{table}[t]
 \caption{CIFAR-100 epoch-199 EMA top-1 (\%), mean $\pm$ sample standard
@@ -70,7 +69,6 @@ Claim & Control & Result \\
 \midrule
 2-D routing & global, flat, $R=2/3$ & Done; Table~\ref{tab:geometry} \\
 Locality beyond degree & receiver permutation & $+1.42\pm0.30$ points \\
-Selector dependence & historical vs per-sample & $R=3$ first under both \\
 Budget behavior & 20 matched token settings & ToMe higher in 20/20 \\
 Mass-aware attention & set $\log m$ bias to zero & \pendingresult{score} \\
 Full-grid recovery & bypass cross-attention & \pendingresult{score} \\

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MergeNet 论文—代码—实验审计报告</title>
+<style>
+:root{--ink:#17202a;--muted:#65717e;--line:#dfe4e8;--bg:#f5f7f8;--card:#fff;--red:#b42318;--orange:#c45500;--yellow:#8a6500;--green:#137333;--blue:#165d9c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.62 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:1180px;margin:auto;padding:28px 24px 64px}h1{font-size:28px;margin:0 0 6px}h2{font-size:20px;margin:32px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px}h3{font-size:16px;margin:18px 0 7px}.sub{color:var(--muted);margin:0 0 20px}.status{background:#fff8dc;border-left:5px solid #d7a700;padding:15px 18px;margin:18px 0}.status strong{font-size:18px}.cards{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:13px}.card b{display:block;font-size:24px}.card span{color:var(--muted)}.toolbar{position:sticky;top:0;z-index:3;background:rgba(245,247,248,.95);padding:10px 0;display:flex;gap:7px;flex-wrap:wrap}.toolbar button,.toolbar input{border:1px solid #bcc5cc;background:white;border-radius:5px;padding:7px 10px}.toolbar button{cursor:pointer}.toolbar button.active{background:#243746;color:#fff}.toolbar input{min-width:220px;flex:1}.finding,.issue{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--yellow);border-radius:6px;padding:14px 17px;margin:10px 0}.high{border-left-color:var(--orange)}.critical{border-left-color:var(--red)}.verified{border-left-color:var(--green)}.unable{border-left-color:#858b91}.medium{border-left-color:#d3a500}.kv{display:grid;grid-template-columns:130px 1fr;gap:4px 12px}.kv b{color:#33414c}table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}th,td{text-align:left;vertical-align:top;border:1px solid var(--line);padding:8px 9px}th{background:#eef2f4}code{background:#eef1f3;padding:1px 4px;border-radius:3px;font-size:12px}details{margin-top:10px}summary{cursor:pointer;color:var(--blue)}a{color:var(--blue)}ul{margin-top:7px}.check li{margin:5px 0}.note{color:var(--muted);font-size:12px}.hidden{display:none!important}@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}.kv{grid-template-columns:1fr}table{display:block;overflow:auto}}
+</style>
+</head>
+<body><main>
+<h1>论文—代码—实验审计报告</h1>
+<p class="sub">MergeNet · 聚焦公开仓库完备性与实验/数据缺口 · 2026-09-23</p>
+<p class="note"><a href="paper_code_audit.html">English version</a></p>
+
+<div class="status"><strong>🟡 仍有问题需要处理</strong><br>未发现已报告主要数值与原始记录之间的确定性矛盾。根据最新约定，公开仓库不要求提供预训练 checkpoint。投稿前仍有三项高优先级数值缺口：匹配协议的 DTEM、统一协议的系统测量，以及两个核心组件消融；此外还需要最终模型的被动 routing trace。</div>
+
+<div class="cards">
+  <div class="card"><b>0</b><span>严重问题</span></div><div class="card"><b>3</b><span>高风险问题</span></div>
+  <div class="card"><b>5</b><span>中风险问题</span></div><div class="card"><b>0</b><span>引文问题*</span></div>
+  <div class="card"><b>3</b><span>目前无法验证</span></div><div class="card"><b>14</b><span>已验证项目</span></div>
+</div>
+<p class="note">* 本轮按要求聚焦仓库和实验完整性，没有执行完整的引文真实性审计；“0”不代表所有引文均已逐项核验。</p>
+
+<div class="toolbar"><button class="active" data-filter="all">全部</button><button data-filter="high">高风险</button><button data-filter="medium">中风险</button><button data-filter="unable">无法验证</button><button data-filter="verified">已验证</button><input id="search" placeholder="搜索问题、实验或表格"></div>
+
+<h2>核心结论</h2>
+<div class="finding verified audit-item" data-kind="verified"><h3>✅ 公开仓库已采用无 checkpoint 的精简交付范围</h3><p>公开仓库现仅包含 MergeNet 核心实现、论文采用的 MN-L2-R3 配置、通用 ImageNet 训练入口、环境锁定文件和必要测试。预训练权重、内部 campaign、集群调度和协作交接材料均已移除。ImageNet 数值明确属于 summary/log 记录级验证，而不是公开 checkpoint replay。</p></div>
+<div class="finding high audit-item" data-kind="high unable"><h3>🟠 E1. 缺少匹配协议的 DTEM 基线</h3><p>主表中 392-patch 目标下的 DTEM 准确率仍为空。不同 patch size 或不同训练协议下的文献数值不能替代匹配实验。投稿前应运行明确声明的匹配协议；若无法运行，应删除主表空行并收窄对 DTEM 的比较表述。</p></div>
+<div class="finding high audit-item" data-kind="high unable"><h3>🟠 E2. 准确率—延迟—显存前沿尚未测得</h3><p>现有系统记录使用随机初始化权重，并且 ToMe 的 proportional-attention 设置不统一，不能填入主表。若要主张效率前沿，必须在同一环境和同一测量 harness 下测试 dense、DTEM、ToMe、PiToMe 与 MergeNet。</p></div>
+<div class="finding high audit-item" data-kind="high unable"><h3>🟠 E3. 两个核心组件缺少因果消融</h3><p>质量感知的 <code>log(mass)</code> key bias 和 full-grid recovery 都是论文明确命名的组件，但尚无独立消融分数。需要在同一最终模型上分别关闭 mass bias、绕过 recovery cross-attention，并报告完整验证集上的变化。</p></div>
+<div class="finding medium audit-item" data-kind="medium"><h3>🟡 M1. ImageNet 主比较只有单 seed</h3><p>三 seed CIFAR 结果支持局部空间机制，但不能为最终 ImageNet 准确率差距提供方差估计。建议为 dense 与 MergeNet 增加 seed 43/44；否则需始终标注 ImageNet 为单 seed，并避免显著性表述。</p></div>
+<div class="finding medium audit-item" data-kind="medium"><h3>🟡 M2. 历史运行环境与公开锁定环境不同</h3><p>公开环境锁定为 torch 2.6.0/CUDA 12.4，而历史论文运行记录为 torch 2.7.1/CUDA 11.8。论文已经说明差异；若追求精确数值复现，应保留历史环境或量化环境漂移。</p></div>
+<div class="finding verified audit-item" data-kind="verified"><h3>✅ 主表遗漏的 PiToMe 已补入</h3><p>已有的 392-patch 完整验证集结果 81.742% 已与 ToMe 并列加入主表，并标注为 post-training 方法。这避免了选择性呈现，同时没有虚构新测量。</p></div>
+
+<h2>高风险问题详表</h2>
+<section class="issue verified audit-item" data-kind="verified"><h3>公开策略：有意不发布 checkpoint</h3><div class="kv"><b>状态 / 置信度</b><span>已接受 / 已确认</span><b>公开内容</b><span>MergeNet 源码、论文配置、单机训练入口、环境锁定和 CPU/GPU 测试。</span><b>排除内容</b><span>预训练权重、原始 campaign、集群调度、内部交接和论文审计材料。</span><b>证据边界</b><span>ImageNet 端点由 summary/log 记录支持，不主张公开 checkpoint 可重放。</span></div></section>
+<section class="issue high audit-item" data-kind="high unable"><h3>问题 E1 — 缺少 matched DTEM</h3><div class="kv"><b>严重度 / 置信度</b><span>高 / 已确认</span><b>类别</b><span>实验完整性</span><b>论文现状</b><span>DTEM 是最接近的学习式 merging 前驱，并出现在主比较表中。</span><b>证据现状</b><span><code>tables/main.tex</code> 的 DTEM accuracy、latency 和 memory 仍为空；正文明确称其不可用。</span><b>影响</b><span>缺少最近邻方法的公平比较，主表无法充分证明方法定位。</span><b>建议</b><span>匹配数据、分辨率、patch-8 模型规模、目标预算和 evaluator；若不跑，则删除空行并仅在相关工作中讨论 DTEM。</span></div></section>
+<section class="issue high audit-item" data-kind="high unable"><h3>问题 E2 — 缺少统一协议的系统结果</h3><div class="kv"><b>严重度 / 置信度</b><span>高 / 已确认</span><b>类别</b><span>实验、系统</span><b>证据现状</b><span>历史 timing 使用 synthetic input 和随机权重，且一组 ToMe timing 关闭 proportional attention；主表系统列仍为空。</span><b>影响</b><span>相同最终 token 数不代表相同计算量或延迟，因为各方法缩短序列的层位置不同。</span><b>建议</b><span>统一 GPU、软件栈、batch、精度、预处理、attention policy、warmup、CUDA event 和显存定义，并同时报告实际 token trajectory。</span></div></section>
+<section class="issue high audit-item" data-kind="high unable"><h3>问题 E3 — mass bias 与 recovery 贡献未隔离</h3><div class="kv"><b>严重度 / 置信度</b><span>高 / 已确认</span><b>类别</b><span>消融实验</span><b>论文主张</b><span>质量感知 attention 和 full-grid recovery 是方法组成部分。</span><b>证据现状</b><span>实现和算子测试存在，但两个 inference-only intervention 的最终准确率为空。</span><b>影响</b><span>当前证据无法把观察到的效果归因于任何一个被命名的组件。</span><b>建议</b><span>在同一模型上分别设 <code>log(mass)=0</code>、绕过 recovery residual cross-attention，并运行完整验证集。</span></div></section>
+
+<h2>方法—代码对应</h2>
+<table><thead><tr><th>组件</th><th>状态</th><th>论文描述</th><th>实现 / 证据</th><th>备注</th></tr></thead><tbody>
+<tr><td>Local-to-latent 真实瓶颈</td><td>✅ 已验证</td><td>full-grid local encoder 后 gather 到 392 carriers</td><td><code>opentome/models/mergenet/model.py</code>；GPU model smoke 通过</td><td>latent blocks 接收真实缩短后的 tensor</td></tr>
+<tr><td>二维 R3 路由</td><td>✅ 已验证</td><td>原始 patch 网格，欧氏半径 3</td><td><code>opentome/timm/dtem.py</code>；dense/sparse 前向、反向与 transport parity 通过</td><td>初始化时仍一次性构造 dense adjacency</td></tr>
+<tr><td>Mass-aware attention</td><td>✅ 已实现 / ⚪ 未消融</td><td><code>log(mass)</code> key bias</td><td>实现与局部 attention parity 测试通过</td><td>缺少最终模型的因果分数</td></tr>
+<tr><td>Full-grid recovery</td><td>✅ 已实现 / ⚪ 未消融</td><td>residual cross-attention</td><td>模型路径与 smoke test 通过</td><td>缺少 bypass 分数</td></tr>
+</tbody></table>
+
+<h2>配置核验</h2>
+<table><thead><tr><th>设置</th><th>论文</th><th>公开配置 / 有效设置</th><th>状态</th></tr></thead><tbody>
+<tr><td>数据集 / 验证集</td><td>ImageNet-1K / 50,000</td><td>ImageFolder，1,000 类</td><td>✅ 匹配</td></tr>
+<tr><td>分辨率 / patch</td><td>224 / 8</td><td>224 / 8</td><td>✅ 匹配</td></tr>
+<tr><td>深度 / 瓶颈</td><td>6 local + 6 latent / 784→392</td><td>6 + 6 / λ=2</td><td>✅ 匹配</td></tr>
+<tr><td>优化器 / schedule</td><td>AdamW，300 epochs，cosine，warmup 5</td><td><code>configs/mergenet_l2_spatial_r3.yaml</code></td><td>✅ 匹配</td></tr>
+<tr><td>学习率</td><td>选定值 7.5e-4</td><td>公开单一配置为 7.5e-4</td><td>✅ 匹配</td></tr>
+<tr><td>全局 batch</td><td>1,024</td><td>launcher 通过梯度累积保持 1,024</td><td>✅ 匹配</td></tr>
+<tr><td>历史环境</td><td>不是核心主张</td><td>torch 2.7.1/cu118；公开锁定为 2.6.0/cu124</td><td>🟡 已披露漂移</td></tr>
+<tr><td>Checkpoint 发布</td><td>不要求</td><td>权重有意排除</td><td>✅ 符合交付范围</td></tr>
+</tbody></table>
+
+<h2>实验审计</h2>
+<table><thead><tr><th>实验</th><th>论文协议</th><th>内部记录</th><th>状态</th></tr></thead><tbody>
+<tr><td>ImageNet 主端点</td><td>300e，seed 42，完整验证集</td><td>完整配置与 300 行 summary</td><td>✅ 记录级验证；checkpoint replay 不在公开范围</td></tr>
+<tr><td>ImageNet geometry</td><td>150e matched global/flat/R2/R3</td><td>resolved args 与 summaries 完整</td><td>✅ 已验证，单 seed</td></tr>
+<tr><td>CIFAR 机制实验</td><td>4 geometries × 3 seeds</td><td>12 个报告端点和固定协议</td><td>✅ 已验证</td></tr>
+<tr><td>Stage-7 diagnostics</td><td>150e 初始化与 progressive-latent probes</td><td>完整 summaries；单 seed</td><td>✅ 已按证据边界纳入</td></tr>
+<tr><td>Post-training budget sweep</td><td>224px 与 384px 各五个预算</td><td>完整验证集记录存在</td><td>✅ 已验证；ToMe 在 20/20 比较中胜出</td></tr>
+<tr><td>Matched DTEM</td><td>392 patches</td><td>无 matched run</td><td>⚪ 无法验证</td></tr>
+<tr><td>效率</td><td>统一 harness</td><td>仅有带限制的随机权重 diagnostics</td><td>⚪ 无法验证</td></tr>
+<tr><td>组件消融</td><td>关闭 mass bias；绕过 recovery</td><td>无分数</td><td>⚪ 无法验证</td></tr>
+</tbody></table>
+
+<h2>主要数值复核</h2>
+<table><thead><tr><th>结果</th><th>论文数值</th><th>原始证据</th><th>复算值</th><th>状态</th></tr></thead><tbody>
+<tr><td>MergeNet 300e best EMA</td><td>81.368</td><td>summary CSV</td><td>81.368</td><td>✅ 记录一致</td></tr>
+<tr><td>MergeNet 392-patch 复评</td><td>81.360</td><td>test-time record</td><td>81.360</td><td>✅ 记录一致</td></tr>
+<tr><td>Dense DeiT-S/8</td><td>82.246</td><td>summary / evaluation record</td><td>82.246</td><td>✅ 已验证</td></tr>
+<tr><td>ToMe，392 patches</td><td>81.932</td><td>test-time record</td><td>81.932</td><td>✅ 已验证</td></tr>
+<tr><td>PiToMe，392 patches</td><td>81.742</td><td>test-time record</td><td>81.742</td><td>✅ 已验证并加入主表</td></tr>
+<tr><td>R3 − global，ImageNet 150e</td><td>+1.670 pp</td><td>run summaries</td><td>78.888 − 77.218 = 1.670</td><td>✅ 已验证</td></tr>
+<tr><td>R3 − flat，ImageNet 150e</td><td>+0.598 pp</td><td>run summaries</td><td>78.888 − 78.290 = 0.598</td><td>✅ 已验证</td></tr>
+<tr><td>CIFAR historical R3 − degree</td><td>+1.42±0.30 pp</td><td>内部 contrasts.csv</td><td>+1.423±0.300</td><td>✅ 已验证</td></tr>
+<tr><td>DeiT 初始化 − 匹配 scratch</td><td>+1.040 pp</td><td>Stage-7 summaries</td><td>80.574 − 79.534 = 1.040</td><td>✅ 诊断性结果；总训练成本不相等</td></tr>
+<tr><td>Progressive latent − 匹配 recipe control</td><td>−0.142 pp</td><td>Stage-7 summaries</td><td>79.392 − 79.534 = −0.142</td><td>✅ 诊断性结果；最终预算不同</td></tr>
+<tr><td>DTEM / latency / memory / 组件分数</td><td>空白</td><td>无</td><td>不适用</td><td>⚪ 无法验证，未把空白当作 0</td></tr>
+</tbody></table>
+
+<h2>2026-09-23 实验包复查</h2>
+<div class="issue verified audit-item" data-kind="verified"><h3>C1. Raw summary 与已提供日志数值一致</h3><p>实验包共有 24 个 raw runs、3,560 条 summary：23 个达到目标 schedule，另有一个已放弃的 140/150 weight-decay probe。独立 verifier 将 3,354 条 summary 与 EMA 日志事件匹配；206 条只有 summary；按已记录的多次启动解析规则处理后，metric mismatch 为 0。</p></div>
+<div class="issue verified audit-item" data-kind="verified"><h3>C2. Stage-7 数据导入可重生成</h3><p>增量导入脚本先核对压缩包 SHA-256，再逐字节复制两个 Stage-7 summary；对迁移机器恢复的初始化 run 保留首次启动参数，并单独记录首次 checkpoint 加载日志缺失这一证据边界。论文表格均从这些 curated records 生成。</p></div>
+<div class="issue medium audit-item" data-kind="medium"><h3>C3. 包内叙述文件已经过时</h3><p>顶层 <code>README.md</code> 仍称只有 18 个 run directories，并错误地把 384/512px fine-tune 写成 global batch 256、每 epoch 5,004 个 optimizer steps。Launcher 原始记录显示有效 global batch 为 1,024、optimizer steps 为 1,251；论文采用 launcher 记录。</p></div>
+<div class="issue medium audit-item" data-kind="medium"><h3>C4. Stage-8 状态缺少包内 raw data</h3><p><code>STATUS.md</code> 和 <code>_build/runs_analysis.json</code> 包含运行中的 <code>s8_mn_softtopk_off_150e</code>，但压缩包没有对应 raw run directory。论文排除 Stage 8，只统计实际交付 summary 的 24 个 runs。</p></div>
+<div class="issue verified audit-item" data-kind="verified"><h3>C5. 实验包是记录证据，不是 replay bundle</h3><p>包内没有训练权重。按修订后的交付范围，这是有意设计：实验包用于提供 summary/log provenance，公开 checkpoint replay 不属于交付要求。</p></div>
+
+<h2>论文内部一致性</h2>
+<div class="issue verified audit-item" data-kind="verified"><h3>P1. Checkpoint 策略已统一</h3><p><code>sections/setup.tex</code> 与 <code>sections/discussion.tex</code> 现在均说明训练权重不属于公开范围，并把 ImageNet 证据表述为记录级 provenance，而非公开 checkpoint replay。</p></div>
+<div class="issue verified audit-item" data-kind="verified"><h3>P2. Abstract 的主张强度已修正</h3><p>摘要现在直接报告 matched-budget 下 MergeNet 低于 dense、ToMe 和 PiToMe 的排序，并明确表示在统一系统测量和组件消融完成前不主张 accuracy–efficiency frontier。</p></div>
+<div class="issue medium audit-item" data-kind="medium"><h3>P3. Summary-only 区间仍应保留收据</h3><p>3,560 条 ImageNet summary 中有 206 条没有匹配日志，其中包括迁移机器的初始化 run 前 105 个 epochs。若论文继续使用这些端点，应长期保留相应运行收据并在条件允许时复评。</p></div>
+
+<h2>已验证的主要项目</h2>
+<ul class="check audit-item" data-kind="verified">
+<li>✅ 公开 timm model factory 和 MN-L2-R3 默认配置通过 release contract。</li>
+<li>✅ CPU 配置、梯度累积、空间 mask 和 ImageFolder tests 通过。</li>
+<li>✅ 锁定环境的历史收据显示 sparse routing、attention parity 和 model smoke 通过；当前主机的旧 Triton 无法编译 sparse kernels。</li>
+<li>✅ 公开树中不包含预训练 checkpoint 或 checkpoint 交付工具。</li>
+<li>✅ 保留的单一配置使用论文选定学习率 7.5e-4。</li>
+<li>✅ 公开树已移除私有绝对路径、常见凭据模式和内部集群材料。</li>
+<li>✅ 缺失结果保持显式空白，没有使用随机权重 diagnostics 或估计值补齐。</li>
+</ul>
+
+<h2>需要补跑的实验：详细执行方案</h2>
+
+<p>以下方案把“必须补什么”落实为可预注册、可复核的运行协议。除特别说明外，所有 ImageNet accuracy 均使用 ImageNet-1K 的 50,000 张 validation images，报告 EMA top-1/top-5；final epoch 是预先指定的主端点，best EMA 仅作为次要端点并与 final 同时报告。任何失败、OOM、提前终止或负结果都应保留，不能只汇报成功 runs。</p>
+
+<h3>任务总览与优先级</h3>
+<table><thead><tr><th>编号</th><th>任务</th><th>是否训练</th><th>最低工作量</th><th>严格版本</th><th>论文用途</th></tr></thead><tbody>
+<tr><td>E1</td><td>Matched DTEM 基线</td><td>是</td><td>seed 42，1 个 300e run</td><td>seeds 42/43/44</td><td>填主表 DTEM accuracy，完成最近邻方法比较</td></tr>
+<tr><td>E2</td><td>统一 accuracy/latency/memory benchmark</td><td>否</td><td>5 个方法、batch 64、同一 GPU</td><td>增加 batch 1、端到端吞吐与统计区间</td><td>填主表系统列，决定能否讨论效率前沿</td></tr>
+<tr><td>E3</td><td>Mass bias / recovery 消融</td><td>否</td><td>native + 两个单因素 intervention</td><td>增加二者同时关闭的 interaction row</td><td>验证两个命名组件是否被训练模型实际使用</td></tr>
+<tr><td>E6</td><td>被动 routing trace</td><td>否</td><td>固定样本集上的 trace-on/off 等价性</td><td>1,000 张分层样本及完整可视化统计</td><td>补 routing visualization，不改变准确率主张</td></tr>
+</tbody></table>
+
+<h3>所有训练实验共用的锁定协议</h3>
+<table><thead><tr><th>项目</th><th>锁定设置</th><th>说明</th></tr></thead><tbody>
+<tr><td>数据</td><td>ImageNet-1K；train 1,281,167，val 50,000；1,000 classes</td><td>标准 ImageFolder；固定 train/val class mapping；不使用额外数据或 teacher</td></tr>
+<tr><td>输入</td><td>224×224，patch size 8，训练 RandAugment <code>rand-m9-mstd0.5-inc1</code></td><td>验证 crop percentage 0.9；不使用 TTA</td></tr>
+<tr><td>模型规模</td><td>DeiT-S 级别：width 384，6 heads，MLP ratio 4</td><td>MergeNet 为 6 local + 6 latent；DTEM 应控制在同一规模并报告参数量</td></tr>
+<tr><td>训练长度</td><td>300 epochs；final epoch 299 为主端点</td><td>同时保存每 epoch summary、last state 和 best EMA</td></tr>
+<tr><td>优化</td><td>AdamW，<code>eps=1e-8</code>，weight decay 0.05，gradient clip norm 1.0</td><td>cosine decay，5 warmup epochs，warmup LR 1e-6，minimum LR 1e-5</td></tr>
+<tr><td>正则化</td><td>drop path 0.1，label smoothing 0.1，Mixup 0.8，CutMix 1.0，random erasing 0.25</td><td>不得按方法单独关闭增强</td></tr>
+<tr><td>Batch</td><td>effective global batch 1,024</td><td>历史主 run 为 8 ranks × 128/GPU × update_freq 1；若显存不同，可调整 microbatch/update_freq，但必须保持 1,024 和每 epoch optimizer-step 数一致</td></tr>
+<tr><td>EMA</td><td>EMA decay 0.99996</td><td>summary 中 <code>eval_top1</code> 必须明确表示 EMA；raw model 结果不得混用</td></tr>
+<tr><td>随机种子</td><td>42/43/44</td><td>同一 seed 下各方法使用相同数据顺序和增强随机源；报告每个 seed，不只报均值</td></tr>
+<tr><td>环境</td><td>同一 code commit、Python/PyTorch/timm/FlashAttention/Triton 版本</td><td>训练环境可以使用历史 torch 2.7.1/cu118，也可以统一迁移，但同一比较矩阵中不得混用；完整记录 GPU、driver、CUDA 和 git SHA</td></tr>
+</tbody></table>
+
+<section class="issue high audit-item" data-kind="high unable"><h3>E1 — Matched DTEM：最近邻方法基线</h3>
+<p><b>研究问题：</b>在相同数据、模型规模、训练时长和最终 token budget 下，原始 DTEM 训练策略能达到什么准确率；其 soft path 是否真正产生可计时的短序列。</p>
+<p><b>模型与预算：</b>使用 DeiT-S/8 规模（224px、784 input patches、width 384、12 blocks、6 heads、MLP ratio 4），目标为 392 patch tokens，不计 CLS。参数量应与 dense DeiT-S/8 和 MergeNet 接近，并在表中同时报告；若官方 DTEM 结构无法严格匹配，应明确列出唯一必要的适配，不得把 MergeNet 的 recovery、mass bias 或二维半径约束加入 DTEM。</p>
+<p><b>训练设置：</b>从头训练 300 epochs，采用上表共用协议。最低版本固定 learning rate 5e-4，与 150e geometry controls 和 dense recipe 一致。若希望给 DTEM 公平调参机会，应在运行前预注册一个小范围选择：用 150e runs 比较 LR ∈ {5e-4, 7.5e-4}，按 final-epoch EMA top-1 选择，再将选定 LR 独立跑满 300e；两个 screening 结果必须一起报告，不能只保留较高值。最低要求 seed 42；资源允许时跑 seeds 42/43/44。</p>
+<p><b>必须预先确定的 DTEM 语义：</b>需要明确区分“原生 soft training path”和“hard executable path”。如果 DTEM 训练时保留全部 784 slots、只在评估时 hard merge，应把该行标为 <code>DTEM (soft train / hard eval)</code>，并说明 hard merge 的选择规则。如果原生实现不能在 latent blocks 前物理缩短到 392，则准确率可以报告，但系统表必须显示实际 layerwise token counts，不能把目标预算 392 当成已经实现的计算量。</p>
+<p><b>验收与输出：</b>完整保存 config、args、每 epoch summary、EMA/raw final metrics、best epoch、实际 token trajectory、parameter count、训练 wall time、git SHA 和环境清单。成功判据不是“超过 MergeNet”，而是协议完成、exact budget 可核验且无 NaN/提前终止。最终无论正负都填入主表。</p></section>
+
+<section class="issue high audit-item" data-kind="high unable"><h3>E2 — 统一协议 accuracy / latency / memory benchmark</h3>
+<p><b>比较对象：</b>dense DeiT-S/8、matched DTEM、DeiT-S/8 + ToMe、DeiT-S/8 + PiToMe、MergeNet R3。ToMe 与 PiToMe 使用同一个 dense checkpoint；MergeNet 使用其原生训练模型；DTEM 必须使用 E1 明确声明的执行路径。除 dense 的 784 patches 外，其余方法目标均为 392 patches（不计 CLS），并在计时前验证实际 achieved count。</p>
+<p><b>准确率复评：</b>先在完全相同 evaluator 中重跑 50,000 张 validation images。固定 224px、crop_pct 0.9、无 TTA、fp16 autocast、每 GPU evaluation batch 64。ToMe 必须在准确率和 timing 中都开启 proportional attention；PiToMe 的 mass/proportional 设置同样需要显式记录。报告 top-1、top-5、样本数、实际 token 数、checkpoint state key 和评估时长。</p>
+<p><b>硬件与软件：</b>必须选定一张空闲 GPU 并全程不变。建议使用当前已验证可用的单张 A100-SXM4-80GB；如果改用 H20-3e，则所有方法必须全部重测，不能与 A100 数字混表。固定 driver、CUDA、PyTorch、timm、FlashAttention、precision、TF32 开关、attention backend 和 code SHA。关闭 wandb、profiler、token hooks、shape hooks 和调试日志。</p>
+<p><b>主 timing 协议（建议预注册）：</b><code>model.eval()</code>、<code>torch.inference_mode()</code>、fp16 autocast；synthetic device-resident input，排除 dataloader 与 H2D copy。主表使用 batch 64，并增加 batch 1 作为在线场景补充。每个方法先 warm up 50 iterations，再运行 5 个独立 rounds × 200 timed iterations；每次 iteration 前后使用 CUDA events 并同步，round 顺序随机化，不删除 outliers。报告 per-batch median、IQR、P10/P90、images/s 和五个 round medians。</p>
+<p><b>显存协议：</b>模型加载完成、warmup 结束后调用 <code>torch.cuda.reset_peak_memory_stats()</code>；测量一个完整 forward，分别报告 peak allocated GiB 与 peak reserved GiB，不能混成一个未定义的“memory”。每个 batch size 独立启动干净进程，另报 model weights 占用和是否包含 input/output tensors。</p>
+<p><b>结果使用规则：</b>只有 accuracy 和 timing 使用相同 attention policy、同一 checkpoint family、相同 achieved budget 时，才能组成 accuracy–latency point。若 DTEM 实际仍处理 784 slots，应如实展示其 trajectory；若某方法 batch 64 OOM，应将所有方法降到共同 batch 后重跑主表，而不是只降低一个方法。</p>
+<p><b>交付文件：</b>每方法保存一份 JSON，至少包含 checkpoint hash/state key、code SHA、完整环境、GPU UUID、batch、precision、warmup、raw 1,000 latency samples、allocated/reserved memory、actual token trajectory、top-1/top-5 和 evaluator image count；再生成一个只从这些 JSON 派生的主表 CSV。</p></section>
+
+<section class="issue high audit-item" data-kind="high unable"><h3>E3 — Mass bias 与 recovery 的 inference-only 因果消融</h3>
+<p><b>共同设置：</b>使用同一个最终 MergeNet 300e EMA state，不更新任何权重；224px、crop_pct 0.9、batch 64、完整 50k validation、相同样本顺序和 fp16 evaluator。四个 rows 为：① native；② zero latent mass bias；③ disable recovery cross-attention；④ 两者同时关闭（interaction，建议但不是最低要求）。</p>
+<p><b>Mass-bias-off 的精确定义：</b>保留 routing、transported mass、top-K indices、carrier features 和 recovery 全部原样，只在 latent self-attention 接口把 carrier <code>size_trace</code> 替换为同 shape 的 ones，使 additive <code>log(mass)</code> key bias 精确变为 0。不能把所有 mass 提前设为 1，因为那会同时改变 carrier selection 和 transport，破坏单因素解释。</p>
+<p><b>Recovery-off 的精确定义：</b>保持相同 top-K carriers 和 straight-through selection，在进入 latent encoder 前令 <code>x_trace = topk_x</code>，即把 <code>encode_cross_attention(topk_x, x_embed, mask=bias)</code> 的 residual update 置零。不得删除或重新初始化其他层，也不得改变 latent depth、normalization、classifier 或 token budget。公开代码中的 <code>mergenet_small_cls_noxattn</code> 路径可作为实现参考，但必须严格加载同一 native checkpoint 并核对 missing/unexpected keys。</p>
+<p><b>完整性检查：</b>四个 variants 都必须输出恰好 392 patch carriers；同一 variant 重复两次应得到逐样本一致的 logits/predictions；记录 NaN/Inf、mass conservation 和 top-K indices。trace 本身不得改变 native logits。</p>
+<p><b>统计与汇报：</b>报告 top-1、top-5、相对 native 的 Δtop-1/Δtop-5、平均 cross-entropy，以及逐样本 paired bootstrap 95% CI（建议 10,000 resamples，固定 bootstrap seed）。保存每张图的 label、prediction、correctness 和 loss；若保存完整 logits，还需记录 dtype 和文件 digest。单因素 rows 回答独立依赖，双关闭 row 判断两组件是否存在 interaction。</p></section>
+
+<section class="issue medium audit-item" data-kind="medium"><h3>E6 — 被动 routing trace 与可视化</h3>
+<p><b>目的：</b>展示模型实际选择的 carrier 空间分布、routing distance 和 mass concentration，但不把可视化当作准确率或效率证据。使用 native final MergeNet state 和固定的验证样本清单；建议从 1,000 张图中按 ground-truth class 分层抽样，每类 1 张，并另选少量成功/失败案例。</p>
+<p><b>等价性 gate：</b>同一 batch 先运行 trace off，再运行 trace on；要求 logits、top-K indices 和 predicted class 一致（fp32 path 应逐元素一致；若使用混合精度，预注册最大绝对误差阈值），每层总 mass 在容差内守恒。只有通过 gate 的 traces 才能进入图表。</p>
+<p><b>输出：</b>按层保存 donor→receiver distance histogram、carrier mass distribution、top-K spatial coverage、边界/中心 patch 保留率和每图 carrier overlay。报告样本选择规则和聚合方式；不得只展示最漂亮案例。Trace hooks 必须与 E2 timing 完全分离。</p></section>
+
+<h3>资源受限时的推荐顺序</h3>
+<ol class="check">
+<li><b>先做不需要训练的闭环：</b>E3 组件消融 → E2 统一系统 benchmark → E6 trace。它们成本最低，且能一次填补主表和两个核心机制空白。</li>
+<li><b>再补最近邻基线：</b>E1 DTEM seed 42。若这一步无法定义公平、可执行的 hard path，应尽早收窄论文主表，而不是继续留下空白。</li>
+<li><b>并行补展示证据：</b>E6 只读 trace，无需训练，但必须先通过 trace-on/off 等价性 gate。</li>
+</ol>
+
+<h3>每个新 run 的最小交付清单</h3>
+<ul class="check">
+<li>唯一 run ID、git SHA、完整 resolved args、环境 freeze、GPU/driver/CUDA 信息。</li>
+<li>启动命令、数据集 class mapping 与 image counts、seed、world size、batch/GPU、update_freq、effective global batch。</li>
+<li>逐 epoch summary 与日志、final/best EMA、raw-model final、best epoch、训练是否完整。</li>
+<li>checkpoint state key 与 digest 仅需内部保存；按当前政策不要求上传公开仓库。</li>
+<li>评估样本数、crop/TTA/precision/batch、actual token count、所有失败与异常。</li>
+<li>派生表格必须由脚本从 raw JSON/CSV 生成，不允许手工复制数字；生成脚本应检查重复 runs、partial schedules 和非有限值。</li>
+</ul>
+
+<h2>投稿前建议</h2>
+<h3>必须处理</h3><ul class="check"><li>☐ 补跑 matched DTEM；否则删除主表未完成行并收窄比较。</li><li>☐ 在统一 harness 下测量 accuracy、latency 和 peak memory。</li><li>☐ 完成 mass-bias-off 与 recovery-bypass 的完整验证集消融。</li><li>☐ 生成带 trace-on/off 等价性验证的最终 checkpoint routing trace。</li></ul>
+<h3>建议处理</h3><ul class="check"><li>☐ 为 dense 和 MergeNet 增加 ImageNet seeds 43/44，或始终标注单 seed。</li><li>☐ 报告准确率相对于实测 latency/compute 的关系，而不是只比较最终 token 数。</li><li>☐ 保存 206 条 summary-only 记录对应的运行收据。</li><li>☐ 同时报告 best-validation 与 final-epoch，并避免显著性语言。</li><li>☐ 在历史依赖版本下复现，或量化环境漂移。</li></ul>
+<h3>可选增强</h3><ul class="check"><li>☐ 增加另一种 backbone 或 dense prediction task。</li><li>☐ 增加 robustness/distribution-shift evaluation 和被动 routing visualization。</li><li>☐ 端到端验证 rank-one FlashAttention 路径；当前证据仅为算子 parity。</li></ul>
+
+<h2>审稿人视角五维自检</h2>
+<table><thead><tr><th>维度</th><th>当前判断</th><th>主要依据</th><th>状态</th></tr></thead><tbody>
+<tr><td>贡献</td><td>空间受限可微路由与真实序列瓶颈构成清晰方法贡献</td><td>二维 R3 相对 global/flat 的增益稳定，但尚未证明整体优于强基线</td><td>通过，但需克制主张</td></tr>
+<tr><td>写作清晰度</td><td>方法路径、证据边界和负结果已明确</td><td>摘要、setup、discussion 已统一；checkpoint 交付范围明确</td><td>通过</td></tr>
+<tr><td>实验强度</td><td>机制证据较强，最终 ImageNet 竞争力有限</td><td>MergeNet 81.360，低于 dense 82.246、ToMe 81.932、PiToMe 81.742</td><td>需要补实验</td></tr>
+<tr><td>评估完整性</td><td>最近邻基线、系统指标和组件消融缺失</td><td>DTEM、latency、memory、两项组件分数仍为空</td><td>高风险</td></tr>
+<tr><td>方法可靠性</td><td>核心路由与 sparse backend 已通过针对性测试</td><td>CPU/GPU tests 通过；组件级因果分数仍待 E3</td><td>需要组件消融</td></tr>
+</tbody></table>
+
+<h2>核心主张—证据对应</h2>
+<table><thead><tr><th>主张</th><th>证据</th><th>状态</th></tr></thead><tbody>
+<tr><td>MergeNet 产生可供 latent blocks 使用的真实短序列</td><td>模型 gather 路径、token 数检查、GPU model smoke</td><td>✅ 支持</td></tr>
+<tr><td>原始二维局部支持优于 global 与 flattened window</td><td>ImageNet 150e：+1.670 pp / +0.598 pp；三 seed CIFAR 机制实验</td><td>✅ 支持，ImageNet 为单 seed</td></tr>
+<tr><td>MergeNet 在 matched token budget 下优于 dense/ToMe/PiToMe</td><td>81.360 vs 82.246 / 81.932 / 81.742</td><td>❌ 不支持；摘要已改为如实报告负排序</td></tr>
+<tr><td>MergeNet 建立 accuracy–efficiency frontier</td><td>缺少统一训练权重系统测量</td><td>⚪ 需要新证据</td></tr>
+<tr><td>Mass bias 与 recovery 分别带来收益</td><td>组件实现存在，但消融分数为空</td><td>⚪ 需要新证据</td></tr>
+</tbody></table>
+
+<h2>公开仓库交付状态</h2>
+<table><tbody>
+<tr><th>本地仓库</th><td><code>/liziqing/lisiyuan/wy/MergeNet</code></td></tr>
+<tr><th>公开地址</th><td><code>https://github.com/gnawyymmij/MergeNet</code></td></tr>
+<tr><th>公开内容</th><td>MergeNet 源码、单一论文配置、ImageNet trainer/launcher、环境锁定、必要 tests，以及 E1/E2/E3/E6 执行合同</td></tr>
+<tr><th>排除内容</th><td>预训练权重、campaign artifacts、集群调度、内部交接和论文审计材料</td></tr>
+<tr><th>无训练验证</th><td>CPU contracts 与 launcher dry-run 已通过；完整 GPU 验证需要锁定的 Triton 环境</td></tr>
+<tr><th>远端状态</th><td>已发布提交：<code>c3c114b25f6ac740bda8f95be793f15f07bfd418</code></td></tr>
+</tbody></table>
+
+<p class="note">范围说明：本轮按用户要求聚焦公开仓库和实验/数据缺口。完整引文真实性审计及与这两项无关的论文润色暂未执行。缺少 artifact 不等于结果错误；“无法验证”也不等于“存在矛盾”。</p>
+</main>
+<script>
+const buttons=[...document.querySelectorAll('[data-filter]')],items=[...document.querySelectorAll('.audit-item')],search=document.getElementById('search');let filter='all';function apply(){const q=search.value.toLowerCase();items.forEach(x=>{const kind=x.dataset.kind||'',ok=(filter==='all'||kind.includes(filter))&&x.innerText.toLowerCase().includes(q);x.classList.toggle('hidden',!ok)});}buttons.forEach(b=>b.onclick=()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;apply()});search.oninput=apply;
+</script>
+</body></html>

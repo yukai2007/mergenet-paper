@@ -129,6 +129,7 @@ table(
         ['DeiT-S/8', 'dense, trained', r'$784\to784$', '1.00', f'{val("s3_deit_p8_300e"):.3f}', r'\pendingvalue', r'\pendingvalue'],
         ['DTEM', 'matched run', r'$784\to392$', '2.00', r'\pendingvalue', r'\pendingvalue', r'\pendingvalue'],
         ['DeiT-S/8 + ToMe', 'post-training', r'$784\to392$', '2.00', f'{comparison_224.tome_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
+        ['DeiT-S/8 + PiToMe', 'post-training', r'$784\to392$', '2.00', f'{comparison_224.pitome_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
         [r'\mn{} ($R=3$)', 'end-to-end', r'$784\to392$', '2.00', f'{comparison_224.mergenet_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
     ],
 )
@@ -173,6 +174,22 @@ table(
     'lrrrl',
     r'150-epoch probe & LR ($10^{-4}$) & Best (\%) & $\Delta$ vs selected & Status',
     probe_rows,
+)
+
+stage7_control = val('s5_mn_dp07_150e')
+table(
+    'stage7_diagnostics',
+    'llrr',
+    r'Variant & Setting / change from control & Best (\%) & $\Delta$ (pp)',
+    [
+        ['Scratch control', 'drop-path 0.07', f'{stage7_control:.3f}', '0.000'],
+        ['DeiT initialization', 'initialize from DeiT-S/8 300e',
+         f'{val("s7_mn_deitinit_150e"):.3f}',
+         f'{val("s7_mn_deitinit_150e") - stage7_control:+.3f}'],
+        ['Progressive latent', r'192 additional latent merges',
+         f'{val("s7_mn_proglatent_150e"):.3f}',
+         f'{val("s7_mn_proglatent_150e") - stage7_control:+.3f}'],
+    ],
 )
 
 res_rows = [
@@ -299,29 +316,18 @@ table(
 cifar = pd.read_csv(DATA / 'cifar_seeds/endpoints.csv')
 means = pd.read_csv(DATA / 'cifar_seeds/group_means.csv')
 contrasts = pd.read_csv(DATA / 'cifar_seeds/contrasts.csv').set_index('contrast')
-order = ['global', 'flat8', 'degree', 'r3']
-labels = {
-    'global': 'Global',
-    'flat8': 'Flat 8',
-    'degree': 'Degree\nmatched',
-    'r3': r'$R=3$',
-}
-cifar_rows = []
-for selector, slab in [('historical', 'Historical selector'), ('rowwise', 'Rowwise selector')]:
-    g = means[means.selector == selector].set_index('geometry')
-    cifar_rows.append(
-        [
-            slab,
-            f'{g.loc["global", "mean_epoch199"]:.2f}$\\pm${g.loc["global", "std_epoch199"]:.2f}',
-            f'{g.loc["flat8", "mean_epoch199"]:.2f}$\\pm${g.loc["flat8", "std_epoch199"]:.2f}',
-            f'{g.loc["degree", "mean_epoch199"]:.2f}$\\pm${g.loc["degree", "std_epoch199"]:.2f}',
-            f'{g.loc["r3", "mean_epoch199"]:.2f}$\\pm${g.loc["r3", "std_epoch199"]:.2f}',
-        ]
-    )
+g = means[means.selector == 'historical'].set_index('geometry')
+cifar_rows = [[
+    'EMA top-1',
+    f'{g.loc["global", "mean_epoch199"]:.2f}$\\pm${g.loc["global", "std_epoch199"]:.2f}',
+    f'{g.loc["flat8", "mean_epoch199"]:.2f}$\\pm${g.loc["flat8", "std_epoch199"]:.2f}',
+    f'{g.loc["degree", "mean_epoch199"]:.2f}$\\pm${g.loc["degree", "std_epoch199"]:.2f}',
+    f'{g.loc["r3", "mean_epoch199"]:.2f}$\\pm${g.loc["r3", "std_epoch199"]:.2f}',
+]]
 table(
     'cifar_seeds',
     'lrrrr',
-    r'Selector & Global & Flat 8 & Degree-matched & $R=3$',
+    r'Endpoint & Global & Flat 8 & Degree-matched & $R=3$',
     cifar_rows,
 )
 table(
@@ -340,12 +346,9 @@ table(
             ),
         ]
         for key, lab in [
-            ('historical:r3-global', r'Historical $R=3$ $-$ global'),
-            ('historical:r3-flat8', r'Historical $R=3$ $-$ flat'),
-            ('historical:r3-degree', r'Historical $R=3$ $-$ degree'),
-            ('rowwise:r3-global', r'Rowwise $R=3$ $-$ global'),
-            ('rowwise:r3-flat8', r'Rowwise $R=3$ $-$ flat'),
-            ('rowwise:r3-degree', r'Rowwise $R=3$ $-$ degree'),
+            ('historical:r3-global', r'$R=3$ $-$ global'),
+            ('historical:r3-flat8', r'$R=3$ $-$ flat'),
+            ('historical:r3-degree', r'$R=3$ $-$ degree'),
         ]
     ],
 )
@@ -438,58 +441,6 @@ ax.set_ylim(-0.55, 4.9)
 ax.grid(alpha=0.17, axis='x')
 fig.tight_layout()
 fig.savefig(FIG / 'tuning_screen.pdf')
-plt.close(fig)
-
-# CIFAR three-seed geometry: endpoints plus mean training trajectories.
-geom_colors = {
-    'global': C['global'],
-    'flat8': C['flat'],
-    'degree': C['degree'],
-    'r3': C['mn'],
-}
-fig, axes = plt.subplots(2, 2, figsize=(6.6, 4.9))
-x = np.arange(len(order))
-for col_i, selector, title in [
-    (0, 'historical', 'Historical selector'),
-    (1, 'rowwise', 'Per-sample selector'),
-]:
-    ax = axes[0, col_i]
-    g = means[means.selector == selector].set_index('geometry').loc[order]
-    ax.bar(
-        x,
-        g.mean_epoch199,
-        yerr=g.std_epoch199,
-        color=[geom_colors[k] for k in order],
-        capsize=3,
-        width=0.72,
-        error_kw={'lw': 0.9},
-    )
-    ax.set_xticks(x)
-    ax.set_xticklabels([labels[k] for k in order], fontsize=8)
-    ax.set_title(title)
-    ax.grid(alpha=0.17, axis='y')
-    ax.set_ylim(67.8, 72.2)
-    if col_i == 0:
-        ax.set_ylabel('Epoch-199 EMA top-1 (%)')
-    axc = axes[1, col_i]
-    for geom in order:
-        series = []
-        for seed in (42, 43, 44):
-            d = pd.read_csv(DATA / 'cifar_seeds/summaries' / f'{selector}_{geom}_s{seed}' / 'summary.csv')
-            assert d.epoch.tolist() == list(range(len(d))), f'{selector}_{geom}_s{seed}'
-            series.append(d.eval_top1.astype(float).to_numpy())
-        arr = np.vstack(series)
-        mu, sd = arr.mean(0), arr.std(0, ddof=1)
-        ep = np.arange(len(mu))
-        axc.plot(ep, mu, color=geom_colors[geom], lw=1.5, label=labels[geom])
-        axc.fill_between(ep, mu - sd, mu + sd, color=geom_colors[geom], alpha=0.18, lw=0)
-    axc.set(xlabel='Epoch', xlim=(80, 199), ylim=(52.0, 72.2))
-    axc.grid(alpha=0.17)
-    if col_i == 0:
-        axc.set_ylabel('EMA top-1 mean ± 1 s.d. (%)')
-        axc.legend(frameon=False, fontsize=7, loc='lower right')
-fig.tight_layout()
-fig.savefig(FIG / 'cifar_seeds.pdf')
 plt.close(fig)
 
 # Accuracy-only curves. No latency axis: harness configs differ.
@@ -625,7 +576,8 @@ checks = {
     'complete_runs': int(sum(p['status'] == 'COMPLETE' for p in protocol.values())),
     'valid_compression_triplets': int(len(matched)),
     'tome_accuracy_wins': int((matched.tome_minus_mergenet_pp > 0).sum()),
-    'cifar_complete_jobs': int(len(cifar)),
+    'cifar_archived_jobs': int(len(cifar)),
+    'cifar_reported_geometry_jobs': int((cifar.selector == 'historical').sum()),
     'gaps_pp': {
         'r3_minus_global': val('s2_mn_r3_150e') - val('s2_mn_global_150e'),
         'r3_minus_flat': val('s2_mn_r3_150e') - val('s2_mn_flat_w8_150e'),
@@ -635,8 +587,10 @@ checks = {
         'drop_path_delta': val('s5_mn_dp07_150e') - base150,
         'warmup_delta': val('s4_mn_warm20_150e') - base150,
         'curriculum_delta': val('s4_mn_lamcurr_150e') - base150,
-        'cifar_historical_r3_minus_global_mean': cifar_r3_global,
-        'cifar_historical_r3_minus_degree_mean': float(contrasts.loc['historical:r3-degree', 'mean_delta_pp']),
+        'deit_initialization_delta_vs_dp07': val('s7_mn_deitinit_150e') - stage7_control,
+        'progressive_latent_delta_vs_dp07': val('s7_mn_proglatent_150e') - stage7_control,
+        'cifar_r3_minus_global_mean': cifar_r3_global,
+        'cifar_r3_minus_degree_mean': float(contrasts.loc['historical:r3-degree', 'mean_delta_pp']),
         'inference_none_minus_native': probe['none_392']['top1'] - probe['mergenet_392']['top1'],
     },
     'warning': 'No accuracy-latency Pareto curve is generated: proportional-attention settings differ.',

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MergeNet Paper–Code–Experiment Audit</title>
+<style>
+:root{--ink:#17202a;--muted:#65717e;--line:#dfe4e8;--bg:#f5f7f8;--card:#fff;--red:#b42318;--orange:#c45500;--yellow:#8a6500;--green:#137333;--blue:#165d9c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.48 system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1180px;margin:auto;padding:28px 24px 64px}h1{font-size:28px;margin:0 0 6px}h2{font-size:20px;margin:32px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px}h3{font-size:16px;margin:18px 0 7px}.sub{color:var(--muted);margin:0 0 20px}.status{background:#fff8dc;border-left:5px solid #d7a700;padding:15px 18px;margin:18px 0}.status strong{font-size:18px}.cards{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:13px}.card b{display:block;font-size:24px}.card span{color:var(--muted)}.toolbar{position:sticky;top:0;z-index:3;background:rgba(245,247,248,.95);padding:10px 0;display:flex;gap:7px;flex-wrap:wrap}.toolbar button,.toolbar input{border:1px solid #bcc5cc;background:white;border-radius:5px;padding:7px 10px}.toolbar button{cursor:pointer}.toolbar button.active{background:#243746;color:#fff}.toolbar input{min-width:220px;flex:1}.finding,.issue{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--yellow);border-radius:6px;padding:14px 17px;margin:10px 0}.high{border-left-color:var(--orange)}.critical{border-left-color:var(--red)}.verified{border-left-color:var(--green)}.unable{border-left-color:#858b91}.medium{border-left-color:#d3a500}.tag{display:inline-block;border-radius:11px;padding:2px 8px;margin-right:5px;background:#edf0f2;color:#3f4b55;font-size:12px}.tag.high{color:var(--orange);background:#fff0e4;border:0}.tag.medium{color:var(--yellow);background:#fff8d8;border:0}.tag.verified{color:var(--green);background:#e9f7ed;border:0}.tag.unable{color:#555;background:#eee;border:0}.kv{display:grid;grid-template-columns:130px 1fr;gap:4px 12px}.kv b{color:#33414c}table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}th,td{text-align:left;vertical-align:top;border:1px solid var(--line);padding:8px 9px}th{background:#eef2f4}code{background:#eef1f3;padding:1px 4px;border-radius:3px;font-size:12px}details{margin-top:10px}summary{cursor:pointer;color:var(--blue)}a{color:var(--blue)}ul{margin-top:7px}.check li{margin:5px 0}.note{color:var(--muted);font-size:12px}.hidden{display:none!important}@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}.kv{grid-template-columns:1fr}table{display:block;overflow:auto}}
+</style>
+</head>
+<body><main>
+<h1>Paper–Code–Experiment–Citation Audit</h1>
+<p class="sub">MergeNet · focused audit of public-repository readiness and missing experimental evidence · 2026-09-23</p>
+<p class="note"><a href="paper_code_audit.zh-CN.html">中文版</a></p>
+<div class="status"><strong>🟡 Issues require attention</strong><br>No confirmed result contradiction was found. Checkpoint publication is outside the agreed public-release scope. Three high-priority experimental gaps remain: matched DTEM, common-protocol systems measurements, and two component ablations. Passive routing traces remain a presentation deliverable.</div>
+<div class="cards">
+  <div class="card"><b>0</b><span>Critical</span></div><div class="card"><b>3</b><span>High</span></div>
+  <div class="card"><b>5</b><span>Medium</span></div><div class="card"><b>0</b><span>Citation issues*</span></div>
+  <div class="card"><b>3</b><span>Unable to verify</span></div><div class="card"><b>14</b><span>Verified components</span></div>
+</div>
+<p class="note">* Citation review was intentionally out of scope for this focused pass, as requested; zero does not mean a full citation audit was completed.</p>
+
+<div class="toolbar"><button class="active" data-filter="all">All</button><button data-filter="high">High</button><button data-filter="medium">Medium</button><button data-filter="unable">Unable</button><button data-filter="verified">Verified</button><input id="search" placeholder="Search findings and tables"></div>
+
+<h2>Top Findings</h2>
+<div class="finding verified audit-item" data-kind="verified"><h3>✅ Checkpoint-free public release scope adopted</h3><p>The public repository now contains source, one reported configuration, a generic trainer launcher, and focused tests. Pretrained weights are intentionally excluded. ImageNet values remain explicitly supported at record level rather than described as public checkpoint replay.</p></div>
+<div class="finding high audit-item" data-kind="high unable"><h3>🟠 E1. Closest matched DTEM baseline is absent</h3><p>The main table still has no DTEM accuracy at the 392-patch target. A literature value from a different patch size or protocol is not a replacement. Run a declared matched protocol or narrow the comparison language and remove the unfinished primary-table row before submission.</p></div>
+<div class="finding high audit-item" data-kind="high unable"><h3>🟠 E2. Accuracy–latency–memory frontier is unmeasured</h3><p>Existing timing records use random weights and nonuniform ToMe attention settings. They cannot fill the primary table. Measure dense, DTEM, ToMe, PiToMe, and MergeNet checkpoints in one environment and harness before making any efficiency-frontier claim.</p></div>
+<div class="finding high audit-item" data-kind="high unable"><h3>🟠 E3. Two named method components lack causal ablations</h3><p>Mass-aware <code>log(mass)</code> key bias and full-grid recovery are central components, but their inference-only interventions remain blank. Run both on the final checkpoint and report score deltas.</p></div>
+<div class="finding medium audit-item" data-kind="medium"><h3>🟡 M1. Headline ImageNet comparison is single-seed</h3><p>The three-seed CIFAR evidence supports the locality mechanism, not the final ImageNet accuracy gap. Add seeds 43/44 for dense and MergeNet, or consistently label ImageNet values single-seed and avoid significance language.</p></div>
+<div class="finding medium audit-item" data-kind="medium"><h3>🟡 M2. Historical run environment differs from release lock</h3><p>The release lock is torch 2.6.0/CUDA 12.4; historical paper runs record torch 2.7.1/CUDA 11.8. The difference is now documented, but exact numerical reproduction should preserve the historical environment or quantify drift.</p></div>
+<div class="finding verified audit-item" data-kind="verified"><h3>✅ PiToMe omission from the primary table was fixed</h3><p>The existing 392-patch full-validation result, 81.742%, is now included beside ToMe and labeled post-training. This avoids a selective-table appearance without inventing a new measurement.</p></div>
+
+<h2>Critical / High-Risk Issues</h2>
+<section class="issue verified audit-item" data-kind="verified"><h3>Release policy — Checkpoints intentionally excluded</h3><div class="kv"><b>Status / confidence</b><span>Accepted / Confirmed</span><b>Category</b><span>Repository scope</span><b>Release contains</b><span>MergeNet source, the reported MN-L2-R3 configuration, a single-node training entry point, environment pins, and focused CPU/GPU tests.</span><b>Release excludes</b><span>Pretrained weights, raw campaign artifacts, cluster scheduling, and internal collaboration material.</span><b>Evidence boundary</b><span>The reported ImageNet endpoint remains a summary/log-verified result, not a public checkpoint replay.</span></div></section>
+<section class="issue high audit-item" data-kind="high unable"><h3>Issue E1 — Missing matched DTEM</h3><div class="kv"><b>Severity / confidence</b><span>High / Confirmed</span><b>Category</b><span>Experiment</span><b>Paper says</b><span>DTEM is the closest predecessor and appears in the primary comparison.</span><b>Evidence shows</b><span><code>tables/main.tex:6</code> leaves its accuracy, latency, and memory blank; <code>sections/results.tex:10–11</code> calls the score unavailable.</span><b>Why it matters</b><span>The closest learned-merging comparison is missing, so the primary table cannot establish the claimed positioning.</span><b>Recommended action</b><span>Run matching data, resolution, patch-8 scale, target budget, evaluator, and clearly declared DTEM adaptation/training protocol. Otherwise remove the blank row and frame DTEM only as related work.</span></div></section>
+<section class="issue high audit-item" data-kind="high unable"><h3>Issue E2 — Missing trained-checkpoint efficiency point</h3><div class="kv"><b>Severity / confidence</b><span>High / Confirmed</span><b>Category</b><span>Experiment, Systems</span><b>Paper says</b><span>Latency and memory cells are reserved for common-protocol measurement.</span><b>Evidence shows</b><span><code>sections/setup.tex:34–43</code> states that historical timing uses synthetic inputs/random weights and one ToMe sweep disables proportional attention. All primary systems cells remain blank.</span><b>Why it matters</b><span>Equal final token counts do not imply equal computation or latency because the methods reduce tokens at different depths.</span><b>Recommended action</b><span>Use trained weights, one GPU, one software stack, identical batch/precision/preprocessing, attention policy, warmup, CUDA events, and peak-memory definition. Report achieved token trajectories as well as final counts.</span></div></section>
+<section class="issue high audit-item" data-kind="high unable"><h3>Issue E3 — Unmeasured mass-bias and recovery contributions</h3><div class="kv"><b>Severity / confidence</b><span>High / Confirmed</span><b>Category</b><span>Ablation</span><b>Paper says</b><span>Mass-aware attention and full-grid recovery are contributions.</span><b>Evidence shows</b><span><code>sections/results.tex:58–77</code> maps both claims to pending inference-only controls.</span><b>Why it matters</b><span>The current evidence cannot attribute the observed result to either named component.</span><b>Recommended action</b><span>On the same final checkpoint, disable <code>log(mass)</code> bias and separately bypass recovery cross-attention; run the full validation split and report exact deltas.</span></div></section>
+
+<h2>Method–Code Overview</h2>
+<table><thead><tr><th>Component</th><th>Status</th><th>Paper</th><th>Implementation / evidence</th><th>Note</th></tr></thead><tbody>
+<tr><td>Local-to-latent physical bottleneck</td><td>✅ Verified</td><td>Full-grid local encoder; gather to 392 carriers</td><td><code>opentome/models/mergenet/model.py</code>; GPU model smoke passed</td><td>Shorter tensor reaches latent blocks</td></tr>
+<tr><td>True 2-D R3 routing</td><td>✅ Verified</td><td>Original grid, Euclidean radius 3</td><td><code>opentome/timm/dtem.py</code>; dense/sparse forward/backward tests passed</td><td>Initialization constructs dense adjacency once</td></tr>
+<tr><td>Mass-aware attention</td><td>✅ Implemented / ⚪ unablated</td><td><code>log(mass)</code> key bias</td><td>Attention implementation and parity test present</td><td>Final-checkpoint causal score missing</td></tr>
+<tr><td>Full-grid recovery</td><td>✅ Implemented / ⚪ unablated</td><td>Residual cross-attention</td><td>Model path and smoke test present</td><td>Bypass score missing</td></tr>
+</tbody></table>
+
+<h2>Configuration Overview</h2>
+<table><thead><tr><th>Setting</th><th>Paper</th><th>Effective selected config</th><th>Status</th></tr></thead><tbody>
+<tr><td>Dataset / validation</td><td>ImageNet-1K / 50,000</td><td>ImageFolder, 1,000 classes</td><td>✅ Matched</td></tr>
+<tr><td>Resolution / patch</td><td>224 / 8</td><td>224 / 8</td><td>✅ Matched</td></tr>
+<tr><td>Depth / bottleneck</td><td>6 local + 6 latent / 784→392</td><td>6 + 6 / λ=2</td><td>✅ Matched</td></tr>
+<tr><td>Optimizer / schedule</td><td>AdamW, 300 epochs, cosine, warmup 5</td><td><code>configs/paper/stage3_300e/s3_mn_r3_lr75_300e.yaml</code></td><td>✅ Matched</td></tr>
+<tr><td>Learning rate</td><td>selected 7.5e-4; controls 5e-4</td><td>selected 7.5e-4; old public default 5e-4</td><td>✅ Resolved and documented</td></tr>
+<tr><td>Global batch</td><td>1,024</td><td>launcher maintains effective 1,024</td><td>✅ Matched</td></tr>
+<tr><td>Historical environment</td><td>not central to claim</td><td>torch 2.7.1/cu118 vs release 2.6.0/cu124</td><td>🟡 Document drift</td></tr>
+<tr><td>Checkpoint publication</td><td>not required</td><td>weights intentionally excluded</td><td>✅ Matches release scope</td></tr>
+</tbody></table>
+
+<h2>Experiment Audit</h2>
+<table><thead><tr><th>Experiment</th><th>Paper protocol</th><th>Code / artifact protocol</th><th>Status</th></tr></thead><tbody>
+<tr><td>Main ImageNet endpoint</td><td>300e, seed 42, full validation</td><td>config + 300 rows of summary</td><td>✅ Record-verified; checkpoint replay out of scope</td></tr>
+<tr><td>ImageNet geometry</td><td>150e matched global/flat/R2/R3</td><td>resolved args and summaries present</td><td>✅ Verified, single seed</td></tr>
+<tr><td>CIFAR mechanism</td><td>4 geometries × 3 seeds</td><td>12 reported endpoint summaries + fixed protocol</td><td>✅ Verified</td></tr>
+<tr><td>Stage-7 diagnostics</td><td>150e initialization and progressive-latent probes</td><td>complete summaries; single seed</td><td>✅ Record-verified with stated provenance limits</td></tr>
+<tr><td>Post-training budget sweep</td><td>five 224px + five 384px budgets</td><td>full-validation records present</td><td>✅ Verified; ToMe wins 20/20 comparisons</td></tr>
+<tr><td>Matched DTEM</td><td>392 patches</td><td>no matched run artifact</td><td>⚪ Unable to verify</td></tr>
+<tr><td>Efficiency</td><td>trained checkpoints, common harness</td><td>only caveated historical/random-weight diagnostics</td><td>⚪ Unable to verify</td></tr>
+<tr><td>Component ablations</td><td>mass bias off; recovery bypass</td><td>no scores</td><td>⚪ Unable to verify</td></tr>
+</tbody></table>
+
+<h2>Result Verification</h2>
+<table><thead><tr><th>Table / result</th><th>Paper value</th><th>Raw artifact</th><th>Raw value</th><th>Status</th></tr></thead><tbody>
+<tr><td>MergeNet 300e best EMA</td><td>81.368</td><td>summary CSV</td><td>81.368</td><td>✅ Verified from record</td></tr>
+<tr><td>MergeNet 392-patch reevaluation</td><td>81.360</td><td>test-time record</td><td>81.360</td><td>✅ Verified from record</td></tr>
+<tr><td>Dense DeiT-S/8</td><td>82.246</td><td>summary/evaluation record</td><td>82.246</td><td>✅ Verified</td></tr>
+<tr><td>ToMe, 392 patches</td><td>81.932</td><td>test-time record</td><td>81.932</td><td>✅ Verified</td></tr>
+<tr><td>PiToMe, 392 patches</td><td>81.742</td><td>test-time record</td><td>81.742</td><td>✅ Verified; added to main table</td></tr>
+<tr><td>R3 − global, ImageNet 150e</td><td>+1.670 pp</td><td>run summaries</td><td>78.888 − 77.218 = 1.670</td><td>✅ Verified</td></tr>
+<tr><td>R3 − flat, ImageNet 150e</td><td>+0.598 pp</td><td>run summaries</td><td>78.888 − 78.290 = 0.598</td><td>✅ Verified</td></tr>
+<tr><td>CIFAR historical R3 − degree</td><td>+1.42±0.30 pp</td><td><code>artifacts/cifar/contrasts.csv</code></td><td>+1.423±0.300</td><td>✅ Verified</td></tr>
+<tr><td>DeiT initialization − matched scratch</td><td>+1.040 pp</td><td>Stage-7 summaries</td><td>80.574 − 79.534 = 1.040</td><td>✅ Diagnostic; unequal total training compute</td></tr>
+<tr><td>Progressive latent − matched recipe control</td><td>−0.142 pp</td><td>Stage-7 summaries</td><td>79.392 − 79.534 = −0.142</td><td>✅ Diagnostic; final budgets differ</td></tr>
+<tr><td>DTEM / latency / memory / component scores</td><td>blank</td><td>No</td><td>N/A</td><td>⚪ Unable to verify (not treated as zero)</td></tr>
+</tbody></table>
+
+<h2>2026-09-23 Campaign Package Recheck</h2>
+<div class="issue verified audit-item" data-kind="verified"><h3>C1. Raw summaries and supplied logs remain numerically consistent</h3><p>The packet contains 24 raw runs and 3,560 summary rows: 23 target-complete schedules and one abandoned 140/150 weight-decay probe. The independent verifier matched 3,354 rows to supplied EMA log events, found 206 summary-only rows, and found zero metric mismatches after the documented attempt-resolution rules.</p></div>
+<div class="issue verified audit-item" data-kind="verified"><h3>C2. Stage-7 ingestion is digest-checked and reproducible</h3><p>The incremental importer verifies the archive SHA-256, copies both Stage-7 summaries byte-for-byte, preserves the pre-resume initialization arguments, records the missing first-launch log boundary, and regenerates the paper tables from the curated records.</p></div>
+<div class="issue medium audit-item" data-kind="medium"><h3>C3. Package narrative files are stale</h3><p>The top-level <code>README.md</code> still says 18 run directories and incorrectly classifies the 384/512 px fine-tunes as global batch 256 with 5,004 optimizer steps. Raw launcher records show effective global batch 1,024 and 1,251 optimizer steps. Paper-side protocol records use the launcher values.</p></div>
+<div class="issue medium audit-item" data-kind="medium"><h3>C4. Stage-8 status is not backed by packaged raw data</h3><p><code>STATUS.md</code> and <code>_build/runs_analysis.json</code> include a running <code>s8_mn_softtopk_off_150e</code> entry, but the archive contains no corresponding raw run directory. The paper excludes Stage 8 and counts only the 24 runs with delivered summaries.</p></div>
+<div class="issue verified audit-item" data-kind="verified"><h3>C5. The package is record evidence, not a replay bundle</h3><p>No trained weights are present. Under the revised release scope this is intentional: the package supports summary/log provenance, while public checkpoint replay is not a delivery requirement.</p></div>
+
+<h2>Paper Internal Consistency</h2>
+<div class="issue verified audit-item" data-kind="verified"><h3>P1. Checkpoint policy is now consistent</h3><p><code>sections/setup.tex</code> and <code>sections/discussion.tex</code> now state that trained weights are outside the public-release scope and describe the ImageNet evidence as record-level provenance rather than public replay.</p></div>
+<div class="issue verified audit-item" data-kind="verified"><h3>P2. Abstract claim strength corrected</h3><p>The abstract now reports the negative matched-budget ordering and explicitly withholds an accuracy–efficiency frontier claim until trained-checkpoint systems and component measurements exist.</p></div>
+<div class="issue medium audit-item" data-kind="medium"><h3>P3. Summary-only portions need receipts</h3><p>206 of 3,560 ImageNet summary rows lack a matching log row, including the first 105 epochs of the host-migrated initialization run. Preserve checkpoint digests and reevaluate affected endpoints if these results remain in the paper.</p></div>
+
+<h2>Verified Major Components</h2>
+<ul class="check audit-item" data-kind="verified">
+<li>✅ Public timm model factory and canonical MN-L2-R3 defaults pass the release contract.</li>
+<li>✅ CPU tests pass for the configuration contract, accumulation, spatial masks, and ImageFolder loading.</li>
+<li>✅ Archived pinned-environment receipts pass sparse routing, attention parity, and model smoke tests; the current host's older Triton cannot compile the sparse kernels.</li>
+<li>✅ No pretrained checkpoint or checkpoint-delivery tooling is included in the public tree.</li>
+<li>✅ The retained configuration uses the reported learning rate 7.5e-4.</li>
+<li>✅ Private absolute paths and common credential patterns were removed from the public tree.</li>
+<li>✅ Missing results remain visibly blank; none were replaced by random-weight diagnostics or estimates.</li>
+</ul>
+
+<h2>Recommended Actions Before Submission</h2>
+<h3>Must Fix</h3><ul class="check"><li>☐ Run matched DTEM or remove it from the unfinished primary table and narrow the comparison.</li><li>☐ Measure accuracy, latency, and memory in one common harness.</li><li>☐ Run the mass-bias-off and recovery-bypass full-validation ablations.</li><li>☐ Produce passive final-checkpoint routing traces with trace-on/off equivalence checks.</li></ul>
+<h3>Should Fix</h3><ul class="check"><li>☐ Add two ImageNet seeds for dense and MergeNet, or consistently mark the endpoint single-seed.</li><li>☐ Report accuracy versus measured latency/compute, not final token count alone.</li><li>☐ Archive checkpoint/log receipts for the 206 summary-only rows.</li><li>☐ Keep best-validation and final-epoch values together and avoid significance language.</li><li>☐ Reproduce in the historical package versions or quantify environment drift.</li></ul>
+<h3>Optional</h3><ul class="check"><li>☐ Add another backbone or dense prediction task.</li><li>☐ Add robustness/distribution-shift evaluation and passive final-checkpoint routing visualizations.</li><li>☐ Validate the rank-one FlashAttention path end to end; current evidence is operator parity only.</li></ul>
+
+<h2>Repository Delivery Status</h2>
+<table><tbody><tr><th>Local repository</th><td><code>/liziqing/lisiyuan/wy/MergeNet</code></td></tr><tr><th>Target remote</th><td><code>https://github.com/gnawyymmij/MergeNet</code></td></tr><tr><th>Contents</th><td>MergeNet source, one reported configuration, ImageNet trainer/launcher, environment pins, architecture note, focused tests, and the E1/E2/E3/E6 execution contract</td></tr><tr><th>Excluded</th><td>Pretrained weights, campaign artifacts, cluster scheduling, and paper-audit material</td></tr><tr><th>No-training reproduction</th><td>CPU contracts and launcher dry-run passed; GPU validation requires the pinned Triton environment</td></tr><tr><th>External delivery</th><td>Published at commit <code>c3c114b25f6ac740bda8f95be793f15f07bfd418</code></td></tr></tbody></table>
+
+<p class="note">Scope: The user requested focus on repository completeness and experimental/data gaps. A full citation-authenticity audit and unrelated manuscript polish were deferred. Missing artifact ≠ wrong result; unable to verify ≠ inconsistency.</p>
+</main>
+<script>
+const buttons=[...document.querySelectorAll('[data-filter]')],items=[...document.querySelectorAll('.audit-item')],search=document.getElementById('search');let filter='all';function apply(){const q=search.value.toLowerCase();items.forEach(x=>{const kind=x.dataset.kind||'',ok=(filter==='all'||kind.includes(filter))&&x.innerText.toLowerCase().includes(q);x.classList.toggle('hidden',!ok)});}buttons.forEach(b=>b.onclick=()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;apply()});search.oninput=apply;
+</script>
+</body></html>

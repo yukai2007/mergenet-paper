@@ -77,11 +77,7 @@ the form
 where the data-dependent threshold $\theta$ is solved in parallel after
 sorting rather than by $k_\ell$ serial selections. This follows the
 threshold-adjusted soft top-$k$ construction of Su~\cite{sujianlin2024topk}.
-We use $\tau_1=1$ and multiplicative soft-selection scale $\alpha=30$.
-The released threshold routine uses
-a batch-wide range normalization (Section~\ref{sec:batch}); its requested
-budget does not guarantee exact relaxed selection mass for every numerical
-input. The
+We use $\tau_1=1$ and multiplicative soft-selection scale $\alpha=30$. The
 assignment is $a_{ij}=g_iq_{ij}$ on eligible edges and zero elsewhere, with
 row-sum stabilization in the implementation. Empty rows have zero assignment.
 If fewer eligible donor rows exist than the requested budget, the spatial
@@ -117,9 +113,7 @@ $(65,65,65,65,65,67)$ at 224 pixels and $(192,192,192,192,192,192)$ at 384.
 The carrier count is fixed by configuration; the selected locations depend
 on the input. A soft top-$K$ surrogate supplies straight-through gradients
 through the selected features via $1+g-\operatorname{stopgrad}(g)$; it does
-not differentiate every gather index. This multiplier is computed at
-evaluation too and equals one for finite values, whereas non-finite values
-do not cancel. During training an auxiliary head contribution
+not differentiate every gather index. During training an auxiliary head contribution
 is added to the main logits, with maximum weight 0.05; it is absent during
 evaluation. This is a logit contribution, not a separately reported auxiliary
 cross-entropy loss.

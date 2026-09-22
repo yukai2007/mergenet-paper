@@ -1,10 +1,11 @@
 {
-  "summary_rows": 3365,
-  "runs_with_metrics": 23,
-  "complete_runs": 21,
+  "summary_rows": 3560,
+  "runs_with_metrics": 24,
+  "complete_runs": 23,
   "valid_compression_triplets": 20,
   "tome_accuracy_wins": 20,
-  "cifar_complete_jobs": 24,
+  "cifar_archived_jobs": 24,
+  "cifar_reported_geometry_jobs": 12,
   "gaps_pp": {
     "r3_minus_global": 1.6699999951171804,
     "r3_minus_flat": 0.5979999707031283,
@@ -14,8 +15,10 @@
     "drop_path_delta": 0.21799999023437522,
     "warmup_delta": -0.07800000976563126,
     "curriculum_delta": -0.006000009765628533,
-    "cifar_historical_r3_minus_global_mean": 2.1099999999999994,
-    "cifar_historical_r3_minus_degree_mean": 1.423333333333337,
+    "deit_initialization_delta_vs_dp07": 1.039999999999992,
+    "progressive_latent_delta_vs_dp07": -0.14200000000001012,
+    "cifar_r3_minus_global_mean": 2.1099999999999994,
+    "cifar_r3_minus_degree_mean": 1.423333333333337,
     "inference_none_minus_native": -0.006000000000000227
   },
   "warning": "No accuracy-latency Pareto curve is generated: proportional-attention settings differ."

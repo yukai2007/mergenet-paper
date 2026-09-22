@@ -1,0 +1,10 @@
+{
+  "archive": "share_mergenet_campaign_20260923.tar.gz",
+  "archive_sha256": "e672d28937e56bb545556c7ee875c555004287d74d2d1ac2d378e8af06e92211",
+  "summary_sha256": "ded9786a321074cd09415bd25393e0de32a2f1bdc7be601d8623f866c7550267",
+  "pre_migration_prefix_lines": 106,
+  "pre_migration_prefix_md5": "9651b0d14ccf28bb0d1b31955f5effa7",
+  "resume_started_at_epoch": 105,
+  "curated_args_policy": "Preserve the pre-resume args.json because resumed args clear initial_checkpoint.",
+  "evidence_limit": "The original first-launch checkpoint-loading log was not delivered; initialization is supported by the contemporaneous receipt and early learning curve, not independently replayed here."
+}

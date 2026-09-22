@@ -1,6 +1,6 @@
 # Evidence subset
 
-Primary ImageNet source: `share_mergenet_campaign_20260919.tar.gz` (SHA256 in `manifest_20260919.json`). The September 15 packet remains the source of the test-time sweep JSONL, efficiency CSVs, and the original 2,419-row EMA log audit (`manifest.json`). No model checkpoint is present in this repository or in either packet.
+Primary ImageNet sources: `share_mergenet_campaign_20260919.tar.gz` and the incremental `share_mergenet_campaign_20260923.tar.gz` Stage-7 refresh (SHA-256 values in the corresponding manifests). The September 15 packet remains the source of the test-time sweep JSONL and efficiency CSVs. No model checkpoint is present in this repository or in the packets.
 
 - `runs/*/summary.csv`: byte copies of source summaries, parsed by header name.
 - `runs/*/args.json`: resolved arguments converted from YAML; machine-specific absolute paths are removed or shortened to checkpoint run/name.
@@ -14,10 +14,11 @@ Primary ImageNet source: `share_mergenet_campaign_20260919.tar.gz` (SHA256 in `m
 
 `results.csv` and `sweep_latest.csv` are regenerated products. Source summary line numbers in the older manifest are one-based including the header; epoch indices are zero-based. The training summary's `eval_top1` is EMA because the trainer overwrites its raw evaluation metrics before writing the row. For the $\lambda$ curriculum run, best/final reporting uses `eval_top1_full_compression` once that column is nonzero.
 
-The September 21 read-only audit in `research/collaborator-review-20260921/`
-checks all 3,365 delivered summary rows and matches 3,264 to supplied EMA logs.
-The missing 101 log rows are the curriculum run's epochs 64--149 and all 15
-MergeNet 512-pixel epochs; those endpoints remain summary-only evidence.
+The read-only audit in `research/collaborator-review-20260921/`, refreshed on
+September 23, checks all 3,560 delivered summary rows and matches 3,354 to
+supplied EMA logs. The 206 missing log rows include the curriculum run's
+epochs 64--149, all 15 MergeNet 512-pixel epochs, and the first 105 epochs of
+the host-migrated DeiT-initialized run; those rows remain summary-only evidence.
 Checkpoint receipts remain evidence of remote checks, not an independent
 load. Training-box throughput and speculative GPU bandwidth/launch
 interpretations are excluded.

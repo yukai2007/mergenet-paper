@@ -54,16 +54,48 @@ fine-tuning. Complete summaries and supplied checkpoint receipts distinguish
 them from early failures. Receipts record checks on another machine, not
 weights independently loaded in this audit. The $\lambda$ curriculum and
 512-pixel \mn{} fine-tune are now complete 150-epoch and 15-epoch records.
-The weight-decay probe and DeiT-initialized run remain partial.
+The weight-decay probe was abandoned at 140/150. The DeiT-initialized and
+progressive-latent runs are complete 150-epoch records.
 
 \begin{table}[h]
 \centering\footnotesize
 \input{tables/run_inventory}
-\caption{Status in the September 19 packet. Partial metrics are included for
-accounting only and are not endpoints. The DeiT-B best score is a
+\caption{Status through the September 23 packet. The abandoned weight-decay
+metric is included for accounting only and is not an endpoint. The DeiT-B best score is a
 pre-overfitting peak (Appendix~\ref{app:deitb}). The companion data retain
 full precision and source summary lines.}
 \label{tab:runs}
+\end{table}
+\FloatBarrier
+
+\subsection{Initialization and Latent-Compression Diagnostics}
+
+Table~\ref{tab:stage7-diagnostics} uses the completed drop-path-0.07 run as
+the 150-epoch scratch control. Initializing \mn{} from the 300-epoch
+DeiT-S/8 checkpoint raises best EMA top-1 by 1.040 points. This result shows
+initialization sensitivity, not equal-total-compute superiority: the source
+representation already consumed 300 training epochs, the experiment has one
+seed, and its 80.574\% endpoint remains below both the 300-epoch scratch
+\mn{} result (81.368\%) and its dense source (82.246\%). The original
+first-launch loading log was not delivered after a host migration; the
+record retains a contemporaneous 152-loaded/25-missing receipt and the early
+learning curve, so we treat this as a diagnostic rather than a primary causal
+result.
+
+The progressive-latent variant adds 192 latent-stage merges and reaches
+79.392\%, 0.142 points below the same control. It changes the final configured
+budget from approximately 392 to 200 patches, so it is an
+accuracy--compression probe rather than a matched-budget test of gradual
+versus abrupt scheduling. With one seed, the result establishes no observed
+gain but does not establish a statistically resolved degradation. Training-log
+throughput is not used as deployment latency.
+
+\begin{table}[h]
+\caption{Completed 150-epoch Stage-7 diagnostics, all with seed 42 and
+drop-path 0.07. Deltas use the scratch control in the first row.}
+\label{tab:stage7-diagnostics}
+\centering\small
+\input{tables/stage7_diagnostics}
 \end{table}
 
 \section{Detailed Budget and Timing Comparisons}
@@ -111,50 +143,7 @@ sweep. Speed percentages at different batch sizes, radii or harness settings
 should not be averaged into an unexplained range. Peak reserved memory and
 peak allocated memory also measure different quantities.
 
-\section{Operator-Level Diagnostic and Reproduction Boundaries}
-\label{app:diagnostic}
-
-The batch-dependence probe imports only the released threshold-selection
-function. It does not instantiate an ImageNet model or load a checkpoint.
-A fixed first row is evaluated alone and with controlled second rows; a
-weighted loss on the first row tests cross-sample gradients. Constant-input
-cases test finite forward and backward behavior. These probes establish
-operator properties, not an accuracy gain from replacing the operator.
-
-Per-sample normalization removes the demonstrated coupling, but does not
-by itself validate the closed-form threshold solver over every budget and
-tie pattern. A patched closed-form candidate passes 116 of 120 tensor
-coverage cases and is not recommended for integration. A separate slow
-reference finds a per-row threshold $t$ for normalized scores $z$ satisfying
-\begin{equation}
- \sum_i h(z_i-t)=k,\qquad
- h(\delta)=\begin{cases}
-  1-\tfrac12\exp(-\delta),&\delta>0,\\
-  \tfrac12\exp(\delta),&\delta\leq0.
- \end{cases}
-\end{equation}
-For $0<k<N$, the sum is continuous and strictly decreasing in $t$.
-With $v_i=\partial\mathcal L/\partial h_i$, implicit differentiation gives
-\begin{equation}
- \nabla_{z_i}\mathcal L=h'_i
- \left(v_i-\frac{\sum_j v_jh'_j}{\sum_j h'_j}\right).
-\end{equation}
-PyTorch then propagates gradients through the per-row normalization to the
-raw scores. The reference normalizes per row, solves in float64 with 60 bisection steps,
-and casts the result back to the input dtype. It passes all 120 coverage
-cases for finite forward/backward values and selection mass, plus three
-nondegenerate gradient checks. Maximum mass error is $9.16\times10^{-5}$
-in float32 and $1.14\times10^{-13}$ in float64; the tested cross-sample output
-and gradient dependencies are zero. These tests cover random, constant,
-nearly constant and outlier inputs across $N\in\{4,16,64,392\}$ and several
-budgets. This is a correctness reference, not a fused production kernel or
-a trained replacement for the reported model. Finite gradients can still be
-large near a zero score range. Appendix~\ref{app:followup} subsequently
-tests GPU/autocast inference with local CIFAR weights. The later campaign in
-Section~\ref{sec:cifar-seeds} trains a float32/Triton rowwise implementation,
-which is distinct from this slow float64 reference. Its completed CIFAR runs
-do not establish ImageNet training behavior. Mass tolerances in these checks are $5\times10^{-4}$ for float32
-and $10^{-6}$ for float64.
+\section{Evidence and Reproduction Boundaries}
 
 The artifact subset includes unmodified per-run summaries, resolved arguments
 with host paths removed, launch-protocol extracts, sanitized successful sweep
@@ -165,9 +154,9 @@ training. Source and claim ledgers retain their literature retrieval dates;
 the collaborator-packet audit was refreshed on September 21.
 Company policy prevents ImageNet weight
 transfer; independent ImageNet checkpoint re-evaluation is unavailable. The
-September 19 packet adds completed 512-pixel, curriculum, and hyperparameter
-runs. The refreshed audit matches 3,264 of 3,365 summary rows to delivered
-EMA logs, leaving 101 rows without corresponding log records
+September 23 packet additionally completes the two Stage-7 diagnostics.
+The refreshed audit matches 3,354 of 3,560 summary rows to delivered EMA logs,
+leaving 206 rows without corresponding log records
 (Section~\ref{sec:setup}). Those rows are not discarded, but retain their
 summary-only evidence status.
 

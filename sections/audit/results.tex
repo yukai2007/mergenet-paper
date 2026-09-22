@@ -74,21 +74,20 @@ compression-ratio-only experiment.
 
 Company ImageNet weights are unavailable, so a local CIFAR-100 campaign tests
 whether the routing gain repeats across seeds and whether candidate count
-alone can explain it. The matrix is two selectors $\times$ four geometries
-$\times$ three seeds, 24 independent 200-epoch runs at 224 pixels with
-$\lambda=2$. The primary endpoint, fixed before launch, is epoch-199 EMA
-top-1 on the 10,000-image test set. Training and evaluation batches are 200.
-The images are native $32\times32$ CIFAR frames resized under the historical
-augmentation protocol; this is not a native high-resolution test.
+alone can explain it. The matrix is four geometries $\times$ three seeds,
+12 independent 200-epoch runs at 224 pixels with $\lambda=2$. The primary
+endpoint, fixed before launch, is epoch-199 EMA top-1 on the 10,000-image test
+set. Training and evaluation batches are 200. The images are native
+$32\times32$ CIFAR frames resized under the historical augmentation protocol;
+this is not a native high-resolution test.
 
 The four geometries are global routing, flattened window 8, radius 3, and a
 degree-matched control. The last starts from the realized radius-3
 donor/receiver mask after each partition and permutes receiver columns with
 fixed receiver-ID priorities. Per-donor candidate counts and the receiver
 degree multiset are preserved; the control is not an independent random
-graph. The two selectors are the historical batch-range threshold operator
-and a per-sample float32 bisection operator. Even seed 42 is a new training
-run (dataloader workers differ from the August sweep).
+graph. Even seed 42 is a new training run (dataloader workers differ from the
+August sweep).
 
 \begin{table}[t]
 \centering\small
@@ -106,29 +105,14 @@ radius-3 comparison is positive. Sample standard deviations use $n-1$.}
 \label{tab:cifar-contrasts}
 \end{table}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\linewidth]{figures/cifar_seeds.pdf}
-\caption{CIFAR-100 three-seed geometry confirmation. Top: epoch-199 EMA
-top-1 with sample standard-deviation bars. Bottom: mean EMA trajectories with
-shaded $\pm 1$ sample standard deviation over the same three seeds. Radius 3
-exceeds global, flattened, and degree-matched controls under both selectors.
-These are independent training runs, not evaluation rebatching bars.}
-\label{fig:cifar-seeds}
-\end{figure}
-
-Table~\ref{tab:cifar-seeds} and Figure~\ref{fig:cifar-seeds} show that radius 3
-is the most accurate geometry under both selectors. All eighteen same-seed
-radius-3 minus control differences underlying the six rows of
-Table~\ref{tab:cifar-contrasts} are positive. Under the
-historical selector, the mean radius-3 advantages are $+2.11\pp$ versus
-global, $+1.30\pp$ versus flattened windows, and $+1.42\pp$ versus
-degree-matched support. The per-sample selector preserves the same ordering,
-with smaller mean gaps of $+1.63$, $+0.77$, and $+1.19\pp$. The
+Table~\ref{tab:cifar-seeds} shows that radius 3 is the most accurate geometry.
+All nine same-seed radius-3 minus control
+differences underlying the three rows of Table~\ref{tab:cifar-contrasts} are
+positive. The mean radius-3 advantages are $+2.11\pp$ versus global,
+$+1.30\pp$ versus flattened windows, and $+1.42\pp$ versus degree-matched
+support. The
 degree-matched gaps indicate that original-grid locality contributes beyond
-candidate cardinality in this setting. The lower panels of
-Figure~\ref{fig:cifar-seeds} show a persistent mid-to-late training gap rather
-than a single-epoch spike. Three seeds are enough to show a
+candidate cardinality in this setting. Three seeds are enough to show a
 repeated sign pattern; they are not enough to treat the sample standard
 deviations as population estimates, and they do not transfer ImageNet
 uncertainty.
@@ -149,9 +133,7 @@ Claim component & Control & Evidence & Status / result \\
 2-D routing support & Global, flat-8, $R=2$, $R=3$ & ImageNet, 150 epochs
   & $R=3$: $+1.670\pp$ vs global; $+0.598\pp$ vs flat \\
 Geometry beyond degree & Receiver-permuted degree match & CIFAR, 3 seeds
-  & $+1.42\pm0.30\pp$ with historical selector \\
-Selector dependence & Historical vs per-sample threshold & CIFAR, 3 seeds
-  & $R=3$ ranks first under both \\
+  & $+1.42\pm0.30\pp$ \\
 Compression budget & 523/392/314/262/196 carriers & ImageNet, fixed checkpoint
   & Complete accuracy sweep \\
 Mass-aware latent attention & Set $\log m$ bias to zero & ImageNet, fixed checkpoint

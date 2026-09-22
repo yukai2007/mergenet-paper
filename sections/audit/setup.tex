@@ -5,14 +5,14 @@
 
 We analyze an ImageNet-1k classification campaign with seed 42. Evaluation
 uses the 50,000-image validation split and reports top-1 accuracy of the
-exponential moving average (EMA) model. The September 19 packet contains 23
-runs with recorded epochs: 21 complete schedules, a 140/150 weight-decay probe
-stopped by a scheduled reboot, and a DeiT-initialized run interrupted at
-105/150. Endpoints in this manuscript are recomputed from each run's
-\texttt{summary.csv} by header name. A September 21 audit verifies 3,365
-contiguous summary rows across all 23 runs and matches 3,264 rows' EMA loss,
-top-1 and top-5 to supplied logs. Logs are missing for 86 curriculum epochs
-(64--149) and all 15 MergeNet 512-pixel epochs. These 101 rows remain
+exponential moving average (EMA) model. The September 23 packet contains 24
+runs with recorded epochs: 23 complete schedules and a 140/150 weight-decay
+probe that was deliberately abandoned. Endpoints in this manuscript are
+recomputed from each run's \texttt{summary.csv} by header name. A refreshed
+audit verifies 3,560 contiguous summary rows across all 24 runs and matches
+3,354 rows' EMA loss, top-1 and top-5 to supplied logs. Logs are missing for
+86 curriculum epochs (64--149), all 15 MergeNet 512-pixel epochs, and the first
+105 epochs of the host-migrated DeiT-initialized run. These 206 rows remain
 summary-only evidence. Three conflicting early rows in one 384-pixel run
 are resolved using a documented restart and a later complete matching
 trajectory; the original conflicting records are retained. Checkpoint-verification

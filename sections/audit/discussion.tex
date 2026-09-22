@@ -16,10 +16,9 @@ merge criterion is intrinsically inferior.
 The evidence is limited in several ways. All ImageNet training runs use seed
 42, and the validation set serves both checkpoint selection and reporting.
 We have no across-seed ImageNet uncertainty estimate or ImageNet per-image
-predictions for paired significance tests. Appendix~\ref{app:followup}
-provides predictions for two independently replayed local CIFAR checkpoints
-from an earlier campaign; Section~\ref{sec:cifar-seeds} adds three-seed
-training on resized CIFAR-100, which is not native-resolution ImageNet.
+predictions for paired significance tests. Section~\ref{sec:cifar-seeds} adds
+three-seed training on resized CIFAR-100, which is not native-resolution
+ImageNet.
 Geometry and candidate cardinality remain coupled on ImageNet. The
 300-epoch \mn{} configuration benefits from an explicit learning-rate screen,
 while the dense baseline is not subjected to an equally broad screen. The
@@ -34,7 +33,7 @@ checkpoint receipts are available in the campaign packet. Company policy
 prevents transfer of the trained ImageNet weights, and a release commit alone
 does not capture every change in the collaborator's working tree. The companion
 analysis preserves the source identities and distinguishes recorded results
-from independent operator diagnostics. The training environment uses PyTorch
+from independent follow-up diagnostics. The training environment uses PyTorch
 2.7.1 with CUDA 11.8, timm 0.9.11 and FlashAttention 2.7.3, which differs from
 the local release's pinned environment. CPU profiles and H20 synthetic timings
 cannot establish performance on every accelerator or under deployment load.
@@ -42,4 +41,12 @@ The local follow-up resolves the ToMe attention-policy and patch-count
 mismatch for synthetic architecture timing. A verified trained-checkpoint
 joint frontier remains unavailable.
 
-Interrupted initialization, progressive latent compression, and Base-scale training remain useful follow-up directions, but they are not required to support the present method claim. The submission depends only on two unavailable checkpoint-side outputs: a common-protocol numeric packet for the main table and component interventions, and passive routing traces for the final visualization. Keeping that boundary explicit prevents partial runs or unrelated future experiments from being presented as current evidence.
+Additional initialization seeds, a matched-final-budget progressive schedule,
+and Base-scale training remain useful follow-up directions, but they are not
+required to support the present method claim. The completed single-seed
+diagnostics establish initialization sensitivity and no observed gain from one
+more aggressive latent schedule; they do not establish equal-compute or
+matched-budget conclusions. The submission depends only on two unavailable
+checkpoint-side outputs: a common-protocol numeric packet for the main table
+and component interventions, and passive routing traces for the final
+visualization.

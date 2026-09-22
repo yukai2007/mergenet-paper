@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "packet": "share_20260919",
-  "audit_date": "2026-09-21",
-  "verifier_sha256": "b3f7f1f161266a69e31613e4d3fda184a7677a7c946c9e685e5efe4017a1650d",
+  "packet": "share_20260923",
+  "audit_date": "2026-09-23",
+  "verifier_sha256": "786ba2a999583203118c9ac6b038a8265e8c9d9b51ceec226c9e180970bdf17e",
   "tolerance_absolute": 5.1e-05,
   "metric_order": [
     "eval_loss",
@@ -20,18 +20,18 @@
     "No raw environment lines or absolute source-host paths are exported."
   ],
   "totals": {
-    "runs": 23,
-    "target_complete_runs": 21,
-    "partial_snapshot_runs": 2,
-    "summary_rows": 3365,
-    "matched_rows_after_documented_attempt_resolution": 3264,
-    "missing_log_epochs": 101,
+    "runs": 24,
+    "target_complete_runs": 23,
+    "partial_snapshot_runs": 1,
+    "summary_rows": 3560,
+    "matched_rows_after_documented_attempt_resolution": 3354,
+    "missing_log_epochs": 206,
     "mismatch_epochs": 0,
     "unresolved_ambiguous_epochs": 0,
     "raw_conflicting_epochs_before_attempt_resolution": 3,
     "duplicate_epoch_metric_events_collapsed": 2649,
     "nonfinite_or_parse_issues": 0,
-    "gzip_logs": 44,
+    "gzip_logs": 45,
     "unparsed_final_ema_lines": 0,
     "final_ema_lines_without_epoch_context": 0
   },
@@ -75750,22 +75750,128 @@
       "run": "s7_mn_deitinit_150e",
       "stage": "stage7_150e_224",
       "summary_file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/summary.csv",
-      "summary_sha256": "0c519cda07747e5aed2c3fed926b99101c147f73ce5cdf8f84c81a98fa0bced6",
+      "summary_sha256": "ded9786a321074cd09415bd25393e0de32a2f1bdc7be601d8623f866c7550267",
       "args_file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/args.yaml",
-      "args_sha256": "66c965f7f8d8007ba668a26dec8f85722367bf3c1c5b583acb8569cdf93d883c",
+      "args_sha256": "ea4adf9b01340afd36b4a6eed4ae0a5f5652ba3985ce410c71cd2e2431375cf6",
       "target_epochs": 150,
-      "summary_rows": 105,
-      "completion": "PARTIAL_SNAPSHOT",
+      "summary_rows": 150,
+      "completion": "TARGET_COMPLETE",
       "epochs_contiguous_from_zero": true,
       "all_present_summary_cells_finite": true,
       "finite_or_parse_issues": [],
       "blank_cells_by_column": {},
-      "best_top1": 79.206,
-      "best_epoch": 104,
-      "final_top1": 79.206,
-      "log_coverage": "FULL_MATCH",
-      "matched_rows": 105,
-      "missing_epochs": [],
+      "best_top1": 80.574,
+      "best_epoch": 149,
+      "final_top1": 80.574,
+      "log_coverage": "INCOMPLETE_OR_CONFLICTING",
+      "matched_rows": 45,
+      "missing_epochs": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
       "mismatch_epochs": [],
       "ambiguous_epochs": [],
       "raw_conflicting_epochs_before_attempt_resolution": [],
@@ -75775,21 +75881,2040 @@
       "logs": [
         {
           "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-          "compressed_sha256": "ca0fc1b1e1f1f2c4b10856bd24e3f75c29b7dd3565426152b0bd3ac0f618e42f",
-          "uncompressed_sha256": "cb24bbc4559b9e22857a7067ca27a95a7cc517342fcf12ae9c1d7554c22d4d83",
-          "line_count": 4538,
-          "train_lines": 2741,
-          "ema_lines": 525,
-          "parsed_final_ema_events": 105,
+          "compressed_sha256": "aa6b7dfc10a758623f58573838f2e47c3830cf085f80dbd3574db398a942f525",
+          "uncompressed_sha256": "ec9f4b1f17564902dd89e3bda8590150918530844ed5e05db407480c13452544",
+          "line_count": 1974,
+          "train_lines": 1170,
+          "ema_lines": 225,
+          "parsed_final_ema_events": 45,
           "unparsed_final_ema_lines": [],
           "final_ema_lines_without_epoch_context": [],
           "epoch_regressions": [],
           "segments": [
             {
               "segment": 0,
-              "parsed_final_ema_events": 105,
+              "parsed_final_ema_events": 45,
+              "first_epoch": 105,
+              "last_epoch": 149,
+              "matching_summary_epochs": [
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+                114,
+                115,
+                116,
+                117,
+                118,
+                119,
+                120,
+                121,
+                122,
+                123,
+                124,
+                125,
+                126,
+                127,
+                128,
+                129,
+                130,
+                131,
+                132,
+                133,
+                134,
+                135,
+                136,
+                137,
+                138,
+                139,
+                140,
+                141,
+                142,
+                143,
+                144,
+                145,
+                146,
+                147,
+                148,
+                149
+              ],
+              "mismatching_summary_epochs": []
+            }
+          ]
+        }
+      ],
+      "row_checks": [
+        {
+          "epoch": 0,
+          "summary_line": 2,
+          "summary_metrics": {
+            "eval_loss": 7.85219625,
+            "eval_top1": 1.148,
+            "eval_top5": 3.346
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 1,
+          "summary_line": 3,
+          "summary_metrics": {
+            "eval_loss": 7.74182125,
+            "eval_top1": 1.52,
+            "eval_top5": 4.376
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 2,
+          "summary_line": 4,
+          "summary_metrics": {
+            "eval_loss": 7.61750875,
+            "eval_top1": 2.05,
+            "eval_top5": 5.656
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 3,
+          "summary_line": 5,
+          "summary_metrics": {
+            "eval_loss": 7.4513075,
+            "eval_top1": 2.892,
+            "eval_top5": 7.638
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 4,
+          "summary_line": 6,
+          "summary_metrics": {
+            "eval_loss": 7.1854325,
+            "eval_top1": 4.306,
+            "eval_top5": 10.628
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 5,
+          "summary_line": 7,
+          "summary_metrics": {
+            "eval_loss": 6.71631375,
+            "eval_top1": 6.788,
+            "eval_top5": 15.622
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 6,
+          "summary_line": 8,
+          "summary_metrics": {
+            "eval_loss": 5.966495,
+            "eval_top1": 11.554,
+            "eval_top5": 23.594
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 7,
+          "summary_line": 9,
+          "summary_metrics": {
+            "eval_loss": 4.926821875,
+            "eval_top1": 19.336,
+            "eval_top5": 35.818
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 8,
+          "summary_line": 10,
+          "summary_metrics": {
+            "eval_loss": 3.7275775,
+            "eval_top1": 31.444,
+            "eval_top5": 52.416
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 9,
+          "summary_line": 11,
+          "summary_metrics": {
+            "eval_loss": 2.699823125,
+            "eval_top1": 45.372,
+            "eval_top5": 68.52
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 10,
+          "summary_line": 12,
+          "summary_metrics": {
+            "eval_loss": 2.02717625,
+            "eval_top1": 56.314,
+            "eval_top5": 79.064
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 11,
+          "summary_line": 13,
+          "summary_metrics": {
+            "eval_loss": 1.66049375,
+            "eval_top1": 62.946,
+            "eval_top5": 84.724
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 12,
+          "summary_line": 14,
+          "summary_metrics": {
+            "eval_loss": 1.464283125,
+            "eval_top1": 66.884,
+            "eval_top5": 87.568
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 13,
+          "summary_line": 15,
+          "summary_metrics": {
+            "eval_loss": 1.3564596875,
+            "eval_top1": 69.174,
+            "eval_top5": 89.136
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 14,
+          "summary_line": 16,
+          "summary_metrics": {
+            "eval_loss": 1.295105625,
+            "eval_top1": 70.378,
+            "eval_top5": 89.964
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 15,
+          "summary_line": 17,
+          "summary_metrics": {
+            "eval_loss": 1.257278125,
+            "eval_top1": 71.114,
+            "eval_top5": 90.46
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 16,
+          "summary_line": 18,
+          "summary_metrics": {
+            "eval_loss": 1.2322540625,
+            "eval_top1": 71.648,
+            "eval_top5": 90.81
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 17,
+          "summary_line": 19,
+          "summary_metrics": {
+            "eval_loss": 1.2164634375,
+            "eval_top1": 72.036,
+            "eval_top5": 90.976
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 18,
+          "summary_line": 20,
+          "summary_metrics": {
+            "eval_loss": 1.2060646875,
+            "eval_top1": 72.202,
+            "eval_top5": 91.12
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 19,
+          "summary_line": 21,
+          "summary_metrics": {
+            "eval_loss": 1.198689375,
+            "eval_top1": 72.396,
+            "eval_top5": 91.276
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 20,
+          "summary_line": 22,
+          "summary_metrics": {
+            "eval_loss": 1.19277375,
+            "eval_top1": 72.576,
+            "eval_top5": 91.338
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 21,
+          "summary_line": 23,
+          "summary_metrics": {
+            "eval_loss": 1.1877475,
+            "eval_top1": 72.756,
+            "eval_top5": 91.408
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 22,
+          "summary_line": 24,
+          "summary_metrics": {
+            "eval_loss": 1.184330625,
+            "eval_top1": 72.906,
+            "eval_top5": 91.48
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 23,
+          "summary_line": 25,
+          "summary_metrics": {
+            "eval_loss": 1.1808790625,
+            "eval_top1": 73.026,
+            "eval_top5": 91.528
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 24,
+          "summary_line": 26,
+          "summary_metrics": {
+            "eval_loss": 1.177141875,
+            "eval_top1": 73.17,
+            "eval_top5": 91.576
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 25,
+          "summary_line": 27,
+          "summary_metrics": {
+            "eval_loss": 1.17333875,
+            "eval_top1": 73.294,
+            "eval_top5": 91.674
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 26,
+          "summary_line": 28,
+          "summary_metrics": {
+            "eval_loss": 1.168758125,
+            "eval_top1": 73.426,
+            "eval_top5": 91.71
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 27,
+          "summary_line": 29,
+          "summary_metrics": {
+            "eval_loss": 1.16466625,
+            "eval_top1": 73.56,
+            "eval_top5": 91.704
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 28,
+          "summary_line": 30,
+          "summary_metrics": {
+            "eval_loss": 1.15995875,
+            "eval_top1": 73.658,
+            "eval_top5": 91.788
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 29,
+          "summary_line": 31,
+          "summary_metrics": {
+            "eval_loss": 1.154576875,
+            "eval_top1": 73.818,
+            "eval_top5": 91.912
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 30,
+          "summary_line": 32,
+          "summary_metrics": {
+            "eval_loss": 1.1490796875,
+            "eval_top1": 74.004,
+            "eval_top5": 91.992
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 31,
+          "summary_line": 33,
+          "summary_metrics": {
+            "eval_loss": 1.1432075,
+            "eval_top1": 74.078,
+            "eval_top5": 92.062
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 32,
+          "summary_line": 34,
+          "summary_metrics": {
+            "eval_loss": 1.136836875,
+            "eval_top1": 74.234,
+            "eval_top5": 92.116
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 33,
+          "summary_line": 35,
+          "summary_metrics": {
+            "eval_loss": 1.1309928125,
+            "eval_top1": 74.364,
+            "eval_top5": 92.2
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 34,
+          "summary_line": 36,
+          "summary_metrics": {
+            "eval_loss": 1.1252275,
+            "eval_top1": 74.506,
+            "eval_top5": 92.284
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 35,
+          "summary_line": 37,
+          "summary_metrics": {
+            "eval_loss": 1.1195659375,
+            "eval_top1": 74.606,
+            "eval_top5": 92.318
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 36,
+          "summary_line": 38,
+          "summary_metrics": {
+            "eval_loss": 1.113881875,
+            "eval_top1": 74.732,
+            "eval_top5": 92.396
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 37,
+          "summary_line": 39,
+          "summary_metrics": {
+            "eval_loss": 1.1081475,
+            "eval_top1": 74.816,
+            "eval_top5": 92.488
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 38,
+          "summary_line": 40,
+          "summary_metrics": {
+            "eval_loss": 1.1025559375,
+            "eval_top1": 74.894,
+            "eval_top5": 92.514
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 39,
+          "summary_line": 41,
+          "summary_metrics": {
+            "eval_loss": 1.097081875,
+            "eval_top1": 75.064,
+            "eval_top5": 92.594
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 40,
+          "summary_line": 42,
+          "summary_metrics": {
+            "eval_loss": 1.0918625,
+            "eval_top1": 75.09,
+            "eval_top5": 92.64
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 41,
+          "summary_line": 43,
+          "summary_metrics": {
+            "eval_loss": 1.0871134375,
+            "eval_top1": 75.264,
+            "eval_top5": 92.698
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 42,
+          "summary_line": 44,
+          "summary_metrics": {
+            "eval_loss": 1.08256,
+            "eval_top1": 75.334,
+            "eval_top5": 92.764
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 43,
+          "summary_line": 45,
+          "summary_metrics": {
+            "eval_loss": 1.0775646875,
+            "eval_top1": 75.386,
+            "eval_top5": 92.806
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 44,
+          "summary_line": 46,
+          "summary_metrics": {
+            "eval_loss": 1.07282875,
+            "eval_top1": 75.486,
+            "eval_top5": 92.836
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 45,
+          "summary_line": 47,
+          "summary_metrics": {
+            "eval_loss": 1.06871375,
+            "eval_top1": 75.566,
+            "eval_top5": 92.868
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 46,
+          "summary_line": 48,
+          "summary_metrics": {
+            "eval_loss": 1.065066875,
+            "eval_top1": 75.704,
+            "eval_top5": 92.9
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 47,
+          "summary_line": 49,
+          "summary_metrics": {
+            "eval_loss": 1.0613390625,
+            "eval_top1": 75.808,
+            "eval_top5": 92.968
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 48,
+          "summary_line": 50,
+          "summary_metrics": {
+            "eval_loss": 1.0575521875,
+            "eval_top1": 75.886,
+            "eval_top5": 92.994
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 49,
+          "summary_line": 51,
+          "summary_metrics": {
+            "eval_loss": 1.05356125,
+            "eval_top1": 75.994,
+            "eval_top5": 93.044
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 50,
+          "summary_line": 52,
+          "summary_metrics": {
+            "eval_loss": 1.05018125,
+            "eval_top1": 76.022,
+            "eval_top5": 93.068
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 51,
+          "summary_line": 53,
+          "summary_metrics": {
+            "eval_loss": 1.04711125,
+            "eval_top1": 76.068,
+            "eval_top5": 93.122
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 52,
+          "summary_line": 54,
+          "summary_metrics": {
+            "eval_loss": 1.0439521875,
+            "eval_top1": 76.168,
+            "eval_top5": 93.208
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 53,
+          "summary_line": 55,
+          "summary_metrics": {
+            "eval_loss": 1.040793125,
+            "eval_top1": 76.182,
+            "eval_top5": 93.226
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 54,
+          "summary_line": 56,
+          "summary_metrics": {
+            "eval_loss": 1.0375725,
+            "eval_top1": 76.276,
+            "eval_top5": 93.26
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 55,
+          "summary_line": 57,
+          "summary_metrics": {
+            "eval_loss": 1.034048125,
+            "eval_top1": 76.37,
+            "eval_top5": 93.312
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 56,
+          "summary_line": 58,
+          "summary_metrics": {
+            "eval_loss": 1.03124,
+            "eval_top1": 76.406,
+            "eval_top5": 93.358
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 57,
+          "summary_line": 59,
+          "summary_metrics": {
+            "eval_loss": 1.02785375,
+            "eval_top1": 76.542,
+            "eval_top5": 93.378
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 58,
+          "summary_line": 60,
+          "summary_metrics": {
+            "eval_loss": 1.02433875,
+            "eval_top1": 76.598,
+            "eval_top5": 93.416
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 59,
+          "summary_line": 61,
+          "summary_metrics": {
+            "eval_loss": 1.0210475,
+            "eval_top1": 76.69,
+            "eval_top5": 93.488
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 60,
+          "summary_line": 62,
+          "summary_metrics": {
+            "eval_loss": 1.018136875,
+            "eval_top1": 76.724,
+            "eval_top5": 93.57
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 61,
+          "summary_line": 63,
+          "summary_metrics": {
+            "eval_loss": 1.0150215625,
+            "eval_top1": 76.884,
+            "eval_top5": 93.566
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 62,
+          "summary_line": 64,
+          "summary_metrics": {
+            "eval_loss": 1.0120259375,
+            "eval_top1": 76.916,
+            "eval_top5": 93.592
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 63,
+          "summary_line": 65,
+          "summary_metrics": {
+            "eval_loss": 1.009345625,
+            "eval_top1": 76.994,
+            "eval_top5": 93.614
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 64,
+          "summary_line": 66,
+          "summary_metrics": {
+            "eval_loss": 1.00644875,
+            "eval_top1": 77.036,
+            "eval_top5": 93.628
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 65,
+          "summary_line": 67,
+          "summary_metrics": {
+            "eval_loss": 1.003671875,
+            "eval_top1": 77.086,
+            "eval_top5": 93.696
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 66,
+          "summary_line": 68,
+          "summary_metrics": {
+            "eval_loss": 1.00056625,
+            "eval_top1": 77.16,
+            "eval_top5": 93.694
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 67,
+          "summary_line": 69,
+          "summary_metrics": {
+            "eval_loss": 0.9975090625,
+            "eval_top1": 77.226,
+            "eval_top5": 93.754
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 68,
+          "summary_line": 70,
+          "summary_metrics": {
+            "eval_loss": 0.9943159375,
+            "eval_top1": 77.306,
+            "eval_top5": 93.786
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 69,
+          "summary_line": 71,
+          "summary_metrics": {
+            "eval_loss": 0.9918540625,
+            "eval_top1": 77.358,
+            "eval_top5": 93.818
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 70,
+          "summary_line": 72,
+          "summary_metrics": {
+            "eval_loss": 0.989381875,
+            "eval_top1": 77.406,
+            "eval_top5": 93.824
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 71,
+          "summary_line": 73,
+          "summary_metrics": {
+            "eval_loss": 0.986908125,
+            "eval_top1": 77.508,
+            "eval_top5": 93.838
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 72,
+          "summary_line": 74,
+          "summary_metrics": {
+            "eval_loss": 0.984315,
+            "eval_top1": 77.57,
+            "eval_top5": 93.932
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 73,
+          "summary_line": 75,
+          "summary_metrics": {
+            "eval_loss": 0.9819378125,
+            "eval_top1": 77.644,
+            "eval_top5": 93.958
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 74,
+          "summary_line": 76,
+          "summary_metrics": {
+            "eval_loss": 0.9794475,
+            "eval_top1": 77.702,
+            "eval_top5": 93.982
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 75,
+          "summary_line": 77,
+          "summary_metrics": {
+            "eval_loss": 0.97717,
+            "eval_top1": 77.784,
+            "eval_top5": 93.994
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 76,
+          "summary_line": 78,
+          "summary_metrics": {
+            "eval_loss": 0.9746690625,
+            "eval_top1": 77.812,
+            "eval_top5": 94.024
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 77,
+          "summary_line": 79,
+          "summary_metrics": {
+            "eval_loss": 0.9721528125,
+            "eval_top1": 77.874,
+            "eval_top5": 94.058
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 78,
+          "summary_line": 80,
+          "summary_metrics": {
+            "eval_loss": 0.9695428125,
+            "eval_top1": 77.942,
+            "eval_top5": 94.06
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 79,
+          "summary_line": 81,
+          "summary_metrics": {
+            "eval_loss": 0.967013125,
+            "eval_top1": 77.94,
+            "eval_top5": 94.074
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 80,
+          "summary_line": 82,
+          "summary_metrics": {
+            "eval_loss": 0.9643809375,
+            "eval_top1": 78.024,
+            "eval_top5": 94.08
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 81,
+          "summary_line": 83,
+          "summary_metrics": {
+            "eval_loss": 0.9617221875,
+            "eval_top1": 78.078,
+            "eval_top5": 94.102
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 82,
+          "summary_line": 84,
+          "summary_metrics": {
+            "eval_loss": 0.9592303125,
+            "eval_top1": 78.146,
+            "eval_top5": 94.114
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 83,
+          "summary_line": 85,
+          "summary_metrics": {
+            "eval_loss": 0.95696125,
+            "eval_top1": 78.19,
+            "eval_top5": 94.144
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 84,
+          "summary_line": 86,
+          "summary_metrics": {
+            "eval_loss": 0.95449,
+            "eval_top1": 78.224,
+            "eval_top5": 94.142
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 85,
+          "summary_line": 87,
+          "summary_metrics": {
+            "eval_loss": 0.95210625,
+            "eval_top1": 78.25,
+            "eval_top5": 94.162
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 86,
+          "summary_line": 88,
+          "summary_metrics": {
+            "eval_loss": 0.9496271875,
+            "eval_top1": 78.274,
+            "eval_top5": 94.188
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 87,
+          "summary_line": 89,
+          "summary_metrics": {
+            "eval_loss": 0.94730125,
+            "eval_top1": 78.328,
+            "eval_top5": 94.21
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 88,
+          "summary_line": 90,
+          "summary_metrics": {
+            "eval_loss": 0.9449203125,
+            "eval_top1": 78.366,
+            "eval_top5": 94.288
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 89,
+          "summary_line": 91,
+          "summary_metrics": {
+            "eval_loss": 0.94270875,
+            "eval_top1": 78.454,
+            "eval_top5": 94.344
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 90,
+          "summary_line": 92,
+          "summary_metrics": {
+            "eval_loss": 0.9402840625,
+            "eval_top1": 78.492,
+            "eval_top5": 94.384
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 91,
+          "summary_line": 93,
+          "summary_metrics": {
+            "eval_loss": 0.9377765625,
+            "eval_top1": 78.57,
+            "eval_top5": 94.42
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 92,
+          "summary_line": 94,
+          "summary_metrics": {
+            "eval_loss": 0.9354825,
+            "eval_top1": 78.648,
+            "eval_top5": 94.42
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 93,
+          "summary_line": 95,
+          "summary_metrics": {
+            "eval_loss": 0.93341375,
+            "eval_top1": 78.702,
+            "eval_top5": 94.418
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 94,
+          "summary_line": 96,
+          "summary_metrics": {
+            "eval_loss": 0.93134625,
+            "eval_top1": 78.722,
+            "eval_top5": 94.468
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 95,
+          "summary_line": 97,
+          "summary_metrics": {
+            "eval_loss": 0.929085,
+            "eval_top1": 78.788,
+            "eval_top5": 94.484
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 96,
+          "summary_line": 98,
+          "summary_metrics": {
+            "eval_loss": 0.926790625,
+            "eval_top1": 78.844,
+            "eval_top5": 94.49
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 97,
+          "summary_line": 99,
+          "summary_metrics": {
+            "eval_loss": 0.9244884375,
+            "eval_top1": 78.886,
+            "eval_top5": 94.538
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 98,
+          "summary_line": 100,
+          "summary_metrics": {
+            "eval_loss": 0.9223603125,
+            "eval_top1": 78.95,
+            "eval_top5": 94.568
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 99,
+          "summary_line": 101,
+          "summary_metrics": {
+            "eval_loss": 0.9200534375,
+            "eval_top1": 79.008,
+            "eval_top5": 94.58
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 100,
+          "summary_line": 102,
+          "summary_metrics": {
+            "eval_loss": 0.9178871875,
+            "eval_top1": 79.038,
+            "eval_top5": 94.598
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 101,
+          "summary_line": 103,
+          "summary_metrics": {
+            "eval_loss": 0.9159434375,
+            "eval_top1": 79.088,
+            "eval_top5": 94.634
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 102,
+          "summary_line": 104,
+          "summary_metrics": {
+            "eval_loss": 0.9142165625,
+            "eval_top1": 79.14,
+            "eval_top5": 94.658
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 103,
+          "summary_line": 105,
+          "summary_metrics": {
+            "eval_loss": 0.912029375,
+            "eval_top1": 79.194,
+            "eval_top5": 94.716
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 104,
+          "summary_line": 106,
+          "summary_metrics": {
+            "eval_loss": 0.910106875,
+            "eval_top1": 79.206,
+            "eval_top5": 94.702
+          },
+          "status": "MISSING",
+          "matching_sources": []
+        },
+        {
+          "epoch": 105,
+          "summary_line": 107,
+          "summary_metrics": {
+            "eval_loss": 0.90814,
+            "eval_top1": 79.268,
+            "eval_top5": 94.71
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 119,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 106,
+          "summary_line": 108,
+          "summary_metrics": {
+            "eval_loss": 0.9061159375,
+            "eval_top1": 79.312,
+            "eval_top5": 94.756
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 159,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 107,
+          "summary_line": 109,
+          "summary_metrics": {
+            "eval_loss": 0.9040646875,
+            "eval_top1": 79.376,
+            "eval_top5": 94.774
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 200,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 108,
+          "summary_line": 110,
+          "summary_metrics": {
+            "eval_loss": 0.90206375,
+            "eval_top1": 79.396,
+            "eval_top5": 94.816
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 242,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 109,
+          "summary_line": 111,
+          "summary_metrics": {
+            "eval_loss": 0.89964125,
+            "eval_top1": 79.424,
+            "eval_top5": 94.85
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 284,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 110,
+          "summary_line": 112,
+          "summary_metrics": {
+            "eval_loss": 0.8974440625,
+            "eval_top1": 79.464,
+            "eval_top5": 94.884
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 326,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 111,
+          "summary_line": 113,
+          "summary_metrics": {
+            "eval_loss": 0.8953009375,
+            "eval_top1": 79.514,
+            "eval_top5": 94.886
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 368,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 112,
+          "summary_line": 114,
+          "summary_metrics": {
+            "eval_loss": 0.893308125,
+            "eval_top1": 79.55,
+            "eval_top5": 94.876
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 410,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 113,
+          "summary_line": 115,
+          "summary_metrics": {
+            "eval_loss": 0.89146625,
+            "eval_top1": 79.644,
+            "eval_top5": 94.886
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 452,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 114,
+          "summary_line": 116,
+          "summary_metrics": {
+            "eval_loss": 0.8894228125,
+            "eval_top1": 79.71,
+            "eval_top5": 94.922
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 494,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 115,
+          "summary_line": 117,
+          "summary_metrics": {
+            "eval_loss": 0.88756125,
+            "eval_top1": 79.75,
+            "eval_top5": 94.924
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 536,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 116,
+          "summary_line": 118,
+          "summary_metrics": {
+            "eval_loss": 0.8856309375,
+            "eval_top1": 79.782,
+            "eval_top5": 94.966
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 578,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 117,
+          "summary_line": 119,
+          "summary_metrics": {
+            "eval_loss": 0.8838375,
+            "eval_top1": 79.824,
+            "eval_top5": 94.962
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 620,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 118,
+          "summary_line": 120,
+          "summary_metrics": {
+            "eval_loss": 0.8820265625,
+            "eval_top1": 79.858,
+            "eval_top5": 94.968
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 662,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 119,
+          "summary_line": 121,
+          "summary_metrics": {
+            "eval_loss": 0.88011875,
+            "eval_top1": 79.894,
+            "eval_top5": 94.976
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 704,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 120,
+          "summary_line": 122,
+          "summary_metrics": {
+            "eval_loss": 0.8782378125,
+            "eval_top1": 79.928,
+            "eval_top5": 95.002
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 746,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 121,
+          "summary_line": 123,
+          "summary_metrics": {
+            "eval_loss": 0.876439375,
+            "eval_top1": 79.928,
+            "eval_top5": 95.03
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 788,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 122,
+          "summary_line": 124,
+          "summary_metrics": {
+            "eval_loss": 0.8747615625,
+            "eval_top1": 79.95,
+            "eval_top5": 95.062
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 830,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 123,
+          "summary_line": 125,
+          "summary_metrics": {
+            "eval_loss": 0.87281875,
+            "eval_top1": 80.018,
+            "eval_top5": 95.07
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 872,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 124,
+          "summary_line": 126,
+          "summary_metrics": {
+            "eval_loss": 0.8712146875,
+            "eval_top1": 80.028,
+            "eval_top5": 95.078
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 914,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 125,
+          "summary_line": 127,
+          "summary_metrics": {
+            "eval_loss": 0.86961625,
+            "eval_top1": 80.076,
+            "eval_top5": 95.086
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 956,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 126,
+          "summary_line": 128,
+          "summary_metrics": {
+            "eval_loss": 0.8681146875,
+            "eval_top1": 80.14,
+            "eval_top5": 95.098
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 998,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 127,
+          "summary_line": 129,
+          "summary_metrics": {
+            "eval_loss": 0.86653375,
+            "eval_top1": 80.134,
+            "eval_top5": 95.134
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1040,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 128,
+          "summary_line": 130,
+          "summary_metrics": {
+            "eval_loss": 0.8651734375,
+            "eval_top1": 80.174,
+            "eval_top5": 95.158
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1082,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 129,
+          "summary_line": 131,
+          "summary_metrics": {
+            "eval_loss": 0.863726875,
+            "eval_top1": 80.198,
+            "eval_top5": 95.13
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1124,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 130,
+          "summary_line": 132,
+          "summary_metrics": {
+            "eval_loss": 0.8621140625,
+            "eval_top1": 80.238,
+            "eval_top5": 95.162
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1166,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 131,
+          "summary_line": 133,
+          "summary_metrics": {
+            "eval_loss": 0.860648125,
+            "eval_top1": 80.264,
+            "eval_top5": 95.164
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1208,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 132,
+          "summary_line": 134,
+          "summary_metrics": {
+            "eval_loss": 0.8594946875,
+            "eval_top1": 80.264,
+            "eval_top5": 95.184
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1250,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 133,
+          "summary_line": 135,
+          "summary_metrics": {
+            "eval_loss": 0.858196875,
+            "eval_top1": 80.288,
+            "eval_top5": 95.19
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1292,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 134,
+          "summary_line": 136,
+          "summary_metrics": {
+            "eval_loss": 0.856871875,
+            "eval_top1": 80.308,
+            "eval_top5": 95.2
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1334,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 135,
+          "summary_line": 137,
+          "summary_metrics": {
+            "eval_loss": 0.85560625,
+            "eval_top1": 80.344,
+            "eval_top5": 95.218
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1376,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 136,
+          "summary_line": 138,
+          "summary_metrics": {
+            "eval_loss": 0.854410625,
+            "eval_top1": 80.388,
+            "eval_top5": 95.232
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1418,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 137,
+          "summary_line": 139,
+          "summary_metrics": {
+            "eval_loss": 0.8533621875,
+            "eval_top1": 80.384,
+            "eval_top5": 95.254
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1460,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 138,
+          "summary_line": 140,
+          "summary_metrics": {
+            "eval_loss": 0.8524321875,
+            "eval_top1": 80.404,
+            "eval_top5": 95.272
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1502,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 139,
+          "summary_line": 141,
+          "summary_metrics": {
+            "eval_loss": 0.85142375,
+            "eval_top1": 80.476,
+            "eval_top5": 95.256
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1544,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 140,
+          "summary_line": 142,
+          "summary_metrics": {
+            "eval_loss": 0.8504990625,
+            "eval_top1": 80.448,
+            "eval_top5": 95.282
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1586,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 141,
+          "summary_line": 143,
+          "summary_metrics": {
+            "eval_loss": 0.8498259375,
+            "eval_top1": 80.476,
+            "eval_top5": 95.296
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1628,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 142,
+          "summary_line": 144,
+          "summary_metrics": {
+            "eval_loss": 0.849040625,
+            "eval_top1": 80.492,
+            "eval_top5": 95.294
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1670,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 143,
+          "summary_line": 145,
+          "summary_metrics": {
+            "eval_loss": 0.8482240625,
+            "eval_top1": 80.498,
+            "eval_top5": 95.3
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1712,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 144,
+          "summary_line": 146,
+          "summary_metrics": {
+            "eval_loss": 0.8474296875,
+            "eval_top1": 80.492,
+            "eval_top5": 95.312
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1754,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 145,
+          "summary_line": 147,
+          "summary_metrics": {
+            "eval_loss": 0.846841875,
+            "eval_top1": 80.52,
+            "eval_top5": 95.322
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1796,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 146,
+          "summary_line": 148,
+          "summary_metrics": {
+            "eval_loss": 0.8461546875,
+            "eval_top1": 80.53,
+            "eval_top5": 95.318
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1838,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 147,
+          "summary_line": 149,
+          "summary_metrics": {
+            "eval_loss": 0.84546875,
+            "eval_top1": 80.552,
+            "eval_top5": 95.324
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1880,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 148,
+          "summary_line": 150,
+          "summary_metrics": {
+            "eval_loss": 0.844899375,
+            "eval_top1": 80.552,
+            "eval_top5": 95.308
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1922,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 149,
+          "summary_line": 151,
+          "summary_metrics": {
+            "eval_loss": 0.8442503125,
+            "eval_top1": 80.574,
+            "eval_top5": 95.312
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
+              "line": 1964,
+              "segment": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": "s7_mn_proglatent_150e",
+      "stage": "stage7_150e_224",
+      "summary_file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/summary.csv",
+      "summary_sha256": "4ed98b96de8a1f497479e5f30f013aaf026c320a29c78d5c5c8c17442786a042",
+      "args_file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/args.yaml",
+      "args_sha256": "81c7fd742fd426daad24d39a4f7ee11ab0c2f8f1364ca01c7beb1dc78d6f119d",
+      "target_epochs": 150,
+      "summary_rows": 150,
+      "completion": "TARGET_COMPLETE",
+      "epochs_contiguous_from_zero": true,
+      "all_present_summary_cells_finite": true,
+      "finite_or_parse_issues": [],
+      "blank_cells_by_column": {},
+      "best_top1": 79.392,
+      "best_epoch": 149,
+      "final_top1": 79.392,
+      "log_coverage": "FULL_MATCH",
+      "matched_rows": 150,
+      "missing_epochs": [],
+      "mismatch_epochs": [],
+      "ambiguous_epochs": [],
+      "raw_conflicting_epochs_before_attempt_resolution": [],
+      "duplicate_epoch_metric_events_collapsed": 0,
+      "excluded_earlier_attempts": [],
+      "conflicting_log_events": [],
+      "logs": [
+        {
+          "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+          "compressed_sha256": "60510d7566afe8e64e422535e5a07068f6b19013202d9b0882f1b228ac55c786",
+          "uncompressed_sha256": "490d1f7dc33514bddef0f07af5d15d66f032ecd506bb091c906aeb2fb2825670",
+          "line_count": 6374,
+          "train_lines": 3900,
+          "ema_lines": 750,
+          "parsed_final_ema_events": 150,
+          "unparsed_final_ema_lines": [],
+          "final_ema_lines_without_epoch_context": [],
+          "epoch_regressions": [],
+          "segments": [
+            {
+              "segment": 0,
+              "parsed_final_ema_events": 150,
               "first_epoch": 0,
-              "last_epoch": 104,
+              "last_epoch": 149,
               "matching_summary_epochs": [
                 0,
                 1,
@@ -75895,7 +78020,52 @@
                 101,
                 102,
                 103,
-                104
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+                114,
+                115,
+                116,
+                117,
+                118,
+                119,
+                120,
+                121,
+                122,
+                123,
+                124,
+                125,
+                126,
+                127,
+                128,
+                129,
+                130,
+                131,
+                132,
+                133,
+                134,
+                135,
+                136,
+                137,
+                138,
+                139,
+                140,
+                141,
+                142,
+                143,
+                144,
+                145,
+                146,
+                147,
+                148,
+                149
               ],
               "mismatching_summary_epochs": []
             }
@@ -75907,15 +78077,15 @@
           "epoch": 0,
           "summary_line": 2,
           "summary_metrics": {
-            "eval_loss": 7.85219625,
-            "eval_top1": 1.148,
-            "eval_top5": 3.346
+            "eval_loss": 6.97570375,
+            "eval_top1": 0.084,
+            "eval_top5": 0.478
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 107,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 109,
               "segment": 0
             }
           ]
@@ -75924,15 +78094,15 @@
           "epoch": 1,
           "summary_line": 3,
           "summary_metrics": {
-            "eval_loss": 7.74182125,
-            "eval_top1": 1.52,
-            "eval_top5": 4.376
+            "eval_loss": 6.96308625,
+            "eval_top1": 0.08,
+            "eval_top5": 0.528
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 147,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 149,
               "segment": 0
             }
           ]
@@ -75941,15 +78111,15 @@
           "epoch": 2,
           "summary_line": 4,
           "summary_metrics": {
-            "eval_loss": 7.61750875,
-            "eval_top1": 2.05,
-            "eval_top5": 5.656
+            "eval_loss": 6.9465575,
+            "eval_top1": 0.114,
+            "eval_top5": 0.624
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 188,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 190,
               "segment": 0
             }
           ]
@@ -75958,15 +78128,15 @@
           "epoch": 3,
           "summary_line": 5,
           "summary_metrics": {
-            "eval_loss": 7.4513075,
-            "eval_top1": 2.892,
-            "eval_top5": 7.638
+            "eval_loss": 6.9286425,
+            "eval_top1": 0.156,
+            "eval_top5": 0.806
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 230,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 232,
               "segment": 0
             }
           ]
@@ -75975,15 +78145,15 @@
           "epoch": 4,
           "summary_line": 6,
           "summary_metrics": {
-            "eval_loss": 7.1854325,
-            "eval_top1": 4.306,
-            "eval_top5": 10.628
+            "eval_loss": 6.911315,
+            "eval_top1": 0.21,
+            "eval_top5": 0.97
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 272,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 274,
               "segment": 0
             }
           ]
@@ -75992,15 +78162,15 @@
           "epoch": 5,
           "summary_line": 7,
           "summary_metrics": {
-            "eval_loss": 6.71631375,
-            "eval_top1": 6.788,
-            "eval_top5": 15.622
+            "eval_loss": 6.8978125,
+            "eval_top1": 0.288,
+            "eval_top5": 1.196
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 314,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 316,
               "segment": 0
             }
           ]
@@ -76009,15 +78179,15 @@
           "epoch": 6,
           "summary_line": 8,
           "summary_metrics": {
-            "eval_loss": 5.966495,
-            "eval_top1": 11.554,
-            "eval_top5": 23.594
+            "eval_loss": 6.8858475,
+            "eval_top1": 0.282,
+            "eval_top5": 1.292
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 356,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 358,
               "segment": 0
             }
           ]
@@ -76026,15 +78196,15 @@
           "epoch": 7,
           "summary_line": 9,
           "summary_metrics": {
-            "eval_loss": 4.926821875,
-            "eval_top1": 19.336,
-            "eval_top5": 35.818
+            "eval_loss": 6.8655325,
+            "eval_top1": 0.282,
+            "eval_top5": 1.39
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 398,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 400,
               "segment": 0
             }
           ]
@@ -76043,15 +78213,15 @@
           "epoch": 8,
           "summary_line": 10,
           "summary_metrics": {
-            "eval_loss": 3.7275775,
-            "eval_top1": 31.444,
-            "eval_top5": 52.416
+            "eval_loss": 6.84080125,
+            "eval_top1": 0.356,
+            "eval_top5": 1.666
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 440,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 442,
               "segment": 0
             }
           ]
@@ -76060,15 +78230,15 @@
           "epoch": 9,
           "summary_line": 11,
           "summary_metrics": {
-            "eval_loss": 2.699823125,
-            "eval_top1": 45.372,
-            "eval_top5": 68.52
+            "eval_loss": 6.814605,
+            "eval_top1": 0.468,
+            "eval_top5": 1.896
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 482,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 484,
               "segment": 0
             }
           ]
@@ -76077,15 +78247,15 @@
           "epoch": 10,
           "summary_line": 12,
           "summary_metrics": {
-            "eval_loss": 2.02717625,
-            "eval_top1": 56.314,
-            "eval_top5": 79.064
+            "eval_loss": 6.7880125,
+            "eval_top1": 0.588,
+            "eval_top5": 2.214
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 524,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 526,
               "segment": 0
             }
           ]
@@ -76094,15 +78264,15 @@
           "epoch": 11,
           "summary_line": 13,
           "summary_metrics": {
-            "eval_loss": 1.66049375,
-            "eval_top1": 62.946,
-            "eval_top5": 84.724
+            "eval_loss": 6.75841125,
+            "eval_top1": 0.73,
+            "eval_top5": 2.678
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 566,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 568,
               "segment": 0
             }
           ]
@@ -76111,15 +78281,15 @@
           "epoch": 12,
           "summary_line": 14,
           "summary_metrics": {
-            "eval_loss": 1.464283125,
-            "eval_top1": 66.884,
-            "eval_top5": 87.568
+            "eval_loss": 6.719885,
+            "eval_top1": 0.948,
+            "eval_top5": 3.114
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 608,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 610,
               "segment": 0
             }
           ]
@@ -76128,15 +78298,15 @@
           "epoch": 13,
           "summary_line": 15,
           "summary_metrics": {
-            "eval_loss": 1.3564596875,
-            "eval_top1": 69.174,
-            "eval_top5": 89.136
+            "eval_loss": 6.6635025,
+            "eval_top1": 1.202,
+            "eval_top5": 3.766
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 650,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 652,
               "segment": 0
             }
           ]
@@ -76145,15 +78315,15 @@
           "epoch": 14,
           "summary_line": 16,
           "summary_metrics": {
-            "eval_loss": 1.295105625,
-            "eval_top1": 70.378,
-            "eval_top5": 89.964
+            "eval_loss": 6.58407625,
+            "eval_top1": 1.564,
+            "eval_top5": 4.772
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 692,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 694,
               "segment": 0
             }
           ]
@@ -76162,15 +78332,15 @@
           "epoch": 15,
           "summary_line": 17,
           "summary_metrics": {
-            "eval_loss": 1.257278125,
-            "eval_top1": 71.114,
-            "eval_top5": 90.46
+            "eval_loss": 6.4795725,
+            "eval_top1": 2.096,
+            "eval_top5": 6.348
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 734,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 736,
               "segment": 0
             }
           ]
@@ -76179,15 +78349,15 @@
           "epoch": 16,
           "summary_line": 18,
           "summary_metrics": {
-            "eval_loss": 1.2322540625,
-            "eval_top1": 71.648,
-            "eval_top5": 90.81
+            "eval_loss": 6.34303125,
+            "eval_top1": 2.906,
+            "eval_top5": 8.56
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 776,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 778,
               "segment": 0
             }
           ]
@@ -76196,15 +78366,15 @@
           "epoch": 17,
           "summary_line": 19,
           "summary_metrics": {
-            "eval_loss": 1.2164634375,
-            "eval_top1": 72.036,
-            "eval_top5": 90.976
+            "eval_loss": 6.176845,
+            "eval_top1": 3.99,
+            "eval_top5": 11.504
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 818,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 820,
               "segment": 0
             }
           ]
@@ -76213,15 +78383,15 @@
           "epoch": 18,
           "summary_line": 20,
           "summary_metrics": {
-            "eval_loss": 1.2060646875,
-            "eval_top1": 72.202,
-            "eval_top5": 91.12
+            "eval_loss": 5.98066125,
+            "eval_top1": 5.586,
+            "eval_top5": 15.148
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 860,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 862,
               "segment": 0
             }
           ]
@@ -76230,15 +78400,15 @@
           "epoch": 19,
           "summary_line": 21,
           "summary_metrics": {
-            "eval_loss": 1.198689375,
-            "eval_top1": 72.396,
-            "eval_top5": 91.276
+            "eval_loss": 5.76725875,
+            "eval_top1": 7.432,
+            "eval_top5": 19.406
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 902,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 904,
               "segment": 0
             }
           ]
@@ -76247,15 +78417,15 @@
           "epoch": 20,
           "summary_line": 22,
           "summary_metrics": {
-            "eval_loss": 1.19277375,
-            "eval_top1": 72.576,
-            "eval_top5": 91.338
+            "eval_loss": 5.555455,
+            "eval_top1": 9.66,
+            "eval_top5": 23.824
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 944,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 946,
               "segment": 0
             }
           ]
@@ -76264,15 +78434,15 @@
           "epoch": 21,
           "summary_line": 23,
           "summary_metrics": {
-            "eval_loss": 1.1877475,
-            "eval_top1": 72.756,
-            "eval_top5": 91.408
+            "eval_loss": 5.36583,
+            "eval_top1": 11.93,
+            "eval_top5": 27.586
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 986,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 988,
               "segment": 0
             }
           ]
@@ -76281,15 +78451,15 @@
           "epoch": 22,
           "summary_line": 24,
           "summary_metrics": {
-            "eval_loss": 1.184330625,
-            "eval_top1": 72.906,
-            "eval_top5": 91.48
+            "eval_loss": 5.21217875,
+            "eval_top1": 13.954,
+            "eval_top5": 30.548
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1028,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1030,
               "segment": 0
             }
           ]
@@ -76298,15 +78468,15 @@
           "epoch": 23,
           "summary_line": 25,
           "summary_metrics": {
-            "eval_loss": 1.1808790625,
-            "eval_top1": 73.026,
-            "eval_top5": 91.528
+            "eval_loss": 5.0895725,
+            "eval_top1": 15.52,
+            "eval_top5": 32.842
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1070,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1072,
               "segment": 0
             }
           ]
@@ -76315,15 +78485,15 @@
           "epoch": 24,
           "summary_line": 26,
           "summary_metrics": {
-            "eval_loss": 1.177141875,
-            "eval_top1": 73.17,
-            "eval_top5": 91.576
+            "eval_loss": 5.00091375,
+            "eval_top1": 16.796,
+            "eval_top5": 34.318
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1112,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1114,
               "segment": 0
             }
           ]
@@ -76332,15 +78502,15 @@
           "epoch": 25,
           "summary_line": 27,
           "summary_metrics": {
-            "eval_loss": 1.17333875,
-            "eval_top1": 73.294,
-            "eval_top5": 91.674
+            "eval_loss": 4.9493425,
+            "eval_top1": 17.44,
+            "eval_top5": 34.908
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1154,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1156,
               "segment": 0
             }
           ]
@@ -76349,15 +78519,15 @@
           "epoch": 26,
           "summary_line": 28,
           "summary_metrics": {
-            "eval_loss": 1.168758125,
-            "eval_top1": 73.426,
-            "eval_top5": 91.71
+            "eval_loss": 4.9190325,
+            "eval_top1": 17.786,
+            "eval_top5": 35.11
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1196,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1198,
               "segment": 0
             }
           ]
@@ -76366,15 +78536,15 @@
           "epoch": 27,
           "summary_line": 29,
           "summary_metrics": {
-            "eval_loss": 1.16466625,
-            "eval_top1": 73.56,
-            "eval_top5": 91.704
+            "eval_loss": 4.9013275,
+            "eval_top1": 17.802,
+            "eval_top5": 35.112
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1238,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1240,
               "segment": 0
             }
           ]
@@ -76383,15 +78553,15 @@
           "epoch": 28,
           "summary_line": 30,
           "summary_metrics": {
-            "eval_loss": 1.15995875,
-            "eval_top1": 73.658,
-            "eval_top5": 91.788
+            "eval_loss": 4.8860375,
+            "eval_top1": 17.8,
+            "eval_top5": 34.898
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1280,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1282,
               "segment": 0
             }
           ]
@@ -76400,15 +78570,15 @@
           "epoch": 29,
           "summary_line": 31,
           "summary_metrics": {
-            "eval_loss": 1.154576875,
-            "eval_top1": 73.818,
-            "eval_top5": 91.912
+            "eval_loss": 4.87112625,
+            "eval_top1": 17.818,
+            "eval_top5": 34.838
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1322,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1324,
               "segment": 0
             }
           ]
@@ -76417,15 +78587,15 @@
           "epoch": 30,
           "summary_line": 32,
           "summary_metrics": {
-            "eval_loss": 1.1490796875,
-            "eval_top1": 74.004,
-            "eval_top5": 91.992
+            "eval_loss": 4.8516975,
+            "eval_top1": 17.94,
+            "eval_top5": 34.806
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1364,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1366,
               "segment": 0
             }
           ]
@@ -76434,15 +78604,15 @@
           "epoch": 31,
           "summary_line": 33,
           "summary_metrics": {
-            "eval_loss": 1.1432075,
-            "eval_top1": 74.078,
-            "eval_top5": 92.062
+            "eval_loss": 4.82654625,
+            "eval_top1": 18.314,
+            "eval_top5": 34.882
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1406,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1408,
               "segment": 0
             }
           ]
@@ -76451,15 +78621,15 @@
           "epoch": 32,
           "summary_line": 34,
           "summary_metrics": {
-            "eval_loss": 1.136836875,
-            "eval_top1": 74.234,
-            "eval_top5": 92.116
+            "eval_loss": 4.7874125,
+            "eval_top1": 18.59,
+            "eval_top5": 35.438
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1448,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1450,
               "segment": 0
             }
           ]
@@ -76468,15 +78638,15 @@
           "epoch": 33,
           "summary_line": 35,
           "summary_metrics": {
-            "eval_loss": 1.1309928125,
-            "eval_top1": 74.364,
-            "eval_top5": 92.2
+            "eval_loss": 4.73973125,
+            "eval_top1": 19.066,
+            "eval_top5": 36.024
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1490,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1492,
               "segment": 0
             }
           ]
@@ -76485,15 +78655,15 @@
           "epoch": 34,
           "summary_line": 36,
           "summary_metrics": {
-            "eval_loss": 1.1252275,
-            "eval_top1": 74.506,
-            "eval_top5": 92.284
+            "eval_loss": 4.678915,
+            "eval_top1": 19.732,
+            "eval_top5": 36.944
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1532,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1534,
               "segment": 0
             }
           ]
@@ -76502,15 +78672,15 @@
           "epoch": 35,
           "summary_line": 37,
           "summary_metrics": {
-            "eval_loss": 1.1195659375,
-            "eval_top1": 74.606,
-            "eval_top5": 92.318
+            "eval_loss": 4.6116325,
+            "eval_top1": 20.552,
+            "eval_top5": 37.878
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1574,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1576,
               "segment": 0
             }
           ]
@@ -76519,15 +78689,15 @@
           "epoch": 36,
           "summary_line": 38,
           "summary_metrics": {
-            "eval_loss": 1.113881875,
-            "eval_top1": 74.732,
-            "eval_top5": 92.396
+            "eval_loss": 4.5318525,
+            "eval_top1": 21.48,
+            "eval_top5": 39.118
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1616,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1618,
               "segment": 0
             }
           ]
@@ -76536,15 +78706,15 @@
           "epoch": 37,
           "summary_line": 39,
           "summary_metrics": {
-            "eval_loss": 1.1081475,
-            "eval_top1": 74.816,
-            "eval_top5": 92.488
+            "eval_loss": 4.4389475,
+            "eval_top1": 22.544,
+            "eval_top5": 40.546
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1658,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1660,
               "segment": 0
             }
           ]
@@ -76553,15 +78723,15 @@
           "epoch": 38,
           "summary_line": 40,
           "summary_metrics": {
-            "eval_loss": 1.1025559375,
-            "eval_top1": 74.894,
-            "eval_top5": 92.514
+            "eval_loss": 4.3582575,
+            "eval_top1": 23.436,
+            "eval_top5": 42.01
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1700,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1702,
               "segment": 0
             }
           ]
@@ -76570,15 +78740,15 @@
           "epoch": 39,
           "summary_line": 41,
           "summary_metrics": {
-            "eval_loss": 1.097081875,
-            "eval_top1": 75.064,
-            "eval_top5": 92.594
+            "eval_loss": 4.26737625,
+            "eval_top1": 24.484,
+            "eval_top5": 43.496
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1742,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1744,
               "segment": 0
             }
           ]
@@ -76587,15 +78757,15 @@
           "epoch": 40,
           "summary_line": 42,
           "summary_metrics": {
-            "eval_loss": 1.0918625,
-            "eval_top1": 75.09,
-            "eval_top5": 92.64
+            "eval_loss": 4.1691875,
+            "eval_top1": 25.708,
+            "eval_top5": 45.158
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1784,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1786,
               "segment": 0
             }
           ]
@@ -76604,15 +78774,15 @@
           "epoch": 41,
           "summary_line": 43,
           "summary_metrics": {
-            "eval_loss": 1.0871134375,
-            "eval_top1": 75.264,
-            "eval_top5": 92.698
+            "eval_loss": 4.0689225,
+            "eval_top1": 27.008,
+            "eval_top5": 46.69
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1826,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1828,
               "segment": 0
             }
           ]
@@ -76621,15 +78791,15 @@
           "epoch": 42,
           "summary_line": 44,
           "summary_metrics": {
-            "eval_loss": 1.08256,
-            "eval_top1": 75.334,
-            "eval_top5": 92.764
+            "eval_loss": 3.97366625,
+            "eval_top1": 28.164,
+            "eval_top5": 48.458
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1868,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1870,
               "segment": 0
             }
           ]
@@ -76638,15 +78808,15 @@
           "epoch": 43,
           "summary_line": 45,
           "summary_metrics": {
-            "eval_loss": 1.0775646875,
-            "eval_top1": 75.386,
-            "eval_top5": 92.806
+            "eval_loss": 3.86955375,
+            "eval_top1": 29.584,
+            "eval_top5": 50.27
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1910,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1912,
               "segment": 0
             }
           ]
@@ -76655,15 +78825,15 @@
           "epoch": 44,
           "summary_line": 46,
           "summary_metrics": {
-            "eval_loss": 1.07282875,
-            "eval_top1": 75.486,
-            "eval_top5": 92.836
+            "eval_loss": 3.76111125,
+            "eval_top1": 30.94,
+            "eval_top5": 52.074
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1952,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1954,
               "segment": 0
             }
           ]
@@ -76672,15 +78842,15 @@
           "epoch": 45,
           "summary_line": 47,
           "summary_metrics": {
-            "eval_loss": 1.06871375,
-            "eval_top1": 75.566,
-            "eval_top5": 92.868
+            "eval_loss": 3.65662375,
+            "eval_top1": 32.372,
+            "eval_top5": 53.808
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 1994,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 1996,
               "segment": 0
             }
           ]
@@ -76689,15 +78859,15 @@
           "epoch": 46,
           "summary_line": 48,
           "summary_metrics": {
-            "eval_loss": 1.065066875,
-            "eval_top1": 75.704,
-            "eval_top5": 92.9
+            "eval_loss": 3.545443125,
+            "eval_top1": 33.828,
+            "eval_top5": 55.732
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2036,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2038,
               "segment": 0
             }
           ]
@@ -76706,15 +78876,15 @@
           "epoch": 47,
           "summary_line": 49,
           "summary_metrics": {
-            "eval_loss": 1.0613390625,
-            "eval_top1": 75.808,
-            "eval_top5": 92.968
+            "eval_loss": 3.43558125,
+            "eval_top1": 35.398,
+            "eval_top5": 57.682
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2078,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2080,
               "segment": 0
             }
           ]
@@ -76723,15 +78893,15 @@
           "epoch": 48,
           "summary_line": 50,
           "summary_metrics": {
-            "eval_loss": 1.0575521875,
-            "eval_top1": 75.886,
-            "eval_top5": 92.994
+            "eval_loss": 3.323999375,
+            "eval_top1": 37.192,
+            "eval_top5": 59.694
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2120,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2122,
               "segment": 0
             }
           ]
@@ -76740,15 +78910,15 @@
           "epoch": 49,
           "summary_line": 51,
           "summary_metrics": {
-            "eval_loss": 1.05356125,
-            "eval_top1": 75.994,
-            "eval_top5": 93.044
+            "eval_loss": 3.21342875,
+            "eval_top1": 38.972,
+            "eval_top5": 61.538
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2162,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2164,
               "segment": 0
             }
           ]
@@ -76757,15 +78927,15 @@
           "epoch": 50,
           "summary_line": 52,
           "summary_metrics": {
-            "eval_loss": 1.05018125,
-            "eval_top1": 76.022,
-            "eval_top5": 93.068
+            "eval_loss": 3.100616875,
+            "eval_top1": 40.684,
+            "eval_top5": 63.48
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2204,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2206,
               "segment": 0
             }
           ]
@@ -76774,15 +78944,15 @@
           "epoch": 51,
           "summary_line": 53,
           "summary_metrics": {
-            "eval_loss": 1.04711125,
-            "eval_top1": 76.068,
-            "eval_top5": 93.122
+            "eval_loss": 2.98981125,
+            "eval_top1": 42.506,
+            "eval_top5": 65.274
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2246,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2248,
               "segment": 0
             }
           ]
@@ -76791,15 +78961,15 @@
           "epoch": 52,
           "summary_line": 54,
           "summary_metrics": {
-            "eval_loss": 1.0439521875,
-            "eval_top1": 76.168,
-            "eval_top5": 93.208
+            "eval_loss": 2.879143125,
+            "eval_top1": 44.052,
+            "eval_top5": 67.102
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2288,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2290,
               "segment": 0
             }
           ]
@@ -76808,15 +78978,15 @@
           "epoch": 53,
           "summary_line": 55,
           "summary_metrics": {
-            "eval_loss": 1.040793125,
-            "eval_top1": 76.182,
-            "eval_top5": 93.226
+            "eval_loss": 2.768273125,
+            "eval_top1": 45.778,
+            "eval_top5": 68.872
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2330,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2332,
               "segment": 0
             }
           ]
@@ -76825,15 +78995,15 @@
           "epoch": 54,
           "summary_line": 56,
           "summary_metrics": {
-            "eval_loss": 1.0375725,
-            "eval_top1": 76.276,
-            "eval_top5": 93.26
+            "eval_loss": 2.65487125,
+            "eval_top1": 47.588,
+            "eval_top5": 70.698
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2372,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2374,
               "segment": 0
             }
           ]
@@ -76842,15 +79012,15 @@
           "epoch": 55,
           "summary_line": 57,
           "summary_metrics": {
-            "eval_loss": 1.034048125,
-            "eval_top1": 76.37,
-            "eval_top5": 93.312
+            "eval_loss": 2.5476075,
+            "eval_top1": 49.372,
+            "eval_top5": 72.382
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2414,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2416,
               "segment": 0
             }
           ]
@@ -76859,15 +79029,15 @@
           "epoch": 56,
           "summary_line": 58,
           "summary_metrics": {
-            "eval_loss": 1.03124,
-            "eval_top1": 76.406,
-            "eval_top5": 93.358
+            "eval_loss": 2.439518125,
+            "eval_top1": 51.194,
+            "eval_top5": 74.128
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2456,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2458,
               "segment": 0
             }
           ]
@@ -76876,15 +79046,15 @@
           "epoch": 57,
           "summary_line": 59,
           "summary_metrics": {
-            "eval_loss": 1.02785375,
-            "eval_top1": 76.542,
-            "eval_top5": 93.378
+            "eval_loss": 2.335920625,
+            "eval_top1": 52.86,
+            "eval_top5": 75.806
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2498,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2500,
               "segment": 0
             }
           ]
@@ -76893,15 +79063,15 @@
           "epoch": 58,
           "summary_line": 60,
           "summary_metrics": {
-            "eval_loss": 1.02433875,
-            "eval_top1": 76.598,
-            "eval_top5": 93.416
+            "eval_loss": 2.23685625,
+            "eval_top1": 54.588,
+            "eval_top5": 77.334
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2540,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2542,
               "segment": 0
             }
           ]
@@ -76910,15 +79080,15 @@
           "epoch": 59,
           "summary_line": 61,
           "summary_metrics": {
-            "eval_loss": 1.0210475,
-            "eval_top1": 76.69,
-            "eval_top5": 93.488
+            "eval_loss": 2.141805625,
+            "eval_top1": 56.112,
+            "eval_top5": 78.776
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2582,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2584,
               "segment": 0
             }
           ]
@@ -76927,15 +79097,15 @@
           "epoch": 60,
           "summary_line": 62,
           "summary_metrics": {
-            "eval_loss": 1.018136875,
-            "eval_top1": 76.724,
-            "eval_top5": 93.57
+            "eval_loss": 2.049298125,
+            "eval_top1": 57.596,
+            "eval_top5": 80.118
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2624,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2626,
               "segment": 0
             }
           ]
@@ -76944,15 +79114,15 @@
           "epoch": 61,
           "summary_line": 63,
           "summary_metrics": {
-            "eval_loss": 1.0150215625,
-            "eval_top1": 76.884,
-            "eval_top5": 93.566
+            "eval_loss": 1.963325,
+            "eval_top1": 59.016,
+            "eval_top5": 81.49
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2666,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2668,
               "segment": 0
             }
           ]
@@ -76961,15 +79131,15 @@
           "epoch": 62,
           "summary_line": 64,
           "summary_metrics": {
-            "eval_loss": 1.0120259375,
-            "eval_top1": 76.916,
-            "eval_top5": 93.592
+            "eval_loss": 1.884714375,
+            "eval_top1": 60.386,
+            "eval_top5": 82.58
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2708,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2710,
               "segment": 0
             }
           ]
@@ -76978,15 +79148,15 @@
           "epoch": 63,
           "summary_line": 65,
           "summary_metrics": {
-            "eval_loss": 1.009345625,
-            "eval_top1": 76.994,
-            "eval_top5": 93.614
+            "eval_loss": 1.811266875,
+            "eval_top1": 61.67,
+            "eval_top5": 83.728
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2750,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2752,
               "segment": 0
             }
           ]
@@ -76995,15 +79165,15 @@
           "epoch": 64,
           "summary_line": 66,
           "summary_metrics": {
-            "eval_loss": 1.00644875,
-            "eval_top1": 77.036,
-            "eval_top5": 93.628
+            "eval_loss": 1.742203125,
+            "eval_top1": 62.924,
+            "eval_top5": 84.71
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2792,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2794,
               "segment": 0
             }
           ]
@@ -77012,15 +79182,15 @@
           "epoch": 65,
           "summary_line": 67,
           "summary_metrics": {
-            "eval_loss": 1.003671875,
-            "eval_top1": 77.086,
-            "eval_top5": 93.696
+            "eval_loss": 1.679619375,
+            "eval_top1": 64.112,
+            "eval_top5": 85.564
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2834,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2836,
               "segment": 0
             }
           ]
@@ -77029,15 +79199,15 @@
           "epoch": 66,
           "summary_line": 68,
           "summary_metrics": {
-            "eval_loss": 1.00056625,
-            "eval_top1": 77.16,
-            "eval_top5": 93.694
+            "eval_loss": 1.621829375,
+            "eval_top1": 65.244,
+            "eval_top5": 86.378
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2876,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2878,
               "segment": 0
             }
           ]
@@ -77046,15 +79216,15 @@
           "epoch": 67,
           "summary_line": 69,
           "summary_metrics": {
-            "eval_loss": 0.9975090625,
-            "eval_top1": 77.226,
-            "eval_top5": 93.754
+            "eval_loss": 1.56982125,
+            "eval_top1": 66.226,
+            "eval_top5": 87.068
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2918,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2920,
               "segment": 0
             }
           ]
@@ -77063,15 +79233,15 @@
           "epoch": 68,
           "summary_line": 70,
           "summary_metrics": {
-            "eval_loss": 0.9943159375,
-            "eval_top1": 77.306,
-            "eval_top5": 93.786
+            "eval_loss": 1.522454375,
+            "eval_top1": 67.044,
+            "eval_top5": 87.672
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 2960,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 2962,
               "segment": 0
             }
           ]
@@ -77080,15 +79250,15 @@
           "epoch": 69,
           "summary_line": 71,
           "summary_metrics": {
-            "eval_loss": 0.9918540625,
-            "eval_top1": 77.358,
-            "eval_top5": 93.818
+            "eval_loss": 1.479419375,
+            "eval_top1": 67.862,
+            "eval_top5": 88.196
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3002,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3004,
               "segment": 0
             }
           ]
@@ -77097,15 +79267,15 @@
           "epoch": 70,
           "summary_line": 72,
           "summary_metrics": {
-            "eval_loss": 0.989381875,
-            "eval_top1": 77.406,
-            "eval_top5": 93.824
+            "eval_loss": 1.439185,
+            "eval_top1": 68.576,
+            "eval_top5": 88.756
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3044,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3046,
               "segment": 0
             }
           ]
@@ -77114,15 +79284,15 @@
           "epoch": 71,
           "summary_line": 73,
           "summary_metrics": {
-            "eval_loss": 0.986908125,
-            "eval_top1": 77.508,
-            "eval_top5": 93.838
+            "eval_loss": 1.4038675,
+            "eval_top1": 69.318,
+            "eval_top5": 89.216
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3086,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3088,
               "segment": 0
             }
           ]
@@ -77131,15 +79301,15 @@
           "epoch": 72,
           "summary_line": 74,
           "summary_metrics": {
-            "eval_loss": 0.984315,
-            "eval_top1": 77.57,
-            "eval_top5": 93.932
+            "eval_loss": 1.371865625,
+            "eval_top1": 69.918,
+            "eval_top5": 89.638
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3128,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3130,
               "segment": 0
             }
           ]
@@ -77148,15 +79318,15 @@
           "epoch": 73,
           "summary_line": 75,
           "summary_metrics": {
-            "eval_loss": 0.9819378125,
-            "eval_top1": 77.644,
-            "eval_top5": 93.958
+            "eval_loss": 1.34206875,
+            "eval_top1": 70.55,
+            "eval_top5": 90.036
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3170,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3172,
               "segment": 0
             }
           ]
@@ -77165,15 +79335,15 @@
           "epoch": 74,
           "summary_line": 76,
           "summary_metrics": {
-            "eval_loss": 0.9794475,
-            "eval_top1": 77.702,
-            "eval_top5": 93.982
+            "eval_loss": 1.31479375,
+            "eval_top1": 71.106,
+            "eval_top5": 90.304
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3212,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3214,
               "segment": 0
             }
           ]
@@ -77182,15 +79352,15 @@
           "epoch": 75,
           "summary_line": 77,
           "summary_metrics": {
-            "eval_loss": 0.97717,
-            "eval_top1": 77.784,
-            "eval_top5": 93.994
+            "eval_loss": 1.29026125,
+            "eval_top1": 71.544,
+            "eval_top5": 90.574
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3254,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3256,
               "segment": 0
             }
           ]
@@ -77199,15 +79369,15 @@
           "epoch": 76,
           "summary_line": 78,
           "summary_metrics": {
-            "eval_loss": 0.9746690625,
-            "eval_top1": 77.812,
-            "eval_top5": 94.024
+            "eval_loss": 1.26752,
+            "eval_top1": 71.944,
+            "eval_top5": 90.808
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3296,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3298,
               "segment": 0
             }
           ]
@@ -77216,15 +79386,15 @@
           "epoch": 77,
           "summary_line": 79,
           "summary_metrics": {
-            "eval_loss": 0.9721528125,
-            "eval_top1": 77.874,
-            "eval_top5": 94.058
+            "eval_loss": 1.246896875,
+            "eval_top1": 72.338,
+            "eval_top5": 91.028
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3338,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3340,
               "segment": 0
             }
           ]
@@ -77233,15 +79403,15 @@
           "epoch": 78,
           "summary_line": 80,
           "summary_metrics": {
-            "eval_loss": 0.9695428125,
-            "eval_top1": 77.942,
-            "eval_top5": 94.06
+            "eval_loss": 1.227826875,
+            "eval_top1": 72.718,
+            "eval_top5": 91.266
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3380,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3382,
               "segment": 0
             }
           ]
@@ -77250,15 +79420,15 @@
           "epoch": 79,
           "summary_line": 81,
           "summary_metrics": {
-            "eval_loss": 0.967013125,
-            "eval_top1": 77.94,
-            "eval_top5": 94.074
+            "eval_loss": 1.209801875,
+            "eval_top1": 73.078,
+            "eval_top5": 91.466
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3422,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3424,
               "segment": 0
             }
           ]
@@ -77267,15 +79437,15 @@
           "epoch": 80,
           "summary_line": 82,
           "summary_metrics": {
-            "eval_loss": 0.9643809375,
-            "eval_top1": 78.024,
-            "eval_top5": 94.08
+            "eval_loss": 1.193186875,
+            "eval_top1": 73.338,
+            "eval_top5": 91.638
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3464,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3466,
               "segment": 0
             }
           ]
@@ -77284,15 +79454,15 @@
           "epoch": 81,
           "summary_line": 83,
           "summary_metrics": {
-            "eval_loss": 0.9617221875,
-            "eval_top1": 78.078,
-            "eval_top5": 94.102
+            "eval_loss": 1.178344375,
+            "eval_top1": 73.57,
+            "eval_top5": 91.788
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3506,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3508,
               "segment": 0
             }
           ]
@@ -77301,15 +79471,15 @@
           "epoch": 82,
           "summary_line": 84,
           "summary_metrics": {
-            "eval_loss": 0.9592303125,
-            "eval_top1": 78.146,
-            "eval_top5": 94.114
+            "eval_loss": 1.16451375,
+            "eval_top1": 73.778,
+            "eval_top5": 91.906
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3548,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3550,
               "segment": 0
             }
           ]
@@ -77318,15 +79488,15 @@
           "epoch": 83,
           "summary_line": 85,
           "summary_metrics": {
-            "eval_loss": 0.95696125,
-            "eval_top1": 78.19,
-            "eval_top5": 94.144
+            "eval_loss": 1.1515,
+            "eval_top1": 73.992,
+            "eval_top5": 92.09
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3590,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3592,
               "segment": 0
             }
           ]
@@ -77335,15 +79505,15 @@
           "epoch": 84,
           "summary_line": 86,
           "summary_metrics": {
-            "eval_loss": 0.95449,
-            "eval_top1": 78.224,
-            "eval_top5": 94.142
+            "eval_loss": 1.13975875,
+            "eval_top1": 74.21,
+            "eval_top5": 92.202
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3632,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3634,
               "segment": 0
             }
           ]
@@ -77352,15 +79522,15 @@
           "epoch": 85,
           "summary_line": 87,
           "summary_metrics": {
-            "eval_loss": 0.95210625,
-            "eval_top1": 78.25,
-            "eval_top5": 94.162
+            "eval_loss": 1.129156875,
+            "eval_top1": 74.404,
+            "eval_top5": 92.278
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3674,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3676,
               "segment": 0
             }
           ]
@@ -77369,15 +79539,15 @@
           "epoch": 86,
           "summary_line": 88,
           "summary_metrics": {
-            "eval_loss": 0.9496271875,
-            "eval_top1": 78.274,
-            "eval_top5": 94.188
+            "eval_loss": 1.1188125,
+            "eval_top1": 74.574,
+            "eval_top5": 92.36
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3716,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3718,
               "segment": 0
             }
           ]
@@ -77386,15 +79556,15 @@
           "epoch": 87,
           "summary_line": 89,
           "summary_metrics": {
-            "eval_loss": 0.94730125,
-            "eval_top1": 78.328,
-            "eval_top5": 94.21
+            "eval_loss": 1.1093375,
+            "eval_top1": 74.77,
+            "eval_top5": 92.476
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3758,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3760,
               "segment": 0
             }
           ]
@@ -77403,15 +79573,15 @@
           "epoch": 88,
           "summary_line": 90,
           "summary_metrics": {
-            "eval_loss": 0.9449203125,
-            "eval_top1": 78.366,
-            "eval_top5": 94.288
+            "eval_loss": 1.09995375,
+            "eval_top1": 74.9,
+            "eval_top5": 92.542
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3800,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3802,
               "segment": 0
             }
           ]
@@ -77420,15 +79590,15 @@
           "epoch": 89,
           "summary_line": 91,
           "summary_metrics": {
-            "eval_loss": 0.94270875,
-            "eval_top1": 78.454,
-            "eval_top5": 94.344
+            "eval_loss": 1.0914675,
+            "eval_top1": 75.042,
+            "eval_top5": 92.62
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3842,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3844,
               "segment": 0
             }
           ]
@@ -77437,15 +79607,15 @@
           "epoch": 90,
           "summary_line": 92,
           "summary_metrics": {
-            "eval_loss": 0.9402840625,
-            "eval_top1": 78.492,
-            "eval_top5": 94.384
+            "eval_loss": 1.0837078125,
+            "eval_top1": 75.196,
+            "eval_top5": 92.714
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3884,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3886,
               "segment": 0
             }
           ]
@@ -77454,15 +79624,15 @@
           "epoch": 91,
           "summary_line": 93,
           "summary_metrics": {
-            "eval_loss": 0.9377765625,
-            "eval_top1": 78.57,
-            "eval_top5": 94.42
+            "eval_loss": 1.07634625,
+            "eval_top1": 75.314,
+            "eval_top5": 92.806
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3926,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3928,
               "segment": 0
             }
           ]
@@ -77471,15 +79641,15 @@
           "epoch": 92,
           "summary_line": 94,
           "summary_metrics": {
-            "eval_loss": 0.9354825,
-            "eval_top1": 78.648,
-            "eval_top5": 94.42
+            "eval_loss": 1.069355,
+            "eval_top1": 75.416,
+            "eval_top5": 92.878
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 3968,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 3970,
               "segment": 0
             }
           ]
@@ -77488,15 +79658,15 @@
           "epoch": 93,
           "summary_line": 95,
           "summary_metrics": {
-            "eval_loss": 0.93341375,
-            "eval_top1": 78.702,
-            "eval_top5": 94.418
+            "eval_loss": 1.062648125,
+            "eval_top1": 75.552,
+            "eval_top5": 92.966
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4010,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4012,
               "segment": 0
             }
           ]
@@ -77505,15 +79675,15 @@
           "epoch": 94,
           "summary_line": 96,
           "summary_metrics": {
-            "eval_loss": 0.93134625,
-            "eval_top1": 78.722,
-            "eval_top5": 94.468
+            "eval_loss": 1.056315,
+            "eval_top1": 75.686,
+            "eval_top5": 93.056
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4052,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4054,
               "segment": 0
             }
           ]
@@ -77522,15 +79692,15 @@
           "epoch": 95,
           "summary_line": 97,
           "summary_metrics": {
-            "eval_loss": 0.929085,
-            "eval_top1": 78.788,
-            "eval_top5": 94.484
+            "eval_loss": 1.050333125,
+            "eval_top1": 75.76,
+            "eval_top5": 93.102
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4094,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4096,
               "segment": 0
             }
           ]
@@ -77539,15 +79709,15 @@
           "epoch": 96,
           "summary_line": 98,
           "summary_metrics": {
-            "eval_loss": 0.926790625,
-            "eval_top1": 78.844,
-            "eval_top5": 94.49
+            "eval_loss": 1.0446440625,
+            "eval_top1": 75.88,
+            "eval_top5": 93.184
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4136,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4138,
               "segment": 0
             }
           ]
@@ -77556,15 +79726,15 @@
           "epoch": 97,
           "summary_line": 99,
           "summary_metrics": {
-            "eval_loss": 0.9244884375,
-            "eval_top1": 78.886,
-            "eval_top5": 94.538
+            "eval_loss": 1.0391240625,
+            "eval_top1": 76.03,
+            "eval_top5": 93.254
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4178,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4180,
               "segment": 0
             }
           ]
@@ -77573,15 +79743,15 @@
           "epoch": 98,
           "summary_line": 100,
           "summary_metrics": {
-            "eval_loss": 0.9223603125,
-            "eval_top1": 78.95,
-            "eval_top5": 94.568
+            "eval_loss": 1.0339734375,
+            "eval_top1": 76.1,
+            "eval_top5": 93.338
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4220,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4222,
               "segment": 0
             }
           ]
@@ -77590,15 +79760,15 @@
           "epoch": 99,
           "summary_line": 101,
           "summary_metrics": {
-            "eval_loss": 0.9200534375,
-            "eval_top1": 79.008,
-            "eval_top5": 94.58
+            "eval_loss": 1.029124375,
+            "eval_top1": 76.228,
+            "eval_top5": 93.368
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4262,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4264,
               "segment": 0
             }
           ]
@@ -77607,15 +79777,15 @@
           "epoch": 100,
           "summary_line": 102,
           "summary_metrics": {
-            "eval_loss": 0.9178871875,
-            "eval_top1": 79.038,
-            "eval_top5": 94.598
+            "eval_loss": 1.0241546875,
+            "eval_top1": 76.31,
+            "eval_top5": 93.482
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4304,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4306,
               "segment": 0
             }
           ]
@@ -77624,15 +79794,15 @@
           "epoch": 101,
           "summary_line": 103,
           "summary_metrics": {
-            "eval_loss": 0.9159434375,
-            "eval_top1": 79.088,
-            "eval_top5": 94.634
+            "eval_loss": 1.019524375,
+            "eval_top1": 76.444,
+            "eval_top5": 93.512
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4346,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4348,
               "segment": 0
             }
           ]
@@ -77641,15 +79811,15 @@
           "epoch": 102,
           "summary_line": 104,
           "summary_metrics": {
-            "eval_loss": 0.9142165625,
-            "eval_top1": 79.14,
-            "eval_top5": 94.658
+            "eval_loss": 1.0146678125,
+            "eval_top1": 76.486,
+            "eval_top5": 93.564
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4388,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4390,
               "segment": 0
             }
           ]
@@ -77658,15 +79828,15 @@
           "epoch": 103,
           "summary_line": 105,
           "summary_metrics": {
-            "eval_loss": 0.912029375,
-            "eval_top1": 79.194,
-            "eval_top5": 94.716
+            "eval_loss": 1.0101546875,
+            "eval_top1": 76.662,
+            "eval_top5": 93.61
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4430,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4432,
               "segment": 0
             }
           ]
@@ -77675,15 +79845,780 @@
           "epoch": 104,
           "summary_line": 106,
           "summary_metrics": {
-            "eval_loss": 0.910106875,
-            "eval_top1": 79.206,
-            "eval_top5": 94.702
+            "eval_loss": 1.005615,
+            "eval_top1": 76.72,
+            "eval_top5": 93.672
           },
           "status": "MATCH",
           "matching_sources": [
             {
-              "file": "10_runs/stage7_150e_224/s7_mn_deitinit_150e/s7_mn_deitinit_150e.stdout.log.gz",
-              "line": 4472,
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4474,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 105,
+          "summary_line": 107,
+          "summary_metrics": {
+            "eval_loss": 1.001125625,
+            "eval_top1": 76.854,
+            "eval_top5": 93.72
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4516,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 106,
+          "summary_line": 108,
+          "summary_metrics": {
+            "eval_loss": 0.9970634375,
+            "eval_top1": 76.94,
+            "eval_top5": 93.748
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4558,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 107,
+          "summary_line": 109,
+          "summary_metrics": {
+            "eval_loss": 0.9931140625,
+            "eval_top1": 76.998,
+            "eval_top5": 93.784
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4600,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 108,
+          "summary_line": 110,
+          "summary_metrics": {
+            "eval_loss": 0.989166875,
+            "eval_top1": 77.128,
+            "eval_top5": 93.812
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4642,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 109,
+          "summary_line": 111,
+          "summary_metrics": {
+            "eval_loss": 0.9854115625,
+            "eval_top1": 77.158,
+            "eval_top5": 93.862
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4684,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 110,
+          "summary_line": 112,
+          "summary_metrics": {
+            "eval_loss": 0.981480625,
+            "eval_top1": 77.236,
+            "eval_top5": 93.888
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4726,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 111,
+          "summary_line": 113,
+          "summary_metrics": {
+            "eval_loss": 0.977928125,
+            "eval_top1": 77.352,
+            "eval_top5": 93.932
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4768,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 112,
+          "summary_line": 114,
+          "summary_metrics": {
+            "eval_loss": 0.97456125,
+            "eval_top1": 77.452,
+            "eval_top5": 93.992
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4810,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 113,
+          "summary_line": 115,
+          "summary_metrics": {
+            "eval_loss": 0.9711646875,
+            "eval_top1": 77.506,
+            "eval_top5": 94.06
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4852,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 114,
+          "summary_line": 116,
+          "summary_metrics": {
+            "eval_loss": 0.968013125,
+            "eval_top1": 77.604,
+            "eval_top5": 94.078
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4894,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 115,
+          "summary_line": 117,
+          "summary_metrics": {
+            "eval_loss": 0.96464125,
+            "eval_top1": 77.67,
+            "eval_top5": 94.096
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4936,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 116,
+          "summary_line": 118,
+          "summary_metrics": {
+            "eval_loss": 0.961546875,
+            "eval_top1": 77.764,
+            "eval_top5": 94.134
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 4978,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 117,
+          "summary_line": 119,
+          "summary_metrics": {
+            "eval_loss": 0.958379375,
+            "eval_top1": 77.804,
+            "eval_top5": 94.206
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5020,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 118,
+          "summary_line": 120,
+          "summary_metrics": {
+            "eval_loss": 0.955468125,
+            "eval_top1": 77.886,
+            "eval_top5": 94.262
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5062,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 119,
+          "summary_line": 121,
+          "summary_metrics": {
+            "eval_loss": 0.9525121875,
+            "eval_top1": 77.968,
+            "eval_top5": 94.266
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5104,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 120,
+          "summary_line": 122,
+          "summary_metrics": {
+            "eval_loss": 0.94965125,
+            "eval_top1": 78.054,
+            "eval_top5": 94.286
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5146,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 121,
+          "summary_line": 123,
+          "summary_metrics": {
+            "eval_loss": 0.947099375,
+            "eval_top1": 78.124,
+            "eval_top5": 94.292
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5188,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 122,
+          "summary_line": 124,
+          "summary_metrics": {
+            "eval_loss": 0.944493125,
+            "eval_top1": 78.164,
+            "eval_top5": 94.318
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5230,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 123,
+          "summary_line": 125,
+          "summary_metrics": {
+            "eval_loss": 0.9418909375,
+            "eval_top1": 78.234,
+            "eval_top5": 94.35
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5272,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 124,
+          "summary_line": 126,
+          "summary_metrics": {
+            "eval_loss": 0.9393184375,
+            "eval_top1": 78.268,
+            "eval_top5": 94.396
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5314,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 125,
+          "summary_line": 127,
+          "summary_metrics": {
+            "eval_loss": 0.93688125,
+            "eval_top1": 78.34,
+            "eval_top5": 94.408
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5356,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 126,
+          "summary_line": 128,
+          "summary_metrics": {
+            "eval_loss": 0.934535,
+            "eval_top1": 78.462,
+            "eval_top5": 94.414
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5398,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 127,
+          "summary_line": 129,
+          "summary_metrics": {
+            "eval_loss": 0.9321271875,
+            "eval_top1": 78.462,
+            "eval_top5": 94.446
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5440,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 128,
+          "summary_line": 130,
+          "summary_metrics": {
+            "eval_loss": 0.92986375,
+            "eval_top1": 78.52,
+            "eval_top5": 94.474
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5482,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 129,
+          "summary_line": 131,
+          "summary_metrics": {
+            "eval_loss": 0.927603125,
+            "eval_top1": 78.608,
+            "eval_top5": 94.464
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5524,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 130,
+          "summary_line": 132,
+          "summary_metrics": {
+            "eval_loss": 0.9253925,
+            "eval_top1": 78.684,
+            "eval_top5": 94.5
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5566,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 131,
+          "summary_line": 133,
+          "summary_metrics": {
+            "eval_loss": 0.923404375,
+            "eval_top1": 78.69,
+            "eval_top5": 94.53
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5608,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 132,
+          "summary_line": 134,
+          "summary_metrics": {
+            "eval_loss": 0.92134125,
+            "eval_top1": 78.728,
+            "eval_top5": 94.552
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5650,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 133,
+          "summary_line": 135,
+          "summary_metrics": {
+            "eval_loss": 0.91933875,
+            "eval_top1": 78.804,
+            "eval_top5": 94.602
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5692,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 134,
+          "summary_line": 136,
+          "summary_metrics": {
+            "eval_loss": 0.91733875,
+            "eval_top1": 78.846,
+            "eval_top5": 94.594
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5734,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 135,
+          "summary_line": 137,
+          "summary_metrics": {
+            "eval_loss": 0.915440625,
+            "eval_top1": 78.934,
+            "eval_top5": 94.604
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5776,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 136,
+          "summary_line": 138,
+          "summary_metrics": {
+            "eval_loss": 0.913630625,
+            "eval_top1": 78.932,
+            "eval_top5": 94.628
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5818,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 137,
+          "summary_line": 139,
+          "summary_metrics": {
+            "eval_loss": 0.91196375,
+            "eval_top1": 78.984,
+            "eval_top5": 94.638
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5860,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 138,
+          "summary_line": 140,
+          "summary_metrics": {
+            "eval_loss": 0.910136875,
+            "eval_top1": 79.032,
+            "eval_top5": 94.656
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5902,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 139,
+          "summary_line": 141,
+          "summary_metrics": {
+            "eval_loss": 0.9086925,
+            "eval_top1": 79.05,
+            "eval_top5": 94.682
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5944,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 140,
+          "summary_line": 142,
+          "summary_metrics": {
+            "eval_loss": 0.9071959375,
+            "eval_top1": 79.098,
+            "eval_top5": 94.706
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 5986,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 141,
+          "summary_line": 143,
+          "summary_metrics": {
+            "eval_loss": 0.9056921875,
+            "eval_top1": 79.134,
+            "eval_top5": 94.716
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6028,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 142,
+          "summary_line": 144,
+          "summary_metrics": {
+            "eval_loss": 0.904135,
+            "eval_top1": 79.192,
+            "eval_top5": 94.732
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6070,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 143,
+          "summary_line": 145,
+          "summary_metrics": {
+            "eval_loss": 0.902844375,
+            "eval_top1": 79.224,
+            "eval_top5": 94.716
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6112,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 144,
+          "summary_line": 146,
+          "summary_metrics": {
+            "eval_loss": 0.901655625,
+            "eval_top1": 79.252,
+            "eval_top5": 94.706
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6154,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 145,
+          "summary_line": 147,
+          "summary_metrics": {
+            "eval_loss": 0.900229375,
+            "eval_top1": 79.286,
+            "eval_top5": 94.718
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6196,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 146,
+          "summary_line": 148,
+          "summary_metrics": {
+            "eval_loss": 0.899075625,
+            "eval_top1": 79.314,
+            "eval_top5": 94.722
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6238,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 147,
+          "summary_line": 149,
+          "summary_metrics": {
+            "eval_loss": 0.8979534375,
+            "eval_top1": 79.334,
+            "eval_top5": 94.724
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6280,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 148,
+          "summary_line": 150,
+          "summary_metrics": {
+            "eval_loss": 0.89689,
+            "eval_top1": 79.374,
+            "eval_top5": 94.744
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6322,
+              "segment": 0
+            }
+          ]
+        },
+        {
+          "epoch": 149,
+          "summary_line": 151,
+          "summary_metrics": {
+            "eval_loss": 0.8959665625,
+            "eval_top1": 79.392,
+            "eval_top5": 94.732
+          },
+          "status": "MATCH",
+          "matching_sources": [
+            {
+              "file": "10_runs/stage7_150e_224/s7_mn_proglatent_150e/s7_mn_proglatent_150e.stdout.log.gz",
+              "line": 6364,
               "segment": 0
             }
           ]

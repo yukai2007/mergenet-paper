@@ -16,13 +16,3 @@ peak allocated memory. At 384 pixels it takes 136.54 versus 170.61 ms, a
 These architecture benchmarks are useful boundary checks, but they cannot be
 paired with trained-checkpoint accuracy. The primary table therefore reserves
 common-protocol timing rather than reporting an unsupported Pareto frontier.
-
-The inherited soft threshold routine also normalizes its score range across
-the batch. Holding one sample fixed while changing another alters its soft
-weights and can produce cross-sample gradients; a constant batch can be
-non-finite without a denominator clamp. The three-seed study repeats the
-routing comparison with a per-sample selector and preserves the ordering, but
-the main ImageNet checkpoints were trained with the historical operator. We
-report this implementation boundary instead of silently attributing corrected
-operator behavior to those checkpoints. Reproduction details, parity tests,
-and batch probes are in Appendix~\ref{app:diagnostic}.

@@ -36,7 +36,7 @@ fused scaled-dot-product attention; we evaluate the two claims separately.
 
 Our evidence supports the routing mechanism while keeping the deployment
 claim bounded. Spatial routing outperforms global and flattened controls on
-ImageNet and two selectors across three CIFAR-100 seeds; a degree-matched
+ImageNet and across three CIFAR-100 seeds; a degree-matched
 receiver permutation shows that locality contributes beyond candidate
 cardinality. The trained 300-epoch model, however, trails dense DeiT-S/8 and
 post-training ToMe in the available matched-budget accuracy records. We
@@ -49,7 +49,7 @@ Our contributions are:
   bottleneck, so the latent encoder trains and executes on a fixed carrier
   budget;
   \item an original-grid routing prior whose gain is tested against global,
-  flattened-window, selector, and degree-matched controls; and
+  flattened-window and degree-matched controls; and
   \item mass-aware attention with an exact FlashAttention-compatible
   reparameterization, together with an evaluation that separates accuracy,
   token count, arithmetic cost, and measured latency.

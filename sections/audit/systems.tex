@@ -67,44 +67,4 @@ to these times or declaring that one method dominates the other on both axes.
 A common harness must use the same attention policy, actual budget, checkpoint
 identity, precision and hook-free timed path before making that claim.
 
-\subsection{Soft selection depends on batch composition}
-\label{sec:batch}
-
-A separate CPU probe identifies a functional issue in the inherited
-threshold-based soft top-$k$ implementation. For an input tensor $x\in
-\mathbb R^{B\times N}$, it normalizes using
-\begin{equation}
- \widehat{x}_{bi}=30\,x_{bi}/\left(\max_{b',j}x_{b'j}-
-                                      \min_{b',j}x_{b'j}\right).
- \label{eq:batchrange}
-\end{equation}
-The range is computed across the entire batch. Consequently, selecting
-weights for one sample can depend on unrelated samples. Holding the first
-row fixed at $(1,2,3,4)$ and $k=2$, changing only the second row from
-$(1.2,2.2,3.2,3.8)$ to $(10,20,30,40)$ changes a first-row soft weight by up
-to 0.336987. A loss depending only on the first row yields a nonzero gradient
-on the second row, with maximum magnitude 0.017355 in the probe. Both float32
-and float64 exhibit the effect. An entirely constant batch also makes the
-unclamped denominator zero, producing non-finite outputs and gradients.
-
-This operator is used directly in the routing assignment, so the issue is
-not limited to the final selection's straight-through gradient. In particular,
-changing evaluation batch composition can change soft routing even in
-\texttt{eval} mode. The probe establishes the operator-level dependency; it
-does not establish how much any supplied ImageNet checkpoint's top-1 would
-change, or explain the small sweep-versus-summary discrepancies by itself.
-The main same-recipe geometry controls remain comparisons under their
-recorded batch conditions. A corrected implementation requires its own
-checkpoint evaluation and training evidence rather than inheriting the
-reported scores without verification.
-
-
-Appendix~\ref{app:followup} adds independent tests that do not require the
-company ImageNet weights. A common A100 harness controls ToMe's attention
-policy and verifies exact patch budgets; it does not recover the H20
-crossover on the local stack. Existing local CIFAR weights also show that
-batch composition changes predictions, while the tested radius-3 advantage
-persists. These follow-ups narrow the interpretation without replacing the
-historical ImageNet measurements.
-
 \input{sections/pending/systems}

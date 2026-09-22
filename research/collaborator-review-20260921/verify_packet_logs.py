@@ -221,6 +221,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--packet-root", required=True, type=Path)
     parser.add_argument("--output", type=Path, default=Path(__file__).with_name("log-audit.json"))
+    parser.add_argument("--packet-label", default="share_20260919")
+    parser.add_argument("--audit-date", default="2026-09-21")
     args = parser.parse_args()
     root = args.packet_root.resolve()
     runs = [audit_run(path, root) for path in sorted((root / "10_runs").glob("*/*/summary.csv"))]
@@ -237,7 +239,7 @@ def main():
               "gzip_logs": sum(len(r["logs"]) for r in runs),
               "unparsed_final_ema_lines": sum(len(l["unparsed_final_ema_lines"]) for r in runs for l in r["logs"]),
               "final_ema_lines_without_epoch_context": sum(len(l["final_ema_lines_without_epoch_context"]) for r in runs for l in r["logs"])}
-    result = {"schema_version": 1, "packet": "share_20260919", "audit_date": "2026-09-21",
+    result = {"schema_version": 1, "packet": args.packet_label, "audit_date": args.audit_date,
               "verifier_sha256": sha256(Path(__file__)), "tolerance_absolute": TOLERANCE,
               "metric_order": list(METRICS),
               "method": "Match final Test (EMA) running averages to summary eval_loss/top1/top5 by the latest Train epoch; collapse equal epoch/metric records across launcher and stdout; retain source lines and distinct-attempt conflicts.",

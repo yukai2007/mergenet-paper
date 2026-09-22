@@ -6,6 +6,8 @@ if command -v latexmk >/dev/null 2>&1; then
   latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build mergenet-main.tex
 elif command -v "${TECTONIC_BIN:-tectonic}" >/dev/null 2>&1; then
   "${TECTONIC_BIN:-tectonic}" --keep-logs --keep-intermediates --outdir build mergenet-main.tex
+elif [[ -x ../.tools/bin/tectonic ]]; then
+  ../.tools/bin/tectonic --keep-logs --keep-intermediates --outdir build mergenet-main.tex
 else
   echo 'Install TeX Live + latexmk or Tectonic, or compile mergenet-main.tex in Overleaf.' >&2
   exit 1

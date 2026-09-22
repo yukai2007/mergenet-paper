@@ -1,0 +1,28 @@
+{
+  "archive": "share_mergenet_campaign_20260923.tar.gz",
+  "archive_sha256": "e672d28937e56bb545556c7ee875c555004287d74d2d1ac2d378e8af06e92211",
+  "cutoff": "2026-09-23",
+  "note": "Incremental Stage-7 refresh. Summaries are byte copies; no checkpoint is stored.",
+  "sources": [
+    {
+      "source": "share/10_runs/stage7_150e_224/s7_mn_deitinit_150e/summary.csv",
+      "sha256": "ded9786a321074cd09415bd25393e0de32a2f1bdc7be601d8623f866c7550267",
+      "curated": "runs/s7_mn_deitinit_150e/summary.csv"
+    },
+    {
+      "source": "share/10_runs/stage7_150e_224/s7_mn_deitinit_150e/args.yaml",
+      "sha256": "ea4adf9b01340afd36b4a6eed4ae0a5f5652ba3985ce410c71cd2e2431375cf6",
+      "curated": "provenance only"
+    },
+    {
+      "source": "share/10_runs/stage7_150e_224/s7_mn_proglatent_150e/summary.csv",
+      "sha256": "4ed98b96de8a1f497479e5f30f013aaf026c320a29c78d5c5c8c17442786a042",
+      "curated": "runs/s7_mn_proglatent_150e/summary.csv"
+    },
+    {
+      "source": "share/10_runs/stage7_150e_224/s7_mn_proglatent_150e/args.yaml",
+      "sha256": "81c7fd742fd426daad24d39a4f7ee11ab0c2f8f1364ca01c7beb1dc78d6f119d",
+      "curated": "runs/s7_mn_proglatent_150e/args.json"
+    }
+  ]
+}

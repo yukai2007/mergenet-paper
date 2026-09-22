@@ -40,16 +40,12 @@ for document in ['cifar_batch.json','cifar_reference.json']:
             assert int((p!=base).sum())==e['changed_top1_vs_b200']
             results[key]=e
 rng=np.random.default_rng(20260915);paired=[]
-rows=[r'\begin{tabular}{lrrrr}',r'\toprule',r'Evaluation & Global (\%) & $R=3$ (\%) & Gap (pp) & Changed G/R3 \\',r'\midrule']
-for name,label in [('sequential_b200','Original order, $B=200$'),('sequential_b64','Original order, $B=64$'),('permuted_b200','Permuted order, $B=200$'),('rowwise_b200','Rowwise reference, $B=200$')]:
+for name in ['sequential_b200','sequential_b64','permuted_b200','rowwise_b200']:
     ka,kb='global_'+name,'spatial_r3_'+name
     aa=np.array([int(r[ka]) for r in preds])==labels;bb=np.array([int(r[kb]) for r in preds])==labels
     diff=bb.astype(int)-aa.astype(int);counts=np.bincount(diff+1,minlength=3)
     samples=rng.multinomial(10000,counts/10000,size=20000);ci=np.quantile((samples[:,2]-samples[:,0])/100,[.025,.975])
     paired.append({'evaluation':name,'gap_pp':int(diff.sum())/100,'global_only_correct':int(counts[0]),'r3_only_correct':int(counts[2]),'fixed_prediction_bootstrap95_pp':ci.tolist(),'bootstrap_seed':20260915,'resamples':20000,'scope':'conditional on these two checkpoints and fixed recorded predictions; not seed or rebatching uncertainty'})
-    a,b=results[ka],results[kb]
-    rows.append(f"{label} & {a['top1']:.2f} & {b['top1']:.2f} & {b['top1']-a['top1']:+.2f} & {a['changed_top1_vs_b200']}/{b['changed_top1_vs_b200']}"+r' \\')
-rows.extend([r'\bottomrule',r'\end{tabular}']);(ROOT/'tables/followup_cifar.tex').write_text('\n'.join(rows)+'\n')
 (D/'paired_statistics.json').write_text(json.dumps(paired,indent=2)+'\n')
 for name in ['dense_parity.json','sparse_scaled_parity.json']:
     doc=read(name);assert doc['complete'] and len(doc['parity'])==2 and all(r['pass'] for r in doc['parity'])

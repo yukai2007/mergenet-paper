@@ -3,9 +3,9 @@
 - Working title: MergeNet: Differentiable Spatial Routing with a Physical Token Bottleneck.
 - Question: Does original-grid spatial support improve a DTEM-derived, fixed-slot soft router, and do those internal gains translate into competitive ImageNet accuracy and measured latency?
 - Reader: computer-vision and efficient-learning researchers.
-- Retrieval cutoff: 2026-09-22.
+- Retrieval cutoff: 2026-09-23.
 - Unit: a versioned method, concrete implementation, or individually identified experimental run.
-- “All”: all 23 recorded ImageNet runs in the September 19 campaign packet, plus the 24 completed local CIFAR seed runs; not an exhaustive survey of every token-compression paper.
+- “All”: all 24 recorded ImageNet runs through the September 23 campaign packet, plus the 24 completed local CIFAR seed runs; not an exhaustive survey of every token-compression paper.
 
 ## Scope
 
@@ -28,7 +28,7 @@ Exclude quarantined historical results, partial experiments from completed-run t
 | DTEM / ToMe / PiToMe | versioned papers and official code | refreshed by literature audit |
 | ALGM / DSM / GTP-ViT / CubistMerge / NAP | versioned spatial-method papers | refreshed by literature audit |
 | LookupViT / token pruning | official papers | inherited and rechecked |
-| MergeNet | release commit plus September 19 packet and local CIFAR seed campaign | independent numerical and implementation audits |
+| MergeNet | release commit plus September 19/23 packets and local CIFAR seed campaign | independent numerical and implementation audits |
 
 ## Planned synthesis and limits
 
@@ -49,3 +49,13 @@ The available literature-review skill references paper-writing/general-writing s
 ## September 20 update
 
 The September 19 ImageNet packet completes the 512-pixel MergeNet fine-tune, the $\lambda$ curriculum, drop-path and learning-rate probes, and a DeiT-B/16 run that overfits. The local eight-GPU CIFAR campaign completed all 24 seed/geometry/selector jobs on 2026-09-16. Interrupted: weight-decay 140/150 (do not resume) and DeiT-init 105/150 (resume). Progressive latent merging was never started. Company ImageNet weights remain unavailable.
+
+## September 23 update
+
+The latest packet completes the DeiT-initialized and progressive-latent
+150-epoch runs. The former reaches 80.574% (+1.040 pp against the matched
+drop-path-0.07 scratch control) but uses a 300-epoch pretrained source and lacks
+the original first-launch loading log. The latter reaches 79.392% (-0.142 pp)
+while changing the configured final budget from about 392 to 200 patches.
+Both are retained as single-seed diagnostics, not primary equal-compute or
+matched-budget evidence.
