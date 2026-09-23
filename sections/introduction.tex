@@ -12,9 +12,11 @@ Differentiable merging does not automatically solve this execution problem.
 DTEM learns dedicated merge embeddings through continuous grouping and
 merging~\citep{dtem2024}. Its relaxed operators retain all token slots; for
 end-to-end training, DTEM alternates soft updates of the merge embeddings
-with hard, token-reducing updates of the backbone. This suggests a distinct
-architectural question: can continuous routing and an exact physical token
-budget coexist in the same training forward path?
+with hard, token-reducing updates of the backbone. Thus DTEM uses both
+continuous policy learning and physical compression during training, but in
+separate update paths. We ask whether one forward pass can propagate gradients
+through soft routing while downstream blocks process an exact, physically
+shorter sequence.
 
 We study this question with \mn{}, a local-to-latent vision transformer. Six
 local blocks encode the full patch grid, after which soft mass transport
@@ -70,4 +72,4 @@ Our contributions are:
 \end{itemize}
 
 
-% 1. 
+% 1.
