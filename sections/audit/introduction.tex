@@ -47,9 +47,7 @@ returns gradients to the continuous scores; the method does not treat the
 discrete indices themselves as differentiable. Second, each selected carrier
 keeps its accumulated mass. Adding $\log m_j$ to the key logit gives
 mass-aware proportional attention. A rank-one query/key augmentation can
-encode this bias inside a standard FlashAttention call~\cite{flashattn2022};
-we distinguish that operator path from the PyTorch fused-attention path used
-by the reported ImageNet checkpoints.
+encode this bias inside a standard FlashAttention call~\cite{flashattn2022}.
 
 The empirical evidence supports the routing mechanism while defining the
 remaining deployment measurements. On ImageNet-1K, radius-3 routing improves

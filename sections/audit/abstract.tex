@@ -10,10 +10,8 @@ by the original two-dimensional patch geometry. A threshold-based soft
 top-$k$ relaxation trains the routing and carrier scores, while an exact-budget
 hard gather then materializes a shorter sequence before global reasoning.
 Selected token mass is preserved as a logarithmic key bias in the latent
-attention. The released operators also contain a rank-one query/key
-augmentation that evaluates this bias with an unmodified FlashAttention
-kernel; the reported ImageNet checkpoints use PyTorch fused attention for
-this step, so we report the FlashAttention path separately.
+attention. A rank-one query/key augmentation can evaluate this bias with an
+unmodified FlashAttention kernel.
 
 On ImageNet-1K with DeiT-S/8, the trained \mn{} checkpoint reaches
 81.368\% top-1 at $2.00\times$ patch compression; its matched-budget

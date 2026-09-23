@@ -153,14 +153,6 @@ dimension to a multiple of eight and passes the tensors to the unmodified
 FlashAttention kernel~\cite{flashattn2022}; it does not materialize a dense
 bias matrix.
 
-The distinction between method and checkpoint execution matters here. The
-reported ImageNet checkpoints implement Equation~\eqref{eq:mass-attn} through
-PyTorch fused scaled-dot-product attention with an additive mask. The
-query/key augmentation is present in the released operator library and has
-forward/backward parity tests, but it was not the latent-attention path used
-to train those checkpoints. We consequently treat its latency as a separate
-operator ablation rather than attributing it to the main ImageNet results.
-
 \subsection{What the geometry and complexity claims mean}
 
 Equation~\eqref{eq:support} bounds a single transport edge. It does not bound

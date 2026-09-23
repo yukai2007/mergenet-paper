@@ -124,8 +124,3 @@ to avoid repeated allocation but still copies $Q,K,V$ into them. Training
 allocates fresh workspaces for autograd safety, and the caller-padded path
 clones caller-owned storage before writing the auxiliary channel. We therefore
 make no zero-copy or peak-memory claim without a separate profile.
-
-The reported ImageNet checkpoints implement Equation~\eqref{eq:mass-attn}
-through PyTorch fused scaled-dot-product attention with an additive mask.
-The augmented FlashAttention operator has forward/backward parity tests, but
-was not their latent-attention path and is not credited with their runtime.

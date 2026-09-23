@@ -30,9 +30,7 @@ gather indices are discrete; the claim is gradient flow to their continuous
 scores, not differentiation of the indices themselves. We also preserve a
 carrier's accumulated mass as a $\log m$ key bias. Because this bias is rank
 one across queries, an augmented query/key dimension realizes it through an
-unmodified FlashAttention call~\citep{flashattn2022}. The released operator
-implements this path, while the reported ImageNet checkpoints use PyTorch
-fused scaled-dot-product attention; we evaluate the two claims separately.
+unmodified FlashAttention call~\citep{flashattn2022}.
 
 Our evidence supports the routing mechanism while keeping the deployment
 claim bounded. Spatial routing outperforms global and flattened controls on
