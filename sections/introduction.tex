@@ -4,10 +4,9 @@ Vision transformers use patch tokens to represent image detail and
 self-attention to integrate information across the image. Processing a fine
 patch grid through every block, however, makes this global reasoning
 expensive. Token merging reduces the sequence by combining patches rather
-than simply removing them~\citep{tome2023}. For a learned merger, the central
-design problem is to make routing decisions trainable while ensuring that
-downstream blocks actually process the shorter sequence those decisions
-produce.
+than simply removing them~\citep{tome2023}. A learned merger thus faces two
+linked requirements: learn where information should flow, and physically
+reduce the sequence seen by downstream blocks during training.
 
 Differentiable merging does not automatically solve this execution problem.
 DTEM learns dedicated merge embeddings through continuous grouping and
