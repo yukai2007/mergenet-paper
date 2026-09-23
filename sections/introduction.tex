@@ -1,55 +1,71 @@
 \section{Introduction}
 
-Fine patch grids preserve object boundaries and small visual details, while
-global self-attention integrates evidence across an image. Their cost grows
-with the token sequence. Token merging can consolidate redundant patches
-instead of discarding them~\citep{tome2023}, but a learned merger must solve
-two coupled problems: decide where information should flow, and expose later
-layers to the physically shorter sequence that realizes the savings.
-% 
+Vision transformers use patch tokens to represent image detail and
+self-attention to integrate information across the image. Processing a fine
+patch grid through every block, however, makes this global reasoning
+expensive. Token merging reduces the sequence by combining patches rather
+than simply removing them~\citep{tome2023}. For a learned merger, the central
+design problem is to make routing decisions trainable while ensuring that
+downstream blocks actually process the shorter sequence those decisions
+produce.
 
-Continuous relaxations make routing trainable. DTEM learns merge embeddings
-through soft grouping and merging~\citep{dtem2024}, but its continuous path
-retains all token slots; its end-to-end protocol alternates relaxed merge
-updates with hard token-reducing backbone updates. We ask whether one forward
-path can learn continuous routing while making the downstream model train on
-the exact token budget used at inference.
+Differentiable merging does not automatically solve this execution problem.
+DTEM learns dedicated merge embeddings through continuous grouping and
+merging~\citep{dtem2024}. Its relaxed operators retain all token slots; for
+end-to-end training, DTEM alternates soft updates of the merge embeddings
+with hard, token-reducing updates of the backbone. This suggests a distinct
+architectural question: can continuous routing and an exact physical token
+budget coexist in the same training forward path?
 
-\mn{} answers this question with a local-to-latent architecture. A full-grid
-encoder performs soft mass transport, then an exact-budget gather changes the
-shape from $N$ patches to $K$ carriers. Residual cross-attention recovers
-evidence from the full-grid local features, and global reasoning occurs only
-on the $K$ carriers. Routing is restricted to receiver positions within
-radius $R$ on the original two-dimensional grid. This is a weak spatial
-prior: it excludes implausible long jumps but leaves edge weights, mass, and
-carrier locations learned.
+We study this question with \mn{}, a local-to-latent vision transformer. Six
+local blocks encode the full patch grid, after which soft mass transport
+learns how patch information moves between slots. A hard gather then selects
+$K$ carriers from $N$ patches, so the subsequent latent blocks receive a
+physically shorter tensor during both training and inference. A residual
+cross-attention read lets those carriers access the full-grid local features
+before global latent reasoning. The gather indices are discrete; a
+straight-through weight connects the selected features to continuous routing
+scores without claiming to differentiate the indices themselves.
 
-Two details connect the formulation to efficient execution. We use the
-threshold-adjusted smooth top-$k$ construction of \citet{sujianlin2024topk}
-and couple it to hard indices with a straight-through carrier weight. The
-gather indices are discrete; the claim is gradient flow to their continuous
-scores, not differentiation of the indices themselves. We also preserve a
-carrier's accumulated mass as a $\log m$ key bias. Because this bias is rank
-one across queries, an augmented query/key dimension realizes it through an
-unmodified FlashAttention call~\citep{flashattn2022}.
+The routing support follows the original two-dimensional patch grid. A donor
+can send mass only to eligible receivers within radius $R$, while learned
+similarities determine the weights and the resulting mass determines which
+carriers survive the gather. This constraint tests whether spatial proximity
+is useful for learned transport, rather than assuming that a fixed pooling
+window is sufficient. We compare it with global routing, a flattened window,
+and a receiver permutation that preserves receiver degree.
 
-Our evidence supports the routing mechanism while keeping the deployment
-claim bounded. Spatial routing outperforms global and flattened controls on
-ImageNet and across three CIFAR-100 seeds; a degree-matched
-receiver permutation shows that locality contributes beyond candidate
-cardinality. The trained 300-epoch model, however, trails dense DeiT-S/8 and
-post-training ToMe in the available matched-budget accuracy records. We
-therefore do not claim a state-of-the-art frontier before common-protocol
-checkpoint timing and the matched DTEM row are available.
+Carrier mass also has a defined role after selection. Following proportional
+attention in ToMe~\citep{tome2023}, \mn{} adds each carrier's $\log m$ to its
+attention key logits. This per-key bias is rank one across queries; the
+released operator reproduces it by adding one query/key dimension and using
+the original softmax scale in an unmodified FlashAttention
+call~\citep{flashattn2022}. We use an existing
+threshold-based smooth top-$k$ relaxation~\citep{sujianlin2024topk} for the
+continuous selection scores. Our contribution is the way these components
+connect soft spatial transport to an exact-budget latent path, together with
+the mass-bias implementation.
+
+The experiments support the spatial-routing mechanism, with a clear limit on
+the overall performance claim. In a single-seed, 150-epoch ImageNet-1K study,
+radius-3 routing improves top-1 accuracy by 1.670 percentage points over
+global routing and 0.598 points over a flattened-window control. A three-seed
+CIFAR-100 study also favors radius 3 over global, flattened, and degree-matched
+routing. At a matched final budget of 392 patches, the trained 300-epoch
+\mn{} checkpoint reaches 81.360\% ImageNet top-1, below post-training ToMe's
+81.932\%; the uncompressed DeiT-S/8 reaches 82.246\%. The current results
+therefore
+establish the behavior of the proposed routing and physical bottleneck, but
+do not establish an accuracy--latency frontier; matched DTEM accuracy and
+trained-checkpoint timing remain to be measured.
 
 Our contributions are:
 \begin{itemize}
-  \item a continuous spatial-routing path followed by an exact physical
-  bottleneck, so the latent encoder trains and executes on a fixed carrier
-  budget;
-  \item an original-grid routing prior whose gain is tested against global,
-  flattened-window and degree-matched controls; and
-  \item mass-aware attention with an exact FlashAttention-compatible
-  reparameterization, together with an evaluation that separates accuracy,
-  token count, arithmetic cost, and measured latency.
+  \item a local-to-latent architecture that combines differentiable spatial
+  mass transport with an exact-budget gather before latent processing;
+  \item controlled evidence for original-grid routing, including a
+  degree-matched, three-seed CIFAR-100 comparison; and
+  \item an exact query/key reparameterization for mass-aware attention with
+  an unmodified FlashAttention call, accompanied by separate reporting of
+  accuracy, token budget, arithmetic cost, and measured runtime.
 \end{itemize}
