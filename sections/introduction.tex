@@ -33,8 +33,12 @@ can send mass only to eligible receivers within radius $R$, while learned
 similarities determine the weights and the resulting mass determines which
 carriers survive the gather. This constraint tests whether spatial proximity
 is useful for learned transport, rather than assuming that a fixed pooling
-window is sufficient. We compare it with global routing, a flattened window,
-and a receiver permutation that preserves receiver degree.
+window is sufficient. Global routing allows any receiver. A flattened-window
+control instead selects candidates within a width-8 neighborhood in row-major
+token order, which can cross an image-row boundary. On CIFAR-100, a
+degree-matched control permutes the receiver identities in the radius-3 graph,
+preserving each donor's candidate count and the receiver-degree multiset while
+disrupting the original two-dimensional locality.
 
 Carrier mass also has a defined role after selection. Following proportional
 attention in ToMe~\citep{tome2023}, \mn{} adds each carrier's $\log m$ to its
