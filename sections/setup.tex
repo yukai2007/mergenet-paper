@@ -28,9 +28,14 @@ The main table fixes 392 final patches at 224 pixels. ToMe and PiToMe are
 applied after training to the dense checkpoint, while \mn{} is trained with
 its native bottleneck. The budget sweep evaluates the complete validation set
 at five budgets. These rows compare deployable checkpoints; they do not
-isolate the routing rule under identical training. A separate 12-run
-CIFAR-100 study evaluates four routing geometries and three seeds for 200
-epochs. Its preregistered endpoint is epoch-199 EMA top-1.
+isolate the routing rule under identical training. In the routing controls,
+global permits any receiver, flat-8 uses a width-8 window in row-major token
+order, and radius 3 limits receivers by Euclidean distance on the original
+patch grid. A separate 12-run CIFAR-100 study adds a receiver-permuted
+radius-3 graph that preserves each donor's candidate count and the receiver
+degree multiset while disrupting two-dimensional locality. It evaluates all
+four geometries over three seeds for 200 epochs; its preregistered endpoint
+is epoch-199 EMA top-1.
 
 \paragraph{Timing.}
 Historical 224- and 384-pixel latency records use synthetic inputs and random
