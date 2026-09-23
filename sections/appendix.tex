@@ -40,7 +40,33 @@ defaults, especially for microbatch size and gradient accumulation.}
 \label{tab:recipe}
 \end{table}
 
-The 150-epoch \mn{} runs start the auxiliary-logit contribution at epoch 10
+\paragraph{Classifier implementation.}
+The main configuration uses patch size 8, width 384, six heads, six local
+blocks, and six latent blocks. At 224 pixels this gives 784 patch slots; the
+local attention band extends 16 sequence positions on either side of a patch
+query, while the CLS query attends globally. Spatial routing uses radius 3,
+a $384\to64$ metric projection, similarity temperature 1, and input-gradient
+scale 0.1 for the metric. At compression factor 2, the six soft donor budgets
+are $(65,65,65,65,65,67)$ and the hard gather retains 392 patches. There is
+no further merging in the latent encoder. Training partitions donors and
+receivers randomly for each image; evaluation alternates deterministic
+odd/even partitions across routing steps.
+
+\paragraph{Selection and tracing.}
+The threshold-based soft top-$k$ uses scale 30 and normalizes row energies by
+their maximum-minus-minimum range across the current minibatch. Thus soft
+selection can depend on batch companions; the released operator has no guard
+for a zero range. The final hard-gather indices are detached and selected
+carriers are sorted by a detached, mass-weighted center of their flattened
+source indices. The default center-tracing mode does not retain a full source
+membership matrix. Spatial scoring uses sparse neighbor lists, although
+model initialization constructs a dense Boolean adjacency buffer.
+
+During training, an auxiliary readout averages full-grid features using
+soft-selection weights, applies the shared classification head, and adds its
+weighted logits to the latent CLS logits. It is absent at evaluation and is
+not a separate auxiliary loss. The 150-epoch \mn{} runs start this
+contribution at epoch 10
 and ramp it over 10 epochs; the 300-epoch run uses epoch 20 and a 20-epoch
 ramp. Fine-tunes enable weight 0.05 from the start. The
 recorded environment is Python 3.10.20, PyTorch 2.7.1+cu118, torchvision

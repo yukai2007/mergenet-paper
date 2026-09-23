@@ -1,148 +1,134 @@
-\section{Differentiable Spatial Routing and Physical Compression}
+\section{Method}
 \label{sec:method}
 
-\subsection{Local-to-latent architecture}
-For patch size $p$, let $N=(H/p)(W/p)$ be the number of patch slots, excluding
-the protected CLS token. The main model uses $p=8$, width 384, six heads, six
-local blocks, and six latent blocks. At $224^2$, each local block processes
-784 patches plus CLS. Patch queries attend within a one-dimensional band of
-16 token positions on either side; the CLS query attends globally. The local
-encoder first produces $H^{(1)},\ldots,H^{(6)}$. Six soft transport steps then
-update the final slots, each using a metric derived from the corresponding
-local-layer output. These steps retain all slots. Only the subsequent gather
-reduces the sequence before recovery and global latent attention, as shown in
-Figure~\ref{fig:architecture}.
+\subsection{Overview}
+\mn{} connects differentiable routing to a physically shorter latent sequence
+within one forward pass. Given $N$ image patches and a class token, a local
+encoder produces full-grid features $H^{(1)},\ldots,H^{(L)}$. Starting from
+$X^{(0)}=H^{(L)}$ and unit patch masses, $L$ soft routing steps redistribute
+information while retaining every patch slot. A hard gather then selects $K$
+patch carriers. The carriers read the pre-transport features through
+cross-attention, and a latent encoder followed by a class head produces the
+prediction. Figure~\ref{fig:architecture} shows the project schematic; the
+evaluated classifier uses its encoder-to-latent path.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \centering
-\includegraphics[width=\linewidth]{figures/architecture.pdf}
-\caption{Executed ImageNet classifier path. The local encoder and soft routing
-retain $N+1$ slots. A hard gather first reduces the patch sequence to $K$;
-carrier queries then read the pre-transport local features before six global
-latent blocks and the CLS classification head. Patch counts exclude CLS.}
+\includegraphics[width=\linewidth]{figures/model_architecture_reference.png}
+\caption{Project schematic of the local-to-latent design. The evaluated
+ImageNet classifier uses the encoder, dynamic merger, top-$K$ selection,
+recovery cross-attention, latent encoder, and class head. The generic local
+decoder branch shown here is not used in this classifier.}
 \label{fig:architecture}
 \end{figure}
 
 \subsection{Spatial mass routing}
-Spatial eligibility limits where mass can move while leaving edge strengths
-learned. Index patch $i$ by its original-grid coordinate $u_i$. Each routing
-step
-partitions patches into disjoint donor and receiver sets $A_\ell,B_\ell$;
-training samples a partition for each image, while evaluation alternates a
-deterministic odd/even partition across steps. CLS is excluded. Donor $i$
-may route only to
+Spatial routing restricts where patch information may move without fixing
+the routing weights. Patch $i$ keeps its coordinate $u_i$ on the original
+two-dimensional grid. At routing step $\ell$, patches are partitioned into
+disjoint donor and receiver sets $A_\ell$ and $B_\ell$; the class token
+participates in neither set. The eligible receivers for donor $i$ are
 \begin{equation}
- \mathcal E_i^{(\ell)}(R)=\{j\in B_\ell:\|u_i-u_j\|_2\le R\}.
+ \mathcal E_i^{(\ell)}(R)
+ =\{j\in B_\ell:\|u_i-u_j\|_2\le R\}.
  \label{eq:support}
 \end{equation}
-The main model uses $R=3$ patch spacings. Coordinates stay tied to original
-slots throughout routing, even as features and masses change. The control
-geometries are defined in Section~\ref{sec:setup}.
+Coordinates remain tied to original slots as features move, so this rule
+constrains individual transport edges rather than the model's complete
+receptive field.
 
-A learned $384\!\to\!64$ projection of $H^{(\ell)}$ produces normalized
-metrics $z_i$. Its input gradient is scaled by 0.1 without changing its
-forward value. On eligible edges,
+The routing weights combine learned similarity with a soft donor decision.
+A learned projection of $H^{(\ell)}$ yields normalized metrics
+$z_i^{(\ell)}$. For eligible pairs, we compute
 \begin{equation}
- s_{ij}=\langle z_i,z_j\rangle/\tau,\quad
- q_{ij}=\frac{\exp s_{ij}}{\sum_{r\in\mathcal E_i}\exp s_{ir}},\quad
- a_{ij}=g_iq_{ij},
+ s_{ij}^{(\ell)}
+ =\langle z_i^{(\ell)},z_j^{(\ell)}\rangle/\tau,\qquad
+ q_{ij}^{(\ell)}
+ =\frac{\exp s_{ij}^{(\ell)}}
+ {\sum_{r\in\mathcal E_i^{(\ell)}(R)}\exp s_{ir}^{(\ell)}}.
  \label{eq:routing}
 \end{equation}
-with $\tau=1$ in the main configuration. Here $g_i$ is a soft donor weight.
-Following
-\citet{sujianlin2024topk}, a monotone relaxation applies a data-dependent
-threshold $\theta$ after sorting,
-\begin{equation}
-g_{bi}=F(\alpha\bar e_{bi}-\theta_b),\qquad
-\sum_i g_{bi}\approx k_\ell,
- \label{eq:softtopk}
-\end{equation}
-Here $b$ indexes images, $e_{bi}=\sum_{j\in\mathcal E_i}\exp s_{bij}$ is
-the row energy, and
-$\bar e_{bi}=e_{bi}/(\max_{b',r}e_{b'r}-\min_{b',r}e_{b'r})$.
-The function $F(t)$ is
-$1-\frac12e^{-t}$ for $t>0$ and $\frac12e^t$ otherwise; $\theta_b$ is the
-per-image threshold, $\alpha=30$, and $k_\ell$ is the scheduled donor budget.
-The minibatch-wide range means an image's soft weights can depend on its
-batch companions. The released selector has no guard for a zero energy range.
-This relaxation replaces serial top-$k$ decisions with a parallel soft mask;
-it does not make the later gather indices differentiable. Rows without
-eligible receivers have zero assignment.
+The row energy
+$e_i^{(\ell)}=\sum_{j\in\mathcal E_i^{(\ell)}(R)}
+\exp s_{ij}^{(\ell)}$ enters a threshold-based smooth top-$k$
+operator~\citep{sujianlin2024topk}. Given the step budget $k_\ell$, it
+produces a continuous donor weight $g_i^{(\ell)}$; the transport weight is
+$a_{ij}^{(\ell)}=g_i^{(\ell)}q_{ij}^{(\ell)}$ on eligible edges and zero
+elsewhere; a donor with no eligible receiver has zero assignment. The smooth
+weights provide a gradient path from the task loss to the routing metrics.
 
-Each slot carries mass $m_i$, initialized to one. A transport step preserves a
-donor feature and transfers a fraction of its mass into receiver features:
+Soft transport updates mass and receiver features without removing the
+donor slot. With patch feature $X_i$ and mass $m_i$, one step gives
 \begin{align}
- m'_i&=m_i(1-\textstyle\sum_j a_{ij}), & X'_i&=X_i,\nonumber\\
- m'_j&=m_j+\textstyle\sum_i a_{ij}m_i, &
+ m'_i&=m_i\left(1-\sum_j a_{ij}\right),&
+ X'_i&=X_i,\nonumber\\
+ m'_j&=m_j+\sum_i a_{ij}m_i,&
  X'_j&=\frac{m_jX_j+\sum_i a_{ij}m_iX_i}{m'_j}.
  \label{eq:transport}
 \end{align}
-The implementation clamps residual fractions and denominators. Donor slots
-remain present even when their mass becomes small. Sparse neighbor lists
-restrict scored edges, but the released initialization still constructs a
-dense adjacency buffer; the support constraint does not establish linear
-memory for the complete implementation.
+The sums cover eligible edges in the current donor--receiver partition.
+The implementation stabilizes residual fractions and denominators, while
+all patch slots remain present for the next routing step.
 
-\subsection{Exact budget and recovery}
-Soft transport leaves every slot active, so an explicit gather sets the
-sequence length processed by later blocks. For compression factor $\lambda$,
-the carrier count is
+\subsection{Physical bottleneck and recovery}
+A hard gather turns the soft routing state into the shorter sequence used by
+later blocks. For compression factor $\lambda$, the patch-carrier budget is
 \begin{equation}
  K=N-\left\lfloor N(\lambda-1)/\lambda\right\rfloor.
  \label{eq:budget}
 \end{equation}
-The model hard-gathers the $K$ largest-mass patches. At $224^2$ and
-$\lambda=2$, $N=784$ and $K=392$; the six soft donor budgets are
-$(65,65,65,65,65,67)$. A straight-through factor
-$1+g-\operatorname{stopgrad}(g)$ on selected features sends gradients to the
-continuous scores while hard indices execute the budget; it does not
-differentiate the index choice. The selected carriers are ordered by a
-detached, mass-weighted center of their flattened source indices. The
-protected CLS token is prepended. These carrier queries $Q$ recover
-information from the pre-transport full-grid features through
+Let $\mathcal I=\operatorname{TopK}(m^{(L)}_{\rm patch},K)$ contain the indices
+of the $K$ largest patch masses, ordered before gathering. After normalizing
+the routed features,
+$\bar X=\operatorname{Norm}(X^{(L)})$, we form the carrier sequence
+$C=[\bar X_{\rm cls};\bar X_{\mathcal I}]$. Thus $C$ contains exactly
+$K+1$ tokens, including the protected class token, in both training and
+inference.
+
+The gather keeps its indices discrete while passing gradients to soft
+selection scores. A second smooth top-$K$ operator applied to the final
+patch masses gives weights $h_i$. Each selected feature is multiplied by
+$1+h_i-\operatorname{stopgrad}(h_i)$, which equals one in the forward pass.
+This connects the selected features to the continuous scores without
+differentiating the index choice.
+
+Recovery lets the carriers read information still available on the full
+grid. Using $H^{(L)}$ as the pre-transport key and value sequence, define
 \begin{equation}
- Y=Q+\operatorname{CrossAttn}(Q,H^{(6)},H^{(6)}),
+ Z=C+\operatorname{CrossAttn}(C,H^{(L)},H^{(L)}).
  \label{eq:recovery}
 \end{equation}
-and six latent blocks process $K$ patches plus CLS. During training, the
-classification logits also include an auxiliary contribution from a
-soft-selection-weighted average of the full-grid features, with weight at
-most 0.05; evaluation uses only the latent CLS logits. This is a logit
-contribution, not a separate auxiliary loss.
+The latent encoder processes $Z$, and its class-token output enters the
+classification head. Global latent self-attention therefore runs on $K+1$
+tokens, while recovery still reads the full-grid features.
 
-\subsection{Mass-aware attention and a fused operator}
-
-Carriers represent different amounts of transported mass, which we retain
-in latent attention using ToMe's proportional-attention bias~\citep{tome2023}.
-For $N_q$ queries and $N_k$ keys, let
-$\beta_j=\log m_j$ and $B=\mathbf 1_{N_q}\beta^\top$. Then
+\subsection{Mass-aware latent attention}
+The selected carriers represent different amounts of transported mass.
+Following proportional attention in ToMe~\citep{tome2023}, latent
+self-attention adds the log of each carrier mass to its key logit. For
+per-head query, key, and value matrices $Q_{\rm a},K_{\rm a},V_{\rm a}$,
+head width $d_h$, and selected masses $m_j$, this is
 \begin{equation}
- \operatorname{Attn}(Q,K,V;m)=
- \operatorname{softmax}\!\left(\frac{QK^\top}{\sqrt{d_h}}+B\right)V.
+ \operatorname{Attn}(Q_{\rm a},K_{\rm a},V_{\rm a};m)
+ =\operatorname{softmax}\!\left(
+ \frac{Q_{\rm a}K_{\rm a}^{\top}}{\sqrt{d_h}}
+ +\mathbf 1\log(m)^\top\right)V_{\rm a}.
  \label{eq:mass-attn}
 \end{equation}
-The bias is rank one across query positions. Define
+The class token retains unit mass. This bias accounts for mass in attention;
+its contribution to classification accuracy requires a separate ablation.
+
+The per-key bias can be encoded as one extra query/key dimension. Set
+$\widehat Q_{\rm a}=[Q_{\rm a},\sqrt{d_h}\mathbf 1]$ and
+$\widehat K_{\rm a}=[K_{\rm a},\log m]$. With the original scale
+$1/\sqrt{d_h}$,
 \begin{equation}
- \widehat Q=[Q,\sqrt{d_h}\mathbf1_{N_q}],\qquad
- \widehat K=[K,\beta].
- \label{eq:augmented-qk}
-\end{equation}
-Using the \emph{original} softmax scale $1/\sqrt{d_h}$ gives
-\begin{equation}
- \frac{\widehat Q\widehat K^\top}{\sqrt{d_h}}
- =\frac{QK^\top}{\sqrt{d_h}}+\mathbf1_{N_q}\beta^\top,
+ \frac{\widehat Q_{\rm a}\widehat K_{\rm a}^{\top}}{\sqrt{d_h}}
+ =\frac{Q_{\rm a}K_{\rm a}^{\top}}{\sqrt{d_h}}
+ +\mathbf 1\log(m)^\top.
  \label{eq:augmented-equivalence}
 \end{equation}
-so a standard attention kernel realizes the biased logits without
-materializing $B$. The explicit scale is essential: using a kernel default
-based on the augmented or padded width would not be equivalent.
-
-The released operator pads $d_h+1$ to
-$d_{\mathrm{phys}}=8\lceil(d_h+1)/8\rceil$, zero-fills extra query/key
-channels, pads $V$ to the same physical width, invokes an unmodified
-FlashAttention kernel~\citep{flashattn2022}, and truncates its output to
-$d_h$. The reported ImageNet classifier instead applies the same mass bias
-through PyTorch's fused scaled-dot-product attention. The separate
-FlashAttention-compatible operator has an exact logit identity, but the
-current checkpoint results do not establish a latency or peak-memory gain
-from using it.
+The released FlashAttention-compatible operator implements this identity
+after padding the head dimension. The reported ImageNet classifier uses the
+same bias through PyTorch's scaled-dot-product attention; the operator
+identity alone does not establish a runtime gain.
