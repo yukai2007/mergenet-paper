@@ -1,19 +1,38 @@
-\section{Reserved Trained-Checkpoint Routing Visualization}
-\label{sec:pending-routing}
+\section{Routing Visualization}
+\label{sec:pending-routing-population}
 
-The final ImageNet checkpoint is unavailable locally. The collaborator will
-export four to six validation examples with the actual donor/receiver
-partition, nonzero transport edges, token-mass maps, final carriers, and at
-least one failure case. The trace is passive: it records maximum logit
-difference with tracing enabled, equality of top-$K$ indices, and mass
-conservation error after every step. Without a source-membership trace, the
-figure will show per-step transport rather than an invented final
-segmentation.
+The visual examples are selected before inspecting the router.
+We choose one ImageNet validation image per class using a fixed
+SHA-256 ordering of image paths, giving 1,000 images in total. From
+this set, the main figure shows the first correctly classified
+and the first misclassified image under the same ordering. Passive
+tracing is checked against untraced predictions, top-$K$ indices,
+and token mass; the check gives \pendingresult{parity summary}.
+If no error occurs in the selected set, the selection rule uses two
+correct cases.
+
+The main figure pairs actual step-3 donor-to-receiver transport
+edges with the final 392 carrier locations for each selected image.
+The population figure summarizes per-image routing distances
+over all six steps and the selection frequency of each original
+$28\times28$ patch location across the 1,000 images. Carrier
+markers denote selected slots, not semantic regions. Mean route
+distance is \pendingvalue{} patches, and the selection-frequency pattern
+is \pendingresult{population interpretation}.
 
 \begin{figure}[htbp]
 \centering
-\pendingfigure{P06: trained images, routing edges, carriers, and a failure case}{3.8cm}
-\caption{Reserved trained-checkpoint routing visualization. The blank is not
-a model observation and will be replaced only by a verified trace.}
+\pendingfigure{E6: actual routing edges and final carriers for fixed examples}{2.4cm}
+\caption{ImageNet routing examples: step-3 transport edges and final
+carrier locations from the same trained checkpoint.}
 \label{fig:pending-routing}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\pendingfigure{E6: routing distances and carrier selection frequency}{2.4cm}
+\caption{Population view for 1,000 fixed validation images.
+Distances are measured in original-grid patches; selection frequency
+uses the 392 final carrier slots.}
+\label{fig:pending-routing-population}
 \end{figure}

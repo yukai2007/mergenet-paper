@@ -1,18 +1,39 @@
-\section{Execution Evidence}
+\subsection{Efficiency}
 \label{sec:systems}
 
-A code-derived accounting estimates 14.13 GMAC per image for \mn{} and 22.41
-GMAC for dense DeiT-S/8 at 224 pixels, a 36.9\% reduction. This includes
-projections, MLPs, attention, routing transport, and recovery, but omits
-sorting, indexing, and data movement. Since all six local blocks remain dense
-and recovery costs $O(NK)$, a $2\times$ final carrier reduction does not imply
-a $2\times$ model reduction.
+The routing gains must be considered alongside the work required to
+produce the shorter sequence. \mn{} reduces the latent-stage input
+from 784 to 392 patches, but its six local blocks still process the
+full grid and recovery reads those features again. Accounting for
+these operations gives 14.13 GMAC per image at 224 pixels, compared
+with 22.41 GMAC for dense DeiT-S/8, a 36.9\% reduction. The
+estimate excludes indexing and data movement, so it does not
+predict inference latency by itself.
 
-Existing runtime records confirm this distinction. On one H20-3e with random
-weights, fp16, synthetic batch 64, and a guarded CUDA-event harness, \mn{}
-takes 45.71 ms versus 42.68 ms for dense DeiT-S/8 at 224 pixels and uses more
-peak allocated memory. At 384 pixels it takes 136.54 versus 170.61 ms, a
-20.0\% reduction. A local A100 reproduction does not recover this crossover.
-These architecture benchmarks are useful boundary checks, but they cannot be
-paired with trained-checkpoint accuracy. The primary table therefore reserves
-common-protocol timing rather than reporting an unsupported Pareto frontier.
+Existing synthetic benchmarks show why the measured implementation
+matters. On an H20-3e at batch 64, random-weight \mn{} takes
+45.71 ms versus 42.68 ms for dense DeiT-S/8 at 224 pixels, while
+the 384-pixel comparison is 136.54 versus 170.61 ms. An
+independent A100 benchmark does not reproduce the latter ordering
+on its software stack (Appendices~\ref{app:synthetic}
+and \ref{app:followup}). These are architecture-only measurements
+with random weights. The 384-pixel H20 ToMe timing also disables proportional
+attention, unlike its accuracy evaluation. They therefore cannot
+be paired with checkpoint accuracy. Under the
+common-protocol trained-checkpoint evaluation, \mn{} records
+\pendingvalue{} ms batch-1 latency, \pendingvalue{} images/s batch-64
+throughput, and \pendingvalue{} GiB peak allocated memory. The comparison
+uses the selected checkpoints under a common GPU and precision,
+with each method's accuracy-evaluation attention setting and
+achieved token counts recorded
+(Appendix~\ref{app:pending-evaluations}).
+
+\subsection{Visualization}
+
+The spatial prior also makes routing behavior inspectable.
+Figure~\ref{fig:pending-routing} shows donor-to-receiver edges and
+final carrier locations for fixed ImageNet examples, while
+Figure~\ref{fig:pending-routing-population} summarizes selection
+frequency and routing distance over 1,000 images. The passive-trace
+check gives \pendingresult{logit, carrier-index, and mass parity}
+(Appendix~\ref{sec:pending-routing-population}).

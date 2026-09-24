@@ -1,16 +1,15 @@
-\section{Training Recipe and Evidence Inventory}
+\section{Implementation Details}
 \label{app:recipe}
 
-Table~\ref{tab:recipe} summarizes the resolved run arguments. The base width
-is 384 with six heads and MLP expansion four. Stochastic depth is configured
-at 0.1; \mn{} constructs separate local and latent ramps, unlike a single
-twelve-block dense ramp. The global and flattened routing controls use their
-dense/historical scoring paths, while radius-2/3 routing uses the sparse
-spatial backend; the routing support and its numerical implementation should
-therefore both be recorded. EMA validation replaces raw-model metrics before
-the summary row is written, so \texttt{eval\_top1} is an EMA metric.
+Table~\ref{tab:recipe} gives the training settings for the main ImageNet
+experiments. All runs use an effective global batch of 1,024. The
+150-epoch routing variants share a learning rate of $5\times10^{-4}$;
+the selected 300-epoch \mn{} run uses $7.5\times10^{-4}$.
+EMA top-1 is measured on the 50,000-image validation set.
 
 \begin{table}[h]
+\caption{Training settings for the ImageNet-1K experiments.}
+\label{tab:recipe}
 \centering\small
 \begin{tabular}{lll}
 \toprule
@@ -22,7 +21,7 @@ Optimizer & AdamW & AdamW\\
 Learning rate & $5\!\times\!10^{-4}$ or $7.5\!\times\!10^{-4}$ & $10^{-5}$\\
 Minimum learning rate & $10^{-5}$ & $10^{-6}$\\
 Weight decay & 0.05 & $10^{-8}$\\
-Warmup epochs & 5 (probe: 20) & 1\\
+Warmup epochs & 5 & 1\\
 Warmup learning rate & $10^{-6}$ & $10^{-6}$\\
 EMA decay & 0.99996 & 0.9996\\
 Mixup / CutMix & 0.8 / 1.0 & 0 / 0\\
@@ -35,224 +34,102 @@ Validation crop percentage & 0.9 & 1.0\\
 Teacher / feature / routing distillation & disabled & disabled\\
 \bottomrule
 \end{tabular}
-\caption{Main recipe. Launch records take precedence over configuration-file
-defaults, especially for microbatch size and gradient accumulation.}
-\label{tab:recipe}
 \end{table}
 
-\paragraph{Classifier implementation.}
-The main configuration uses patch size 8, width 384, six heads, six local
-blocks, and six latent blocks. At 224 pixels this gives 784 patch slots; the
-local attention band extends 16 sequence positions on either side of a patch
-query, while the CLS query attends globally. Spatial routing uses radius 3,
-a $384\to64$ metric projection, similarity temperature 1, and input-gradient
-scale 0.1 for the metric. At compression factor 2, the six soft donor budgets
-are $(65,65,65,65,65,67)$ and the hard gather retains 392 patches. There is
-no further merging in the latent encoder. Training partitions donors and
-receivers randomly for each image; evaluation alternates deterministic
-odd/even partitions across routing steps.
+\paragraph{Classifier.}
+The patch-8 model has width 384, six heads, six local blocks, and six latent
+blocks. At 224 pixels, the local encoder processes 784 patch slots. Local
+attention spans 16 sequence positions on either side of a patch query;
+the CLS query attends globally. Spatial routing uses radius 3, a
+$384\to64$ metric projection, similarity temperature 1, and metric
+input-gradient scale 0.1. At compression factor 2, the six soft donor
+budgets are $(65,65,65,65,65,67)$; the hard gather retains 392 patches.
+The latent encoder does not merge further. Stochastic depth is 0.1,
+with separate local and latent ramps.
 
-\paragraph{Selection and tracing.}
-The threshold-based soft top-$k$ uses scale 30 and normalizes row energies by
-their maximum-minus-minimum range across the current minibatch. Thus soft
-selection can depend on batch companions; the released operator has no guard
-for a zero range. The final hard-gather indices are detached and selected
-carriers are sorted by a detached, mass-weighted center of their flattened
-source indices. The default center-tracing mode does not retain a full source
-membership matrix. Spatial scoring uses sparse neighbor lists, although
-model initialization constructs a dense Boolean adjacency buffer.
+\paragraph{Routing and selection.}
+Training partitions donors and receivers randomly for each image;
+evaluation alternates deterministic odd/even partitions across routing
+steps. The threshold-based soft top-$k$ uses scale 30 and normalizes
+energies by their max-minus-min range. The final gather indices are
+detached, and selected carriers are ordered by a detached,
+mass-weighted center of their original flattened indices. Spatial
+scoring uses sparse neighbor lists; the global and flattened-window
+controls use their respective historical dense-scoring paths.
+At training time, an auxiliary full-grid readout contributes up to
+0.05 to the latent CLS logits. Its weight begins ramping at epoch 10
+for the 150-epoch runs and epoch 20 for the 300-epoch run, reaching
+0.05 over 10 and 20 epochs, respectively. It is disabled at evaluation.
 
-During training, an auxiliary readout averages full-grid features using
-soft-selection weights, applies the shared classification head, and adds its
-weighted logits to the latent CLS logits. It is absent at evaluation and is
-not a separate auxiliary loss. The 150-epoch \mn{} runs start this
-contribution at epoch 10
-and ramp it over 10 epochs; the 300-epoch run uses epoch 20 and a 20-epoch
-ramp. Fine-tunes enable weight 0.05 from the start. The
-recorded environment is Python 3.10.20, PyTorch 2.7.1+cu118, torchvision
-0.22.1+cu118, timm 0.9.11, FlashAttention 2.7.3 and Triton 3.3.1 on H20-3e
-GPUs. Both four and eight ranks divide 50,000, avoiding validation-sampler
-padding for this split. Other world sizes require a separate check.
+\paragraph{CIFAR-100 controls.}
+\label{app:cifar-protocol}
+The three-seed routing comparison uses 12 independent 200-epoch runs:
+global, flattened-window, radius-3, and degree-matched routing for
+seeds 42--44. Native $32\times32$ images are resized to 224 pixels.
+The primary endpoint is epoch-199 EMA top-1 on the 10,000-image test
+set. Each training and evaluation batch contains 200 images. The
+degree-matched arm permutes receiver columns of the realized radius-3
+support using fixed receiver priorities; it preserves each donor's
+candidate count and the receiver-degree multiset. Table~\ref{tab:cifar-seeds}
+reports means and sample standard deviations across seeds, with paired
+same-seed differences.
 
-Three nominal launcher failures occurred after complete metric histories:
-the 150-epoch DeiT-S/16, the compound $\lambda=4$ run, and dense 512-pixel
-fine-tuning. Complete summaries and supplied checkpoint receipts distinguish
-them from early failures. Receipts record checks on another machine, not
-weights independently loaded in this audit. The $\lambda$ curriculum and
-512-pixel \mn{} fine-tune are now complete 150-epoch and 15-epoch records.
-The weight-decay probe was abandoned at 140/150. The DeiT-initialized and
-progressive-latent runs are complete 150-epoch records.
-
-\begin{table}[h]
-\centering\footnotesize
-\input{tables/run_inventory}
-\caption{Status through the September 23 packet. The abandoned weight-decay
-metric is included for accounting only and is not an endpoint. The DeiT-B best score is a
-pre-overfitting peak (Appendix~\ref{app:deitb}). The companion data retain
-full precision and source summary lines.}
-\label{tab:runs}
-\end{table}
-\FloatBarrier
-
-\subsection{Initialization and Latent-Compression Diagnostics}
-
-Table~\ref{tab:stage7-diagnostics} uses the completed drop-path-0.07 run as
-the 150-epoch scratch control. Initializing \mn{} from the 300-epoch
-DeiT-S/8 checkpoint raises best EMA top-1 by 1.040 points. This result shows
-initialization sensitivity, not equal-total-compute superiority: the source
-representation already consumed 300 training epochs, the experiment has one
-seed, and its 80.574\% endpoint remains below both the 300-epoch scratch
-\mn{} result (81.368\%) and its dense source (82.246\%). The original
-first-launch loading log was not delivered after a host migration; the
-record retains a contemporaneous 152-loaded/25-missing receipt and the early
-learning curve, so we treat this as a diagnostic rather than a primary causal
-result.
-
-The progressive-latent variant adds 192 latent-stage merges and reaches
-79.392\%, 0.142 points below the same control. It changes the final configured
-budget from approximately 392 to 200 patches, so it is an
-accuracy--compression probe rather than a matched-budget test of gradual
-versus abrupt scheduling. With one seed, the result establishes no observed
-gain but does not establish a statistically resolved degradation. Training-log
-throughput is not used as deployment latency.
-
-\begin{table}[h]
-\caption{Completed 150-epoch Stage-7 diagnostics, all with seed 42 and
-drop-path 0.07. Deltas use the scratch control in the first row.}
-\label{tab:stage7-diagnostics}
-\centering\small
-\input{tables/stage7_diagnostics}
-\end{table}
-
-\section{Detailed Budget and Timing Comparisons}
+\section{Accuracy Budgets}
 \label{app:latency}
 
-Table~\ref{tab:sweepdetail} gives the values behind the main accuracy panels.
-The \mn{} checkpoint uses radius 3 at 224 pixels and radius 5.143 after
-384-pixel fine-tuning. Final patch budgets match within a row, but layerwise
-attention and MLP inputs do not. ToMe and PiToMe shorten sequences within
-successive blocks, while \mn{} gathers once between stages. The companion
-CSV also contains the two resolution-transfer panels using 224-pixel
-checkpoints without fine-tuning.
+Table~\ref{tab:sweepdetail} gives the values behind
+Figure~\ref{fig:sweep}. The \mn{} checkpoint uses radius 3 at
+224 pixels and radius 5.143 after 384-pixel fine-tuning. Each row
+matches final patch counts, excluding CLS, but not the layerwise
+sequence lengths: ToMe and PiToMe merge across blocks, whereas
+\mn{} gathers once between stages. All points evaluate fixed
+checkpoints at different inference budgets.
 
 \begin{table}[h]
+\caption{ImageNet top-1 (\%) at matched final patch counts.
+$\Delta$ is ToMe minus \mn{} in percentage points.}
+\label{tab:sweepdetail}
 \centering\small
 \input{tables/sweep_main}
-\caption{Top-1 percentages at equal final patch counts; $\Delta$ is ToMe minus
-\mn{} in percentage points. These values cannot be paired with
-Table~\ref{tab:latency384} to construct an accuracy--latency frontier.}
-\label{tab:sweepdetail}
 \end{table}
 
+\section{Synthetic Timing}
+\label{app:synthetic}
+
+The measurements in this section use randomly initialized models
+to isolate architecture and implementation cost. They do not use
+the trained checkpoints that produce the accuracy results in
+Tables~\ref{tab:main} and \ref{tab:sweepdetail}. On an H20-3e at
+batch 64 and 224 pixels, \mn{} takes 45.71\,ms per forward pass,
+versus 42.68\,ms for dense DeiT-S/8 (Table~\ref{tab:efficiency224}).
+
 \begin{table}[h]
+\caption{H20-3e synthetic timing at 224 pixels, batch 64, with random
+weights and fp16 autocast. Train time includes forward, loss, backward,
+and AdamW update; inference is forward only. Memory is peak allocated GiB.}
+\label{tab:efficiency224}
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\input{tables/efficiency224}
+\end{table}
+
+At 384 pixels, a separate radius-3 H20-3e run measures 136.54\,ms
+for \mn{} and 170.61\,ms for dense DeiT-S/8 at batch 64. The
+radius-5.143 comparison with ToMe in Table~\ref{tab:latency384}
+uses a different setup: ToMe proportional attention is disabled,
+achieved budgets differ slightly, and token-counting hooks remain
+active. At the approximately half-size budget, ToMe processes 1,151
+patches in 129.81\,ms and \mn{} processes 1,152 in 155.25\,ms.
+These measurements cannot be paired with checkpoint accuracy to
+form an accuracy--latency comparison. The common trained-checkpoint
+benchmark is specified in Appendix~\ref{app:pending-evaluations}.
+
+\begin{table}[h]
+\caption{H20-3e synthetic inference at 384 pixels, batch 64, fp16
+autocast, random weights, and \mn{} radius 5.143. ToMe proportional
+attention is disabled and token-counting hooks remain active. Memory
+is peak reserved GiB; patch counts exclude CLS.}
+\label{tab:latency384}
 \centering\small
 \input{tables/latency384}
-\caption{Separate 384-pixel synthetic latency experiment: batch 64, H20-3e,
-fp16 autocast, random initialization, \mn{} radius 5.143, and ToMe
-proportional attention disabled. Patch counts exclude the class token here.
-Memory is peak \emph{reserved} GiB, unlike the historical 224-pixel record,
-which reports peak allocated memory.
-Token-counting hooks remain active during timing.}
-\label{tab:latency384}
 \end{table}
-
-At the approximately half-size operating point, ToMe processes 1,151 patches
-and \mn{} 1,152, taking 129.810 and 155.255\,ms respectively. These times do not
-prove a joint ordering for the accuracy sweep's ToMe setting. A common
-harness should use exactly 1,152 patches with proportional attention enabled,
-verify the checkpoint and preprocessing, and remove shape hooks before
-timing. An earlier latency benchmark silently clamped several requested
-ToMe budgets to the same achieved count; those obsolete cells are excluded.
-
-Separate 384-pixel radius-3 benchmarks remain distinct from the radius-5.143
-sweep. Speed percentages at different batch sizes, radii or harness settings
-should not be averaged into an unexplained range. Peak reserved memory and
-peak allocated memory also measure different quantities.
-
-\section{Evidence and Reproduction Boundaries}
-
-The artifact subset includes unmodified per-run summaries, resolved arguments
-with host paths removed, launch-protocol extracts, sanitized successful sweep
-records, audited benchmark tables, and source hashes. The CPU rebuild script
-recomputes best/final metrics, resolves sweep records by timestamp, checks
-numeric joins, and regenerates tables and figures. It never launches
-training. Source and claim ledgers retain their literature retrieval dates;
-the collaborator-packet audit was refreshed on September 21.
-Company policy prevents ImageNet weight
-transfer; independent ImageNet checkpoint re-evaluation is unavailable. The
-September 23 packet additionally completes the two Stage-7 diagnostics.
-The refreshed audit matches 3,354 of 3,560 summary rows to delivered EMA logs,
-leaving 206 rows without corresponding log records
-(Section~\ref{sec:setup}). Those rows are not discarded, but retain their
-summary-only evidence status.
-
-\section{DeiT-B/16 is not a usable scale anchor}
-\label{app:deitb}
-
-A 300-epoch DeiT-B/16 run at 224 pixels completes under the same global-batch
-and seed protocol as the small-scale campaign, with drop-path 0.1 inherited
-from the DeiT-S configurations. Table~\ref{tab:deitb} reports the peak and
-final EMA scores. Train loss continues to fall while evaluation loss rises
-after the peak at epoch 179. The final top-1, 78.566\%, is below our
-DeiT-S/16 result of 79.692\% at the same 196-token budget. Published DeiT-B
-300-epoch training uses drop-path 0.2. We therefore do not append this run
-to the DeiT-S/8 table, and we do not launch a paired MergeNet-B comparison
-from these weights.
-
-\begin{table}[h]
-\centering\small
-\input{tables/deitb}
-\caption{DeiT-B/16, 300 epochs, drop-path 0.1. Peak and final scores must be
-reported together; the peak is not a converged result.}
-\label{tab:deitb}
-\end{table}
-
-\section{A Bounded Layout Optimization Experiment}
-\label{app:layout}
-
-We additionally test a single LocalAttention module on an A100-SXM4-80GB.
-The original module constructs query/key/value tensors in
-batch--head--token--channel order, then transposes and copies them for the
-FlashAttention wrapper. An isolated variant constructs
-batch--token--head--channel tensors directly and adjusts the global class-query
-attention views and final reshape accordingly. It does not alter the
-released model, load a checkpoint, or apply an optimizer update.
-
-The test uses PyTorch 2.6.0+cu124 and FlashAttention 2.7.4.post1, width 384,
-six heads, window radius 16, zero attention dropout, float32 parameters and
-inputs, and fp16 autocast. Four batch-2 parity cases cover sequence lengths
-785 and 2,305, global class attention on/off, and query/key normalization.
-Outputs and input gradients are bitwise equal in these cases. Parameter
-gradients are also equal except for the normalization case, whose maximum
-relative $L_2$ error is $5.77\times10^{-7}$. This coverage does not establish
-all-shape or dropout/RNG-preserving equivalence for a complete model.
-
-\begin{table}[h]
-\centering\small
-\begin{tabular}{rrlrrr}
-\toprule
-Batch & Tokens & Mode & Original ms & Layout ms & Reduction range\\
-\midrule
-64 & 785 & Forward & 1.5600 & 1.0448 & 13.50--34.03\%\\
-64 & 785 & Forward + backward & 5.1590 & 4.3999 & 14.68--25.64\%\\
-16 & 2305 & Forward & 1.0318 & 0.9369 & 6.88--36.68\%\\
-16 & 2305 & Forward + backward & 5.3740 & 4.9176 & 5.45--11.83\%\\
-\bottomrule
-\end{tabular}
-\caption{Single-module A100 measurements. Times are medians of three round
-medians, each with five warmups and twenty CUDA-event samples. The final
-column is the range of paired-round time reductions, not a confidence
-interval. Tokens include the class token. Backward includes a squared-output
-loss and gradient clearing, with no optimizer.}
-\label{tab:layout}
-\end{table}
-
-Measurement order alternates by round, and the harness requires an initially
-empty device, establishes its CUDA process identity, then rejects a changed
-process set at subsequent checks. All iteration samples and snapshots are
-retained. The observed reductions support this local engineering direction,
-but the round variation is appreciable. Both module instances are resident,
-so their recorded memory peaks are not independent per-model memory
-measurements. These results do not predict the full model's speedup, validate
-an HBM-traffic estimate, transfer H20 timings to A100, or resolve the separate
-ToMe attention-policy mismatch.

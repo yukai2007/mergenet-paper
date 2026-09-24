@@ -1,101 +1,110 @@
-\section{Results}
+\subsection{Main Results}
 \label{sec:results}
+\label{sec:primary-results}
 
-\subsection{Primary matched-budget comparison}
-Table~\ref{tab:main} fixes the final budget at 392 patches, excluding CLS. The
-\mn{} row is the 50,000-image re-evaluation (81.360\%); its training summary
-reports a best EMA value of 81.368\%. Dense DeiT-S/8 reaches 82.246\%, while
-post-training ToMe and PiToMe reach 81.932\% and 81.742\%, respectively. Thus
-the current evidence establishes a learnable physical bottleneck, but not a
-stronger accuracy frontier. The matched DTEM score and common-protocol systems
-cells remain explicit blanks.
+At the 392-patch operating point, \mn{} reaches 81.360\% ImageNet
+top-1 accuracy (Table~\ref{tab:main}). ToMe and PiToMe, applied to the
+dense checkpoint after training, reach 81.932\% and 81.742\%;
+uncompressed DeiT-S/8 reaches 82.246\%. Thus the proposed model
+learns its routing policy while processing a physically shorter latent
+sequence, although the available ToMe configuration retains more
+classification accuracy at the same final patch count. The matched
+DTEM-p8 adaptation reaches \pendingvalue\% top-1.
 
-\begin{table}[t]
-\caption{ImageNet-1K at 224 pixels and a 392-patch target. Accuracy is percent.
-Blank cells are requested measurements, not zero values or estimates.}
+\begin{table}[H]
+\caption{ImageNet-1K top-1 accuracy at 224 pixels. Compressed rows
+target 392 final patches, excluding CLS.}
 \label{tab:main}
-\centering\footnotesize
-\setlength{\tabcolsep}{3.2pt}
+\centering\small
 \input{tables/main}
 \end{table}
 
-\subsection{Does the spatial prior help?}
-\label{sec:cifar-seeds}
-The 150-epoch ImageNet controls isolate routing support at learning rate
-$5\times10^{-4}$. Radius 3 reaches 78.888\%, improving over global routing by
-1.670 points and flattened windows by 0.598 (Table~\ref{tab:geometry}). Radius
-2 is only 0.054 points higher, so one seed does not identify an optimal radius.
-The global arm is an architectural control with \mn{}'s local/latent split,
-not a reproduction of DTEM.
+The budget sweep shows how these models behave away from the default
+operating point (Figure~\ref{fig:sweep}). Using the same \mn{}
+checkpoint, increasing the final budget from 196 to 523 patches
+raises top-1 from 80.228\% to 81.380\%. ToMe remains ahead at each
+of the five 224-pixel budgets and at the five 384-pixel
+fine-tuned budgets shown in the figure. The complete sweep contains
+20 matched final-budget settings, all with the same ordering
+(Appendix~\ref{app:latency}). These are evaluations of fixed
+checkpoints; they describe accuracy as the inference budget changes
+rather than the outcome of retraining at each budget.
 
-\begin{table}[t]
-\caption{ImageNet routing controls. All rows use the same 150-epoch recipe;
-accuracies are single-seed EMA top-1.}
-\label{tab:geometry}
-\centering\small
-\input{tables/geometry}
-\end{table}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/accuracy_sweep.pdf}
+\caption{ImageNet top-1 across final patch budgets at 224 pixels
+(left) and after 384-pixel fine-tuning (right). Lines connect
+evaluations of fixed checkpoints.}
+\label{fig:sweep}
+\end{figure}
 
-Radius changes both geometry and candidate count. We therefore repeat the
-comparison on CIFAR-100 with a receiver permutation that preserves each
-realized receiver degree. Across three seeds, radius 3 ranks first among the
-four geometries (Table~\ref{tab:cifar-seeds}). Every one of the nine paired
-radius-3 minus control differences is positive. Against the degree-matched
-control, the mean gain is $1.42\pm0.30$ points. These runs support a locality
-effect beyond degree, but do not transfer ImageNet uncertainty.
+Fine-tuning at higher resolution reduces the gap to dense DeiT at
+384 pixels, but the gap grows slightly at 512 pixels
+(Table~\ref{tab:resolution}). The best EMA difference changes from
+$-0.878$ points at 224 pixels to $-0.394$ at 384 pixels and
+$-0.450$ at 512 pixels. The last \mn{} model descends from the
+radius-scaled 384-pixel branch, so this sequence describes the
+selected configurations rather than one unchanged-radius trajectory.
 
-\begin{table}[t]
-\caption{CIFAR-100 epoch-199 EMA top-1 (\%), mean $\pm$ sample standard
-deviation over seeds 42, 43, and 44.}
-\label{tab:cifar-seeds}
-\centering\footnotesize
-\setlength{\tabcolsep}{3.4pt}
-\input{tables/cifar_seeds}
-\end{table}
-
-Table~\ref{tab:ablation-map} ties each mechanism claim to a control. The two
-remaining component interventions require only one inference pass of the
-collaborator-held final checkpoint; they are diagnostic ablations rather than
-separately trained architectures.
-
-\begin{table}[t]
-\caption{Claim-to-ablation map. ``Done'' rows contain complete experiments.}
-\label{tab:ablation-map}
-\centering\footnotesize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{p{0.24\linewidth}p{0.39\linewidth}p{0.25\linewidth}}
-\toprule
-Claim & Control & Result \\
-\midrule
-2-D routing & global, flat, $R=2/3$ & Done; Table~\ref{tab:geometry} \\
-Locality beyond degree & receiver permutation & $+1.42\pm0.30$ points \\
-Budget behavior & 20 matched token settings & ToMe higher in 20/20 \\
-Mass-aware attention & set $\log m$ bias to zero & \pendingresult{score} \\
-Full-grid recovery & bypass cross-attention & \pendingresult{score} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Long schedules, resolution, and budgets}
-At 300 epochs, \mn{} trails dense DeiT-S/8 by 0.878 points at 224 pixels
-(Table~\ref{tab:resolution}). Fine-tuning narrows this gap to 0.394 at 384
-pixels; at 512 pixels the gap is 0.450, so the three points do not support a
-monotonic convergence claim. Different \mn{} radii are used across this
-ladder and the 512-pixel arm descends from the radius-scaled 384 checkpoint.
-
-\begin{table}[t]
-\caption{Best EMA top-1 across resolution schedules. The gap is \mn{} minus
-dense in percentage points.}
+\begin{table}[H]
+\caption{Best EMA ImageNet-1K top-1 (\%) across resolutions.
+Gap is \mn{} minus dense in percentage points.}
 \label{tab:resolution}
 \centering\small
 \input{tables/resolution}
 \end{table}
 
-Changing only the evaluation-time carrier budget gives \mn{} top-1 values of
-81.380, 81.360, 81.074, 80.850, and 80.228\% at 523, 392, 314, 262, and 196
-patches. ToMe applied to the dense checkpoint is higher at every one of these
-224-pixel budgets, with gaps from 0.572 to 1.524 points; the same ordering
-holds at all five 384-pixel budgets. This is a clear negative result for the
-current end-to-end model. It is not a controlled comparison of training
-objectives, because ToMe starts from the stronger dense checkpoint. Detailed
-curves, optimizer probes, and complete schedules are in the appendix.
+\subsection{Ablation Studies}
+\label{sec:cifar-seeds}
+
+Among the tested \mn{} routing variants, the original-grid radius-3
+configuration scores above the global and flattened-window configurations.
+With the same 150-epoch ImageNet recipe and learning rate, radius 3 reaches
+78.888\% top-1, compared with 77.218\% for global routing and
+78.290\% for a flattened width-8 window
+(Table~\ref{tab:geometry}). Radius 2 is slightly higher at
+78.942\%; these single-seed results identify a useful routing configuration,
+not an optimal radius. The global arm retains \mn{}'s architecture
+and is an internal variant rather than a DTEM reproduction. The variants
+also use their respective scoring implementations, detailed in
+Appendix~\ref{app:recipe}.
+
+\begin{table}[H]
+\caption{ImageNet routing variants at 224 pixels. All rows use
+the same 150-epoch recipe and learning rate $5\times10^{-4}$.}
+\label{tab:geometry}
+\centering\small
+\input{tables/geometry}
+\end{table}
+
+Radius also changes the number of eligible receivers. We therefore
+add a CIFAR-100 control that permutes radius-3 receivers while
+preserving donor candidate counts and receiver degrees
+(Appendix~\ref{app:cifar-protocol}).
+
+Across three seeds on resized CIFAR-100, radius 3 has the highest
+epoch-199 EMA top-1 mean among the four routing policies
+(Table~\ref{tab:cifar-seeds}). Its paired gain over the
+degree-matched control is $1.42\pm0.30$ points, with all three
+seed-wise differences positive. This supports the spatial prior
+within the tested setting; the replicated result does not estimate
+ImageNet seed variance.
+
+\begin{table}[H]
+\caption{CIFAR-100 epoch-199 EMA top-1 over seeds 42--44.
+$\Delta$ is the paired $R=3$ minus control difference (pp).}
+\label{tab:cifar-seeds}
+\centering\footnotesize
+\input{tables/cifar_seeds}
+\end{table}
+
+The component study tests whether the trained classifier depends on
+mass-aware attention and full-grid recovery. With the same checkpoint,
+carrier selection, and 50,000 validation images, disabling the $\log m$
+key bias changes top-1 by \pendingvalue{} percentage points; bypassing
+residual recovery changes it by \pendingvalue{} points, and disabling
+both changes it by \pendingvalue{} points
+(Appendix~\ref{app:pending-evaluations}). These inference-only
+interventions measure dependence of the trained model, rather than
+the effect of training without each component.

@@ -1,12 +1,11 @@
 \section{Conclusion}
 
-\mn{} combines continuous spatial mass transport with an exact-budget gather,
-so a learned routing policy feeds a physically shorter latent sequence in the
-same forward path. The original-grid prior consistently improves routing
-controls, including a degree-matched three-seed study, and accumulated carrier
-mass admits an exact FlashAttention-compatible key-bias construction. Current
-ImageNet results also expose the remaining gap: the model does not yet exceed
-dense DeiT-S/8 or post-training ToMe in accuracy, and its deployment frontier
-awaits common-protocol checkpoint measurements. This evidence supports the
-compression boundary and spatial-routing mechanism while defining a precise,
-testable path to a stronger system result.
+\mn{} combines differentiable spatial transport with an
+exact-budget gather so that learned routing feeds a shorter latent
+sequence. The radius-3 variant scores above the tested global and flattened
+variants; a three-seed comparison also favors it over degree-matched routing.
+The current ImageNet result is 81.360\% top-1 at 392 final patches,
+with a clear accuracy gap to ToMe at that budget. Under a common
+inference protocol, the trained-checkpoint accuracy--efficiency
+tradeoff is \pendingresult{summary relative to baselines}. Reducing
+full-grid and routing overhead remains a direction for further work.

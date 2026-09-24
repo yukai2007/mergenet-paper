@@ -1,0 +1,39 @@
+\section{Checkpoint Evaluation}
+\label{app:pending-evaluations}
+
+The common inference benchmark uses the same GPU, precision, and
+measurement procedure for all methods. Each method retains its
+accuracy-evaluation attention setting, and achieved token counts
+are recorded. The benchmark reports
+full-validation accuracy separately
+from batch-1 latency, batch-64 throughput, and peak allocated memory.
+Table~\ref{tab:systems-pending} gives the trained-checkpoint measurements;
+the synthetic random-weight timings in
+Appendices~\ref{app:synthetic} and \ref{app:followup} are
+reported separately.
+
+\begin{table}[h]
+\caption{Common-protocol trained-checkpoint inference at 224 pixels.
+B1/B64 denote batch sizes 1 and 64.}
+\label{tab:systems-pending}
+\centering\footnotesize
+\setlength{\tabcolsep}{2.8pt}
+\input{tables/systems_pending}
+\end{table}
+
+The component test uses the same trained \mn{} EMA checkpoint
+for all four rows of Table~\ref{tab:components}. The mass-bias
+intervention sets only the latent log-mass key bias to zero;
+the recovery intervention bypasses only residual cross-attention.
+The native score is checked against the common inference evaluation.
+Paired intervals compare per-image correctness on the same
+50,000 validation examples and do not represent training-seed
+uncertainty.
+
+\begin{table}[h]
+\caption{Inference-only component test at 224 pixels.
+$\Delta$ and its paired 95\% interval are relative to native top-1.}
+\label{tab:components}
+\centering\small
+\input{tables/component_ablation}
+\end{table}

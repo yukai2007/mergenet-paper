@@ -31,10 +31,9 @@ scores without claiming to differentiate the indices themselves.
 The routing support follows the original two-dimensional patch grid. A donor
 can send mass only to eligible receivers within radius $R$, while learned
 similarities determine the weights and the resulting mass determines which
-carriers survive the gather. This constraint tests whether spatial proximity
-is useful for learned transport, rather than assuming that a fixed pooling
-window is sufficient. We test this prior against global, flattened-window,
-and degree-matched routing controls.
+carriers survive the gather. This constraint preserves spatial proximity
+without prescribing a fixed pooling assignment. We compare the resulting
+routing variant with global, flattened-window, and degree-matched alternatives.
 
 Carrier mass also has a defined role after selection. Following proportional
 attention in ToMe~\citep{tome2023}, \mn{} adds each carrier's $\log m$ to its
@@ -47,25 +46,25 @@ continuous selection scores. Our contribution is the way these components
 connect soft spatial transport to an exact-budget latent path, together with
 the mass-bias implementation.
 
-The experiments support the spatial-routing mechanism, with a clear limit on
-the overall performance claim. In a single-seed, 150-epoch ImageNet-1K study,
-radius-3 routing improves top-1 accuracy by 1.670 percentage points over
-global routing and 0.598 points over a flattened-window control. A three-seed
+The experiments characterize the spatial-routing variant, with a clear limit
+on the overall performance claim. In a single-seed, 150-epoch ImageNet-1K
+study, radius-3 routing scores 1.670 percentage points above the global
+variant and 0.598 points above the flattened-window variant. A three-seed
 CIFAR-100 study also favors radius 3 over global, flattened, and degree-matched
 routing. At a matched final budget of 392 patches, the trained 300-epoch
 \mn{} checkpoint reaches 81.360\% ImageNet top-1, below post-training ToMe's
-81.932\%; the uncompressed DeiT-S/8 reaches 82.246\%. The current results
-therefore
-establish the behavior of the proposed routing and physical bottleneck, but
-do not establish an accuracy--latency frontier; matched DTEM accuracy and
-trained-checkpoint timing remain to be measured.
+81.932\%; the uncompressed DeiT-S/8 reaches 82.246\%. The matched DTEM-p8
+adaptation reaches \pendingvalue\% top-1. Together, the routing and
+cross-method results establish the behavior of the physical bottleneck;
+the common-protocol accuracy--latency comparison is
+\pendingresult{comparison summary}.
 
 Our contributions are:
 \begin{itemize}
   \item a local-to-latent architecture that combines differentiable spatial
   mass transport with an exact-budget gather before latent processing;
-  \item controlled evidence for original-grid routing, including a
-  degree-matched, three-seed CIFAR-100 comparison; and
+  \item comparisons of original-grid routing with global, flattened-window,
+  and degree-matched alternatives, including a three-seed CIFAR-100 study; and
   \item an exact query/key reparameterization for mass-aware attention with
   an unmodified FlashAttention call, accompanied by separate reporting of
   accuracy, token budget, arithmetic cost, and measured runtime.

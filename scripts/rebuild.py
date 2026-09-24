@@ -123,14 +123,14 @@ comparison_224 = comparison[
 ].iloc[0]
 table(
     'main',
-    'llrrrrr',
-    r'Method & Compression path & Input$\to$final & $\times$ & Top-1 (\%) & Median ms & Peak GiB',
+    'llrr',
+    r'Method & Checkpoint / path & Final patches & Top-1 (\%)',
     [
-        ['DeiT-S/8', 'dense, trained', r'$784\to784$', '1.00', f'{val("s3_deit_p8_300e"):.3f}', r'\pendingvalue', r'\pendingvalue'],
-        ['DTEM', 'matched run', r'$784\to392$', '2.00', r'\pendingvalue', r'\pendingvalue', r'\pendingvalue'],
-        ['DeiT-S/8 + ToMe', 'post-training', r'$784\to392$', '2.00', f'{comparison_224.tome_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
-        ['DeiT-S/8 + PiToMe', 'post-training', r'$784\to392$', '2.00', f'{comparison_224.pitome_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
-        [r'\mn{} ($R=3$)', 'end-to-end', r'$784\to392$', '2.00', f'{comparison_224.mergenet_top1:.3f}', r'\pendingvalue', r'\pendingvalue'],
+        ['DeiT-S/8', 'trained dense', '784', f'{val("s3_deit_p8_300e"):.3f}'],
+        ['DeiT-S/8 + ToMe', 'post-training', '392', f'{comparison_224.tome_top1:.3f}'],
+        ['DeiT-S/8 + PiToMe', 'post-training', '392', f'{comparison_224.pitome_top1:.3f}'],
+        [r'\mn{} ($R=3$)', 'trained bottleneck', '392', f'{comparison_224.mergenet_top1:.3f}'],
+        ['DTEM-p8', 'common-recipe adaptation', '392', r'\pendingvalue'],
     ],
 )
 
@@ -139,7 +139,6 @@ geom = [
     ('Flat window 8', '$5.0$', 's2_mn_flat_w8_150e'),
     ('Spatial $R=2$', '$5.0$', 's2_mn_r2_150e'),
     ('Spatial $R=3$', '$5.0$', 's2_mn_r3_150e'),
-    ('Spatial $R=3$', '$7.5$', 's2_mn_r3_lr75_150e'),
 ]
 table(
     'geometry',
@@ -317,17 +316,22 @@ cifar = pd.read_csv(DATA / 'cifar_seeds/endpoints.csv')
 means = pd.read_csv(DATA / 'cifar_seeds/group_means.csv')
 contrasts = pd.read_csv(DATA / 'cifar_seeds/contrasts.csv').set_index('contrast')
 g = means[means.selector == 'historical'].set_index('geometry')
-cifar_rows = [[
-    'EMA top-1',
-    f'{g.loc["global", "mean_epoch199"]:.2f}$\\pm${g.loc["global", "std_epoch199"]:.2f}',
-    f'{g.loc["flat8", "mean_epoch199"]:.2f}$\\pm${g.loc["flat8", "std_epoch199"]:.2f}',
-    f'{g.loc["degree", "mean_epoch199"]:.2f}$\\pm${g.loc["degree", "std_epoch199"]:.2f}',
-    f'{g.loc["r3", "mean_epoch199"]:.2f}$\\pm${g.loc["r3", "std_epoch199"]:.2f}',
-]]
+cifar_rows = []
+for geometry, label, contrast in [
+    ('global', 'Global', 'historical:r3-global'),
+    ('flat8', 'Flat window 8', 'historical:r3-flat8'),
+    ('degree', 'Degree-matched', 'historical:r3-degree'),
+    ('r3', 'Spatial $R=3$', None),
+]:
+    acc = f'{g.loc[geometry, "mean_epoch199"]:.2f}$\\pm${g.loc[geometry, "std_epoch199"]:.2f}'
+    delta = (f'{contrasts.loc[contrast, "mean_delta_pp"]:+.2f}'
+             f'$\\pm${contrasts.loc[contrast, "std_delta_pp"]:.2f}'
+             if contrast else r'---')
+    cifar_rows.append([label, acc, delta])
 table(
     'cifar_seeds',
-    'lrrrr',
-    r'Endpoint & Global & Flat 8 & Degree-matched & $R=3$',
+    'lrr',
+    r'Routing & Top-1 (\%) & $R=3$ minus control (pp)',
     cifar_rows,
 )
 table(

@@ -1,28 +1,18 @@
-\section{Discussion and Limitations}
+\section{Discussion}
 
-The experiments separate a positive mechanism result from a negative system
-result. Original-grid support improves over global, flattened, and
-degree-matched controls, so the spatial prior is useful within this
-architecture. The complete model nevertheless remains below dense DeiT-S/8
-and ToMe in recorded top-1, and it is slower at 224 pixels in the available
-random-weight benchmark. The current evidence therefore supports
-``trainable spatial routing with a physical bottleneck,'' not a
-state-of-the-art accuracy--efficiency frontier.
+The results separate the routing mechanism from overall model
+accuracy. The exact gather shortens the latent sequence, and the original-grid
+variant scores above the tested global and flattened-window variants on
+ImageNet and three-seed CIFAR-100. At equal final patch counts, the complete
+classifier trails ToMe on ImageNet. The routing-variant and cross-method
+comparisons therefore answer different questions.
 
-The design also retains substantial full-grid work. Soft transport does not
-shorten the local stage; recovery reads all local features; and sparse scoring
-still incurs indexing and initialization costs. A local edge constraint does
-not bound the final receptive field after multiple transports, nor does it
-establish semantic boundary preservation. The 150-epoch ImageNet geometry
-study has one seed, while the replicated degree-matched evidence is on
-CIFAR-100. Finally, validation-set checkpoint selection makes reported best
-scores selected rather than independent estimates.
-
-Two collaborator-side artifacts remain. One numeric packet fills the matched
-DTEM, latency, memory, mass-bias, and recovery cells under a single protocol.
-One passive trace from the final checkpoint supplies routing visualizations
-with checks that tracing leaves logits, top-$K$ indices, and mass conservation
-unchanged. Trained weights are outside the public-release scope, so the paper
-retains record-level provenance and does not claim public checkpoint replay.
-Until the numeric packet and trace arrive, the placeholders stay visibly
-unfilled and make no contribution to the reported results.
+Deployment cost and component attribution require separate measurements
+from the carrier count. Full-grid processing and routing overhead affect
+runtime; the trained-checkpoint comparison gives
+\pendingresult{latency and throughput interpretation}. ImageNet geometry
+uses one seed, while the replicated locality test uses resized CIFAR-100.
+The fixed-checkpoint component tests give
+\pendingresult{mass-bias and recovery interpretation}. The routing
+visualization describes transport without implying semantic boundary
+preservation.

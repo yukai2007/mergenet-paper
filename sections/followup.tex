@@ -1,65 +1,33 @@
-\section{Independent Follow-up with Available Local Artifacts}
+\section{A100 Timing}
 \label{app:followup}
 
-Company policy prevents transfer of the ImageNet checkpoints. We therefore
-separate two feasible follow-ups: architecture timing using random weights,
-and prediction tests using existing, locally available CIFAR-100 weights.
-Neither experiment independently reproduces the company ImageNet scores.
+An independent A100-SXM4-80GB experiment compares dense DeiT-S/8,
+ToMe, and the sparse-backend \mn{} with randomly initialized weights.
+All cells use batch 64, fp16 autocast, and 392 final patches at 224 pixels
+or 1,152 at 384 pixels for compressed methods. The measured forward
+pass excludes data loading, training, and diagnostic hooks. ToMe's
+proportional-attention setting is shown explicitly; its enabled setting
+matches the accuracy evaluation. The BNHD rows use a local-attention
+tensor-layout change, rather than a different trained checkpoint.
 
-\subsection{A common A100 inference harness}
-
-We compare dense DeiT-S/8, ToMe, and the canonical sparse-backend \mn{} on
-an A100-SXM4-80GB using PyTorch 2.6.0+cu124, timm 0.9.11 and
-FlashAttention 2.7.4.post1. All cells use batch 64, float32 parameters and
-inputs, and fp16 autocast. The compressed models retain exactly 392 patches
-at 224 pixels and 1152 at 384 pixels, excluding CLS. A diagnostic forward
-records block outputs; all hooks are removed before timing. ToMe source
-tracing is disabled. Proportional attention is explicitly controlled, with
-its enabled setting matching the recorded accuracy protocol.
-
-Each cell has ten warm-up iterations and thirty CUDA-event samples in each
-of three rounds, reversing model order in the middle round. A selected-GPU
-process guard requires an empty device before setup and only our process
-during the experiment. Models are allocated and released sequentially.
-Table~\ref{tab:followup-latency} reports the median of three round medians.
-It measures model execution, excluding data loading, backward and updates.
+Each cell uses ten warmups and thirty CUDA-event samples in each of
+three rounds. Table~\ref{tab:followup-latency} reports the median of
+the three round medians.
 
 \begin{table}[h]
+\caption{Synthetic A100 inference time (ms), batch 64. All weights are
+randomly initialized. The 384-pixel radius-5.143 model uses the same
+final patch budget as radius 3.}
+\label{tab:followup-latency}
 \centering\small
 \input{tables/followup_latency}
-\caption{Independent synthetic A100 inference, batch 64. All weights are
-randomly initialized; these are not trained-checkpoint frontier points.
-BNHD changes the local-attention tensor layout. The 384-pixel radius-5.143
-model has the same final patch budget as radius 3.}
-\label{tab:followup-latency}
 \end{table}
 
-On this local hardware/software stack, the original \mn{} is slower than
-dense DeiT at both resolutions. The BNHD change reduces complete-model
-radius-3 time by about 5\%, considerably less than the isolated-module
-improvement. The proportional-attention setting materially affects ToMe
-latency. Thus neither the H20 crossover nor a ToMe timing measured with
-proportional attention disabled should be treated as accelerator-independent
-evidence. The A100 comparison changes the hardware and software stack
-relative to the H20 experiment; it does not isolate a hardware-only cause.
-No historical accuracy point is attached to these random-weight timings.
-
-\subsection{Layout validation under a complete training graph}
-
-The layout comparison uses identical weights and images, restored CPU and
-CUDA random states, fresh per-sample routing, and zero dropout at both
-224 and 384 pixels. With the dense routing reference backend, outputs,
-input gradients and all parameter gradients are bitwise equal. With the
-sparse backend and an unscaled squared-logit loss, the strict gradient
-comparison fails; an unchanged-model repeat also fails, so these runs do
-not isolate an error introduced by BNHD. Their input-gradient relative
-errors are approximately 4.8\% and 16.3\%, respectively.
-
-We retain these failed tests and add a fixed loss scale of 1024, unscaling
-all gradients before comparison. The sparse-backend tests then pass the
-predefined relative-$L_2$ limits of 0.002 for outputs and 0.003 for gradients.
-Maximum parameter-gradient relative errors are below 0.0016; unchanged-model
-repeat controls are below 0.0018. This diagnoses sensitivity of the unscaled
-fp16 test and supports bounded layout parity. It does not establish long-run
-training equivalence, eliminate sparse-kernel nondeterminism, or validate
-arbitrary dropout and precision settings.
+On this hardware and software stack, the original \mn{} is slower
+than dense DeiT at both resolutions. BNHD reduces full-model
+radius-3 time by about 5\%. ToMe's proportional-attention setting
+also changes latency substantially. The A100 ordering differs from
+the 384-pixel H20-3e radius-3 result; the two experiments differ in
+hardware and software, so neither establishes an accelerator-independent
+speed ranking. These random-weight times are kept separate from the
+trained-checkpoint accuracy and common-protocol benchmark.

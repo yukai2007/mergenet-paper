@@ -37,20 +37,18 @@ slot: it learns merge decisions without realizing physical compression, which
 still requires hard merging. \mn{} closes this gap with a local-to-latent
 architecture. Differentiable routing consolidates information according to the
 learned merge decisions; fixed-budget selection then physically shortens the
-sequence before global reasoning. To make this transition trainable and
-practical, we combine differentiable budgeted selection with fused, mass-aware
-attention over merged tokens. We evaluate \mn{} on ImageNet-1K image
-classification, using DeiT-S as the dense baseline and comparing against DTEM,
-ToMe, and PiToMe at matched token budgets. At a $2\times$ carrier reduction, the trained
+sequence before global reasoning. To make this transition trainable, we combine
+differentiable budgeted selection with mass-aware attention over merged tokens.
+We evaluate \mn{} on ImageNet-1K image classification, using DeiT-S/8 as the
+dense baseline and comparing with ToMe and PiToMe at matched token budgets.
+At a $2\times$ carrier reduction, the trained
 \mn{} checkpoint obtains 81.360\% top-1, compared with 82.246\% for dense
 DeiT-S/8, 81.932\% for post-training ToMe, and 81.742\% for PiToMe; the matched
-DTEM result remains unavailable. Within \mn{}, radius-3 routing improves a
-matched 150-epoch ImageNet control by 1.670 percentage points over global
-routing and 0.598 points
-over flattened windows. A three-seed CIFAR-100 study retains this spatial
-advantage against global, flattened-window, and degree-matched receiver
-controls. These results support
-the spatial routing mechanism and physical bottleneck, while trained-checkpoint
-latency, memory, and component ablations remain necessary before making an
-accuracy--efficiency frontier claim.
+DTEM-p8 adaptation reaches \pendingvalue\%. Among the 150-epoch ImageNet routing
+variants, radius-3 routing scores 1.670 percentage points above global routing
+and 0.598 points above flattened-window routing. A three-seed CIFAR-100 study
+also favors radius-3 routing over global, flattened-window, and degree-matched
+receiver controls. These results characterize the spatial routing variant
+and physical bottleneck. Under the common trained-checkpoint protocol, the
+accuracy--efficiency comparison is \pendingresult{comparison summary}.
 \end{abstract}

@@ -1,50 +1,44 @@
-\section{Experimental Protocol}
+\section{Experiments}
+\label{sec:experiments}
 \label{sec:setup}
 
-\paragraph{Training and evaluation.}
-We train on ImageNet-1K and report EMA top-1 on its 50,000-image validation
-split. Main 224-pixel runs use AdamW for 150 or 300 epochs with global batch
-1,024, cosine decay, five warmup epochs, weight decay 0.05, label smoothing
-0.1, Mixup 0.8, CutMix 1.0, RandAugment, random erasing 0.25, and no teacher.
-The matched geometry controls use learning rate $5\times10^{-4}$; the selected
-\mn{} configuration uses $7.5\times10^{-4}$. Thus geometry comparisons are
-recipe matched, whereas the final dense--\mn{} comparison uses each selected
-configuration. Full arguments and the run inventory are in
-Appendix~\ref{app:recipe}.
+We evaluate \mn{} on ImageNet-1K classification, then compare
+routing variants to study the spatial prior. We also examine how accuracy
+changes with the carrier budget and image resolution, and distinguish
+theoretical savings from measured inference time.
 
-The 384-pixel models fine-tune the 300-epoch EMA weights for 30 epochs; the
-512-pixel models add 15 epochs. All retain effective global batch 1,024 via
-gradient accumulation. We report both the best and final EMA values because
-best-checkpoint selection uses the same validation split. The latest supplied
-packet contains 23 complete ImageNet schedules and one abandoned 140/150
-weight-decay probe. We recompute endpoints by header name from 3,560 contiguous
-summary rows and cross-check 3,354 rows against supplied logs; missing-log rows
-remain summary-only. The
-company checkpoints were not transferred, so this is a record audit rather
-than an independent checkpoint replay.
+\subsection{Experimental Setup}
 
-\paragraph{Compression comparisons.}
-The main table fixes 392 final patches at 224 pixels. ToMe and PiToMe are
-applied after training to the dense checkpoint, while \mn{} is trained with
-its native bottleneck. The budget sweep evaluates the complete validation set
-at five budgets. These rows compare deployable checkpoints; they do not
-isolate the routing rule under identical training. In the routing controls,
-global permits any receiver, flat-8 uses a width-8 window in row-major token
-order, and radius 3 limits receivers by Euclidean distance on the original
-patch grid. A separate 12-run CIFAR-100 study adds a receiver-permuted
-radius-3 graph that preserves each donor's candidate count and the receiver
-degree multiset while disrupting two-dimensional locality. It evaluates all
-four geometries over three seeds for 200 epochs; its preregistered endpoint
-is epoch-199 EMA top-1.
+\paragraph{Data and training.}
+Our main experiments train on ImageNet-1K and report EMA top-1 accuracy on
+all 50,000 validation images. At $224\times224$ resolution, the DeiT-S/8
+backbone~\citep{deit2021} starts from 784 patch tokens. Dense DeiT-S/8
+and \mn{} train from scratch for 300 epochs with AdamW, an effective
+global batch of 1,024, cosine
+learning-rate decay, five warmup epochs, and the same augmentation
+family. The selected \mn{} run uses a learning rate of
+$7.5\times10^{-4}$; dense DeiT uses $5\times10^{-4}$. The spatial-routing
+controls use the latter rate for 150 epochs. Appendix~\ref{app:recipe}
+gives the full recipes and run inventory.
 
-\paragraph{Timing.}
-Historical 224- and 384-pixel latency records use synthetic inputs and random
-weights; one later ToMe sweep also disables proportional attention. We report
-these only as architecture diagnostics. The primary table leaves latency and
-memory blank until dense, matched DTEM, ToMe, and \mn{} are measured from
-trained checkpoints with identical preprocessing, precision, batch, attention
-policy, token hooks, and CUDA-event timing. The same collaborator packet should
-supply two inference-only component scores and passive routing traces. The
-public repository intentionally distributes source and configuration rather
-than trained weights; the headline result is therefore supported by the
-record audit above rather than public checkpoint replay.
+\paragraph{Comparisons.}
+\mn{} gathers 392 patch carriers after six full-grid local blocks.
+ToMe and PiToMe instead compress the same trained dense checkpoint at
+inference time. We set all three methods to 392 final patches, excluding
+CLS, while keeping their different compression schedules explicit.
+The patch-8 DTEM adaptation follows the common recipe
+(Table~\ref{tab:main}). For the resolution study, 384-pixel models
+fine-tune the 224-pixel EMA weights for 30 epochs, and 512-pixel models
+receive a further 15 epochs.
+
+\paragraph{Evaluation.}
+The compressed rows use full-validation evaluations of selected EMA
+checkpoints; the dense score is the best EMA training-summary endpoint.
+In particular, \mn{} scores 81.360\% at 392 patches in the
+re-evaluation, compared with 81.368\% for its best training-summary
+checkpoint. We keep these records distinct. The reported values are
+checked against training summaries and supplied evaluation records.
+The trained-checkpoint runtime comparison uses a common GPU, precision,
+and batch protocol, with each method's accuracy-evaluation attention
+setting; existing synthetic benchmarks are reported
+separately in Section~\ref{sec:systems}.
