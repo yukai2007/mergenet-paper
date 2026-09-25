@@ -29,13 +29,16 @@ fine-tuned budgets shown in the figure. The complete sweep contains
 (Appendix~\ref{app:latency}). These are evaluations of fixed
 checkpoints; they describe accuracy as the inference budget changes
 rather than the outcome of retraining at each budget.
+The 384-pixel sweep uses a separately fine-tuned \mn{} checkpoint with
+$R=3\times384/224\approx5.143$; the 384-pixel result in
+Table~\ref{tab:resolution} uses the $R=3$ fine-tune.
 
-\begin{figure}[H]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{figures/accuracy_sweep.pdf}
 \caption{ImageNet top-1 across final patch budgets at 224 pixels
-(left) and after 384-pixel fine-tuning (right). Lines connect
-evaluations of fixed checkpoints.}
+(left) and after 384-pixel fine-tuning (right). The latter \mn{}
+checkpoint uses $R=5.143$. Lines connect evaluations of fixed checkpoints.}
 \label{fig:sweep}
 \end{figure}
 
@@ -108,3 +111,5 @@ both changes it by \pendingvalue{} points
 (Appendix~\ref{app:pending-evaluations}). These inference-only
 interventions measure dependence of the trained model, rather than
 the effect of training without each component.
+
+% 感觉呈现的实验还是有点混乱，一下 150 一下300ep，一下 imagenet 一下 cifar 的。

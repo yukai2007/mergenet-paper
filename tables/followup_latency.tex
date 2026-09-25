@@ -1,13 +1,10 @@
-\begin{tabular}{lrr}
+\begin{tabular}{lrrrrrr}
 \toprule
-Model & 224 px (ms) & 384 px (ms) \\
+Method & Patches & B1 (ms) & B64 (ms) & B64 (im/s) & Alloc. & Reserv. \\
 \midrule
-Dense DeiT-S/8 & 30.09 & 109.43 \\
-ToMe, proportional attention on & 34.42 & 133.36 \\
-ToMe, proportional attention off & 29.71 & 96.05 \\
-MergeNet $R=3$ & 49.16 & 144.97 \\
-MergeNet $R=3$, BNHD & 46.56 & 138.11 \\
-MergeNet $R=5.143$ & -- & 218.25 \\
-MergeNet $R=5.143$, BNHD & -- & 211.40 \\
+Dense DeiT-S/8 & 784 & 4.38 & 30.47 & 2100.5 & 0.744 & 0.957 \\
+ToMe & 392 & 12.03 & 34.72 & 1843.5 & 0.724 & 1.004 \\
+PiToMe & 392 & 14.17 & 70.28 & 910.7 & 1.774 & 3.104 \\
+\mn{} ($R=3$) & 392 & 18.27--21.00 & 36.30 & 1763.3 & 0.776 & 0.836 \\
 \bottomrule
 \end{tabular}

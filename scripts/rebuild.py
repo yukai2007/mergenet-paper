@@ -460,7 +460,7 @@ for ax, res, ft in zip(axes, [224, 384], [False, True]):
     ax.set(
         xlabel='Final patch tokens',
         ylabel='Top-1 (%)',
-        title=('224 px, trained at 224' if not ft else '384 px, fine-tuned (MN $R=5.143$)'),
+        title=('224 px, trained at 224' if not ft else '384 px, fine-tuned'),
     )
     ax.grid(alpha=0.17)
     ax.legend(frameon=False, fontsize=8)

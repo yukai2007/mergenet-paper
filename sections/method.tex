@@ -9,16 +9,13 @@ $X^{(0)}=H^{(L)}$ and unit patch masses, $L$ soft routing steps redistribute
 information while retaining every patch slot. A hard gather then selects $K$
 patch carriers. The carriers read the pre-transport features through
 cross-attention, and a latent encoder followed by a class head produces the
-prediction. Figure~\ref{fig:architecture} shows the project schematic; the
-evaluated classifier uses its encoder-to-latent path.
+prediction. Figure~\ref{fig:architecture} sketches the pipeline.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figures/model_architecture_reference.png}
-\caption{Project schematic of the local-to-latent design. The evaluated
-ImageNet classifier uses the encoder, dynamic merger, top-$K$ selection,
-recovery cross-attention, latent encoder, and class head. The generic local
-decoder branch shown here is not used in this classifier.}
+\caption{Overview of the local encoder, spatial routing, fixed-budget
+selection, recovery read, and latent encoder in \mn{}.}
 \label{fig:architecture}
 \end{figure}
 
@@ -33,9 +30,8 @@ participates in neither set. The eligible receivers for donor $i$ are
  =\{j\in B_\ell:\|u_i-u_j\|_2\le R\}.
  \label{eq:support}
 \end{equation}
-Coordinates remain tied to original slots as features move, so this rule
-constrains individual transport edges rather than the model's complete
-receptive field.
+Coordinates remain tied to original slots as features move. The radius
+bounds each transport step; information may pass through multiple steps.
 
 The routing weights combine learned similarity with a soft donor decision.
 A learned projection of $H^{(\ell)}$ yields normalized metrics
@@ -56,6 +52,8 @@ produces a continuous donor weight $g_i^{(\ell)}$; the transport weight is
 $a_{ij}^{(\ell)}=g_i^{(\ell)}q_{ij}^{(\ell)}$ on eligible edges and zero
 elsewhere; a donor with no eligible receiver has zero assignment. The smooth
 weights provide a gradient path from the task loss to the routing metrics.
+Appendix~\ref{app:soft-topk} gives the relaxation used here and for final
+carrier selection.
 
 Soft transport updates mass and receiver features without removing the
 donor slot. With patch feature $X_i$ and mass $m_i$, one step gives
@@ -128,7 +126,5 @@ $1/\sqrt{d_h}$,
  +\mathbf 1\log(m)^\top.
  \label{eq:augmented-equivalence}
 \end{equation}
-The released FlashAttention-compatible operator implements this identity
-after padding the head dimension. The reported ImageNet classifier uses the
-same bias through PyTorch's scaled-dot-product attention; the operator
-identity alone does not establish a runtime gain.
+The released FlashAttention-compatible operator applies this identity after
+padding the augmented head dimension.

@@ -31,9 +31,8 @@ scores without claiming to differentiate the indices themselves.
 The routing support follows the original two-dimensional patch grid. A donor
 can send mass only to eligible receivers within radius $R$, while learned
 similarities determine the weights and the resulting mass determines which
-carriers survive the gather. This constraint preserves spatial proximity
-without prescribing a fixed pooling assignment. We compare the resulting
-routing variant with global, flattened-window, and degree-matched alternatives.
+carriers survive the gather. We compare this original-grid routing
+with global, flattened-window, and degree-matched alternatives.
 
 Carrier mass also has a defined role after selection. Following proportional
 attention in ToMe~\citep{tome2023}, \mn{} adds each carrier's $\log m$ to its
@@ -69,6 +68,3 @@ Our contributions are:
   an unmodified FlashAttention call, accompanied by separate reporting of
   accuracy, token budget, arithmetic cost, and measured runtime.
 \end{itemize}
-
-
-% 1.

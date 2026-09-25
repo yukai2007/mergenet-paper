@@ -1,33 +1,32 @@
-\section{A100 Timing}
+\section{Synthetic Efficiency}
 \label{app:followup}
 
-An independent A100-SXM4-80GB experiment compares dense DeiT-S/8,
-ToMe, and the sparse-backend \mn{} with randomly initialized weights.
-All cells use batch 64, fp16 autocast, and 392 final patches at 224 pixels
-or 1,152 at 384 pixels for compressed methods. The measured forward
-pass excludes data loading, training, and diagnostic hooks. ToMe's
-proportional-attention setting is shown explicitly; its enabled setting
-matches the accuracy evaluation. The BNHD rows use a local-attention
-tensor-layout change, rather than a different trained checkpoint.
+We measure inference on one idle A100-SXM4-80GB with randomly
+initialized models, device-resident $224\times224$ inputs, and fp16
+autocast. Each method and batch size runs in a fresh process with
+50 warmups followed by five rounds of 200 CUDA-event samples.
+The reported latency is the median of all 1,000 samples; timing
+excludes model setup, data loading, and diagnostic hooks. Dense
+DeiT-S/8 has 784 patch tokens, while each compressed method reaches
+392 final patches, excluding CLS. ToMe and PiToMe both enable
+proportional attention.
 
-Each cell uses ten warmups and thirty CUDA-event samples in each of
-three rounds. Table~\ref{tab:followup-latency} reports the median of
-the three round medians.
+Table~\ref{tab:a100-efficiency} reports the eager measurements.
+The five-round median coefficient of variation is below 0.3\%
+for every batch-64 cell. Batch-1 measurements are more sensitive
+to host scheduling: two independent \mn{} runs yield
+18.27 and 21.00\,ms, despite each passing the 3\% within-run
+variation threshold.
 
-\begin{table}[h]
-\caption{Synthetic A100 inference time (ms), batch 64. All weights are
-randomly initialized. The 384-pixel radius-5.143 model uses the same
-final patch budget as radius 3.}
-\label{tab:followup-latency}
-\centering\small
-\input{tables/followup_latency}
-\end{table}
-
-On this hardware and software stack, the original \mn{} is slower
-than dense DeiT at both resolutions. BNHD reduces full-model
-radius-3 time by about 5\%. ToMe's proportional-attention setting
-also changes latency substantially. The A100 ordering differs from
-the 384-pixel H20-3e radius-3 result; the two experiments differ in
-hardware and software, so neither establishes an accelerator-independent
-speed ranking. These random-weight times are kept separate from the
-trained-checkpoint accuracy and common-protocol benchmark.
+As a separate implementation comparison, we compile ToMe's transformer
+block forwards. For \mn{}, we compile local and latent transformer
+blocks, cross-attention, and selection and merge operations, while
+leaving the enclosing local-encoder forward eager.
+At batch 64, their latencies are 27.22 and 27.24\,ms, respectively;
+peak allocated memory is 0.614 and 0.627\,GiB. At batch 1, ToMe
+takes 9.24\,ms and \mn{} takes 11.22\,ms. The compiled and eager
+measurements are separate operating points. All A100 measurements
+use random weights and cannot form an accuracy--latency comparison
+with trained checkpoints. The current ToMe and PiToMe adapters also
+do not use the fixed upstream commits required for the final
+common-protocol evaluation (Appendix~\ref{app:pending-evaluations}).

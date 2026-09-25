@@ -1,32 +1,39 @@
 \subsection{Efficiency}
 \label{sec:systems}
 
-The routing gains must be considered alongside the work required to
-produce the shorter sequence. \mn{} reduces the latent-stage input
-from 784 to 392 patches, but its six local blocks still process the
-full grid and recovery reads those features again. Accounting for
-these operations gives 14.13 GMAC per image at 224 pixels, compared
-with 22.41 GMAC for dense DeiT-S/8, a 36.9\% reduction. The
-estimate excludes indexing and data movement, so it does not
-predict inference latency by itself.
+At 224 pixels, \mn{} passes 392 rather than 784 patches to the
+latent stage and requires an estimated 14.13 GMAC per image, versus
+22.41 GMAC for dense DeiT-S/8. The estimate excludes indexing and
+data movement.
 
-Existing synthetic benchmarks show why the measured implementation
-matters. On an H20-3e at batch 64, random-weight \mn{} takes
-45.71 ms versus 42.68 ms for dense DeiT-S/8 at 224 pixels, while
-the 384-pixel comparison is 136.54 versus 170.61 ms. An
-independent A100 benchmark does not reproduce the latter ordering
-on its software stack (Appendices~\ref{app:synthetic}
-and \ref{app:followup}). These are architecture-only measurements
-with random weights. The 384-pixel H20 ToMe timing also disables proportional
-attention, unlike its accuracy evaluation. They therefore cannot
-be paired with checkpoint accuracy. Under the
-common-protocol trained-checkpoint evaluation, \mn{} records
+Table~\ref{tab:a100-efficiency} and Figure~\ref{fig:a100-efficiency}
+summarize the random-weight A100 measurements. Appendix~\ref{app:followup}
+gives the protocol and compiled results.
+
+The common trained-checkpoint evaluation gives \mn{}
 \pendingvalue{} ms batch-1 latency, \pendingvalue{} images/s batch-64
-throughput, and \pendingvalue{} GiB peak allocated memory. The comparison
-uses the selected checkpoints under a common GPU and precision,
-with each method's accuracy-evaluation attention setting and
-achieved token counts recorded
+throughput, and \pendingvalue{} GiB peak allocated memory
 (Appendix~\ref{app:pending-evaluations}).
+
+\begin{table}[H]
+\caption{Synthetic A100 inference at 224 pixels with fp16 autocast
+and random weights. B1/B64 denote batch sizes 1 and 64; B64 memory
+is peak allocated and reserved GiB. The \mn{} B1 range spans two
+independent run medians.}
+\label{tab:a100-efficiency}
+\centering\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\input{tables/followup_latency}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth]{figures/a100_efficiency.pdf}
+\caption{Batch-64 eager inference on the A100 with random weights.
+Bars show median latency and peak allocated memory from the same
+measurements as Table~\ref{tab:a100-efficiency}; lower is better.}
+\label{fig:a100-efficiency}
+\end{figure}
 
 \subsection{Visualization}
 

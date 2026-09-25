@@ -12,14 +12,16 @@ DiffRate treats layerwise budgets as another learned variable
 layerwise computation.
 
 \paragraph{Differentiable merging.}
-DTEM is the closest predecessor: it decouples the merge representation from
-backbone features and trains it through relaxed grouping~\citep{dtem2024}.
-\mn{} builds on its OpenToMe lineage~\citep{opentome}, but places continuous
-mass transport and a hard fixed-budget gather in one forward path. The soft
-top-$k$ relaxation follows \citet{sujianlin2024topk}; it is not claimed as a
-new selection operator. Proportional attention using token size is also
-established by ToMe. Our systems addition is the rank-one query/key
-reparameterization for retaining that bias in FlashAttention.
+DTEM is the closest differentiable predecessor. It learns lightweight
+embeddings dedicated to merge decisions, rather than choosing token pairs
+from the backbone features alone~\citep{dtem2024}. A continuous relaxation
+of bipartite grouping and mass-weighted merging lets the task loss train
+these embeddings. DTEM supports both modular training with a frozen backbone
+and end-to-end training; in the latter, it alternates soft-merging updates
+for the embeddings with hard-merging updates for the backbone, then uses
+hard matching at inference. \mn{} also learns merge decisions through soft
+assignments, but restricts transport to the original patch grid and gathers
+a fixed number of carriers within the same training forward pass.
 
 \paragraph{Spatial structure and recovery.}
 DSM and ALGM combine local and global merging~\citep{dsm2024,algm2024};
@@ -28,7 +30,5 @@ Recent reducers constrain matching along rows/columns or after space-filling
 reordering~\citep{cubistmerge2026,napmat2025}. \mn{} instead constrains
 eligible routes by Euclidean radius on the original grid. LookupViT uses
 cross-attention between compressed and high-resolution streams
-\citep{lookupvit2024}; our recovery read is an architectural component rather
-than a claimed general recovery method. Since local merging can reduce
-arithmetic without improving throughput~\citep{dsm2024}, we keep analytic
-cost and measured runtime distinct.
+\citep{lookupvit2024}; \mn{} lets its selected carriers read the full-grid
+local features before latent processing.

@@ -21,6 +21,8 @@ $7.5\times10^{-4}$; dense DeiT uses $5\times10^{-4}$. The spatial-routing
 controls use the latter rate for 150 epochs. Appendix~\ref{app:recipe}
 gives the full recipes and run inventory.
 
+% 这里 EMA 哪来的，之前有提到过吗？如果结果是 EMA 的（或者说开源 repo 里最终给了 EMA），那 EMA 部分在 method 和之前的介绍里面应该都要说一下。还是说 EMA 只是训练方法，method 或者前面不需要刻意提及？
+
 \paragraph{Comparisons.}
 \mn{} gathers 392 patch carriers after six full-grid local blocks.
 ToMe and PiToMe instead compress the same trained dense checkpoint at
@@ -36,7 +38,7 @@ The compressed rows use full-validation evaluations of selected EMA
 checkpoints; the dense score is the best EMA training-summary endpoint.
 In particular, \mn{} scores 81.360\% at 392 patches in the
 re-evaluation, compared with 81.368\% for its best training-summary
-checkpoint. We keep these records distinct. The reported values are
+checkpoint. The reported values are
 checked against training summaries and supplied evaluation records.
 The trained-checkpoint runtime comparison uses a common GPU, precision,
 and batch protocol, with each method's accuracy-evaluation attention

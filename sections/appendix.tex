@@ -50,12 +50,30 @@ with separate local and latent ramps.
 \paragraph{Routing and selection.}
 Training partitions donors and receivers randomly for each image;
 evaluation alternates deterministic odd/even partitions across routing
-steps. The threshold-based soft top-$k$ uses scale 30 and normalizes
-energies by their max-minus-min range. The final gather indices are
-detached, and selected carriers are ordered by a detached,
+steps. The final gather indices are detached, and selected carriers
+are ordered by a detached,
 mass-weighted center of their original flattened indices. Spatial
 scoring uses sparse neighbor lists; the global and flattened-window
 controls use their respective historical dense-scoring paths.
+
+\paragraph{Smooth top-$k$.}\label{app:soft-topk}
+For donor energies $e_i$ and step budget $k_\ell$, let
+$v_i=30e_i/(\max e-\min e)$. A threshold $\theta$ is determined from
+the sorted scores using prefix and suffix exponential sums. The
+continuous donor weight is
+\begin{equation}
+ g_i=\begin{cases}
+  1-\tfrac12\exp(\theta-v_i), & v_i>\theta,\\
+  \tfrac12\exp(v_i-\theta), & v_i\le\theta.
+ \end{cases}
+ \label{eq:soft-topk}
+\end{equation}
+The threshold makes the weights sum to $k_\ell$ up to numerical
+precision. Donors without eligible receivers are assigned zero
+transport weight. Applying the same relaxation to the final patch
+masses supplies the straight-through carrier weights; the hard
+top-$K$ indices still determine which slots are gathered.
+
 At training time, an auxiliary full-grid readout contributes up to
 0.05 to the latent CLS logits. Its weight begins ramping at epoch 10
 for the 150-epoch runs and epoch 20 for the 300-epoch run, reaching
@@ -91,45 +109,4 @@ $\Delta$ is ToMe minus \mn{} in percentage points.}
 \label{tab:sweepdetail}
 \centering\small
 \input{tables/sweep_main}
-\end{table}
-
-\section{Synthetic Timing}
-\label{app:synthetic}
-
-The measurements in this section use randomly initialized models
-to isolate architecture and implementation cost. They do not use
-the trained checkpoints that produce the accuracy results in
-Tables~\ref{tab:main} and \ref{tab:sweepdetail}. On an H20-3e at
-batch 64 and 224 pixels, \mn{} takes 45.71\,ms per forward pass,
-versus 42.68\,ms for dense DeiT-S/8 (Table~\ref{tab:efficiency224}).
-
-\begin{table}[h]
-\caption{H20-3e synthetic timing at 224 pixels, batch 64, with random
-weights and fp16 autocast. Train time includes forward, loss, backward,
-and AdamW update; inference is forward only. Memory is peak allocated GiB.}
-\label{tab:efficiency224}
-\centering\footnotesize
-\setlength{\tabcolsep}{3pt}
-\input{tables/efficiency224}
-\end{table}
-
-At 384 pixels, a separate radius-3 H20-3e run measures 136.54\,ms
-for \mn{} and 170.61\,ms for dense DeiT-S/8 at batch 64. The
-radius-5.143 comparison with ToMe in Table~\ref{tab:latency384}
-uses a different setup: ToMe proportional attention is disabled,
-achieved budgets differ slightly, and token-counting hooks remain
-active. At the approximately half-size budget, ToMe processes 1,151
-patches in 129.81\,ms and \mn{} processes 1,152 in 155.25\,ms.
-These measurements cannot be paired with checkpoint accuracy to
-form an accuracy--latency comparison. The common trained-checkpoint
-benchmark is specified in Appendix~\ref{app:pending-evaluations}.
-
-\begin{table}[h]
-\caption{H20-3e synthetic inference at 384 pixels, batch 64, fp16
-autocast, random weights, and \mn{} radius 5.143. ToMe proportional
-attention is disabled and token-counting hooks remain active. Memory
-is peak reserved GiB; patch counts exclude CLS.}
-\label{tab:latency384}
-\centering\small
-\input{tables/latency384}
 \end{table}

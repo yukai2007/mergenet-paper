@@ -1,54 +1,19 @@
-% \begin{abstract}
-% Vision transformers retain fine image detail but pay to process every patch
-% through every layer. Token merging reduces this cost only when a trainable
-% merging policy also produces the shorter tensor used by downstream blocks.
-% We introduce \mn{}, a local-to-latent vision transformer that separates these
-% roles: continuous spatial mass routing learns where information should flow,
-% and an exact-budget gather physically reduces $N$ patches to $K$ carriers
-% before global reasoning. Routing is restricted to the original image grid,
-% but similarities, transported mass, and carrier locations remain learned. A
-% threshold-based soft top-$k$ relaxation trains the routing scores, while a
-% straight-through carrier weight connects them to the hard gather. Selected
-% mass is retained as a logarithmic key bias; we also give an exact rank-one
-% query/key augmentation that implements this bias with an unmodified
-% FlashAttention kernel. On ImageNet-1K with DeiT-S/8, the trained checkpoint
-% reaches 81.368\% top-1 at $2\times$ carrier compression, versus 82.246\% for
-% the dense model; matched-budget evaluation gives 81.360\% for \mn{} and
-% 81.932\% for post-training ToMe. Radius-3 routing improves a matched
-% 150-epoch control by 1.670 percentage points over global routing and 0.598
-% over flattened windows, and three-seed CIFAR-100 controls retain the spatial
-% advantage after matching receiver degree. The remaining
-% \pendingresult{DTEM score}, \pendingresult{latency}, and
-% \pendingresult{memory} cells are explicitly reserved for one common-protocol
-% checkpoint evaluation.
-% \end{abstract}
-
 \begin{abstract}
-Modern visual recognition requires models to capture both fine-grained image
-detail and long-range context. Vision transformers meet these needs by
-representing images as patch tokens and modeling their interactions, but
-retaining every token across layers becomes costly at high resolution. Token
-merging reduces this cost by consolidating redundant tokens. Yet its success
-depends both on learning which tokens to combine without losing task-relevant
-information and on translating those decisions into a physically shorter
-sequence. DTEM learns the merging policy with dedicated merge embeddings and a
-continuous relaxation. However, its soft training path retains every token
-slot: it learns merge decisions without realizing physical compression, which
-still requires hard merging. \mn{} closes this gap with a local-to-latent
-architecture. Differentiable routing consolidates information according to the
-learned merge decisions; fixed-budget selection then physically shortens the
-sequence before global reasoning. To make this transition trainable, we combine
-differentiable budgeted selection with mass-aware attention over merged tokens.
-We evaluate \mn{} on ImageNet-1K image classification, using DeiT-S/8 as the
-dense baseline and comparing with ToMe and PiToMe at matched token budgets.
-At a $2\times$ carrier reduction, the trained
-\mn{} checkpoint obtains 81.360\% top-1, compared with 82.246\% for dense
-DeiT-S/8, 81.932\% for post-training ToMe, and 81.742\% for PiToMe; the matched
-DTEM-p8 adaptation reaches \pendingvalue\%. Among the 150-epoch ImageNet routing
-variants, radius-3 routing scores 1.670 percentage points above global routing
-and 0.598 points above flattened-window routing. A three-seed CIFAR-100 study
-also favors radius-3 routing over global, flattened-window, and degree-matched
-receiver controls. These results characterize the spatial routing variant
-and physical bottleneck. Under the common trained-checkpoint protocol, the
-accuracy--efficiency comparison is \pendingresult{comparison summary}.
+Vision transformers preserve fine image detail but pay to process every patch
+through global blocks. Learned token merging must decide where information
+flows while presenting a shorter sequence to later blocks. DTEM learns merge
+decisions through a continuous relaxation, but uses separate soft and hard
+training paths to obtain physical compression. We introduce \mn{}, a
+local-to-latent transformer that combines differentiable spatial mass transport
+with an exact-budget gather in one forward pass. Selected carriers read
+full-grid features through cross-attention and retain their transported mass
+in latent attention. A rank-one query/key augmentation makes this mass bias
+compatible with FlashAttention. On ImageNet-1K with DeiT-S/8 at 392 final patches,
+\mn{} reaches 81.360\% top-1, compared with 81.932\% for post-training ToMe
+and 82.246\% for dense DeiT-S/8. In 150-epoch routing comparisons, radius-3
+exceeds global and flattened-window routing by 1.670 and 0.598 percentage
+points; three-seed CIFAR-100 controls also favor spatial routing. The matched
+DTEM-p8 adaptation reaches \pendingvalue\%. Under a common trained-checkpoint
+protocol, the accuracy--efficiency comparison is
+\pendingresult{comparison summary}.
 \end{abstract}
