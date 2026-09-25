@@ -13,9 +13,11 @@ prediction. Figure~\ref{fig:architecture} sketches the pipeline.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\linewidth]{figures/model_architecture_reference.png}
-\caption{Overview of the local encoder, spatial routing, fixed-budget
-selection, recovery read, and latent encoder in \mn{}.}
+\includegraphics[width=\linewidth]{figures/model_architecture_main.png}
+\caption{\mn{} architecture and routing. Soft mass transport retains the
+patch grid; top-$K$ selection forms carriers that read full-grid features
+before latent encoding. The inset illustrates $R=2$ (the 224-pixel
+experiments use $R=3$) and the log-mass bias with $\beta=\log m$.}
 \label{fig:architecture}
 \end{figure}
 
