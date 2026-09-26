@@ -18,8 +18,7 @@ separate update paths. We ask whether one forward pass can propagate gradients
 through soft routing while downstream blocks process an exact, physically
 shorter sequence.
 
-We study this question with \mn{}\footnote{Code is available at
-\url{https://github.com/gnawyymmij/MergeNet}.}, a local-to-latent vision transformer. Six
+We study this question with \mn{}, a local-to-latent vision transformer. Six
 local blocks encode the full patch grid, after which soft mass transport
 learns how patch information moves between slots. A hard gather then selects
 $K$ carriers from $N$ patches, so the subsequent latent blocks receive a
