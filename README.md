@@ -13,6 +13,12 @@ The main experiments cover ImageNet accuracy at 224 pixels, inference token budg
 
 Historical experiment plans and audits remain in the repository for provenance; they are not part of the compiled manuscript.
 
+## Anonymous code supplement
+
+Upload [mergenet-anonymous-code.zip](mergenet-anonymous-code.zip) to the supplementary-material field separately from the paper PDF. This is the implementation package, not the Overleaf manuscript source ZIP. It contains unchanged model and trainer sources, configuration, dependency pins, implementation checks, third-party notices, and file checksums. Git history, repository-owner handles, checkpoints, datasets, and internal experiment plans are excluded.
+
+Rebuild the package with `python scripts/package_supplementary_code.py`. The manuscript references this supplement; upload it together with the PDF.
+
 ## Compile in Overleaf
 
 Upload the submission source ZIP, select **mergenet-main.tex** as the main document, and use **pdfLaTeX**. The source package contains the required figures, tables, bibliography, and conference style files. Python and GPU access are unnecessary for compilation.
