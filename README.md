@@ -1,5 +1,7 @@
 # MergeNet manuscript
 
+**Post-deadline working revision:** branch `revision/experiment-framing` prepares clearer experimental framing for a later permitted revision. The original submission is preserved on `main`; this branch does not update OpenReview.
+
 **Completed manuscript, September 26, 2026.** This version uses the available ImageNet-1K accuracy records and completed synthetic efficiency measurements. It does not depend on outstanding collaborator experiments.
 
 - Paper: [mergenet-main.pdf](mergenet-main.pdf).

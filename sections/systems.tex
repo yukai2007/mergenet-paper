@@ -7,10 +7,11 @@ stage and requires an estimated 14.13 GMAC per image, compared with
 indexing and data movement; Table~\ref{tab:a100-efficiency} measures their
 combined effect with the rest of the implementation on an A100.
 
-Compiled batch-64 inference takes 27.24\,ms for \mn{} and 27.22\,ms
-for ToMe, with peak allocated memory of 0.627 and 0.614\,GiB,
-respectively. Eager \mn{} takes 36.30\,ms, compared with 34.72\,ms
-for ToMe. Figure~\ref{fig:a100-efficiency} shows both execution modes.
+Compilation lowers the measured \mn{} batch-64 latency from
+36.30 to 27.24\,ms, a 25.0\% reduction on the tested A100 configuration.
+Compiled ToMe takes 27.22\,ms; peak allocated memory is 0.627\,GiB
+for \mn{} and 0.614\,GiB for ToMe. Table~\ref{tab:a100-efficiency}
+and Figure~\ref{fig:a100-efficiency} report both execution modes.
 These model-only benchmarks use random weights and synthetic inputs;
 Appendix~\ref{app:followup} specifies the measurement and compilation settings.
 

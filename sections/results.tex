@@ -2,8 +2,10 @@
 \label{sec:results}
 \label{sec:primary-results}
 
-\mn{} reaches 81.360\% top-1 at 224 pixels while passing 392 patch
-carriers to its latent encoder (Table~\ref{tab:main}). Dense DeiT-S/8
+Table~\ref{tab:main} places the trained local-to-latent architecture
+alongside dense and post-training compression models. \mn{} reaches
+81.360\% top-1 at 224 pixels while passing 392 patch carriers to its
+latent encoder. Dense DeiT-S/8
 reaches 82.246\%; its post-training ToMe and PiToMe variants reach
 81.932\% and 81.742\% at the same final patch count as \mn{}.
 These results place the learned physical bottleneck within 0.886
@@ -31,13 +33,15 @@ re-evaluations in Table~\ref{tab:main}.
 \subsection{Token Budget and Resolution}
 \label{sec:budget-resolution}
 
-Changing the carrier budget provides multiple inference operating points
-from one trained model (Figure~\ref{fig:sweep}). At 224 pixels,
+The carrier budget remains adjustable after training, allowing one
+checkpoint to serve multiple inference operating points
+(Figure~\ref{fig:sweep}). At 224 pixels,
 increasing the final budget from 196 to 523 patches raises \mn{} top-1
 from 80.228\% to 81.380\%. At 384 pixels, the fine-tuned model reaches
 82.562\% with 1,152 carriers and 81.300\% with 576. The best measured
-384-pixel point occurs at 1,152 carriers; retaining more carriers does
-not necessarily improve a checkpoint trained at a fixed budget.
+384-pixel point occurs at the 1,152-carrier training budget; additional
+carriers do not guarantee higher accuracy for a checkpoint optimized at
+a fixed budget.
 ToMe retains higher top-1 across the displayed budgets, while the
 relative ordering of \mn{} and PiToMe varies with the operating point.
 Appendix~\ref{app:latency} lists all budget evaluations.

@@ -46,15 +46,16 @@ continuous selection scores. Our contribution is the way these components
 connect soft spatial transport to an exact-budget latent path, together with
 the mass-bias implementation.
 
-We evaluate the resulting architecture on ImageNet-1K across token budgets
-and image resolutions. At 224 pixels, the 300-epoch model reaches 81.360\%
-top-1 with 392 final patches, compared with 81.932\% for ToMe and 81.742\%
-for PiToMe applied to a trained dense DeiT-S/8. Fine-tuning raises \mn{} to
-82.582\% at 384 pixels and 82.618\% at 512 pixels. We also measure
-implementation cost separately: in a synthetic A100 benchmark, compiled
-\mn{} and ToMe take 27.24 and 27.22\,ms per batch of 64, respectively.
-Together, these experiments describe how an exact latent budget interacts
-with classification accuracy, input resolution, and execution cost.
+We evaluate the joint architecture on ImageNet-1K across carrier budgets,
+input resolutions, and inference implementations. At 224 pixels, \mn{}
+reaches 81.360\% top-1 while halving the patch sequence passed to its
+latent stage; higher-resolution fine-tuning raises top-1 to 82.618\%
+at 512 pixels. The default configuration reduces estimated arithmetic
+cost by 37.0\% relative to dense DeiT-S/8. Separate synthetic benchmarks
+show how that reduction translates into execution cost: compiled
+batch-64 inference takes 27.24\,ms on an A100, close to the 27.22\,ms
+measured for compiled ToMe. These evaluations connect the architectural
+bottleneck to measurable classification and execution operating points.
 
 Our contributions are:
 \begin{itemize}
@@ -62,6 +63,7 @@ Our contributions are:
   mass transport to an exact-budget gather within one forward pass;
   \item an exact query/key reparameterization that retains the log-mass
   attention bias in an unmodified FlashAttention call; and
-  \item ImageNet-1K evaluations across token budgets and resolutions,
-  accompanied by measurements of arithmetic cost, latency, and memory.
+  \item an empirical characterization of carrier-budget and resolution
+  changes on ImageNet-1K, together with arithmetic, latency, and memory
+  measurements of the resulting implementations.
 \end{itemize}

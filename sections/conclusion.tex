@@ -6,7 +6,7 @@ transported mass and recover full-grid information before global reasoning;
 an exact query/key augmentation supports the log-mass bias in FlashAttention.
 On ImageNet-1K, the model reaches 81.360\% top-1 with 392 final patches
 at 224 pixels and 82.618\% after 512-pixel fine-tuning.
-Budget sweeps and implementation benchmarks characterize the interaction
-between accuracy, resolution, and execution cost. The results motivate
-further work on reducing full-grid overhead while retaining the trainable
-physical bottleneck.
+Carrier-budget sweeps, resolution evaluations, and implementation
+benchmarks connect this architectural bottleneck to its measured accuracy
+and execution cost. Together, the results characterize a trainable
+local-to-latent design across multiple inference operating points.
