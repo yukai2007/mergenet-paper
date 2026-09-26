@@ -2,9 +2,9 @@
 \label{app:recipe}
 
 Table~\ref{tab:recipe} gives the training settings for the main ImageNet
-experiments. All runs use an effective global batch of 1,024. The
-150-epoch routing variants share a learning rate of $5\times10^{-4}$;
-the selected 300-epoch \mn{} run uses $7.5\times10^{-4}$.
+experiments. All runs use an effective global batch of 1,024. Dense DeiT
+uses a learning rate of $5\times10^{-4}$; \mn{}
+uses $7.5\times10^{-4}$ for the scratch-training results reported here.
 EMA top-1 is measured on the 50,000-image validation set.
 
 \begin{table}[h]
@@ -51,10 +51,8 @@ with separate local and latent ramps.
 Training partitions donors and receivers randomly for each image;
 evaluation alternates deterministic odd/even partitions across routing
 steps. The final gather indices are detached, and selected carriers
-are ordered by a detached,
-mass-weighted center of their original flattened indices. Spatial
-scoring uses sparse neighbor lists; the global and flattened-window
-controls use their respective historical dense-scoring paths.
+are ordered by a detached, mass-weighted center of their original
+flattened indices. Spatial scoring uses sparse neighbor lists.
 
 \paragraph{Smooth top-$k$.}\label{app:soft-topk}
 For donor energies $e_i$ and step budget $k_\ell$, let
@@ -79,19 +77,6 @@ At training time, an auxiliary full-grid readout contributes up to
 for the 150-epoch runs and epoch 20 for the 300-epoch run, reaching
 0.05 over 10 and 20 epochs, respectively. It is disabled at evaluation.
 
-\paragraph{CIFAR-100 controls.}
-\label{app:cifar-protocol}
-The three-seed routing comparison uses 12 independent 200-epoch runs:
-global, flattened-window, radius-3, and degree-matched routing for
-seeds 42--44. Native $32\times32$ images are resized to 224 pixels.
-The primary endpoint is epoch-199 EMA top-1 on the 10,000-image test
-set. Each training and evaluation batch contains 200 images. The
-degree-matched arm permutes receiver columns of the realized radius-3
-support using fixed receiver priorities; it preserves each donor's
-candidate count and the receiver-degree multiset. Table~\ref{tab:cifar-seeds}
-reports means and sample standard deviations across seeds, with paired
-same-seed differences.
-
 \section{Accuracy Budgets}
 \label{app:latency}
 
@@ -109,4 +94,40 @@ $\Delta$ is ToMe minus \mn{} in percentage points.}
 \label{tab:sweepdetail}
 \centering\small
 \input{tables/sweep_main}
+\end{table}
+
+
+\section{Training Duration}
+\label{app:training-budget}
+
+Table~\ref{tab:training-budget} compares the completed scratch-training
+schedules at 224 pixels. Each cell is the best recorded EMA top-1 on
+ImageNet-1K validation; it is a single-run training result.
+Dense DeiT uses learning rate $5\times10^{-4}$ and \mn{} uses
+$7.5\times10^{-4}$. The remaining settings follow Table~\ref{tab:recipe}.
+
+\begin{table}[htbp]
+\caption{Best EMA ImageNet-1K top-1 (\%) under two scratch-training schedules.
+$\Delta$ is the 300-epoch minus 150-epoch result in percentage points.}
+\label{tab:training-budget}
+\centering\small
+\input{tables/training_budget}
+\end{table}
+
+\section{Resolution Transfer}
+\label{app:transfer}
+
+Table~\ref{tab:transfer} evaluates the 224-pixel checkpoints at 288 and
+384 pixels without fine-tuning. The \mn{} radius remains 3 and the
+validation crop percentage remains 0.9. Position embeddings are adapted
+to the evaluation grid. These rows are separate from the fine-tuned
+384-pixel results, which use validation crop percentage 1.0.
+Final patch counts match across the compressed methods in each row.
+
+\begin{table}[htbp]
+\caption{ImageNet-1K top-1 (\%) after changing input resolution without
+fine-tuning the 224-pixel checkpoints. Patch counts exclude CLS.}
+\label{tab:transfer}
+\centering\small
+\input{tables/resolution_transfer}
 \end{table}

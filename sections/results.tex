@@ -2,36 +2,45 @@
 \label{sec:results}
 \label{sec:primary-results}
 
-At the 392-patch operating point, \mn{} reaches 81.360\% ImageNet
-top-1 accuracy (Table~\ref{tab:main}). ToMe and PiToMe, applied to the
-dense checkpoint after training, reach 81.932\% and 81.742\%;
-uncompressed DeiT-S/8 reaches 82.246\%. Thus the proposed model
-learns its routing policy while processing a physically shorter latent
-sequence, although the available ToMe configuration retains more
-classification accuracy at the same final patch count. The matched
-DTEM-p8 adaptation reaches \pendingvalue\% top-1.
+\mn{} reaches 81.360\% top-1 at 224 pixels while passing 392 patch
+carriers to its latent encoder (Table~\ref{tab:main}). Dense DeiT-S/8
+reaches 82.246\%; its post-training ToMe and PiToMe variants reach
+81.932\% and 81.742\% at the same final patch count as \mn{}.
+These results place the learned physical bottleneck within 0.886
+percentage points of the dense fine-patch model. The coarse-patch
+DeiT-S/16 reference reaches 79.692\% with 196 patches; its smaller
+input sequence is a distinct operating point.
 
-\begin{table}[H]
-\caption{ImageNet-1K top-1 accuracy at 224 pixels. Compressed rows
-target 392 final patches, excluding CLS.}
+\begin{table}[htbp]
+\caption{ImageNet-1K top-1 at 224 pixels after 300-epoch scratch training.
+ToMe and PiToMe reduce the trained DeiT-S/8 checkpoint at inference.
+Patch counts exclude CLS.}
 \label{tab:main}
 \centering\small
 \input{tables/main}
 \end{table}
 
-The budget sweep shows how these models behave away from the default
-operating point (Figure~\ref{fig:sweep}). Using the same \mn{}
-checkpoint, increasing the final budget from 196 to 523 patches
-raises top-1 from 80.228\% to 81.380\%. ToMe remains ahead at each
-of the five 224-pixel budgets and at the five 384-pixel
-fine-tuned budgets shown in the figure. The complete sweep contains
-20 matched final-budget settings, all with the same ordering
-(Appendix~\ref{app:latency}). These are evaluations of fixed
-checkpoints; they describe accuracy as the inference budget changes
-rather than the outcome of retraining at each budget.
-The 384-pixel sweep uses a separately fine-tuned \mn{} checkpoint with
-$R=3\times384/224\approx5.143$; the 384-pixel result in
-Table~\ref{tab:resolution} uses the $R=3$ fine-tune.
+Longer scratch training improves both dense and compressed models.
+\mn{} increases from 79.316\% after 150 epochs to 81.368\% after
+300 epochs, a gain of 2.052 percentage points in best EMA top-1.
+Dense DeiT-S/8 increases from 79.992\% to 82.246\% under the
+corresponding schedules. Appendix~\ref{app:training-budget} reports
+these training-stage results, which are separate from the checkpoint
+re-evaluations in Table~\ref{tab:main}.
+
+\subsection{Token Budget and Resolution}
+\label{sec:budget-resolution}
+
+Changing the carrier budget provides multiple inference operating points
+from one trained model (Figure~\ref{fig:sweep}). At 224 pixels,
+increasing the final budget from 196 to 523 patches raises \mn{} top-1
+from 80.228\% to 81.380\%. At 384 pixels, the fine-tuned model reaches
+82.562\% with 1,152 carriers and 81.300\% with 576. The best measured
+384-pixel point occurs at 1,152 carriers; retaining more carriers does
+not necessarily improve a checkpoint trained at a fixed budget.
+ToMe retains higher top-1 across the displayed budgets, while the
+relative ordering of \mn{} and PiToMe varies with the operating point.
+Appendix~\ref{app:latency} lists all budget evaluations.
 
 \begin{figure}[tbp]
 \centering
@@ -42,74 +51,29 @@ checkpoint uses $R=5.143$. Lines connect evaluations of fixed checkpoints.}
 \label{fig:sweep}
 \end{figure}
 
-Fine-tuning at higher resolution reduces the gap to dense DeiT at
-384 pixels, but the gap grows slightly at 512 pixels
-(Table~\ref{tab:resolution}). The best EMA difference changes from
-$-0.878$ points at 224 pixels to $-0.394$ at 384 pixels and
-$-0.450$ at 512 pixels. The last \mn{} model descends from the
-radius-scaled 384-pixel branch, so this sequence describes the
-selected configurations rather than one unchanged-radius trajectory.
+Higher-resolution fine-tuning improves the trained classifier
+(Table~\ref{tab:resolution}). At 384 pixels, \mn{} reaches 82.582\%
+with $R=3$, compared with 82.976\% for dense DeiT-S/8.
+The radius-scaled branch uses $R=3\times384/224\approx5.143$ and reaches
+82.574\%; its checkpoint supplies the 384-pixel budget sweep.
+Fine-tuning that branch at 512 pixels with $R\approx6.857$ reaches
+82.618\%, compared with 83.068\% for dense DeiT-S/8. Table~\ref{tab:resolution}
+therefore identifies the radius used by each reported model.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \caption{Best EMA ImageNet-1K top-1 (\%) across resolutions.
-Gap is \mn{} minus dense in percentage points.}
+Gap is \mn{} minus dense DeiT-S/8 in percentage points.
+The 512-pixel \mn{} run initializes from the radius-scaled 384-pixel branch.}
 \label{tab:resolution}
 \centering\small
 \input{tables/resolution}
 \end{table}
+\FloatBarrier
 
-\subsection{Ablation Studies}
-\label{sec:cifar-seeds}
-
-Among the tested \mn{} routing variants, the original-grid radius-3
-configuration scores above the global and flattened-window configurations.
-With the same 150-epoch ImageNet recipe and learning rate, radius 3 reaches
-78.888\% top-1, compared with 77.218\% for global routing and
-78.290\% for a flattened width-8 window
-(Table~\ref{tab:geometry}). Radius 2 is slightly higher at
-78.942\%; these single-seed results identify a useful routing configuration,
-not an optimal radius. The global arm retains \mn{}'s architecture
-and is an internal variant rather than a DTEM reproduction. The variants
-also use their respective scoring implementations, detailed in
-Appendix~\ref{app:recipe}.
-
-\begin{table}[H]
-\caption{ImageNet routing variants at 224 pixels. All rows use
-the same 150-epoch recipe and learning rate $5\times10^{-4}$.}
-\label{tab:geometry}
-\centering\small
-\input{tables/geometry}
-\end{table}
-
-Radius also changes the number of eligible receivers. We therefore
-add a CIFAR-100 control that permutes radius-3 receivers while
-preserving donor candidate counts and receiver degrees
-(Appendix~\ref{app:cifar-protocol}).
-
-Across three seeds on resized CIFAR-100, radius 3 has the highest
-epoch-199 EMA top-1 mean among the four routing policies
-(Table~\ref{tab:cifar-seeds}). Its paired gain over the
-degree-matched control is $1.42\pm0.30$ points, with all three
-seed-wise differences positive. This supports the spatial prior
-within the tested setting; the replicated result does not estimate
-ImageNet seed variance.
-
-\begin{table}[H]
-\caption{CIFAR-100 epoch-199 EMA top-1 over seeds 42--44.
-$\Delta$ is the paired $R=3$ minus control difference (pp).}
-\label{tab:cifar-seeds}
-\centering\footnotesize
-\input{tables/cifar_seeds}
-\end{table}
-
-The component study tests whether the trained classifier depends on
-mass-aware attention and full-grid recovery. With the same checkpoint,
-carrier selection, and 50,000 validation images, disabling the $\log m$
-key bias changes top-1 by \pendingvalue{} percentage points; bypassing
-residual recovery changes it by \pendingvalue{} points, and disabling
-both changes it by \pendingvalue{} points
-(Appendix~\ref{app:pending-evaluations}). These inference-only
-interventions measure dependence of the trained model, rather than
-the effect of training without each component.
-
-% 感觉呈现的实验还是有点混乱，一下 150 一下300ep，一下 imagenet 一下 cifar 的。
+We also evaluate resolution changes without fine-tuning, using the
+224-pixel checkpoints and unchanged radius $R=3$.
+At the $2\times$ carrier budget, \mn{} reaches 81.400\% at 288 pixels
+and 79.740\% at 384 pixels. The corresponding 384-pixel fine-tuned
+checkpoint reaches 82.562\%, indicating that higher resolution benefits
+from adaptation of the model and preprocessing.
+Appendix~\ref{app:transfer} gives the complete transfer results.

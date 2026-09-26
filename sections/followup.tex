@@ -1,32 +1,50 @@
-\section{Synthetic Efficiency}
+\section{Efficiency Details}
 \label{app:followup}
 
-We measure inference on one idle A100-SXM4-80GB with randomly
-initialized models, device-resident $224\times224$ inputs, and fp16
-autocast. Each method and batch size runs in a fresh process with
-50 warmups followed by five rounds of 200 CUDA-event samples.
-The reported latency is the median of all 1,000 samples; timing
-excludes model setup, data loading, and diagnostic hooks. Dense
-DeiT-S/8 has 784 patch tokens, while each compressed method reaches
-392 final patches, excluding CLS. ToMe and PiToMe both enable
-proportional attention.
+\paragraph{A100 protocol.}
+We measure inference on an A100-SXM4-80GB using randomly initialized
+models, device-resident $224\times224$ inputs, inference mode, and fp16
+autocast. Each method and batch size runs in a fresh process with 50
+warmups followed by five rounds of 200 CUDA-event samples. Latency is
+the median of all 1,000 samples and excludes model setup, data loading,
+and diagnostic hooks. Memory is the peak allocated or reserved GPU memory.
+Dense DeiT-S/8 has 784 patch tokens; each compressed method reaches 392
+final patches, excluding CLS. ToMe and PiToMe enable proportional attention.
+The software environment is PyTorch 2.6.0 with CUDA 12.4 and timm 0.9.11.
 
-Table~\ref{tab:a100-efficiency} reports the eager measurements.
-The five-round median coefficient of variation is below 0.3\%
-for every batch-64 cell. Batch-1 measurements are more sensitive
-to host scheduling: two independent \mn{} runs yield
-18.27 and 21.00\,ms, despite each passing the 3\% within-run
-variation threshold.
+The coefficient of variation of the five round medians is below 0.3\%
+for every eager batch-64 measurement. Batch-1 latency is more sensitive
+to host scheduling: two independent eager \mn{} runs yield 18.27 and
+21.00\,ms. Table~\ref{tab:a100-efficiency} reports both values.
 
-As a separate implementation comparison, we compile ToMe's transformer
-block forwards. For \mn{}, we compile local and latent transformer
-blocks, cross-attention, and selection and merge operations, while
-leaving the enclosing local-encoder forward eager.
-At batch 64, their latencies are 27.22 and 27.24\,ms, respectively;
-peak allocated memory is 0.614 and 0.627\,GiB. At batch 1, ToMe
-takes 9.24\,ms and \mn{} takes 11.22\,ms. The compiled and eager
-measurements are separate operating points. All A100 measurements
-use random weights and cannot form an accuracy--latency comparison
-with trained checkpoints. The current ToMe and PiToMe adapters also
-do not use the fixed upstream commits required for the final
-common-protocol evaluation (Appendix~\ref{app:pending-evaluations}).
+\paragraph{Compiled execution.}
+For ToMe, we compile the transformer-block forwards. For \mn{}, we compile
+local and latent transformer blocks, cross-attention, and selection and
+merge operations, while leaving the enclosing local-encoder forward eager.
+Compilation and its initial warmup are excluded from steady-state timing.
+The compiled rows in Table~\ref{tab:a100-efficiency} use the same synthetic
+input shape and fp16 precision as the eager rows. The 0.02\,ms difference
+between compiled batch-64 medians does not establish a meaningful speed
+ordering. These timings characterize the implementations independently
+of the trained-checkpoint accuracy measurements.
+
+\subsection{High-resolution benchmark}
+\label{app:highres-efficiency}
+
+The separate 384-pixel benchmark uses an H20-3e and PyTorch 2.7.1 with
+CUDA 11.8. Models have random weights and synthetic fp16-autocast inputs;
+\mn{} uses $R=3$ and retains 1,152 of 2,304 patches. The benchmark
+uses 30 warmups and 50 measured steps. Training time includes forward,
+cross-entropy loss, backward, and an AdamW update; inference measures
+forward only. Table~\ref{tab:highres-efficiency} reports both batch sizes.
+These measurements describe this high-resolution hardware setup and
+are independent of the 224-pixel A100 benchmark.
+
+\begin{table}[htbp]
+\caption{Synthetic H20-3e benchmark at 384 pixels with random weights.
+B denotes batch size; memory is peak allocated GiB. Train time includes
+forward, loss, backward, and an optimizer update.}
+\label{tab:highres-efficiency}
+\centering\small
+\input{tables/highres_efficiency}
+\end{table}

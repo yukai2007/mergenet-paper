@@ -1,11 +1,11 @@
 \begin{tabular}{llrr}
 \toprule
-Method & Checkpoint / path & Final patches & Top-1 (\%) \\
+Model & Evaluation & Final patches & Top-1 (\%) \\
 \midrule
-DeiT-S/8 & trained dense & 784 & 82.246 \\
+DeiT-S/16 & dense & 196 & 79.692 \\
+DeiT-S/8 & dense & 784 & 82.246 \\
 DeiT-S/8 + ToMe & post-training & 392 & 81.932 \\
 DeiT-S/8 + PiToMe & post-training & 392 & 81.742 \\
 \mn{} ($R=3$) & trained bottleneck & 392 & 81.360 \\
-DTEM-p8 & common-recipe adaptation & 392 & \pendingvalue \\
 \bottomrule
 \end{tabular}

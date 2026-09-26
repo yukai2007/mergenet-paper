@@ -1,18 +1,17 @@
 \section{Discussion}
 
-The results separate the routing mechanism from overall model
-accuracy. The exact gather shortens the latent sequence, and the original-grid
-variant scores above the tested global and flattened-window variants on
-ImageNet and three-seed CIFAR-100. At equal final patch counts, the complete
-classifier trails ToMe on ImageNet. The routing-variant and cross-method
-comparisons therefore answer different questions.
+The physical bottleneck provides a fixed-size interface between local
+image processing and global latent reasoning. The carrier count can be
+changed at inference, and the resulting accuracy curves show how one
+checkpoint behaves across budgets. Higher-resolution fine-tuning further
+raises accuracy, while the resolution-transfer results show the value of
+adapting the model before operating on a substantially larger patch grid.
 
-Deployment cost and component attribution require separate measurements
-from the carrier count. Full-grid processing and routing overhead affect
-runtime; the trained-checkpoint comparison gives
-\pendingresult{latency and throughput interpretation}. ImageNet geometry
-uses one seed, while the replicated locality test uses resized CIFAR-100.
-The fixed-checkpoint component tests give
-\pendingresult{mass-bias and recovery interpretation}. The routing
-visualization describes transport without implying semantic boundary
-preservation.
+The full execution cost depends on more than the latent sequence length.
+Local encoding, routing, and recovery still process full-grid information.
+Compilation brings the measured batch-64 \mn{} latency close to ToMe on
+the A100, whereas the separate 384-pixel H20 benchmark shows lower latency
+than dense DeiT-S/8 with higher memory use. These observations concern
+the tested implementations and operating points. The classification
+results use individual training runs, and the synthetic efficiency
+measurements characterize model execution separately from checkpoint accuracy.

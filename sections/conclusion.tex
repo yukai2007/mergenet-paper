@@ -1,11 +1,12 @@
 \section{Conclusion}
 
-\mn{} combines differentiable spatial transport with an
-exact-budget gather so that learned routing feeds a shorter latent
-sequence. The radius-3 variant scores above the tested global and flattened
-variants; a three-seed comparison also favors it over degree-matched routing.
-The current ImageNet result is 81.360\% top-1 at 392 final patches,
-with a clear accuracy gap to ToMe at that budget. Under a common
-inference protocol, the trained-checkpoint accuracy--efficiency
-tradeoff is \pendingresult{summary relative to baselines}. Reducing
-full-grid and routing overhead remains a direction for further work.
+\mn{} connects differentiable spatial mass transport to an exact-budget
+latent sequence within one forward pass. Selected carriers retain their
+transported mass and recover full-grid information before global reasoning;
+an exact query/key augmentation supports the log-mass bias in FlashAttention.
+On ImageNet-1K, the model reaches 81.360\% top-1 with 392 final patches
+at 224 pixels and 82.618\% after 512-pixel fine-tuning.
+Budget sweeps and implementation benchmarks characterize the interaction
+between accuracy, resolution, and execution cost. The results motivate
+further work on reducing full-grid overhead while retaining the trainable
+physical bottleneck.

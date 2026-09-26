@@ -130,7 +130,6 @@ table(
         ['DeiT-S/8 + ToMe', 'post-training', '392', f'{comparison_224.tome_top1:.3f}'],
         ['DeiT-S/8 + PiToMe', 'post-training', '392', f'{comparison_224.pitome_top1:.3f}'],
         [r'\mn{} ($R=3$)', 'trained bottleneck', '392', f'{comparison_224.mergenet_top1:.3f}'],
-        ['DTEM-p8', 'common-recipe adaptation', '392', r'\pendingvalue'],
     ],
 )
 
@@ -601,3 +600,7 @@ checks = {
 }
 (ROOT / 'research/numerical_validation.json').write_text(json.dumps(checks, indent=2) + '\n')
 print(json.dumps(checks, indent=2))
+
+# Submission tables use completed results only.
+import runpy
+runpy.run_path(str(ROOT / "scripts/prepare_submission_results.py"), run_name="__main__")

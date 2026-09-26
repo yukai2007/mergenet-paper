@@ -2,45 +2,38 @@
 \label{sec:experiments}
 \label{sec:setup}
 
-We evaluate \mn{} on ImageNet-1K classification, then compare
-routing variants to study the spatial prior. We also examine how accuracy
-changes with the carrier budget and image resolution, and distinguish
-theoretical savings from measured inference time.
+We evaluate \mn{} on ImageNet-1K, study its accuracy across carrier budgets
+and image resolutions, and measure the cost of its implementation.
 
 \subsection{Experimental Setup}
 
 \paragraph{Data and training.}
-Our main experiments train on ImageNet-1K and report EMA top-1 accuracy on
-all 50,000 validation images. At $224\times224$ resolution, the DeiT-S/8
-backbone~\citep{deit2021} starts from 784 patch tokens. Dense DeiT-S/8
-and \mn{} train from scratch for 300 epochs with AdamW, an effective
-global batch of 1,024, cosine
-learning-rate decay, five warmup epochs, and the same augmentation
-family. The selected \mn{} run uses a learning rate of
-$7.5\times10^{-4}$; dense DeiT uses $5\times10^{-4}$. The spatial-routing
-controls use the latter rate for 150 epochs. Appendix~\ref{app:recipe}
-gives the full recipes and run inventory.
+We train on ImageNet-1K and report top-1 accuracy on its 50,000-image
+validation set using exponential moving average (EMA) weights.
+At $224\times224$ resolution, DeiT-S/8 starts from 784 patch tokens.
+Dense DeiT and \mn{} train from scratch for 300 epochs with AdamW,
+an effective global batch of 1,024, cosine learning-rate decay,
+five warmup epochs, and the same augmentation family. The learning rate
+is $5\times10^{-4}$ for DeiT and $7.5\times10^{-4}$ for \mn{}.
+The 384-pixel models fine-tune the corresponding 224-pixel EMA weights
+for 30 epochs; the 512-pixel models receive a further 15 epochs.
+Appendix~\ref{app:recipe} gives the training settings.
 
-% 这里 EMA 哪来的，之前有提到过吗？如果结果是 EMA 的（或者说开源 repo 里最终给了 EMA），那 EMA 部分在 method 和之前的介绍里面应该都要说一下。还是说 EMA 只是训练方法，method 或者前面不需要刻意提及？
-
-\paragraph{Comparisons.}
-\mn{} gathers 392 patch carriers after six full-grid local blocks.
-ToMe and PiToMe instead compress the same trained dense checkpoint at
-inference time. We set all three methods to 392 final patches, excluding
-CLS, while keeping their different compression schedules explicit.
-The patch-8 DTEM adaptation follows the common recipe
-(Table~\ref{tab:main}). For the resolution study, 384-pixel models
-fine-tune the 224-pixel EMA weights for 30 epochs, and 512-pixel models
-receive a further 15 epochs.
+\paragraph{Models and token budgets.}
+\mn{} uses six local blocks followed by six latent blocks and gathers
+392 patch carriers at its default $2\times$ compression setting.
+We compare it with dense DeiT-S/8 and with ToMe and PiToMe applied to the
+same trained dense checkpoint at inference. The compressed methods are
+matched by final patch count, excluding CLS. Their compression schedules
+remain different: ToMe and PiToMe merge across blocks, while \mn{}
+gathers between the local and latent stages. Dense DeiT-S/16 provides
+an additional coarse-patch reference with 196 patches.
 
 \paragraph{Evaluation.}
-The compressed rows use full-validation evaluations of selected EMA
-checkpoints; the dense score is the best EMA training-summary endpoint.
-In particular, \mn{} scores 81.360\% at 392 patches in the
-re-evaluation, compared with 81.368\% for its best training-summary
-checkpoint. The reported values are
-checked against training summaries and supplied evaluation records.
-The trained-checkpoint runtime comparison uses a common GPU, precision,
-and batch protocol, with each method's accuracy-evaluation attention
-setting; existing synthetic benchmarks are reported
-separately in Section~\ref{sec:systems}.
+The main compressed-model comparisons use complete validation evaluations
+of selected EMA checkpoints. Training-duration and resolution results
+report the best EMA top-1 recorded during each training stage. Carrier-budget
+sweeps evaluate fixed checkpoints without retraining for each budget.
+Latency and memory are measured separately on synthetic inputs with random
+weights, using fp16 autocast and device-resident tensors.
+Section~\ref{sec:systems} reports these implementation benchmarks.

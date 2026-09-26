@@ -31,8 +31,8 @@ scores without claiming to differentiate the indices themselves.
 The routing support follows the original two-dimensional patch grid. A donor
 can send mass only to eligible receivers within radius $R$, while learned
 similarities determine the weights and the resulting mass determines which
-carriers survive the gather. We compare this original-grid routing
-with global, flattened-window, and degree-matched alternatives.
+carriers survive the gather. Keeping these coordinates fixed gives the
+routing support a direct interpretation on the image grid at every step.
 
 Carrier mass also has a defined role after selection. Following proportional
 attention in ToMe~\citep{tome2023}, \mn{} adds each carrier's $\log m$ to its
@@ -45,26 +45,22 @@ continuous selection scores. Our contribution is the way these components
 connect soft spatial transport to an exact-budget latent path, together with
 the mass-bias implementation.
 
-The experiments characterize the spatial-routing variant, with a clear limit
-on the overall performance claim. In a single-seed, 150-epoch ImageNet-1K
-study, radius-3 routing scores 1.670 percentage points above the global
-variant and 0.598 points above the flattened-window variant. A three-seed
-CIFAR-100 study also favors radius 3 over global, flattened, and degree-matched
-routing. At a matched final budget of 392 patches, the trained 300-epoch
-\mn{} checkpoint reaches 81.360\% ImageNet top-1, below post-training ToMe's
-81.932\%; the uncompressed DeiT-S/8 reaches 82.246\%. The matched DTEM-p8
-adaptation reaches \pendingvalue\% top-1. Together, the routing and
-cross-method results establish the behavior of the physical bottleneck;
-the common-protocol accuracy--latency comparison is
-\pendingresult{comparison summary}.
+We evaluate the resulting architecture on ImageNet-1K across token budgets
+and image resolutions. At 224 pixels, the 300-epoch model reaches 81.360\%
+top-1 with 392 final patches, compared with 81.932\% for ToMe and 81.742\%
+for PiToMe applied to a trained dense DeiT-S/8. Fine-tuning raises \mn{} to
+82.582\% at 384 pixels and 82.618\% at 512 pixels. We also measure
+implementation cost separately: in a synthetic A100 benchmark, compiled
+\mn{} and ToMe take 27.24 and 27.22\,ms per batch of 64, respectively.
+Together, these experiments describe how an exact latent budget interacts
+with classification accuracy, input resolution, and execution cost.
 
 Our contributions are:
 \begin{itemize}
-  \item a local-to-latent architecture that combines differentiable spatial
-  mass transport with an exact-budget gather before latent processing;
-  \item comparisons of original-grid routing with global, flattened-window,
-  and degree-matched alternatives, including a three-seed CIFAR-100 study; and
-  \item an exact query/key reparameterization for mass-aware attention with
-  an unmodified FlashAttention call, accompanied by separate reporting of
-  accuracy, token budget, arithmetic cost, and measured runtime.
+  \item a local-to-latent architecture that connects differentiable spatial
+  mass transport to an exact-budget gather within one forward pass;
+  \item an exact query/key reparameterization that retains the log-mass
+  attention bias in an unmodified FlashAttention call; and
+  \item ImageNet-1K evaluations across token budgets and resolutions,
+  accompanied by measurements of arithmetic cost, latency, and memory.
 \end{itemize}

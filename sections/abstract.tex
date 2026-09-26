@@ -1,19 +1,19 @@
 \begin{abstract}
 Vision transformers preserve fine image detail but pay to process every patch
 through global blocks. Learned token merging must decide where information
-flows while presenting a shorter sequence to later blocks. DTEM learns merge
-decisions through a continuous relaxation, but uses separate soft and hard
-training paths to obtain physical compression. We introduce \mn{}, a
-local-to-latent transformer that combines differentiable spatial mass transport
-with an exact-budget gather in one forward pass. Selected carriers read
-full-grid features through cross-attention and retain their transported mass
-in latent attention. A rank-one query/key augmentation makes this mass bias
-compatible with FlashAttention. On ImageNet-1K with DeiT-S/8 at 392 final patches,
-\mn{} reaches 81.360\% top-1, compared with 81.932\% for post-training ToMe
-and 82.246\% for dense DeiT-S/8. In 150-epoch routing comparisons, radius-3
-exceeds global and flattened-window routing by 1.670 and 0.598 percentage
-points; three-seed CIFAR-100 controls also favor spatial routing. The matched
-DTEM-p8 adaptation reaches \pendingvalue\%. Under a common trained-checkpoint
-protocol, the accuracy--efficiency comparison is
-\pendingresult{comparison summary}.
+flows while producing a shorter sequence for later computation. We introduce
+\mn{}, a local-to-latent transformer that combines differentiable spatial
+mass transport with an exact-budget gather in one forward pass. Routing
+redistributes features and mass on the original patch grid; selected carriers
+then read full-grid features through cross-attention before latent encoding.
+Mass-aware latent attention retains the transported token mass, and an exact
+query/key augmentation implements its bias in an unmodified FlashAttention
+call. On ImageNet-1K with DeiT-S/8, \mn{} reaches 81.360\% top-1 with 392
+final patches and 82.618\% after 512-pixel fine-tuning. Its 224-pixel
+configuration halves the latent patch sequence and reduces estimated
+multiply--accumulate operations by 37.0\% relative to dense DeiT-S/8.
+In a separate synthetic A100 benchmark, compiled inference takes 27.24\,ms
+at batch 64, compared with 27.22\,ms for compiled ToMe. Evaluations across
+token budgets and image resolutions characterize the accuracy and
+implementation cost of this trainable physical bottleneck.
 \end{abstract}

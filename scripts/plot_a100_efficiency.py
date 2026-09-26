@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "experiments/local_gpu_probe_20260925_full_synthetic_gpu2/summary_eager.csv"
+COMPILED_SOURCE = SOURCE.with_name("summary_compiled.csv")
 OUTPUT = ROOT / "figures/a100_efficiency.pdf"
 ORDER = ("dense", "tome", "pitome", "mergenet")
 LABELS = ("Dense", "ToMe", "PiToMe", "MergeNet")
@@ -31,6 +32,13 @@ def main() -> None:
         if int(row["patches"]) != target:
             raise ValueError(f"{name} has {row['patches']} patches; expected {target}")
 
+    with COMPILED_SOURCE.open(newline="") as handle:
+        compiled = {row["method"]: row for row in csv.DictReader(handle)}
+    if set(compiled) != {"tome", "mergenet"}:
+        raise ValueError("Expected compiled ToMe and MergeNet measurements")
+    rows.extend([compiled["tome"], compiled["mergenet"]])
+    labels = (*LABELS, "ToMe (compiled)", "MergeNet (compiled)")
+    colors = (*COLORS, COLORS[1], COLORS[3])
     latency = [float(row["b64_median_ms"]) for row in rows]
     memory = [float(row["b64_peak_allocated_gib"]) for row in rows]
 
@@ -41,13 +49,15 @@ def main() -> None:
         "axes.spines.right": False,
         "pdf.fonttype": 42,
     })
-    fig, axes = plt.subplots(1, 2, figsize=(7.0, 1.85))
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.7))
     for ax, values, xlabel, limit, fmt in (
         (axes[0], latency, "B64 latency (ms)  ↓", 82, "{:.2f}"),
         (axes[1], memory, "B64 peak allocated (GiB)  ↓", 2.08, "{:.3f}"),
     ):
-        bars = ax.barh(range(4), values, color=COLORS, edgecolor="#263238", linewidth=0.45, height=0.62)
-        ax.set_yticks(range(4), LABELS)
+        bars = ax.barh(range(6), values, color=colors, edgecolor="#263238", linewidth=0.45, height=0.62)
+        ax.set_yticks(range(6), labels)
+        for bar in bars[4:]:
+            bar.set_hatch("///")
         ax.invert_yaxis()
         ax.set_xlim(0, limit)
         ax.set_xlabel(xlabel)
@@ -57,7 +67,7 @@ def main() -> None:
         for bar, value in zip(bars, values):
             ax.text(value + limit * 0.018, bar.get_y() + bar.get_height() / 2,
                     fmt.format(value), va="center", ha="left", fontsize=8)
-    fig.subplots_adjust(left=0.11, right=0.99, bottom=0.29, top=0.98, wspace=0.36)
+    fig.subplots_adjust(left=0.18, right=0.99, bottom=0.20, top=0.98, wspace=0.65)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT, bbox_inches="tight", pad_inches=0.025)
     plt.close(fig)

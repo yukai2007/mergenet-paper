@@ -115,8 +115,8 @@ head width $d_h$, and selected masses $m_j$, this is
  +\mathbf 1\log(m)^\top\right)V_{\rm a}.
  \label{eq:mass-attn}
 \end{equation}
-The class token retains unit mass. This bias accounts for mass in attention;
-its contribution to classification accuracy requires a separate ablation.
+The class token retains unit mass. The log-mass bias is shared across
+query positions and varies with the mass represented by each key.
 
 The per-key bias can be encoded as one extra query/key dimension. Set
 $\widehat Q_{\rm a}=[Q_{\rm a},\sqrt{d_h}\mathbf 1]$ and

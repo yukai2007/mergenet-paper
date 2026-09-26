@@ -1,25 +1,24 @@
 \subsection{Efficiency}
 \label{sec:systems}
 
-At 224 pixels, \mn{} passes 392 rather than 784 patches to the
-latent stage and requires an estimated 14.13 GMAC per image, versus
-22.41 GMAC for dense DeiT-S/8. The estimate excludes indexing and
-data movement.
+At 224 pixels, \mn{} passes 392 rather than 784 patches to the latent
+stage and requires an estimated 14.13 GMAC per image, compared with
+22.41 GMAC for dense DeiT-S/8, a 37.0\% reduction. The estimate excludes
+indexing and data movement; Table~\ref{tab:a100-efficiency} measures their
+combined effect with the rest of the implementation on an A100.
 
-Table~\ref{tab:a100-efficiency} and Figure~\ref{fig:a100-efficiency}
-summarize the random-weight A100 measurements. Appendix~\ref{app:followup}
-gives the protocol and compiled results.
-
-The common trained-checkpoint evaluation gives \mn{}
-\pendingvalue{} ms batch-1 latency, \pendingvalue{} images/s batch-64
-throughput, and \pendingvalue{} GiB peak allocated memory
-(Appendix~\ref{app:pending-evaluations}).
+Compiled batch-64 inference takes 27.24\,ms for \mn{} and 27.22\,ms
+for ToMe, with peak allocated memory of 0.627 and 0.614\,GiB,
+respectively. Eager \mn{} takes 36.30\,ms, compared with 34.72\,ms
+for ToMe. Figure~\ref{fig:a100-efficiency} shows both execution modes.
+These model-only benchmarks use random weights and synthetic inputs;
+Appendix~\ref{app:followup} specifies the measurement and compilation settings.
 
 \begin{table}[H]
 \caption{Synthetic A100 inference at 224 pixels with fp16 autocast
-and random weights. B1/B64 denote batch sizes 1 and 64; B64 memory
-is peak allocated and reserved GiB. The \mn{} B1 range spans two
-independent run medians.}
+and random weights. B1/B64 denote batch sizes 1 and 64; memory is
+batch-64 peak allocated and reserved GiB. The eager \mn{} B1 range
+spans two independent run medians.}
 \label{tab:a100-efficiency}
 \centering\footnotesize
 \setlength{\tabcolsep}{3.5pt}
@@ -28,19 +27,17 @@ independent run medians.}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.94\linewidth]{figures/a100_efficiency.pdf}
-\caption{Batch-64 eager inference on the A100 with random weights.
-Bars show median latency and peak allocated memory from the same
-measurements as Table~\ref{tab:a100-efficiency}; lower is better.}
+\includegraphics[width=\linewidth]{figures/a100_efficiency.pdf}
+\caption{Batch-64 A100 inference with random weights.
+Solid bars denote eager execution; hatched bars denote compiled execution.
+Latency and peak allocated memory use the measurements in
+Table~\ref{tab:a100-efficiency}; lower is better.}
 \label{fig:a100-efficiency}
 \end{figure}
 
-\subsection{Visualization}
-
-The spatial prior also makes routing behavior inspectable.
-Figure~\ref{fig:pending-routing} shows donor-to-receiver edges and
-final carrier locations for fixed ImageNet examples, while
-Figure~\ref{fig:pending-routing-population} summarizes selection
-frequency and routing distance over 1,000 images. The passive-trace
-check gives \pendingresult{logit, carrier-index, and mass parity}
-(Appendix~\ref{sec:pending-routing-population}).
+A separate high-resolution benchmark on an H20 measures 136.54\,ms
+for \mn{} and 170.61\,ms for dense DeiT-S/8 at 384 pixels and batch 64.
+Peak allocated memory is 2.969 and 1.983\,GiB, respectively.
+This operating point illustrates a latency reduction alongside a larger
+memory footprint. Appendix~\ref{app:highres-efficiency} reports the
+training and inference measurements under that hardware setup.

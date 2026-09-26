@@ -2,9 +2,14 @@
 \toprule
 Method & Patches & B1 (ms) & B64 (ms) & B64 (im/s) & Alloc. & Reserv. \\
 \midrule
+\multicolumn{7}{l}{\textit{Eager}} \\
 Dense DeiT-S/8 & 784 & 4.38 & 30.47 & 2100.5 & 0.744 & 0.957 \\
 ToMe & 392 & 12.03 & 34.72 & 1843.5 & 0.724 & 1.004 \\
 PiToMe & 392 & 14.17 & 70.28 & 910.7 & 1.774 & 3.104 \\
 \mn{} ($R=3$) & 392 & 18.27--21.00 & 36.30 & 1763.3 & 0.776 & 0.836 \\
+\midrule
+\multicolumn{7}{l}{\textit{Compiled}} \\
+ToMe & 392 & 9.24 & 27.22 & 2351.3 & 0.614 & 0.898 \\
+\mn{} ($R=3$) & 392 & 11.22 & 27.24 & 2349.3 & 0.627 & 0.715 \\
 \bottomrule
 \end{tabular}
